@@ -135,15 +135,10 @@ body {
     color: #A9CEFF;
     font-size: 15px;
     font-weight: 700;
-    text-decoration: none;
     padding: 10px 7px;
     background: rgba(255,255,255,0.035);
     border: none;
     cursor: pointer;
-}
-
-.menu-item:active {
-    background: rgba(75,150,255,0.2);
 }
 
 main {
@@ -159,7 +154,6 @@ main {
 
 .case-list {
     display: flex;
-    flex-direction: row;
     gap: 15px;
     overflow-x: auto;
     padding: 5px 5px 18px 0;
@@ -233,25 +227,30 @@ main {
 
 .open-price {
     text-align: center;
-    color: #72C5FF;
+    color: #172F58;
     font-size: 19px;
     font-weight: 900;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .open-button {
     display: block;
     width: 100%;
     max-width: 280px;
-    margin: 0 auto 30px;
+    margin: 0 auto 25px;
     padding: 15px;
-    background: linear-gradient(100deg, #1687FF, #42B8FF);
+    background: linear-gradient(100deg, #10264D, #173B70);
     color: white;
     font-size: 16px;
     font-weight: 900;
-    border: none;
+    border: 1px solid #28528A;
     border-radius: 11px;
     cursor: pointer;
+}
+
+.open-button:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
 
 .drop-title {
@@ -291,6 +290,116 @@ main {
     font-weight: 900;
 }
 
+/* Цвета редкости */
+.rarity-blue {
+    border: 1px solid #36A9FF;
+    box-shadow: inset 0 0 12px rgba(54,169,255,0.12);
+}
+
+.rarity-purple {
+    border: 1px solid #A34CFF;
+    box-shadow: inset 0 0 14px rgba(163,76,255,0.15);
+}
+
+.rarity-red {
+    border: 1px solid #FF4242;
+    box-shadow: inset 0 0 16px rgba(255,66,66,0.18);
+}
+
+/* Рулетка */
+.roulette {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 155px;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #07152D;
+    border: 2px solid #1D477D;
+    margin: 5px 0 20px;
+}
+
+.roulette.show {
+    display: block;
+}
+
+.roulette::before {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    transform: translateX(-50%);
+    background: #64BFFF;
+    box-shadow: 0 0 12px #42AFFF;
+}
+
+.roulette-track {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 9px;
+    padding-left: 0;
+    will-change: transform;
+    transition: transform 6s cubic-bezier(0.12, 0.72, 0.08, 1);
+}
+
+.roulette-item {
+    flex: 0 0 112px;
+    height: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: #102448;
+    padding: 7px;
+    overflow: hidden;
+}
+
+.roulette-item img {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+}
+
+.roulette-item span {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 900;
+    margin-top: 4px;
+}
+
+.result {
+    display: none;
+    text-align: center;
+    margin: 15px 0 25px;
+    padding: 15px;
+    border-radius: 13px;
+    background: #102448;
+}
+
+.result.show {
+    display: block;
+}
+
+.result img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.result h3 {
+    margin: 8px 0;
+}
+
+.result p {
+    color: #72C5FF;
+    font-weight: 900;
+}
+
 @media (min-width: 600px) {
     main {
         padding-left: 30px;
@@ -309,9 +418,7 @@ main {
 <img src="logo2.png" class="logo" alt="BrainRain">
 
 <button class="menu-button" id="menuButton">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
 </button>
 
 <nav class="side-menu" id="sideMenu">
@@ -330,162 +437,163 @@ main {
 
 <main>
 
-    <!-- Главная страница -->
-    <section id="homePage">
-        <h2 class="section-title">📦 CASE</h2>
+<section id="homePage">
+    <h2 class="section-title">📦 CASE</h2>
 
-        <div class="case-list">
-
-            <div class="case-card" onclick="showCase('seaCasePage')">
-                <img src="sea-case.png" alt="Морской кейс">
-                <h3>Морской кейс 🌊</h3>
-                <div class="case-price">99 coin</div>
-            </div>
-
-            <div class="case-card" onclick="showCase('impactCasePage')">
-                <img src="impact-case.png" alt="Ударный кейс">
-                <h3>Ударный кейс 👊</h3>
-                <div class="case-price">17 coin</div>
-            </div>
-
+    <div class="case-list">
+        <div class="case-card" onclick="showCase('seaCasePage')">
+            <img src="sea-case.png" alt="Морской кейс">
+            <h3>Морской кейс 🌊</h3>
+            <div class="case-price">99 coin</div>
         </div>
-    </section>
 
-    <!-- Морской кейс -->
-    <section class="case-page" id="seaCasePage">
-        <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
-
-        <img src="sea-case.png" class="case-main-image" alt="Морской кейс">
-
-        <h1>Морской кейс 🌊</h1>
-        <div class="open-price">99 coin</div>
-
-        <button class="open-button" onclick="alert('Открытие кейсов скоро появится!')">
-            ОТКРЫТЬ · 99 COIN
-        </button>
-
-        <h2 class="drop-title">🎁 Дроп из кейса</h2>
-
-        <div class="drop-list">
-
-            <div class="drop-item">
-                <img src="los-primos.png" alt="Los Primos">
-                <div class="drop-name">Los Primos</div>
-                <div class="drop-price">49 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="evildon.png" alt="Evildon">
-                <div class="drop-name">Evildon</div>
-                <div class="drop-price">65 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="tralaledon.png" alt="Tralaledon">
-                <div class="drop-name">Tralaledon</div>
-                <div class="drop-price">99 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="capitano-moby.png" alt="Capitano Moby">
-                <div class="drop-name">Capitano Moby</div>
-                <div class="drop-price">130 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="jelly-moby.png" alt="Jelly Moby">
-                <div class="drop-name">Jelly Moby</div>
-                <div class="drop-price">1 150 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="kraken.png" alt="Kraken">
-                <div class="drop-name">Kraken</div>
-                <div class="drop-price">2 300 coin</div>
-            </div>
-
+        <div class="case-card" onclick="showCase('impactCasePage')">
+            <img src="impact-case.png" alt="Ударный кейс">
+            <h3>Ударный кейс 👊</h3>
+            <div class="case-price">12 coin</div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Ударный кейс -->
-    <section class="case-page" id="impactCasePage">
-        <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
+<!-- Морской кейс -->
+<section class="case-page" id="seaCasePage">
+    <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
 
-        <img src="impact-case.png" class="case-main-image" alt="Ударный кейс">
+    <img src="sea-case.png" class="case-main-image" alt="Морской кейс">
 
-        <h1>Ударный кейс 👊</h1>
-        <div class="open-price">17 coin</div>
+    <h1>Морской кейс 🌊</h1>
+    <div class="open-price">99 coin</div>
 
-        <button class="open-button" onclick="alert('Открытие кейсов скоро появится!')">
-            ОТКРЫТЬ · 17 COIN
-        </button>
+    <button class="open-button" onclick="alert('Открытие этого кейса скоро появится!')">
+        Открыть
+    </button>
 
-        <h2 class="drop-title">🎁 Дроп из кейса</h2>
+    <h2 class="drop-title">🎁 Дроп из кейса</h2>
 
-        <div class="drop-list">
-
-            <div class="drop-item">
-                <img src="candy-slap.png" alt="Candy Slap">
-                <div class="drop-name">Candy Slap</div>
-                <div class="drop-price">7 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="divine-slap.png" alt="Divine Slap">
-                <div class="drop-name">Divine Slap</div>
-                <div class="drop-price">9 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="yinyang-slap.png" alt="YinYang Slap">
-                <div class="drop-name">YinYang Slap</div>
-                <div class="drop-price">9 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="cursed-slap.png" alt="Cursed Slap">
-                <div class="drop-name">Cursed Slap</div>
-                <div class="drop-price">12 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="radioactive-slap.png" alt="Radioactive Slap">
-                <div class="drop-name">Radioactive Slap</div>
-                <div class="drop-price">13 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="lava-slap.png" alt="Lava Slap">
-                <div class="drop-name">Lava Slap</div>
-                <div class="drop-price">13 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="rainbow-slap.png" alt="Rainbow Slap">
-                <div class="drop-name">Rainbow Slap</div>
-                <div class="drop-price">20 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="bloodmoon-slap.png" alt="Bloodmoon Slap">
-                <div class="drop-name">Bloodmoon Slap</div>
-                <div class="drop-price">30 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="rainbow-hammer.png" alt="Rainbow Hammer">
-                <div class="drop-name">Rainbow Hammer</div>
-                <div class="drop-price">500 coin</div>
-            </div>
-
-            <div class="drop-item">
-                <img src="bloodmoon-hammer.png" alt="Bloodmoon Hammer">
-                <div class="drop-name">Bloodmoon Hammer</div>
-                <div class="drop-price">1 100 coin</div>
-            </div>
-
+    <div class="drop-list">
+        <div class="drop-item">
+            <img src="los-primos.png" alt="Los Primos">
+            <div class="drop-name">Los Primos</div>
+            <div class="drop-price">49 coin</div>
         </div>
-    </section>
+        <div class="drop-item">
+            <img src="evildon.png" alt="Evildon">
+            <div class="drop-name">Evildon</div>
+            <div class="drop-price">65 coin</div>
+        </div>
+        <div class="drop-item">
+            <img src="tralaledon.png" alt="Tralaledon">
+            <div class="drop-name">Tralaledon</div>
+            <div class="drop-price">99 coin</div>
+        </div>
+        <div class="drop-item">
+            <img src="capitano-moby.png" alt="Capitano Moby">
+            <div class="drop-name">Capitano Moby</div>
+            <div class="drop-price">130 coin</div>
+        </div>
+        <div class="drop-item">
+            <img src="jelly-moby.png" alt="Jelly Moby">
+            <div class="drop-name">Jelly Moby</div>
+            <div class="drop-price">1 150 coin</div>
+        </div>
+        <div class="drop-item">
+            <img src="kraken.png" alt="Kraken">
+            <div class="drop-name">Kraken</div>
+            <div class="drop-price">2 300 coin</div>
+        </div>
+    </div>
+</section>
+
+<!-- Ударный кейс -->
+<section class="case-page" id="impactCasePage">
+    <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
+
+    <img src="impact-case.png" class="case-main-image" alt="Ударный кейс">
+
+    <h1>Ударный кейс 👊</h1>
+    <div class="open-price">12 coin</div>
+
+    <button class="open-button" id="impactOpenButton" onclick="openImpactCase()">
+        Открыть
+    </button>
+
+    <div class="roulette" id="roulette">
+        <div class="roulette-track" id="rouletteTrack"></div>
+    </div>
+
+    <div class="result" id="result">
+        <h3>🎉 Тебе выпало:</h3>
+        <img id="resultImage" src="" alt="Выпавший предмет">
+        <h3 id="resultName"></h3>
+        <p id="resultPrice"></p>
+    </div>
+
+    <h2 class="drop-title">🎁 Дроп из кейса</h2>
+
+    <div class="drop-list">
+
+        <div class="drop-item rarity-blue">
+            <img src="candy-slap.png" alt="Candy Slap">
+            <div class="drop-name">Candy Slap</div>
+            <div class="drop-price">7 coin</div>
+        </div>
+
+        <div class="drop-item rarity-blue">
+            <img src="divine-slap.png" alt="Divine Slap">
+            <div class="drop-name">Divine Slap</div>
+            <div class="drop-price">9 coin</div>
+        </div>
+
+        <div class="drop-item rarity-blue">
+            <img src="yinyang-slap.png" alt="YinYang Slap">
+            <div class="drop-name">YinYang Slap</div>
+            <div class="drop-price">9 coin</div>
+        </div>
+
+        <div class="drop-item rarity-blue">
+            <img src="cursed-slap.png" alt="Cursed Slap">
+            <div class="drop-name">Cursed Slap</div>
+            <div class="drop-price">12 coin</div>
+        </div>
+
+        <div class="drop-item rarity-blue">
+            <img src="radioactive-slap.png" alt="Radioactive Slap">
+            <div class="drop-name">Radioactive Slap</div>
+            <div class="drop-price">13 coin</div>
+        </div>
+
+        <div class="drop-item rarity-blue">
+            <img src="lava-slap.png" alt="Lava Slap">
+            <div class="drop-name">Lava Slap</div>
+            <div class="drop-price">13 coin</div>
+        </div>
+
+        <div class="drop-item rarity-purple">
+            <img src="rainbow-slap.png" alt="Rainbow Slap">
+            <div class="drop-name">Rainbow Slap</div>
+            <div class="drop-price">20 coin</div>
+        </div>
+
+        <div class="drop-item rarity-purple">
+            <img src="bloodmoon-slap.png" alt="Bloodmoon Slap">
+            <div class="drop-name">Bloodmoon Slap</div>
+            <div class="drop-price">30 coin</div>
+        </div>
+
+        <div class="drop-item rarity-red">
+            <img src="rainbow-hammer.png" alt="Rainbow Hammer">
+            <div class="drop-name">Rainbow Hammer</div>
+            <div class="drop-price">500 coin</div>
+        </div>
+
+        <div class="drop-item rarity-red">
+            <img src="bloodmoon-hammer.png" alt="Bloodmoon Hammer">
+            <div class="drop-name">Bloodmoon Hammer</div>
+            <div class="drop-price">1 100 coin</div>
+        </div>
+
+    </div>
+</section>
 
 </main>
 
@@ -546,6 +654,112 @@ function showHome() {
 
     hideMenu();
     window.scrollTo(0, 0);
+}
+
+const impactItems = [
+    { name: "Candy Slap", price: 7, image: "candy-slap.png", chance: 21, rarity: "rarity-blue" },
+    { name: "Divine Slap", price: 9, image: "divine-slap.png", chance: 15, rarity: "rarity-blue" },
+    { name: "YinYang Slap", price: 9, image: "yinyang-slap.png", chance: 15, rarity: "rarity-blue" },
+    { name: "Cursed Slap", price: 12, image: "cursed-slap.png", chance: 14, rarity: "rarity-blue" },
+    { name: "Radioactive Slap", price: 13, image: "radioactive-slap.png", chance: 12, rarity: "rarity-blue" },
+    { name: "Lava Slap", price: 13, image: "lava-slap.png", chance: 12, rarity: "rarity-blue" },
+    { name: "Rainbow Slap", price: 20, image: "rainbow-slap.png", chance: 6.5, rarity: "rarity-purple" },
+    { name: "Bloodmoon Slap", price: 30, image: "bloodmoon-slap.png", chance: 4, rarity: "rarity-purple" },
+    { name: "Rainbow Hammer", price: 500, image: "rainbow-hammer.png", chance: 0.4, rarity: "rarity-red" },
+    { name: "Bloodmoon Hammer", price: 1100, image: "bloodmoon-hammer.png", chance: 0.1, rarity: "rarity-red" }
+];
+
+let spinning = false;
+
+function chooseItem() {
+    const roll = Math.random() * 100;
+    let total = 0;
+
+    for (const item of impactItems) {
+        total += item.chance;
+        if (roll < total) return item;
+    }
+
+    return impactItems[0];
+}
+
+function openImpactCase() {
+    if (spinning) return;
+
+    spinning = true;
+
+    const button = document.getElementById("impactOpenButton");
+    const roulette = document.getElementById("roulette");
+    const track = document.getElementById("rouletteTrack");
+    const result = document.getElementById("result");
+
+    button.disabled = true;
+    button.textContent = "Крутится...";
+    result.classList.remove("show");
+    roulette.classList.add("show");
+
+    track.style.transition = "none";
+    track.style.transform = "translateX(0px)";
+    track.innerHTML = "";
+
+    const winner = chooseItem();
+
+    const sequence = [];
+
+    for (let i = 0; i < 34; i++) {
+        sequence.push(impactItems[Math.floor(Math.random() * impactItems.length)]);
+    }
+
+    sequence.push(winner);
+
+    sequence.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "roulette-item " + item.rarity;
+
+        const image = document.createElement("img");
+        image.src = item.image;
+        image.alt = item.name;
+
+        const name = document.createElement("span");
+        name.textContent = item.name;
+
+        card.appendChild(image);
+        card.appendChild(name);
+        track.appendChild(card);
+    });
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            const cardWidth = 112;
+            const gap = 9;
+            const rouletteWidth = roulette.clientWidth;
+            const winnerIndex = sequence.length - 1;
+
+            const winnerCenter =
+                winnerIndex * (cardWidth + gap) + cardWidth / 2;
+
+            const target =
+                winnerCenter - rouletteWidth / 2;
+
+            track.style.transition =
+                "transform 6s cubic-bezier(0.12, 0.72, 0.08, 1)";
+
+            track.style.transform = `translateX(-${target}px)`;
+        });
+    });
+
+    setTimeout(() => {
+        document.getElementById("resultImage").src = winner.image;
+        document.getElementById("resultName").textContent = winner.name;
+        document.getElementById("resultPrice").textContent =
+            winner.price.toLocaleString("ru-RU") + " coin";
+
+        result.className = "result show " + winner.rarity;
+
+        button.disabled = false;
+        button.textContent = "Открыть ещё раз";
+        spinning = false;
+    }, 6200);
 }
 </script>
 
