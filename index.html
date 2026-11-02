@@ -39,7 +39,7 @@
             z-index: 5;
         }
 
-        /* Полоски меню */
+        /* Кнопка меню */
         .menu-button {
             position: absolute;
             top: 115px;
@@ -55,6 +55,7 @@
             gap: 5px;
             cursor: pointer;
             z-index: 20;
+            transition: opacity 0.15s ease;
         }
 
         .menu-button span {
@@ -64,6 +65,11 @@
             border-radius: 10px;
         }
 
+        .menu-button.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         /* Выдвижное меню */
         .side-menu {
             position: absolute;
@@ -71,21 +77,70 @@
             left: 0;
             width: 38%;
             height: 100vh;
+            height: 100dvh;
             min-height: 300px;
             background: linear-gradient(160deg, #10264D, #08152E);
             border: none;
             border-radius: 0;
-            padding: 160px 10px 20px;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             gap: 13px;
             transform: translateX(-105%);
-            transition: transform 0.35s ease;
+            transition: transform 0.22s ease;
             z-index: 10;
         }
 
         .side-menu.open {
             transform: translateX(0);
+        }
+
+        /* Верхняя часть меню */
+        .menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 35px;
+            gap: 5px;
+        }
+
+        /* Аватарка и ник */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-width: 0;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #254875;
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            color: #D5E8FF;
+            font-size: 12px;
+            font-weight: 700;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Стрелка закрытия */
+        .close-menu {
+            width: 25px;
+            height: 30px;
+            border: none;
+            background: transparent;
+            color: #A9CEFF;
+            font-size: 25px;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
         /* Пункты меню */
@@ -94,18 +149,18 @@
             align-items: center;
             gap: 9px;
             color: #A9CEFF;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.1px;
             text-decoration: none;
-            padding: 7px 5px;
+            padding: 8px 5px;
             white-space: nowrap;
             background: rgba(255,255,255,0.035);
         }
 
         .menu-icon {
-            font-size: 14px;
-            width: 17px;
+            font-size: 16px;
+            width: 19px;
             text-align: center;
         }
 
@@ -119,13 +174,37 @@
 
     <img src="logo2.png" class="logo" alt="BrainRain">
 
+    <!-- Кнопка открытия -->
     <button class="menu-button" id="menuButton">
         <span></span>
         <span></span>
         <span></span>
     </button>
 
+    <!-- Боковое меню -->
     <nav class="side-menu" id="sideMenu">
+
+        <div class="menu-header">
+
+            <div class="user-info">
+                <img
+                    src=""
+                    class="user-avatar"
+                    id="userAvatar"
+                    alt="Аватар"
+                >
+
+                <span class="user-name" id="userName">
+                    Игрок
+                </span>
+            </div>
+
+            <button class="close-menu" id="closeMenu">
+                ←
+            </button>
+
+        </div>
+
         <a class="menu-item" href="#">
             <span class="menu-icon">↗</span>
             Upgrade
@@ -140,19 +219,50 @@
             <span class="menu-icon">👤</span>
             Profile
         </a>
+
     </nav>
 
     <script>
         const tg = window.Telegram.WebApp;
+
         tg.ready();
         tg.expand();
 
         const menuButton = document.getElementById("menuButton");
         const sideMenu = document.getElementById("sideMenu");
+        const closeMenu = document.getElementById("closeMenu");
 
+        // Открытие меню
         menuButton.addEventListener("click", () => {
-            sideMenu.classList.toggle("open");
+            sideMenu.classList.add("open");
+            menuButton.classList.add("hidden");
         });
+
+        // Закрытие меню
+        function hideMenu() {
+            sideMenu.classList.remove("open");
+            menuButton.classList.remove("hidden");
+        }
+
+        closeMenu.addEventListener("click", hideMenu);
+
+        // Данные пользователя Telegram
+        const user = tg.initDataUnsafe?.user;
+
+        if (user) {
+            const userName = document.getElementById("userName");
+            const userAvatar = document.getElementById("userAvatar");
+
+            userName.textContent =
+                user.username ? "@" + user.username :
+                user.first_name || "Игрок";
+
+            if (user.photo_url) {
+                userAvatar.src = user.photo_url;
+            } else {
+                userAvatar.style.display = "none";
+            }
+        }
     </script>
 
 </body>
