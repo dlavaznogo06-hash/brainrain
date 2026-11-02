@@ -211,7 +211,6 @@ main { padding:175px 20px 35px; }
     margin-bottom:10px;
 }
 
-/* Цена и кнопка */
 .open-price {
     text-align:center;
     color:#173765;
@@ -235,7 +234,7 @@ main { padding:175px 20px 35px; }
     cursor:pointer;
 }
 
-/* Бесконечная рулетка */
+/* Непрерывная рулетка */
 .roulette {
     width:100%;
     height:155px;
@@ -243,7 +242,7 @@ main { padding:175px 20px 35px; }
     border-radius:15px;
     background:#07152D;
     border:2px solid #1D477D;
-    margin:18px 0 18px;
+    margin:18px 0;
     position:relative;
 }
 
@@ -267,16 +266,12 @@ main { padding:175px 20px 35px; }
     gap:9px;
     height:100%;
     width:max-content;
-    animation:roll 28s linear infinite;
-}
-
-@keyframes roll {
-    from { transform:translateX(0); }
-    to { transform:translateX(-50%); }
+    will-change:transform;
 }
 
 .roulette-item {
     flex:0 0 112px;
+    width:112px;
     height:125px;
     display:flex;
     flex-direction:column;
@@ -407,7 +402,6 @@ main { padding:175px 20px 35px; }
     </div>
 </section>
 
-<!-- Морской кейс -->
 <section class="case-page" id="seaCasePage">
     <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
 
@@ -465,7 +459,6 @@ main { padding:175px 20px 35px; }
     </div>
 </section>
 
-<!-- Ударный кейс -->
 <section class="case-page" id="impactCasePage">
     <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
 
@@ -585,7 +578,6 @@ if (user) {
     }
 }
 
-/* Предметы рулеток */
 const seaItems = [
     {name:"Los Primos",image:"los-primos.png",rarity:"rarity-blue"},
     {name:"Evildon",image:"evildon.png",rarity:"rarity-blue"},
@@ -608,12 +600,29 @@ const impactItems = [
     {name:"Bloodmoon Hammer",image:"bloodmoon-hammer.png",rarity:"rarity-red"}
 ];
 
-/* Создаём две одинаковые половины для бесконечной прокрутки */
+/*
+  Настоящая бесконечная рулетка:
+  - предметы постоянно появляются справа;
+  - лента движется с постоянной скоростью;
+  - ушедшие предметы удаляются слева;
+  - перезапуска CSS-анимации нет.
+*/
 function createRoulette(elementId, items) {
     const track = document.getElementById(elementId);
-    const allItems = [...items, ...items];
 
-    allItems.forEach(item => {
+    let nextItem = 0;
+    let position = 0;
+    let lastTime = null;
+
+    const itemWidth = 112;
+    const gap = 9;
+    const step = itemWidth + gap;
+    const speed = 65; // пикселей в секунду
+
+    function addItem() {
+        const item = items[nextItem % items.length];
+        nextItem++;
+
         const card = document.createElement("div");
         card.className = "roulette-item " + item.rarity;
 
@@ -627,13 +636,61 @@ function createRoulette(elementId, items) {
         card.appendChild(image);
         card.appendChild(name);
         track.appendChild(card);
-    });
+    }
+
+    // Сразу создаём длинную ленту с запасом за экраном.
+    for (let i = 0; i < 14; i++) {
+        addItem();
+    }
+
+    function animate(time) {
+        if (lastTime === null) lastTime = time;
+
+        const delta = Math.min((time - lastTime) / 1000, 0.05);
+        lastTime = time;
+
+        position += speed * delta;
+
+        // Передвигаем всю ленту.
+        track.style.transform = `translate3d(${-position}px,0,0)`;
+
+        // Добавляем новые предметы справа заранее.
+        while (track.children.length < 14) {
+            addItem();
+        }
+
+        // Удаляем карточки, которые полностью ушли за левый край.
+        while (
+            track.children.length > 0 &&
+            track.children[0].getBoundingClientRect().right <
+                track.parentElement.getBoundingClientRect().left
+        ) {
+            track.removeChild(track.children[0]);
+        }
+
+        // Корректируем позицию после удаления карточки.
+        // Сдвиг сохраняется плавным, без скачка.
+        const first = track.children[0];
+
+        if (first) {
+            const firstLeft = first.getBoundingClientRect().left;
+            const containerLeft = track.parentElement.getBoundingClientRect().left;
+
+            if (firstLeft < containerLeft - step) {
+                position -= step;
+                track.style.transform = `translate3d(${-position}px,0,0)`;
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
 }
 
 createRoulette("seaRoulette", seaItems);
 createRoulette("impactRoulette", impactItems);
 
-/* Переключение страниц */
 function showCase(caseId) {
     document.getElementById("homePage").style.display = "none";
 
