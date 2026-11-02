@@ -33,7 +33,6 @@ body {
     z-index: 5;
 }
 
-/* Меню */
 .menu-button {
     position: absolute;
     top: 115px;
@@ -147,7 +146,6 @@ body {
     background: rgba(75,150,255,0.2);
 }
 
-/* Основная страница */
 main {
     padding: 175px 20px 35px;
 }
@@ -203,7 +201,6 @@ main {
     font-size: 14px;
 }
 
-/* Страница кейса */
 .case-page {
     display: none;
 }
@@ -332,18 +329,29 @@ main {
 </nav>
 
 <main>
+
+    <!-- Главная страница -->
     <section id="homePage">
         <h2 class="section-title">📦 CASE</h2>
 
         <div class="case-list">
-            <div class="case-card" onclick="showSeaCase()">
+
+            <div class="case-card" onclick="showCase('seaCasePage')">
                 <img src="sea-case.png" alt="Морской кейс">
                 <h3>Морской кейс 🌊</h3>
                 <div class="case-price">99 coin</div>
             </div>
+
+            <div class="case-card" onclick="showCase('impactCasePage')">
+                <img src="impact-case.png" alt="Ударный кейс">
+                <h3>Ударный кейс 👊</h3>
+                <div class="case-price">17 coin</div>
+            </div>
+
         </div>
     </section>
 
+    <!-- Морской кейс -->
     <section class="case-page" id="seaCasePage">
         <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
 
@@ -398,6 +406,87 @@ main {
 
         </div>
     </section>
+
+    <!-- Ударный кейс -->
+    <section class="case-page" id="impactCasePage">
+        <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
+
+        <img src="impact-case.png" class="case-main-image" alt="Ударный кейс">
+
+        <h1>Ударный кейс 👊</h1>
+        <div class="open-price">17 coin</div>
+
+        <button class="open-button" onclick="alert('Открытие кейсов скоро появится!')">
+            ОТКРЫТЬ · 17 COIN
+        </button>
+
+        <h2 class="drop-title">🎁 Дроп из кейса</h2>
+
+        <div class="drop-list">
+
+            <div class="drop-item">
+                <img src="candy-slap.png" alt="Candy Slap">
+                <div class="drop-name">Candy Slap</div>
+                <div class="drop-price">7 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="divine-slap.png" alt="Divine Slap">
+                <div class="drop-name">Divine Slap</div>
+                <div class="drop-price">9 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="yinyang-slap.png" alt="YinYang Slap">
+                <div class="drop-name">YinYang Slap</div>
+                <div class="drop-price">9 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="cursed-slap.png" alt="Cursed Slap">
+                <div class="drop-name">Cursed Slap</div>
+                <div class="drop-price">12 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="radioactive-slap.png" alt="Radioactive Slap">
+                <div class="drop-name">Radioactive Slap</div>
+                <div class="drop-price">13 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="lava-slap.png" alt="Lava Slap">
+                <div class="drop-name">Lava Slap</div>
+                <div class="drop-price">13 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="rainbow-slap.png" alt="Rainbow Slap">
+                <div class="drop-name">Rainbow Slap</div>
+                <div class="drop-price">20 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="bloodmoon-slap.png" alt="Bloodmoon Slap">
+                <div class="drop-name">Bloodmoon Slap</div>
+                <div class="drop-price">30 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="rainbow-hammer.png" alt="Rainbow Hammer">
+                <div class="drop-name">Rainbow Hammer</div>
+                <div class="drop-price">500 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="bloodmoon-hammer.png" alt="Bloodmoon Hammer">
+                <div class="drop-name">Bloodmoon Hammer</div>
+                <div class="drop-price">1 100 coin</div>
+            </div>
+
+        </div>
+    </section>
+
 </main>
 
 <script>
@@ -435,16 +524,26 @@ if (user) {
     }
 }
 
-function showSeaCase() {
+function showCase(caseId) {
     document.getElementById("homePage").style.display = "none";
-    document.getElementById("seaCasePage").style.display = "block";
+
+    document.querySelectorAll(".case-page").forEach(page => {
+        page.style.display = "none";
+    });
+
+    document.getElementById(caseId).style.display = "block";
+
     hideMenu();
     window.scrollTo(0, 0);
 }
 
 function showHome() {
-    document.getElementById("seaCasePage").style.display = "none";
+    document.querySelectorAll(".case-page").forEach(page => {
+        page.style.display = "none";
+    });
+
     document.getElementById("homePage").style.display = "block";
+
     hideMenu();
     window.scrollTo(0, 0);
 }
