@@ -2,260 +2,467 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrainRain</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrainRain</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at top left, #102C65 0%, transparent 45%),
+        linear-gradient(135deg, #080D1B, #050918, #080D1B);
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 85px;
+    z-index: 5;
+}
 
-        body {
-            background:
-                radial-gradient(ellipse at top left, #102C65 0%, transparent 45%),
-                linear-gradient(135deg, #080D1B, #050918, #080D1B);
-            font-family: Arial, sans-serif;
-        }
+/* Меню */
+.menu-button {
+    position: absolute;
+    top: 115px;
+    left: 25px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 20;
+}
 
-        /* Логотип */
-        .logo {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 85px;
-            height: auto;
-            object-fit: contain;
-            z-index: 5;
-        }
+.menu-button span {
+    width: 24px;
+    height: 2px;
+    background: white;
+    border-radius: 10px;
+}
 
-        /* Кнопка меню */
-        .menu-button {
-            position: absolute;
-            top: 115px;
-            left: 25px;
-            width: 35px;
-            height: 35px;
-            border: none;
-            background: transparent;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 20;
-            transition: opacity 0.15s ease;
-        }
+.menu-button.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
 
-        .menu-button span {
-            width: 24px;
-            height: 2px;
-            background: white;
-            border-radius: 10px;
-        }
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    max-width: 75%;
+    height: 100vh;
+    height: 100dvh;
+    background: linear-gradient(160deg, #10264D, #08152E);
+    padding: 18px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    transform: translateX(-105%);
+    transition: transform 0.22s ease;
+    z-index: 10;
+}
 
-        .menu-button.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+.side-menu.open {
+    transform: translateX(0);
+}
 
-        /* Выдвижное меню */
-        .side-menu {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 38%;
-            height: 100vh;
-            height: 100dvh;
-            min-height: 300px;
-            background: linear-gradient(160deg, #10264D, #08152E);
-            padding: 18px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 11px;
-            transform: translateX(-105%);
-            transition: transform 0.22s ease;
-            z-index: 10;
-        }
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
 
-        .side-menu.open {
-            transform: translateX(0);
-        }
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    flex: 1;
+    min-width: 0;
+}
 
-        /* Верхняя часть меню */
-        .menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-            margin-bottom: 20px;
-        }
+.user-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #254875;
+}
 
-        /* Аватарка и ник */
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 7px;
-            min-width: 0;
-            flex: 1;
-        }
+.user-name {
+    color: #D5E8FF;
+    font-size: 15px;
+    font-weight: 900;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-        .user-avatar {
-            width: clamp(48px, 12vw, 76px);
-            height: clamp(48px, 12vw, 76px);
-            border-radius: 50%;
-            object-fit: cover;
-            background: #254875;
-            flex-shrink: 0;
-        }
+.close-menu {
+    width: 25px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: #A9CEFF;
+    font-size: 23px;
+    cursor: pointer;
+}
 
-        .user-name {
-            color: #D5E8FF;
-            font-family: "Arial", sans-serif;
-            font-size: clamp(12px, 3.5vw, 18px);
-            font-weight: 900;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            text-align: center;
-            letter-spacing: 0.3px;
-        }
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #A9CEFF;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 10px 7px;
+    background: rgba(255,255,255,0.035);
+    border: none;
+    cursor: pointer;
+}
 
-        /* Стрелка закрытия */
-        .close-menu {
-            width: 25px;
-            height: 28px;
-            border: none;
-            background: transparent;
-            color: #A9CEFF;
-            font-size: 23px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
+.menu-item:active {
+    background: rgba(75,150,255,0.2);
+}
 
-        /* Пункты меню */
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #A9CEFF;
-            font-size: 15px;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 7px 4px;
-            white-space: nowrap;
-            background: rgba(255,255,255,0.035);
-        }
+/* Основная страница */
+main {
+    padding: 175px 20px 35px;
+}
 
-        .menu-icon {
-            font-size: 15px;
-            width: 18px;
-            text-align: center;
-        }
+.section-title {
+    font-size: 25px;
+    font-weight: 900;
+    margin-bottom: 22px;
+    color: #E5F1FF;
+}
 
-        .menu-item:active {
-            background: rgba(75, 150, 255, 0.2);
-        }
-    </style>
+.case-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 5px 5px 18px 0;
+    scrollbar-width: none;
+}
+
+.case-list::-webkit-scrollbar {
+    display: none;
+}
+
+.case-card {
+    flex: 0 0 155px;
+    background: linear-gradient(145deg, #142D55, #0A1831);
+    border: 1px solid rgba(94,164,255,0.22);
+    border-radius: 15px;
+    padding: 12px;
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.case-card:active {
+    transform: scale(0.96);
+}
+
+.case-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+}
+
+.case-card h3 {
+    font-size: 15px;
+    margin: 8px 0;
+}
+
+.case-price {
+    color: #72C5FF;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+/* Страница отдельного кейса */
+.case-page {
+    display: none;
+}
+
+.back-button {
+    background: rgba(65,139,230,0.16);
+    border: 1px solid rgba(100,170,255,0.3);
+    color: #B9D9FF;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.case-main-image {
+    display: block;
+    width: 210px;
+    height: 190px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+}
+
+.case-page h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.open-price {
+    text-align: center;
+    color: #72C5FF;
+    font-size: 19px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.open-button {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 30px;
+    padding: 15px;
+    background: linear-gradient(100deg, #1687FF, #42B8FF);
+    color: white;
+    font-size: 16px;
+    font-weight: 900;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+}
+
+.drop-title {
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.drop-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.drop-item {
+    background: linear-gradient(145deg, #142D55, #0A1831);
+    border: 1px solid rgba(94,164,255,0.2);
+    border-radius: 12px;
+    padding: 10px;
+    min-width: 0;
+}
+
+.drop-item img {
+    width: 100%;
+    height: 105px;
+    object-fit: contain;
+}
+
+.drop-name {
+    font-size: 13px;
+    font-weight: 900;
+    margin: 7px 0;
+}
+
+.drop-chance {
+    font-size: 12px;
+    color: #A9CEFF;
+    margin-bottom: 5px;
+}
+
+.drop-price {
+    color: #72C5FF;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+@media (min-width: 600px) {
+    main {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .drop-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <img src="logo2.png" class="logo" alt="BrainRain">
+<img src="logo2.png" class="logo" alt="BrainRain">
 
-    <button class="menu-button" id="menuButton">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+<button class="menu-button" id="menuButton">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
 
-    <nav class="side-menu" id="sideMenu">
+<nav class="side-menu" id="sideMenu">
+    <div class="menu-header">
+        <div class="user-info">
+            <img src="" class="user-avatar" id="userAvatar" alt="Аватар">
+            <span class="user-name" id="userName">Игрок</span>
+        </div>
+        <button class="close-menu" id="closeMenu">←</button>
+    </div>
 
-        <div class="menu-header">
+    <button class="menu-item" onclick="showHome()">↗ Upgrade</button>
+    <button class="menu-item" onclick="showHome()">📦 Case</button>
+    <button class="menu-item" onclick="showHome()">👤 Profile</button>
+</nav>
 
-            <div class="user-info">
-                <img
-                    src=""
-                    class="user-avatar"
-                    id="userAvatar"
-                    alt="Аватар"
-                >
+<main>
+    <!-- Список кейсов -->
+    <section id="homePage">
+        <h2 class="section-title">📦 CASE</h2>
 
-                <span class="user-name" id="userName">Игрок</span>
+        <div class="case-list">
+            <div class="case-card" onclick="showSeaCase()">
+                <img src="sea-case.png" alt="Морской кейс">
+                <h3>Морской кейс 🌊</h3>
+                <div class="case-price">99 coin</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Страница Морского кейса -->
+    <section class="case-page" id="seaCasePage">
+        <button class="back-button" onclick="showHome()">← Назад к кейсам</button>
+
+        <img src="sea-case.png" class="case-main-image" alt="Морской кейс">
+
+        <h1>Морской кейс 🌊</h1>
+        <div class="open-price">99 coin</div>
+
+        <button class="open-button" onclick="alert('Открытие кейсов скоро появится!')">
+            ОТКРЫТЬ · 99 COIN
+        </button>
+
+        <h2 class="drop-title">🎁 Дроп из кейса</h2>
+
+        <div class="drop-list">
+
+            <div class="drop-item">
+                <img src="los-primos.png" alt="Los Primos">
+                <div class="drop-name">Los Primos</div>
+                <div class="drop-chance">Шанс: 55%</div>
+                <div class="drop-price">49 coin</div>
             </div>
 
-            <button class="close-menu" id="closeMenu">←</button>
+            <div class="drop-item">
+                <img src="evildon.png" alt="Evildon">
+                <div class="drop-name">Evildon</div>
+                <div class="drop-chance">Шанс: 25%</div>
+                <div class="drop-price">65 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="tralaledon.png" alt="Tralaledon">
+                <div class="drop-name">Tralaledon</div>
+                <div class="drop-chance">Шанс: 12%</div>
+                <div class="drop-price">99 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="capitano-moby.png" alt="Capitano Moby">
+                <div class="drop-name">Capitano Moby</div>
+                <div class="drop-chance">Шанс: 6%</div>
+                <div class="drop-price">130 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="jelly-moby.png" alt="Jelly Moby">
+                <div class="drop-name">Jelly Moby</div>
+                <div class="drop-chance">Шанс: 1,5%</div>
+                <div class="drop-price">1 150 coin</div>
+            </div>
+
+            <div class="drop-item">
+                <img src="kraken.png" alt="Kraken">
+                <div class="drop-name">Kraken</div>
+                <div class="drop-chance">Шанс: 0,5%</div>
+                <div class="drop-price">2 300 coin</div>
+            </div>
 
         </div>
+    </section>
+</main>
 
-        <a class="menu-item" href="#">
-            <span class="menu-icon">↗</span>
-            Upgrade
-        </a>
+<script>
+const tg = window.Telegram.WebApp;
 
-        <a class="menu-item" href="#">
-            <span class="menu-icon">📦</span>
-            Case
-        </a>
+tg.ready();
+tg.expand();
 
-        <a class="menu-item" href="#">
-            <span class="menu-icon">👤</span>
-            Profile
-        </a>
+const menuButton = document.getElementById("menuButton");
+const sideMenu = document.getElementById("sideMenu");
+const closeMenu = document.getElementById("closeMenu");
 
-    </nav>
+menuButton.addEventListener("click", () => {
+    sideMenu.classList.add("open");
+    menuButton.classList.add("hidden");
+});
 
-    <script>
-        const tg = window.Telegram.WebApp;
+function hideMenu() {
+    sideMenu.classList.remove("open");
+    menuButton.classList.remove("hidden");
+}
 
-        tg.ready();
-        tg.expand();
+closeMenu.addEventListener("click", hideMenu);
 
-        const menuButton = document.getElementById("menuButton");
-        const sideMenu = document.getElementById("sideMenu");
-        const closeMenu = document.getElementById("closeMenu");
+const user = tg.initDataUnsafe?.user;
 
-        menuButton.addEventListener("click", () => {
-            sideMenu.classList.add("open");
-            menuButton.classList.add("hidden");
-        });
+if (user) {
+    document.getElementById("userName").textContent =
+        user.username || user.first_name || "Игрок";
 
-        function hideMenu() {
-            sideMenu.classList.remove("open");
-            menuButton.classList.remove("hidden");
-        }
+    if (user.photo_url) {
+        document.getElementById("userAvatar").src = user.photo_url;
+    } else {
+        document.getElementById("userAvatar").style.display = "none";
+    }
+}
 
-        closeMenu.addEventListener("click", hideMenu);
+function showSeaCase() {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("seaCasePage").style.display = "block";
+    hideMenu();
+    window.scrollTo(0, 0);
+}
 
-        const user = tg.initDataUnsafe?.user;
-
-        if (user) {
-            const userName = document.getElementById("userName");
-            const userAvatar = document.getElementById("userAvatar");
-
-            userName.textContent =
-                user.username || user.first_name || "Игрок";
-
-            if (user.photo_url) {
-                userAvatar.src = user.photo_url;
-            } else {
-                userAvatar.style.display = "none";
-            }
-        }
-    </script>
+function showHome() {
+    document.getElementById("seaCasePage").style.display = "none";
+    document.getElementById("homePage").style.display = "block";
+    hideMenu();
+    window.scrollTo(0, 0);
+}
+</script>
 
 </body>
 </html>
