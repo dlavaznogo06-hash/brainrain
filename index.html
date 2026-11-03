@@ -7,17 +7,26 @@
 <title>BrainRain 💧</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    border-radius: 0 !important;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+button, input {
+    font-family: inherit;
 }
 
 body {
     background: radial-gradient(circle at top, #14264a 0%, #080d1b 55%);
     color: white;
-    font-family: Arial, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -39,7 +48,6 @@ header {
     font-size: 25px;
     width: 42px;
     height: 42px;
-    border-radius: 12px;
     cursor: pointer;
 }
 
@@ -59,7 +67,6 @@ header {
     min-height: 42px;
     background: #1b3156;
     border: 1px solid #35527d;
-    border-radius: 12px;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -111,7 +118,6 @@ header {
 .profile-mini > img:not(.coin-icon) {
     width: 48px;
     height: 48px;
-    border-radius: 50%;
     background: #26395e;
     object-fit: cover;
 }
@@ -138,7 +144,6 @@ header {
     padding: 6px 10px;
     background: #1b3156;
     border: 1px solid #35527d;
-    border-radius: 10px;
     color: white;
     font-size: 16px;
     font-weight: bold;
@@ -156,7 +161,6 @@ header {
     padding: 15px;
     margin: 8px 0;
     border: none;
-    border-radius: 12px;
     background: #1b2d50;
     color: white;
     text-align: left;
@@ -203,7 +207,6 @@ main {
     min-width: 0;
     background: linear-gradient(145deg, #1b3156, #101b32);
     border: 1px solid #2b4772;
-    border-radius: 17px;
     padding: 10px;
     cursor: pointer;
     transition: 0.2s;
@@ -253,7 +256,6 @@ main {
     background: #1b2d50;
     color: white;
     border: 1px solid #35527d;
-    border-radius: 10px;
     padding: 11px 17px;
     font-size: 15px;
     margin: 5px 0 18px;
@@ -291,7 +293,6 @@ main {
     height: 115px;
     background: #0d172b;
     border: 2px solid #29436b;
-    border-radius: 13px;
     position: relative;
     margin: 15px 0 18px;
 }
@@ -322,7 +323,6 @@ main {
     width: 112px;
     height: 88px;
     flex: 0 0 112px;
-    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,7 +344,6 @@ main {
     margin: 0 auto 30px;
     padding: 15px;
     border: none;
-    border-radius: 13px;
     background: linear-gradient(90deg, #2478ed, #42a5ff);
     color: white;
     font-size: 17px;
@@ -372,7 +371,6 @@ main {
 .item-card {
     background: #142440;
     border: 1px solid #2a4770;
-    border-radius: 13px;
     padding: 10px;
     min-width: 0;
 }
@@ -432,7 +430,6 @@ main {
     padding: clamp(14px, 3vw, 26px);
     background: linear-gradient(135deg, #1b3156, #12213d);
     border: 1px solid #35527d;
-    border-radius: 18px;
     box-shadow: 0 8px 25px #0003;
 }
 
@@ -440,7 +437,6 @@ main {
     width: clamp(75px, 18vw, 145px);
     height: clamp(75px, 18vw, 145px);
     flex: 0 0 auto;
-    border-radius: 50%;
     object-fit: cover;
     background: #26395e;
     border: 3px solid #45658f;
@@ -482,7 +478,6 @@ main {
     padding: 8px 12px;
     background: #1b3156;
     border: 1px solid #35527d;
-    border-radius: 11px;
     color: white;
     font-size: clamp(17px, 3.5vw, 22px);
     font-weight: bold;
@@ -501,20 +496,14 @@ main {
     font-weight: normal;
 }
 
-/* ПРОМОКОДЫ */
-
-.promo-page {
-    display: none;
-    padding: 0 16px 35px;
-}
+/* ПРОМОКОД В ПРОФИЛЕ */
 
 .promo-card {
     background: linear-gradient(135deg, #1b3156, #12213d);
     border: 1px solid #35527d;
-    border-radius: 18px;
     padding: 22px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 22px;
     box-shadow: 0 8px 25px #0003;
 }
 
@@ -528,7 +517,6 @@ main {
     display: block;
     width: 100%;
     padding: 15px;
-    border-radius: 12px;
     border: 1px solid #35527d;
     background: #0d172b;
     color: white;
@@ -583,8 +571,7 @@ main {
         margin: auto;
     }
 
-    .profile-page,
-    .promo-page {
+    .profile-page {
         max-width: 900px;
         margin: auto;
     }
@@ -638,7 +625,6 @@ main {
     <button class="menu-item" onclick="showHome()">🎁 Case</button>
     <button class="menu-item" onclick="showComingSoon('Upgrade')">⚡ Upgrade</button>
     <button class="menu-item" onclick="showProfile()">👤 Profile</button>
-    <button class="menu-item" onclick="showPromo()">🎟 Промокод</button>
 </nav>
 
 <main>
@@ -712,14 +698,11 @@ main {
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="promo-page" id="promoPage">
-        <button class="back-button" onclick="showHome()">← Назад</button>
-
-        <h2 class="page-title">🎟 Промокод</h2>
-
+        <!-- ПРОМОКОД ТЕПЕРЬ ВНИЗУ ПРОФИЛЯ -->
         <div class="promo-card">
+            <h2 class="items-title">ПРОМОКОД</h2>
+
             <p class="promo-description">
                 Введи промокод и получи Coin! 💧
             </p>
@@ -975,7 +958,6 @@ function hideAllPages() {
     document.getElementById("homePage").style.display = "none";
     document.getElementById("casePage").style.display = "none";
     document.getElementById("profilePage").style.display = "none";
-    document.getElementById("promoPage").style.display = "none";
 }
 
 function showHome() {
@@ -987,16 +969,6 @@ function showHome() {
 function showProfile() {
     hideAllPages();
     document.getElementById("profilePage").style.display = "block";
-    closeMenu();
-}
-
-function showPromo() {
-    hideAllPages();
-    document.getElementById("promoPage").style.display = "block";
-
-    document.getElementById("promoInput").value = "";
-    document.getElementById("promoMessage").textContent = "";
-
     closeMenu();
 }
 
