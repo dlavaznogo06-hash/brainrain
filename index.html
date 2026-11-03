@@ -41,12 +41,44 @@ header {
     height: 42px;
     border-radius: 12px;
     cursor: pointer;
+    flex: 0 0 auto;
 }
 
 .logo {
     width: 145px;
     height: 55px;
     object-fit: contain;
+}
+
+.header-balance {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #172746;
+    border: 1px solid #35527d;
+    border-radius: 12px;
+    padding: 9px 12px;
+    color: #ffd45c;
+    font-size: 16px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.coin-icon {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    object-fit: contain;
+    vertical-align: middle;
+    flex: 0 0 19px;
+}
+
+.header-balance .coin-icon {
+    width: 21px;
+    height: 21px;
+    flex-basis: 21px;
 }
 
 .menu {
@@ -88,11 +120,28 @@ header {
     border-radius: 50%;
     background: #26395e;
     object-fit: cover;
+    flex: 0 0 auto;
+}
+
+.menu-user-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
 }
 
 .menu-name {
     font-weight: bold;
     overflow-wrap: anywhere;
+}
+
+.menu-balance {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ffd45c;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .menu-item {
@@ -180,15 +229,6 @@ main {
     display: flex;
     align-items: center;
     gap: 5px;
-}
-
-.coin-icon {
-    display: inline-block;
-    width: 19px;
-    height: 19px;
-    object-fit: contain;
-    vertical-align: middle;
-    flex: 0 0 19px;
 }
 
 .case-page {
@@ -417,6 +457,28 @@ main {
     overflow-wrap: anywhere;
 }
 
+.profile-balance {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 7px;
+    padding: 9px 13px;
+    width: fit-content;
+    max-width: 100%;
+    background: #0d1b32;
+    border: 1px solid #3a5680;
+    border-radius: 12px;
+    color: #ffd45c;
+    font-weight: 900;
+    font-size: clamp(15px, 3vw, 19px);
+}
+
+.profile-balance .coin-icon {
+    width: 23px;
+    height: 23px;
+    flex-basis: 23px;
+}
+
 .hidden {
     display: none !important;
 }
@@ -440,6 +502,23 @@ main {
         margin: auto;
     }
 }
+
+@media (max-width: 380px) {
+    header {
+        gap: 9px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .logo {
+        width: 115px;
+    }
+
+    .header-balance {
+        padding: 8px 9px;
+        font-size: 14px;
+    }
+}
 </style>
 </head>
 
@@ -448,6 +527,11 @@ main {
 <header>
     <button class="menu-button" onclick="toggleMenu()">☰</button>
     <img class="logo" src="logo2.png" alt="BrainRain">
+
+    <div class="header-balance">
+        <span id="headerBalance">0</span>
+        <img class="coin-icon" src="coin.png" alt="Coin">
+    </div>
 </header>
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -457,7 +541,15 @@ main {
 
     <div class="profile-mini">
         <img id="userPhoto" src="logo2.png" alt="Аватар">
-        <div class="menu-name" id="userName">Игрок</div>
+
+        <div class="menu-user-info">
+            <div class="menu-name" id="userName">Игрок</div>
+
+            <div class="menu-balance">
+                <span id="menuBalance">0</span>
+                <img class="coin-icon" src="coin.png" alt="Coin">
+            </div>
+        </div>
     </div>
 
     <button class="menu-item" onclick="showHome()">🎁 Case</button>
@@ -515,7 +607,6 @@ main {
         <div class="items-grid" id="itemsGrid"></div>
     </section>
 
-    <!-- СТРАНИЦА ПРОФИЛЯ -->
     <section class="profile-page" id="profilePage">
         <div class="profile-card">
             <img
@@ -529,6 +620,12 @@ main {
                 <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
                 <div class="profile-nickname" id="profileName">Игрок</div>
                 <div class="profile-username" id="profileUsername">@player</div>
+
+                <div class="profile-balance">
+                    <span id="profileBalance">0</span>
+                    <img class="coin-icon" src="coin.png" alt="Coin">
+                    <span>Coin</span>
+                </div>
             </div>
         </div>
     </section>
@@ -539,13 +636,28 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
+/* Баланс пока временный. Начальное значение — 0 */
+let playerBalance = 0;
+
+function updateBalance() {
+    document.getElementById("headerBalance").textContent =
+        playerBalance.toLocaleString("ru-RU");
+
+    document.getElementById("menuBalance").textContent =
+        playerBalance.toLocaleString("ru-RU");
+
+    document.getElementById("profileBalance").textContent =
+        playerBalance.toLocaleString("ru-RU");
+}
+
 const user = tg.initDataUnsafe?.user;
 
 if (user) {
-    const displayName = user.first_name || "Игрок";
     const fullName = [user.first_name, user.last_name]
         .filter(Boolean)
         .join(" ");
+
+    const displayName = user.first_name || "Игрок";
 
     const nickname = user.username
         ? "@" + user.username
@@ -560,6 +672,8 @@ if (user) {
         document.getElementById("profilePhoto").src = user.photo_url;
     }
 }
+
+updateBalance();
 
 const seaItems = [
     { name: "Los Primos", image: "los-primos.png", price: 49, rarity: "rarity-blue" },
