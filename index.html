@@ -29,13 +29,58 @@ body {
 }
 
 header {
-    height: 75px;
+    min-height: 10vh;
+    height: max(76px, 10vh);
     display: flex;
     align-items: center;
-    padding: 10px 18px;
-    gap: 15px;
+    justify-content: space-between;
+    padding: 8px 14px;
+    gap: 10px;
     position: relative;
     z-index: 5;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    z-index: 2;
+}
+
+.header-right {
+    margin-left: auto;
+}
+
+.logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(110px, 25vw, 230px);
+    height: 10vh;
+    max-height: 82px;
+    min-height: 58px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.settings-button {
+    width: 34px;
+    height: 34px;
+    padding: 5px;
+    border: 1px solid #35527d;
+    background: #172746;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 34px;
+}
+
+.settings-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .menu-button {
@@ -46,12 +91,6 @@ header {
     width: 42px;
     height: 42px;
     cursor: pointer;
-}
-
-.logo {
-    width: 145px;
-    height: 55px;
-    object-fit: contain;
 }
 
 .header-balance {
@@ -555,6 +594,181 @@ main {
     display: none !important;
 }
 
+
+/* ОКНО НАСТРОЕК */
+.settings-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: #02071399;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+}
+
+.settings-backdrop.active {
+    display: flex;
+}
+
+.settings-panel {
+    width: min(320px, 88vw);
+    aspect-ratio: 1 / 1;
+    max-height: min(390px, 82vh);
+    overflow-y: auto;
+    background: linear-gradient(145deg, #1b3156, #101b32);
+    border: 1px solid #45658f;
+    box-shadow: 0 15px 50px #000b;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+}
+
+.settings-heading {
+    text-align: center;
+    font-size: 20px;
+    padding: 4px 25px 10px;
+    border-bottom: 1px solid #35527d;
+}
+
+.settings-close {
+    position: absolute;
+    top: 9px;
+    right: 11px;
+    background: transparent;
+    color: white;
+    border: 0;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.setting-switch {
+    width: 48px;
+    height: 27px;
+    flex: 0 0 48px;
+    border: 1px solid #52709a;
+    background: #687386;
+    padding: 3px;
+    cursor: pointer;
+    position: relative;
+    transition: background .18s ease;
+}
+
+.setting-switch::after {
+    content: "";
+    display: block;
+    width: 19px;
+    height: 19px;
+    background: #fff;
+    transform: translateX(0);
+    transition: transform .18s ease;
+}
+
+.setting-switch[aria-checked="true"] {
+    background: #2585e8;
+    border-color: #2585e8;
+}
+
+.setting-switch[aria-checked="true"]::after {
+    transform: translateX(21px);
+}
+
+.setting-hint {
+    color: #a9bddb;
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 400;
+    margin-top: -12px;
+}
+
+body.streamer-mode .case-card,
+body.streamer-mode .case-card h3,
+body.streamer-mode .case-card > img {
+    filter: blur(7px);
+    transition: filter .15s ease;
+}
+
+body.streamer-mode .case-card:hover,
+body.streamer-mode .case-card:hover h3,
+body.streamer-mode .case-card:hover > img,
+body.streamer-mode .case-card:focus-within,
+body.streamer-mode .case-card:active,
+body.streamer-mode .case-card:active h3,
+body.streamer-mode .case-card:active > img {
+    filter: blur(0);
+}
+
+body.streamer-mode .header-balance,
+body.streamer-mode .menu-balance,
+body.streamer-mode .profile-balance {
+    filter: blur(7px);
+    transition: filter .15s ease;
+}
+
+body.streamer-mode .header-balance:hover,
+body.streamer-mode .menu-balance:hover,
+body.streamer-mode .profile-balance:hover,
+body.streamer-mode .header-balance:active,
+body.streamer-mode .menu-balance:active,
+body.streamer-mode .profile-balance:active {
+    filter: blur(0);
+}
+
+@media (hover: none) {
+    body.streamer-mode .case-card:active,
+    body.streamer-mode .case-card:active h3,
+    body.streamer-mode .case-card:active > img,
+    body.streamer-mode .header-balance:active,
+    body.streamer-mode .menu-balance:active,
+    body.streamer-mode .profile-balance:active {
+        filter: blur(0);
+    }
+}
+
+@media (max-width: 420px) {
+    .logo {
+        width: 19vw;
+        min-width: 68px;
+        max-width: 82px;
+        height: 8vh;
+    }
+
+    .header-right {
+        gap: 5px;
+    }
+
+    .header-balance {
+        min-height: 36px;
+        padding: 5px 7px;
+        gap: 5px;
+        font-size: 15px;
+    }
+
+    .header-balance .coin-icon {
+        width: 19px;
+        height: 19px;
+        flex-basis: 19px;
+    }
+
+    .settings-button {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+    }
+}
+
 @media (min-width: 600px) {
     .case-list {
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -608,16 +822,47 @@ main {
 <body>
 
 <header>
-    <button class="menu-button" onclick="toggleMenu()">☰</button>
-    <img class="logo" src="logo2.png" alt="BrainRain">
+    <div class="header-left">
+        <button class="menu-button" onclick="toggleMenu()" aria-label="Открыть меню">☰</button>
+    </div>
 
-    <div class="header-balance">
-        <span class="balance-number pixel-number" id="headerBalance">0</span>
-        <img class="coin-icon" src="coin.png" alt="Coin">
+    <img class="logo" src="logotipe.png" alt="BrainRain">
+
+    <div class="header-right">
+        <button class="settings-button" onclick="openSettings()" aria-label="Настройки">
+            <img src="settings.png" alt="">
+        </button>
+        <div class="header-balance">
+            <span class="balance-number pixel-number" id="headerBalance">0</span>
+            <img class="coin-icon" src="coin.png" alt="Coin">
+        </div>
     </div>
 </header>
 
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<div class="settings-backdrop" id="settingsBackdrop" onclick="backdropSettingsClose(event)">
+    <section class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <button class="settings-close" onclick="closeSettings()" aria-label="Закрыть настройки">×</button>
+        <h2 class="settings-heading" id="settingsTitle">НАСТРОЙКИ</h2>
+
+        <div class="setting-row">
+            <span>Вибрация</span>
+            <button class="setting-switch" id="vibrationToggle" type="button"
+                role="switch" aria-checked="true" onclick="toggleVibration()"
+                aria-label="Переключить вибрацию"></button>
+        </div>
+        <p class="setting-hint">Включает или выключает тактильный отклик.</p>
+
+        <div class="setting-row">
+            <span>Режим стримера</span>
+            <button class="setting-switch" id="streamerToggle" type="button"
+                role="switch" aria-checked="false" onclick="toggleStreamerMode()"
+                aria-label="Переключить режим стримера"></button>
+        </div>
+        <p class="setting-hint">Скрывает кейсы и баланс. Наведи курсор, чтобы временно показать.</p>
+    </section>
+</div>
 
 <nav class="menu" id="menu">
     <button class="menu-close" onclick="toggleMenu()">×</button>
@@ -856,16 +1101,12 @@ async function redeemPromo() {
 
             input.value = "";
 
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.notificationOccurred("success");
-            }
+            vibrate("success");
 
         } else {
             message.textContent = "❌ " + data.error;
 
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.notificationOccurred("error");
-            }
+            vibrate("error");
         }
 
     } catch (error) {
@@ -958,6 +1199,57 @@ const cases = {
 };
 
 let currentCase = "sea";
+
+// ==========================
+// НАСТРОЙКИ
+// ==========================
+
+let vibrationEnabled = true;
+let streamerModeEnabled = false;
+
+function openSettings() {
+    closeMenu();
+    document.getElementById("settingsBackdrop").classList.add("active");
+}
+
+function closeSettings() {
+    document.getElementById("settingsBackdrop").classList.remove("active");
+}
+
+function backdropSettingsClose(event) {
+    if (event.target.id === "settingsBackdrop") closeSettings();
+}
+
+function toggleVibration() {
+    vibrationEnabled = !vibrationEnabled;
+    document.getElementById("vibrationToggle")
+        .setAttribute("aria-checked", String(vibrationEnabled));
+}
+
+function toggleStreamerMode() {
+    streamerModeEnabled = !streamerModeEnabled;
+    document.getElementById("streamerToggle")
+        .setAttribute("aria-checked", String(streamerModeEnabled));
+    document.body.classList.toggle("streamer-mode", streamerModeEnabled);
+}
+
+// Вибрация вызывается только если она включена.
+function vibrate(type = "light") {
+    if (!vibrationEnabled) return;
+    if (tg.HapticFeedback) {
+        if (type === "success" || type === "error") {
+            tg.HapticFeedback.notificationOccurred(type);
+        } else {
+            tg.HapticFeedback.impactOccurred(type);
+        }
+    } else if (navigator.vibrate) {
+        navigator.vibrate(15);
+    }
+}
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeSettings();
+});
 
 // ==========================
 // МЕНЮ И СТРАНИЦЫ
