@@ -360,6 +360,63 @@ main {
     box-shadow: inset 0 0 12px #ffd45c33;
 }
 
+/* СТРАНИЦА ПРОФИЛЯ */
+
+.profile-page {
+    display: none;
+    padding: 0 16px 35px;
+}
+
+.profile-card {
+    width: 100%;
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 3vw, 28px);
+    padding: clamp(14px, 3vw, 26px);
+    background: linear-gradient(135deg, #1b3156, #12213d);
+    border: 1px solid #35527d;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px #0003;
+}
+
+.profile-avatar {
+    width: clamp(75px, 18vw, 145px);
+    height: clamp(75px, 18vw, 145px);
+    flex: 0 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #26395e;
+    border: 3px solid #45658f;
+    box-shadow: 0 0 18px #0005;
+}
+
+.profile-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.profile-nickname {
+    font-size: clamp(18px, 4vw, 30px);
+    font-weight: 900;
+    overflow-wrap: anywhere;
+    line-height: 1.2;
+}
+
+.profile-label {
+    color: #91a9cc;
+    font-size: clamp(12px, 2.5vw, 15px);
+}
+
+.profile-username {
+    color: #c5d7f3;
+    font-size: clamp(13px, 2.8vw, 17px);
+    overflow-wrap: anywhere;
+}
+
 .hidden {
     display: none !important;
 }
@@ -375,6 +432,11 @@ main {
 
     .case-page {
         max-width: 750px;
+        margin: auto;
+    }
+
+    .profile-page {
+        max-width: 900px;
         margin: auto;
     }
 }
@@ -400,7 +462,7 @@ main {
 
     <button class="menu-item" onclick="showHome()">🎁 Case</button>
     <button class="menu-item" onclick="showComingSoon('Upgrade')">⚡ Upgrade</button>
-    <button class="menu-item" onclick="showComingSoon('Profile')">👤 Profile</button>
+    <button class="menu-item" onclick="showProfile()">👤 Profile</button>
 </nav>
 
 <main>
@@ -452,6 +514,24 @@ main {
         <h3 class="items-title">Содержимое кейса</h3>
         <div class="items-grid" id="itemsGrid"></div>
     </section>
+
+    <!-- СТРАНИЦА ПРОФИЛЯ -->
+    <section class="profile-page" id="profilePage">
+        <div class="profile-card">
+            <img
+                class="profile-avatar"
+                id="profilePhoto"
+                src="logo2.png"
+                alt="Аватар игрока"
+            >
+
+            <div class="profile-info">
+                <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
+                <div class="profile-nickname" id="profileName">Игрок</div>
+                <div class="profile-username" id="profileUsername">@player</div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <script>
@@ -462,12 +542,22 @@ tg.expand();
 const user = tg.initDataUnsafe?.user;
 
 if (user) {
-    document.getElementById("userName").textContent =
-        user.username ? "@" + user.username :
-        [user.first_name, user.last_name].filter(Boolean).join(" ");
+    const displayName = user.first_name || "Игрок";
+    const fullName = [user.first_name, user.last_name]
+        .filter(Boolean)
+        .join(" ");
+
+    const nickname = user.username
+        ? "@" + user.username
+        : fullName || "Игрок";
+
+    document.getElementById("userName").textContent = nickname;
+    document.getElementById("profileName").textContent = displayName;
+    document.getElementById("profileUsername").textContent = nickname;
 
     if (user.photo_url) {
         document.getElementById("userPhoto").src = user.photo_url;
+        document.getElementById("profilePhoto").src = user.photo_url;
     }
 }
 
@@ -524,6 +614,11 @@ const cases = {
 
 let currentCase = "sea";
 
+function closeMenu() {
+    document.getElementById("menu").classList.remove("active");
+    document.getElementById("overlay").classList.remove("active");
+}
+
 function toggleMenu() {
     document.getElementById("menu").classList.toggle("active");
     document.getElementById("overlay").classList.toggle("active");
@@ -532,9 +627,17 @@ function toggleMenu() {
 function showHome() {
     document.getElementById("homePage").style.display = "block";
     document.getElementById("casePage").style.display = "none";
+    document.getElementById("profilePage").style.display = "none";
 
-    document.getElementById("menu").classList.remove("active");
-    document.getElementById("overlay").classList.remove("active");
+    closeMenu();
+}
+
+function showProfile() {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("casePage").style.display = "none";
+    document.getElementById("profilePage").style.display = "block";
+
+    closeMenu();
 }
 
 function showCase(caseId) {
@@ -543,6 +646,7 @@ function showCase(caseId) {
 
     document.getElementById("homePage").style.display = "none";
     document.getElementById("casePage").style.display = "block";
+    document.getElementById("profilePage").style.display = "none";
 
     document.getElementById("detailImage").src = data.image;
     document.getElementById("detailName").textContent = data.name;
@@ -620,7 +724,6 @@ function createRoulette(elementId, items) {
         track.appendChild(card);
     }
 
-    /* Создаём несколько случайно перемешанных повторений */
     for (let i = 0; i < 8; i++) {
         const shuffled = shuffleItems(items);
         shuffled.forEach(item => addItem(item));
