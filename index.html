@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -17,10 +16,6 @@
     font-weight: 700;
 }
 
-button, input {
-    font-family: inherit;
-}
-
 body {
     background: radial-gradient(circle at top, #14264a 0%, #080d1b 55%);
     color: white;
@@ -28,8 +23,10 @@ body {
     overflow-x: hidden;
 }
 
+button, input { font-family: inherit; }
+
 header {
-    min-height: 10vh;
+    min-height: 76px;
     height: max(76px, 10vh);
     display: flex;
     align-items: center;
@@ -47,9 +44,7 @@ header {
     z-index: 2;
 }
 
-.header-right {
-    margin-left: auto;
-}
+.header-right { margin-left: auto; }
 
 .logo {
     position: absolute;
@@ -68,8 +63,9 @@ header {
     width: 34px;
     height: 34px;
     padding: 5px;
-    border: 1px solid #35527d;
-    background: #172746;
+    border: 1px solid #829fc9;
+    background: #405b83;
+    box-shadow: 0 0 12px #a8c9ff66;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -81,6 +77,7 @@ header {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    filter: brightness(1.8);
 }
 
 .menu-button {
@@ -105,17 +102,21 @@ header {
     border: 1px solid #35527d;
     color: white;
     font-size: 20px;
-    font-weight: bold;
+}
+
+.coin-icon {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    object-fit: contain;
+    vertical-align: middle;
+    flex: 0 0 19px;
 }
 
 .header-balance .coin-icon {
     width: 24px;
     height: 24px;
-    flex: 0 0 24px;
-}
-
-.balance-number {
-    color: #fff;
+    flex-basis: 24px;
 }
 
 .pixel-number {
@@ -137,9 +138,7 @@ header {
     box-shadow: 10px 0 35px #0008;
 }
 
-.menu.active {
-    left: 0;
-}
+.menu.active { left: 0; }
 
 .menu-close {
     float: right;
@@ -172,7 +171,6 @@ header {
 }
 
 .menu-name {
-    font-weight: bold;
     overflow-wrap: anywhere;
     color: white;
 }
@@ -188,17 +186,18 @@ header {
     border: 1px solid #35527d;
     color: white;
     font-size: 16px;
-    font-weight: bold;
 }
 
 .menu-balance .coin-icon {
     width: 21px;
     height: 21px;
-    flex: 0 0 21px;
+    flex-basis: 21px;
 }
 
 .menu-item {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     width: 100%;
     padding: 15px;
     margin: 8px 0;
@@ -208,9 +207,6 @@ header {
     text-align: left;
     font-size: 16px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
 }
 
 .menu-icon {
@@ -220,9 +216,7 @@ header {
     flex: 0 0 28px;
 }
 
-.menu-item:hover {
-    background: #294577;
-}
+.menu-item:hover { background: #294577; }
 
 .overlay {
     display: none;
@@ -232,17 +226,12 @@ header {
     z-index: 15;
 }
 
-.overlay.active {
-    display: block;
-}
+.overlay.active { display: block; }
 
-main {
-    padding: 12px 0 40px;
-}
+main { padding: 12px 0 40px; }
 
 .page-title {
     font-size: 25px;
-    font-weight: 900;
     margin: 15px 18px 20px;
 }
 
@@ -264,9 +253,7 @@ main {
     transition: 0.2s;
 }
 
-.case-card:active {
-    transform: scale(0.97);
-}
+.case-card:active { transform: scale(0.97); }
 
 .case-card > img {
     width: 100%;
@@ -283,20 +270,10 @@ main {
 
 .price {
     color: #ffd45c;
-    font-weight: bold;
     font-size: 14px;
     display: flex;
     align-items: center;
     gap: 5px;
-}
-
-.coin-icon {
-    display: inline-block;
-    width: 19px;
-    height: 19px;
-    object-fit: contain;
-    vertical-align: middle;
-    flex: 0 0 19px;
 }
 
 .case-page {
@@ -334,7 +311,6 @@ main {
     align-items: center;
     gap: 5px;
     color: #ffd45c;
-    font-weight: bold;
     font-size: 17px;
     margin-bottom: 20px;
 }
@@ -399,7 +375,6 @@ main {
     background: linear-gradient(90deg, #2478ed, #42a5ff);
     color: white;
     font-size: 17px;
-    font-weight: 900;
     cursor: pointer;
     box-shadow: 0 5px 20px #1678ed55;
 }
@@ -445,7 +420,6 @@ main {
     gap: 5px;
     font-size: 13px;
     color: #ffd45c;
-    font-weight: bold;
 }
 
 .rarity-blue {
@@ -467,6 +441,8 @@ main {
     border-color: #ffd45c;
     box-shadow: inset 0 0 12px #ffd45c33;
 }
+
+/* ПРОФИЛЬ */
 
 .profile-page {
     display: none;
@@ -505,10 +481,8 @@ main {
 
 .profile-nickname {
     font-size: clamp(18px, 4vw, 30px);
-    font-weight: 900;
     overflow-wrap: anywhere;
     line-height: 1.2;
-    color: white;
 }
 
 .profile-label {
@@ -532,7 +506,6 @@ main {
     border: 1px solid #35527d;
     color: white;
     font-size: clamp(17px, 3.5vw, 22px);
-    font-weight: bold;
     margin-top: 5px;
 }
 
@@ -543,45 +516,114 @@ main {
 }
 
 .profile-balance-label {
-    color: #fff;
     font-size: 14px;
     font-weight: normal;
 }
 
-/* ПРОМОКОД В ПРОФИЛЕ */
+/* ИНВЕНТАРЬ */
+
+.inventory-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 10px;
+}
+
+.inventory-heading h2 { font-size: 20px; }
+
+.sell-all-button, .inventory-sell {
+    background: #ff941f;
+    color: white;
+    border: 0;
+    padding: 9px 12px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.sell-all-button:disabled, .inventory-sell:disabled {
+    opacity: .5;
+}
+
+.inventory-box {
+    min-height: 115px;
+    background: #39414e;
+    border: 1px solid #687486;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 12px;
+}
+
+.inventory-empty {
+    color: #c2cad7;
+    font-size: 13px;
+    align-self: center;
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.inventory-item {
+    min-width: 0;
+    background: #263247;
+    border: 1px solid #52627c;
+    padding: 7px;
+    text-align: center;
+}
+
+.inventory-item img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    display: block;
+    margin: 5px auto;
+}
+
+.inventory-item-name {
+    font-size: 11px;
+    overflow-wrap: anywhere;
+    min-height: 27px;
+}
+
+.inventory-item-price {
+    color: #ffd45c;
+    font-size: 11px;
+    margin: 5px 0;
+}
+
+/* ПРОМОКОД */
 
 .promo-card {
+    max-width: 480px;
     background: linear-gradient(135deg, #1b3156, #12213d);
     border: 1px solid #35527d;
-    padding: 22px;
+    padding: 15px;
     text-align: center;
-    margin-top: 22px;
+    margin: 16px auto 0;
     box-shadow: 0 8px 25px #0003;
 }
 
 .promo-description {
     color: #c5d7f3;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     line-height: 1.5;
 }
 
 #promoInput {
     display: block;
     width: 100%;
-    padding: 15px;
+    padding: 13px;
     border: 1px solid #35527d;
     background: #0d172b;
     color: white;
     font-size: 18px;
     text-align: center;
     outline: none;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     text-transform: uppercase;
 }
 
-#promoInput::placeholder {
-    color: #8295b5;
-}
+#promoInput::placeholder { color: #8295b5; }
 
 #promoMessage {
     min-height: 22px;
@@ -590,12 +632,10 @@ main {
     line-height: 1.5;
 }
 
-.hidden {
-    display: none !important;
-}
-
+.hidden { display: none !important; }
 
 /* ОКНО НАСТРОЕК */
+
 .settings-backdrop {
     display: none;
     position: fixed;
@@ -603,15 +643,12 @@ main {
     z-index: 50;
     background: #02071399;
     backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
     align-items: center;
     justify-content: center;
     padding: 18px;
 }
 
-.settings-backdrop.active {
-    display: flex;
-}
+.settings-backdrop.active { display: flex; }
 
 .settings-panel {
     width: min(320px, 88vw);
@@ -693,43 +730,87 @@ main {
     margin-top: -12px;
 }
 
+/* ОКНО ВЫИГРЫША */
+
+.result-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: #000c;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.result-backdrop.active { display: flex; }
+
+.result-panel {
+    width: min(330px, 100%);
+    padding: 22px;
+    background: #172746;
+    border: 1px solid #52709a;
+    text-align: center;
+    box-shadow: 0 15px 50px #0009;
+}
+
+.result-panel > img {
+    width: 145px;
+    height: 145px;
+    object-fit: contain;
+    margin: 15px auto;
+}
+
+.result-panel h2 { font-size: 21px; }
+.result-value { color: #ffd45c; margin: 12px 0 18px; }
+
+.result-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.result-actions button {
+    flex: 1;
+    padding: 13px 5px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    background: #2478ed;
+}
+
+.result-actions .sell-result { background: #ff941f; }
+
+/* РЕЖИМ СТРИМЕРА */
+
 body.streamer-mode .case-card,
 body.streamer-mode .case-card h3,
-body.streamer-mode .case-card > img {
+body.streamer-mode .case-card > img,
+body.streamer-mode .header-balance,
+body.streamer-mode .menu-balance,
+body.streamer-mode .profile-balance,
+body.streamer-mode .profile-card,
+body.streamer-mode .inventory-box,
+body.streamer-mode .promo-card,
+body.streamer-mode .case-page,
+body.streamer-mode .profile-page,
+body.streamer-mode .menu-name,
+body.streamer-mode .profile-mini,
+body.streamer-mode .result-panel {
     filter: blur(7px);
     transition: filter .15s ease;
 }
 
 body.streamer-mode .case-card:hover,
-body.streamer-mode .case-card:hover h3,
-body.streamer-mode .case-card:hover > img,
-body.streamer-mode .case-card:focus-within,
-body.streamer-mode .case-card:active,
-body.streamer-mode .case-card:active h3,
-body.streamer-mode .case-card:active > img {
-    filter: blur(0);
-}
-
-body.streamer-mode .header-balance,
-body.streamer-mode .menu-balance,
-body.streamer-mode .profile-balance {
-    filter: blur(7px);
-    transition: filter .15s ease;
-}
-
 body.streamer-mode .header-balance:hover,
 body.streamer-mode .menu-balance:hover,
 body.streamer-mode .profile-balance:hover,
-body.streamer-mode .header-balance:active,
-body.streamer-mode .menu-balance:active,
-body.streamer-mode .profile-balance:active {
+body.streamer-mode .case-page:hover,
+body.streamer-mode .profile-page:hover {
     filter: blur(0);
 }
 
 @media (hover: none) {
     body.streamer-mode .case-card:active,
-    body.streamer-mode .case-card:active h3,
-    body.streamer-mode .case-card:active > img,
     body.streamer-mode .header-balance:active,
     body.streamer-mode .menu-balance:active,
     body.streamer-mode .profile-balance:active {
@@ -745,9 +826,7 @@ body.streamer-mode .profile-balance:active {
         height: 8vh;
     }
 
-    .header-right {
-        gap: 5px;
-    }
+    .header-right { gap: 5px; }
 
     .header-balance {
         min-height: 36px;
@@ -777,21 +856,10 @@ body.streamer-mode .profile-balance:active {
         padding-right: 20px;
     }
 
-    .case-card {
-        padding: 15px;
-    }
-
-    .case-card > img {
-        height: 180px;
-    }
-
-    .case-card h3 {
-        font-size: 16px;
-    }
-
-    .items-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .case-card { padding: 15px; }
+    .case-card > img { height: 180px; }
+    .case-card h3 { font-size: 16px; }
+    .items-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     .case-page {
         max-width: 750px;
@@ -812,9 +880,7 @@ body.streamer-mode .profile-balance:active {
         padding-right: 28px;
     }
 
-    .case-card > img {
-        height: 210px;
-    }
+    .case-card > img { height: 210px; }
 }
 </style>
 </head>
@@ -843,24 +909,22 @@ body.streamer-mode .profile-balance:active {
 
 <div class="settings-backdrop" id="settingsBackdrop" onclick="backdropSettingsClose(event)">
     <section class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-        <button class="settings-close" onclick="closeSettings()" aria-label="Закрыть настройки">×</button>
+        <button class="settings-close" onclick="closeSettings()">×</button>
         <h2 class="settings-heading" id="settingsTitle">НАСТРОЙКИ</h2>
 
         <div class="setting-row">
             <span>Вибрация</span>
             <button class="setting-switch" id="vibrationToggle" type="button"
-                role="switch" aria-checked="true" onclick="toggleVibration()"
-                aria-label="Переключить вибрацию"></button>
+                role="switch" aria-checked="true" onclick="toggleVibration()"></button>
         </div>
         <p class="setting-hint">Включает или выключает тактильный отклик.</p>
 
         <div class="setting-row">
             <span>Режим стримера</span>
             <button class="setting-switch" id="streamerToggle" type="button"
-                role="switch" aria-checked="false" onclick="toggleStreamerMode()"
-                aria-label="Переключить режим стримера"></button>
+                role="switch" aria-checked="false" onclick="toggleStreamerMode()"></button>
         </div>
-        <p class="setting-hint">Скрывает кейсы и баланс. Наведи курсор, чтобы временно показать.</p>
+        <p class="setting-hint">Скрывает содержимое от посторонних глаз.</p>
     </section>
 </div>
 
@@ -869,10 +933,8 @@ body.streamer-mode .profile-balance:active {
 
     <div class="profile-mini">
         <img id="userPhoto" src="logo2.png" alt="Аватар">
-
         <div class="menu-user-info">
             <div class="menu-name" id="userName">Игрок</div>
-
             <div class="menu-balance">
                 <span class="balance-number pixel-number" id="menuBalance">0</span>
                 <img class="coin-icon" src="coin.png" alt="Coin">
@@ -899,25 +961,19 @@ body.streamer-mode .profile-balance:active {
             <div class="case-card" onclick="showCase('sea')">
                 <img src="sea-case.png" alt="Морской кейс">
                 <h3>Морской кейс 🌊</h3>
-                <div class="price">
-                    <span class="pixel-number">99</span> <img class="coin-icon" src="coin.png" alt="coin">
-                </div>
+                <div class="price">99 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('impact')">
                 <img src="impact-case.png" alt="Ударный кейс">
                 <h3>Ударный кейс 👊</h3>
-                <div class="price">
-                    <span class="pixel-number">12</span> <img class="coin-icon" src="coin.png" alt="coin">
-                </div>
+                <div class="price">12 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('all')">
                 <img src="all-or-nothing.png" alt="Всё или ничего">
                 <h3>ВСЁ ИЛИ НИЧЕГО 🎲</h3>
-                <div class="price">
-                    <span class="pixel-number">499</span> <img class="coin-icon" src="coin.png" alt="coin">
-                </div>
+                <div class="price">499 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
         </div>
     </section>
@@ -935,7 +991,7 @@ body.streamer-mode .profile-balance:active {
             <div class="roulette-track hidden" id="allRoulette"></div>
         </div>
 
-        <button class="open-button" onclick="openCase()">ОТКРЫТЬ</button>
+        <button class="open-button" id="openCaseButton" onclick="openCase()">ОТКРЫТЬ</button>
 
         <h3 class="items-title">Содержимое кейса</h3>
         <div class="items-grid" id="itemsGrid"></div>
@@ -943,12 +999,7 @@ body.streamer-mode .profile-balance:active {
 
     <section class="profile-page" id="profilePage">
         <div class="profile-card">
-            <img
-                class="profile-avatar"
-                id="profilePhoto"
-                src="logo2.png"
-                alt="Аватар игрока"
-            >
+            <img class="profile-avatar" id="profilePhoto" src="logo2.png" alt="Аватар игрока">
 
             <div class="profile-info">
                 <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
@@ -963,27 +1014,23 @@ body.streamer-mode .profile-balance:active {
             </div>
         </div>
 
-        <!-- ПРОМОКОД ТЕПЕРЬ ВНИЗУ ПРОФИЛЯ -->
+        <div class="inventory-heading">
+            <h2>Инвентарь</h2>
+            <button class="sell-all-button" id="sellAllButton" onclick="sellAllItems()">Продать всё</button>
+        </div>
+
+        <div class="inventory-box" id="inventoryBox">
+            <span class="inventory-empty">Инвентарь пуст</span>
+        </div>
+
         <div class="promo-card">
             <h2 class="items-title">ПРОМОКОД</h2>
+            <p class="promo-description">Введи промокод и получи Coin! 💧</p>
 
-            <p class="promo-description">
-                Введи промокод и получи Coin! 💧
-            </p>
+            <input id="promoInput" type="text" maxlength="10"
+                placeholder="ВВЕДИ ПРОМОКОД" autocomplete="off">
 
-            <input
-                id="promoInput"
-                type="text"
-                maxlength="10"
-                placeholder="ВВЕДИ ПРОМОКОД"
-                autocomplete="off"
-            >
-
-            <button
-                class="open-button"
-                id="promoButton"
-                onclick="redeemPromo()"
-            >
+            <button class="open-button" id="promoButton" onclick="redeemPromo()">
                 АКТИВИРОВАТЬ
             </button>
 
@@ -992,64 +1039,134 @@ body.streamer-mode .profile-balance:active {
     </section>
 </main>
 
+<div class="result-backdrop" id="resultBackdrop">
+    <div class="result-panel">
+        <h2>ТВОЙ ВЫИГРЫШ!</h2>
+        <img id="resultImage" src="" alt="">
+        <h3 id="resultName"></h3>
+        <div class="result-value" id="resultPrice"></div>
+        <div class="result-actions">
+            <button onclick="keepResult()">Оставить</button>
+            <button class="sell-result" onclick="sellResult()">Продать</button>
+        </div>
+    </div>
+</div>
+
 <script>
 const tg = window.Telegram.WebApp;
-
 tg.ready();
 tg.expand();
 
 const user = tg.initDataUnsafe?.user;
-
-// Адрес сервера промокодов
 const API_URL = "https://brainrain-promo-2-433678.subhub.tr";
 
 let playerBalance = 0;
+let opening = false;
+let currentResult = null;
+let currentInventory = [];
+let vibrationEnabled = true;
+let streamerModeEnabled = false;
+
+const seaItems = [
+    {id:"los-primos", name:"Los Primos", image:"los-primos.png", price:49, rarity:"rarity-blue"},
+    {id:"evildon", name:"Evildon", image:"evildon.png", price:65, rarity:"rarity-blue"},
+    {id:"tralaledon", name:"Tralaledon", image:"tralaledon.png", price:99, rarity:"rarity-blue"},
+    {id:"capitano-moby", name:"Capitano Moby", image:"capitano-moby.png", price:130, rarity:"rarity-purple"},
+    {id:"jelly-moby", name:"Jelly Moby", image:"jelly-moby.png", price:1150, rarity:"rarity-purple"},
+    {id:"kraken", name:"Kraken", image:"kraken.png", price:2300, rarity:"rarity-red"}
+];
+
+const impactItems = [
+    {id:"candy-slap", name:"Candy Slap", image:"candy-slap.png", price:7, rarity:"rarity-blue"},
+    {id:"divine-slap", name:"Divine Slap", image:"divine-slap.png", price:9, rarity:"rarity-blue"},
+    {id:"yinyang-slap", name:"YinYang Slap", image:"yinyang-slap.png", price:9, rarity:"rarity-blue"},
+    {id:"cursed-slap", name:"Cursed Slap", image:"cursed-slap.png", price:12, rarity:"rarity-blue"},
+    {id:"radioactive-slap", name:"Radioactive Slap", image:"radioactive-slap.png", price:13, rarity:"rarity-blue"},
+    {id:"lava-slap", name:"Lava Slap", image:"lava-slap.png", price:13, rarity:"rarity-blue"},
+    {id:"rainbow-slap", name:"Rainbow Slap", image:"rainbow-slap.png", price:20, rarity:"rarity-purple"},
+    {id:"bloodmoon-slap", name:"Bloodmoon Slap", image:"bloodmoon-slap.png", price:30, rarity:"rarity-purple"},
+    {id:"rainbow-hammer", name:"Rainbow Hammer", image:"rainbow-hammer.png", price:500, rarity:"rarity-red"},
+    {id:"bloodmoon-hammer", name:"Bloodmoon Hammer", image:"bloodmoon-hammer.png", price:1100, rarity:"rarity-red"}
+];
+
+const allItems = [
+    {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
+    {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
+];
+
+const cases = {
+    sea: {
+        name:"Морской кейс 🌊",
+        image:"sea-case.png",
+        price:99,
+        items:seaItems,
+        roulette:"seaRoulette"
+    },
+    impact: {
+        name:"Ударный кейс 👊",
+        image:"impact-case.png",
+        price:12,
+        items:impactItems,
+        roulette:"impactRoulette"
+    },
+    all: {
+        name:"ВСЁ ИЛИ НИЧЕГО 🎲",
+        image:"all-or-nothing.png",
+        price:499,
+        items:allItems,
+        roulette:"allRoulette"
+    }
+};
+
+let currentCase = "sea";
 
 // ==========================
-// БАЛАНС
+// API
 // ==========================
+
+async function apiPost(route, extra = {}) {
+    if (!tg.initData) {
+        throw new Error("Открой игру через Telegram!");
+    }
+
+    const response = await fetch(API_URL + route, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            initData:tg.initData,
+            ...extra
+        })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Ошибка сервера");
+    }
+
+    return data;
+}
 
 function updateBalance() {
-    const formattedBalance = playerBalance.toLocaleString("ru-RU");
+    const formatted = Number(playerBalance).toLocaleString("ru-RU");
 
-    document.getElementById("headerBalance").textContent = formattedBalance;
-    document.getElementById("menuBalance").textContent = formattedBalance;
-    document.getElementById("profileBalance").textContent = formattedBalance;
+    document.getElementById("headerBalance").textContent = formatted;
+    document.getElementById("menuBalance").textContent = formatted;
+    document.getElementById("profileBalance").textContent = formatted;
 }
 
 async function loadBalance() {
     try {
-        if (!tg.initData) {
-            console.warn("Игра открыта не через Telegram.");
-            return;
-        }
-
-        const response = await fetch(API_URL + "/api/balance", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                initData: tg.initData
-            })
-        });
-
-        const data = await response.json();
-
-        if (data.ok) {
-            playerBalance = data.balance;
-            updateBalance();
-        } else {
-            console.error("Не удалось загрузить баланс:", data.error);
-        }
-
+        const data = await apiPost("/api/balance");
+        playerBalance = data.balance;
+        updateBalance();
     } catch (error) {
         console.error("Ошибка загрузки баланса:", error);
     }
 }
 
 // ==========================
-// АКТИВАЦИЯ ПРОМОКОДА
+// ПРОМОКОДЫ
 // ==========================
 
 async function redeemPromo() {
@@ -1069,69 +1186,37 @@ async function redeemPromo() {
         return;
     }
 
-    if (!tg.initData) {
-        message.textContent = "❌ Открой игру через Telegram!";
-        return;
-    }
-
     button.disabled = true;
     message.textContent = "⏳ Проверяем промокод...";
 
     try {
-        const response = await fetch(API_URL + "/api/redeem", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                initData: tg.initData,
-                code: code
-            })
-        });
+        const data = await apiPost("/api/redeem", {code});
 
-        const data = await response.json();
+        playerBalance = data.balance;
+        updateBalance();
 
-        if (data.ok) {
-            playerBalance = data.balance;
-            updateBalance();
+        message.textContent = "✅ " + data.message +
+            ". Баланс: " + data.balance + " Coin";
 
-            message.textContent =
-                "✅ " + data.message +
-                ". Баланс: " + data.balance + " Coin";
-
-            input.value = "";
-
-            vibrate("success");
-
-        } else {
-            message.textContent = "❌ " + data.error;
-
-            vibrate("error");
-        }
+        input.value = "";
+        vibrate("success");
 
     } catch (error) {
-        console.error("Ошибка активации:", error);
-        message.textContent =
-            "❌ Не удалось связаться с сервером. Попробуй позже.";
+        message.textContent = "❌ " + error.message;
+        vibrate("error");
+    } finally {
+        button.disabled = false;
     }
-
-    button.disabled = false;
 }
 
 // ==========================
-// ДАННЫЕ ИГРОКА
+// ИГРОК
 // ==========================
 
 if (user) {
     const displayName = user.first_name || "Игрок";
-
-    const fullName = [user.first_name, user.last_name]
-        .filter(Boolean)
-        .join(" ");
-
-    const nickname = user.username
-        ? "@" + user.username
-        : fullName || "Игрок";
+    const fullName = [user.first_name, user.last_name].filter(Boolean).join(" ");
+    const nickname = user.username ? "@" + user.username : fullName || "Игрок";
 
     document.getElementById("userName").textContent = nickname;
     document.getElementById("profileName").textContent = displayName;
@@ -1144,68 +1229,8 @@ if (user) {
 }
 
 // ==========================
-// КЕЙСЫ
-// ==========================
-
-const seaItems = [
-    { name: "Los Primos", image: "los-primos.png", price: 49, rarity: "rarity-blue" },
-    { name: "Evildon", image: "evildon.png", price: 65, rarity: "rarity-blue" },
-    { name: "Tralaledon", image: "tralaledon.png", price: 99, rarity: "rarity-blue" },
-    { name: "Capitano Moby", image: "capitano-moby.png", price: 130, rarity: "rarity-purple" },
-    { name: "Jelly Moby", image: "jelly-moby.png", price: 1150, rarity: "rarity-purple" },
-    { name: "Kraken", image: "kraken.png", price: 2300, rarity: "rarity-red" }
-];
-
-const impactItems = [
-    { name: "Candy Slap", image: "candy-slap.png", price: 7, rarity: "rarity-blue" },
-    { name: "Divine Slap", image: "divine-slap.png", price: 9, rarity: "rarity-blue" },
-    { name: "YinYang Slap", image: "yinyang-slap.png", price: 9, rarity: "rarity-blue" },
-    { name: "Cursed Slap", image: "cursed-slap.png", price: 12, rarity: "rarity-blue" },
-    { name: "Radioactive Slap", image: "radioactive-slap.png", price: 13, rarity: "rarity-blue" },
-    { name: "Lava Slap", image: "lava-slap.png", price: 13, rarity: "rarity-blue" },
-    { name: "Rainbow Slap", image: "rainbow-slap.png", price: 20, rarity: "rarity-purple" },
-    { name: "Bloodmoon Slap", image: "bloodmoon-slap.png", price: 30, rarity: "rarity-purple" },
-    { name: "Rainbow Hammer", image: "rainbow-hammer.png", price: 500, rarity: "rarity-red" },
-    { name: "Bloodmoon Hammer", image: "bloodmoon-hammer.png", price: 1100, rarity: "rarity-red" }
-];
-
-const allItems = [
-    { name: "1 Coin", image: "coin.png", price: 1, rarity: "rarity-blue" },
-    { name: "Dragon Caneloni", image: "dragon-caneloni.png", price: 950, rarity: "rarity-gold" }
-];
-
-const cases = {
-    sea: {
-        name: "Морской кейс 🌊",
-        image: "sea-case.png",
-        price: 99,
-        items: seaItems,
-        roulette: "seaRoulette"
-    },
-    impact: {
-        name: "Ударный кейс 👊",
-        image: "impact-case.png",
-        price: 12,
-        items: impactItems,
-        roulette: "impactRoulette"
-    },
-    all: {
-        name: "ВСЁ ИЛИ НИЧЕГО 🎲",
-        image: "all-or-nothing.png",
-        price: 499,
-        items: allItems,
-        roulette: "allRoulette"
-    }
-};
-
-let currentCase = "sea";
-
-// ==========================
 // НАСТРОЙКИ
 // ==========================
-
-let vibrationEnabled = true;
-let streamerModeEnabled = false;
 
 function openSettings() {
     closeMenu();
@@ -1233,9 +1258,9 @@ function toggleStreamerMode() {
     document.body.classList.toggle("streamer-mode", streamerModeEnabled);
 }
 
-// Вибрация вызывается только если она включена.
 function vibrate(type = "light") {
     if (!vibrationEnabled) return;
+
     if (tg.HapticFeedback) {
         if (type === "success" || type === "error") {
             tg.HapticFeedback.notificationOccurred(type);
@@ -1248,11 +1273,14 @@ function vibrate(type = "light") {
 }
 
 document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeSettings();
+    if (event.key === "Escape") {
+        closeSettings();
+        document.getElementById("resultBackdrop").classList.remove("active");
+    }
 });
 
 // ==========================
-// МЕНЮ И СТРАНИЦЫ
+// МЕНЮ
 // ==========================
 
 function closeMenu() {
@@ -1281,9 +1309,20 @@ function showProfile() {
     hideAllPages();
     document.getElementById("profilePage").style.display = "block";
     closeMenu();
+    loadInventory();
 }
 
+function showComingSoon(name) {
+    alert(name + " скоро появится!");
+}
+
+// ==========================
+// ОТОБРАЖЕНИЕ КЕЙСА
+// ==========================
+
 function showCase(caseId) {
+    if (!cases[caseId]) return;
+
     currentCase = caseId;
     const data = cases[caseId];
 
@@ -1294,14 +1333,18 @@ function showCase(caseId) {
     document.getElementById("detailName").textContent = data.name;
 
     document.getElementById("detailPrice").innerHTML =
-        '<span class="pixel-number">' + data.price.toLocaleString("ru-RU") +
-        '</span> <img class="coin-icon" src="coin.png" alt="coin">';
+        `<span class="pixel-number">${data.price.toLocaleString("ru-RU")}</span>
+        <img class="coin-icon" src="coin.png" alt="coin">`;
 
     document.querySelectorAll(".roulette-track").forEach(track => {
         track.classList.add("hidden");
     });
 
-    document.getElementById(data.roulette).classList.remove("hidden");
+    const track = document.getElementById(data.roulette);
+    track.classList.remove("hidden");
+    track.style.transition = "none";
+    track.style.transform = "translateX(0)";
+    track.innerHTML = "";
 
     const grid = document.getElementById("itemsGrid");
     grid.innerHTML = "";
@@ -1310,94 +1353,282 @@ function showCase(caseId) {
         const card = document.createElement("div");
         card.className = "item-card " + item.rarity;
 
-        card.innerHTML = `
-            <img src="${item.image}" alt="">
-            <h4>${item.name}</h4>
-            <div class="item-price">
-                <span class="pixel-number">${item.price.toLocaleString("ru-RU")}</span>
-                <img class="coin-icon" src="coin.png" alt="coin">
-            </div>
-        `;
-
-        grid.appendChild(card);
-    });
-}
-
-function openCase() {
-    alert("Система открытия скоро появится!");
-}
-
-function showComingSoon(name) {
-    alert(name + " скоро появится!");
-}
-
-// ==========================
-// РУЛЕТКИ
-// ==========================
-
-function shuffleItems(items) {
-    const shuffled = [...items];
-
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-
-    return shuffled;
-}
-
-function createRoulette(elementId, items) {
-    const track = document.getElementById(elementId);
-
-    let position = 0;
-    let lastTime = null;
-
-    const itemWidth = 112;
-    const gap = 9;
-    const step = itemWidth + gap;
-    const speed = 65;
-
-    function addItem(item) {
-        const card = document.createElement("div");
-        card.className = "roulette-item " + item.rarity;
-
         const img = document.createElement("img");
         img.src = item.image;
         img.alt = item.name;
 
-        card.appendChild(img);
-        track.appendChild(card);
-    }
+        const name = document.createElement("h4");
+        name.textContent = item.name;
 
-    for (let i = 0; i < 8; i++) {
-        const shuffled = shuffleItems(items);
-        shuffled.forEach(item => addItem(item));
-    }
-
-    function animate(time) {
-        if (lastTime === null) lastTime = time;
-
-        const delta = Math.min((time - lastTime) / 1000, 0.05);
-        lastTime = time;
-
-        position += speed * delta;
-
-        while (position >= step) {
-            track.appendChild(track.firstElementChild);
-            position -= step;
-        }
-
-        track.style.transform = `translate3d(${-position}px, 0, 0)`;
-
-        requestAnimationFrame(animate);
-    }
-
-    requestAnimationFrame(animate);
+        card.append(img, name);
+        grid.appendChild(card);
+    });
 }
 
-createRoulette("seaRoulette", seaItems);
-createRoulette("impactRoulette", impactItems);
-createRoulette("allRoulette", allItems);
+// ==========================
+// РУЛЕТКА
+// ==========================
+
+function rouletteItem(item) {
+    const el = document.createElement("div");
+    el.className = "roulette-item " + (item.rarity || "");
+
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.name;
+
+    el.appendChild(img);
+    return el;
+}
+
+function animateRoulette(winningItem) {
+    return new Promise(resolve => {
+        const track = document.getElementById(cases[currentCase].roulette);
+        const windowEl = track.parentElement;
+        const pool = cases[currentCase].items;
+
+        track.innerHTML = "";
+        track.style.transition = "none";
+        track.style.transform = "translateX(0)";
+
+        const sequence = [];
+
+        for (let i = 0; i < 35; i++) {
+            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
+        }
+
+        sequence.push(winningItem);
+
+        sequence.forEach(item => {
+            track.appendChild(rouletteItem(item));
+        });
+
+        const step = 121;
+        const targetIndex = sequence.length - 1;
+        const targetOffset = targetIndex * step -
+            windowEl.clientWidth / 2 + step / 2;
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                track.style.transition =
+                    "transform 3s cubic-bezier(.08,.65,.12,1)";
+                track.style.transform = `translateX(-${targetOffset}px)`;
+
+                setTimeout(resolve, 3100);
+            });
+        });
+    });
+}
+
+// ==========================
+// ОТКРЫТИЕ КЕЙСА
+// ==========================
+
+function makeRequestId() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        return (c === "x" ? r : (r & 3 | 8)).toString(16);
+    });
+}
+
+async function openCase() {
+    if (opening) return;
+
+    opening = true;
+
+    const button = document.getElementById("openCaseButton");
+    button.disabled = true;
+    button.textContent = "ОТКРЫВАЕМ...";
+
+    try {
+        const data = await apiPost("/api/open-case", {
+            caseId:currentCase,
+            requestId:makeRequestId()
+        });
+
+        playerBalance = data.balance;
+        updateBalance();
+
+        const item = data.item;
+        const visualItem = {
+            ...item,
+            rarity: cases[currentCase].items.find(x => x.id === item.id)?.rarity || ""
+        };
+
+        await animateRoulette(visualItem);
+
+        currentResult = {
+            inventoryId:data.inventoryId,
+            item:item
+        };
+
+        document.getElementById("resultImage").src = item.image;
+        document.getElementById("resultName").textContent = item.name;
+        document.getElementById("resultPrice").textContent =
+            "Стоимость продажи: " + item.sell + " Coin";
+
+        document.getElementById("resultBackdrop").classList.add("active");
+        vibrate("success");
+
+    } catch (error) {
+        alert(error.message);
+        await loadBalance();
+    } finally {
+        opening = false;
+        button.disabled = false;
+        button.textContent = "ОТКРЫТЬ";
+    }
+}
+
+// ==========================
+// ОСТАВИТЬ / ПРОДАТЬ ВЫПАВШИЙ ПРЕДМЕТ
+// ==========================
+
+async function keepResult() {
+    if (!currentResult) return;
+
+    document.getElementById("resultBackdrop").classList.remove("active");
+    currentResult = null;
+
+    await loadInventory();
+    vibrate("success");
+}
+
+async function sellResult() {
+    if (!currentResult) return;
+
+    const button = document.querySelector(".sell-result");
+    button.disabled = true;
+
+    try {
+        const data = await apiPost("/api/sell-item", {
+            itemId:currentResult.inventoryId
+        });
+
+        playerBalance = data.balance;
+        updateBalance();
+
+        currentResult = null;
+        document.getElementById("resultBackdrop").classList.remove("active");
+
+        await loadInventory();
+        vibrate("success");
+
+    } catch (error) {
+        alert(error.message);
+    } finally {
+        button.disabled = false;
+    }
+}
+
+// ==========================
+// ИНВЕНТАРЬ
+// ==========================
+
+async function loadInventory() {
+    const box = document.getElementById("inventoryBox");
+
+    try {
+        const data = await apiPost("/api/inventory");
+        currentInventory = data.items || [];
+
+        box.innerHTML = "";
+
+        if (!currentInventory.length) {
+            const empty = document.createElement("span");
+            empty.className = "inventory-empty";
+            empty.textContent = "Инвентарь пуст";
+            box.appendChild(empty);
+            return;
+        }
+
+        currentInventory.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "inventory-item";
+
+            const sellButton = document.createElement("button");
+            sellButton.className = "inventory-sell";
+            sellButton.textContent = "Продать";
+            sellButton.onclick = () => sellInventoryItem(item.id, sellButton);
+
+            const img = document.createElement("img");
+            img.src = item.image;
+            img.alt = item.name;
+
+            const name = document.createElement("div");
+            name.className = "inventory-item-name";
+            name.textContent = item.name;
+
+            const price = document.createElement("div");
+            price.className = "inventory-item-price";
+            price.textContent = item.sell + " Coin";
+
+            card.append(sellButton, img, name, price);
+            box.appendChild(card);
+        });
+
+    } catch (error) {
+        box.innerHTML = "";
+        const message = document.createElement("span");
+        message.className = "inventory-empty";
+        message.textContent = error.message;
+        box.appendChild(message);
+    }
+}
+
+async function sellInventoryItem(id, button) {
+    if (button.disabled) return;
+
+    button.disabled = true;
+
+    try {
+        const data = await apiPost("/api/sell-item", {
+            itemId:id
+        });
+
+        playerBalance = data.balance;
+        updateBalance();
+
+        await loadInventory();
+        vibrate("success");
+
+    } catch (error) {
+        alert(error.message);
+        button.disabled = false;
+    }
+}
+
+async function sellAllItems() {
+    if (!currentInventory.length) {
+        alert("Инвентарь пуст.");
+        return;
+    }
+
+    const button = document.getElementById("sellAllButton");
+
+    if (!confirm("Продать все предметы из инвентаря?")) return;
+
+    button.disabled = true;
+
+    try {
+        const data = await apiPost("/api/sell-all");
+
+        playerBalance = data.balance;
+        updateBalance();
+
+        await loadInventory();
+
+        alert(`Продано предметов: ${data.count}\nПолучено: ${data.earned} Coin`);
+        vibrate("success");
+
+    } catch (error) {
+        alert(error.message);
+    } finally {
+        button.disabled = false;
+    }
+}
 
 // ==========================
 // ЗАПУСК
