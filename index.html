@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -47,8 +48,6 @@ header {
     height: 55px;
     object-fit: contain;
 }
-
-/* БАЛАНС В ШАПКЕ */
 
 .header-balance {
     margin-left: auto;
@@ -130,8 +129,6 @@ header {
     color: white;
 }
 
-/* БАЛАНС В МЕНЮ */
-
 .menu-balance {
     display: flex;
     align-items: center;
@@ -192,8 +189,6 @@ main {
     font-weight: 900;
     margin: 15px 18px 20px;
 }
-
-/* КЕЙСЫ: ДВЕ КОЛОНКИ НА ТЕЛЕФОНЕ */
 
 .case-list {
     display: grid;
@@ -358,6 +353,11 @@ main {
     box-shadow: 0 5px 20px #1678ed55;
 }
 
+.open-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .items-title {
     font-size: 19px;
     margin: 20px 0 13px;
@@ -418,8 +418,6 @@ main {
     box-shadow: inset 0 0 12px #ffd45c33;
 }
 
-/* СТРАНИЦА ПРОФИЛЯ */
-
 .profile-page {
     display: none;
     padding: 0 16px 35px;
@@ -476,8 +474,6 @@ main {
     overflow-wrap: anywhere;
 }
 
-/* БАЛАНС В ПРОФИЛЕ */
-
 .profile-balance {
     display: flex;
     align-items: center;
@@ -505,11 +501,58 @@ main {
     font-weight: normal;
 }
 
+/* ПРОМОКОДЫ */
+
+.promo-page {
+    display: none;
+    padding: 0 16px 35px;
+}
+
+.promo-card {
+    background: linear-gradient(135deg, #1b3156, #12213d);
+    border: 1px solid #35527d;
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 8px 25px #0003;
+}
+
+.promo-description {
+    color: #c5d7f3;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+#promoInput {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #35527d;
+    background: #0d172b;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    outline: none;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+#promoInput::placeholder {
+    color: #8295b5;
+}
+
+#promoMessage {
+    min-height: 22px;
+    margin-top: 12px;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+
 .hidden {
     display: none !important;
 }
-
-/* ПЛАНШЕТЫ И КОМПЬЮТЕРЫ */
 
 @media (min-width: 600px) {
     .case-list {
@@ -540,7 +583,8 @@ main {
         margin: auto;
     }
 
-    .profile-page {
+    .profile-page,
+    .promo-page {
         max-width: 900px;
         margin: auto;
     }
@@ -594,6 +638,7 @@ main {
     <button class="menu-item" onclick="showHome()">🎁 Case</button>
     <button class="menu-item" onclick="showComingSoon('Upgrade')">⚡ Upgrade</button>
     <button class="menu-item" onclick="showProfile()">👤 Profile</button>
+    <button class="menu-item" onclick="showPromo()">🎟 Промокод</button>
 </nav>
 
 <main>
@@ -668,16 +713,54 @@ main {
             </div>
         </div>
     </section>
+
+    <section class="promo-page" id="promoPage">
+        <button class="back-button" onclick="showHome()">← Назад</button>
+
+        <h2 class="page-title">🎟 Промокод</h2>
+
+        <div class="promo-card">
+            <p class="promo-description">
+                Введи промокод и получи Coin! 💧
+            </p>
+
+            <input
+                id="promoInput"
+                type="text"
+                maxlength="10"
+                placeholder="ВВЕДИ ПРОМОКОД"
+                autocomplete="off"
+            >
+
+            <button
+                class="open-button"
+                id="promoButton"
+                onclick="redeemPromo()"
+            >
+                АКТИВИРОВАТЬ
+            </button>
+
+            <p id="promoMessage"></p>
+        </div>
+    </section>
 </main>
 
 <script>
 const tg = window.Telegram.WebApp;
+
 tg.ready();
 tg.expand();
 
 const user = tg.initDataUnsafe?.user;
 
+// Адрес сервера промокодов
+const API_URL = "https://brainrain-promo-2-433678.subhub.tr";
+
 let playerBalance = 0;
+
+// ==========================
+// БАЛАНС
+// ==========================
 
 function updateBalance() {
     const formattedBalance = playerBalance.toLocaleString("ru-RU");
@@ -686,6 +769,115 @@ function updateBalance() {
     document.getElementById("menuBalance").textContent = formattedBalance;
     document.getElementById("profileBalance").textContent = formattedBalance;
 }
+
+async function loadBalance() {
+    try {
+        if (!tg.initData) {
+            console.warn("Игра открыта не через Telegram.");
+            return;
+        }
+
+        const response = await fetch(API_URL + "/api/balance", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                initData: tg.initData
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.ok) {
+            playerBalance = data.balance;
+            updateBalance();
+        } else {
+            console.error("Не удалось загрузить баланс:", data.error);
+        }
+
+    } catch (error) {
+        console.error("Ошибка загрузки баланса:", error);
+    }
+}
+
+// ==========================
+// АКТИВАЦИЯ ПРОМОКОДА
+// ==========================
+
+async function redeemPromo() {
+    const input = document.getElementById("promoInput");
+    const button = document.getElementById("promoButton");
+    const message = document.getElementById("promoMessage");
+
+    const code = input.value.trim().toUpperCase();
+
+    if (!code) {
+        message.textContent = "❌ Введи промокод!";
+        return;
+    }
+
+    if (!/^[A-Z0-9]{1,10}$/.test(code)) {
+        message.textContent = "❌ Неверный формат промокода.";
+        return;
+    }
+
+    if (!tg.initData) {
+        message.textContent = "❌ Открой игру через Telegram!";
+        return;
+    }
+
+    button.disabled = true;
+    message.textContent = "⏳ Проверяем промокод...";
+
+    try {
+        const response = await fetch(API_URL + "/api/redeem", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                initData: tg.initData,
+                code: code
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.ok) {
+            playerBalance = data.balance;
+            updateBalance();
+
+            message.textContent =
+                "✅ " + data.message +
+                ". Баланс: " + data.balance + " Coin";
+
+            input.value = "";
+
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred("success");
+            }
+
+        } else {
+            message.textContent = "❌ " + data.error;
+
+            if (tg.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred("error");
+            }
+        }
+
+    } catch (error) {
+        console.error("Ошибка активации:", error);
+        message.textContent =
+            "❌ Не удалось связаться с сервером. Попробуй позже.";
+    }
+
+    button.disabled = false;
+}
+
+// ==========================
+// ДАННЫЕ ИГРОКА
+// ==========================
 
 if (user) {
     const displayName = user.first_name || "Игрок";
@@ -707,6 +899,10 @@ if (user) {
         document.getElementById("profilePhoto").src = user.photo_url;
     }
 }
+
+// ==========================
+// КЕЙСЫ
+// ==========================
 
 const seaItems = [
     { name: "Los Primos", image: "los-primos.png", price: 49, rarity: "rarity-blue" },
@@ -761,6 +957,10 @@ const cases = {
 
 let currentCase = "sea";
 
+// ==========================
+// МЕНЮ И СТРАНИЦЫ
+// ==========================
+
 function closeMenu() {
     document.getElementById("menu").classList.remove("active");
     document.getElementById("overlay").classList.remove("active");
@@ -771,18 +971,31 @@ function toggleMenu() {
     document.getElementById("overlay").classList.toggle("active");
 }
 
-function showHome() {
-    document.getElementById("homePage").style.display = "block";
+function hideAllPages() {
+    document.getElementById("homePage").style.display = "none";
     document.getElementById("casePage").style.display = "none";
     document.getElementById("profilePage").style.display = "none";
+    document.getElementById("promoPage").style.display = "none";
+}
 
+function showHome() {
+    hideAllPages();
+    document.getElementById("homePage").style.display = "block";
     closeMenu();
 }
 
 function showProfile() {
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("casePage").style.display = "none";
+    hideAllPages();
     document.getElementById("profilePage").style.display = "block";
+    closeMenu();
+}
+
+function showPromo() {
+    hideAllPages();
+    document.getElementById("promoPage").style.display = "block";
+
+    document.getElementById("promoInput").value = "";
+    document.getElementById("promoMessage").textContent = "";
 
     closeMenu();
 }
@@ -791,9 +1004,8 @@ function showCase(caseId) {
     currentCase = caseId;
     const data = cases[caseId];
 
-    document.getElementById("homePage").style.display = "none";
+    hideAllPages();
     document.getElementById("casePage").style.display = "block";
-    document.getElementById("profilePage").style.display = "none";
 
     document.getElementById("detailImage").src = data.image;
     document.getElementById("detailName").textContent = data.name;
@@ -834,6 +1046,10 @@ function openCase() {
 function showComingSoon(name) {
     alert(name + " скоро появится!");
 }
+
+// ==========================
+// РУЛЕТКИ
+// ==========================
 
 function shuffleItems(items) {
     const shuffled = [...items];
@@ -899,8 +1115,13 @@ createRoulette("seaRoulette", seaItems);
 createRoulette("impactRoulette", impactItems);
 createRoulette("allRoulette", allItems);
 
+// ==========================
+// ЗАПУСК
+// ==========================
+
 updateBalance();
 showHome();
+loadBalance();
 </script>
 
 </body>
