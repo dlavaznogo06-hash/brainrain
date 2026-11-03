@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -41,7 +40,6 @@ header {
     height: 42px;
     border-radius: 12px;
     cursor: pointer;
-    flex: 0 0 auto;
 }
 
 .logo {
@@ -54,16 +52,14 @@ header {
     margin-left: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 6px;
-    background: #172746;
-    border: 1px solid #35527d;
-    border-radius: 12px;
-    padding: 9px 12px;
-    color: #ffd45c;
-    font-size: 16px;
-    font-weight: 900;
-    white-space: nowrap;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.balance-number {
+    color: #fff;
 }
 
 .coin-icon {
@@ -73,12 +69,6 @@ header {
     object-fit: contain;
     vertical-align: middle;
     flex: 0 0 19px;
-}
-
-.header-balance .coin-icon {
-    width: 21px;
-    height: 21px;
-    flex-basis: 21px;
 }
 
 .menu {
@@ -114,34 +104,40 @@ header {
     gap: 12px;
 }
 
-.profile-mini img {
+.profile-mini > img:not(.coin-icon) {
     width: 48px;
     height: 48px;
     border-radius: 50%;
     background: #26395e;
     object-fit: cover;
-    flex: 0 0 auto;
 }
 
 .menu-user-info {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 6px;
 }
 
 .menu-name {
     font-weight: bold;
     overflow-wrap: anywhere;
+    color: white;
 }
 
 .menu-balance {
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #ffd45c;
+    color: white;
     font-size: 14px;
     font-weight: bold;
+}
+
+.menu-balance .coin-icon {
+    width: 19px;
+    height: 19px;
+    flex: 0 0 19px;
 }
 
 .menu-item {
@@ -444,6 +440,7 @@ main {
     font-weight: 900;
     overflow-wrap: anywhere;
     line-height: 1.2;
+    color: white;
 }
 
 .profile-label {
@@ -460,23 +457,23 @@ main {
 .profile-balance {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 7px;
-    padding: 9px 13px;
-    width: fit-content;
-    max-width: 100%;
-    background: #0d1b32;
-    border: 1px solid #3a5680;
-    border-radius: 12px;
-    color: #ffd45c;
-    font-weight: 900;
-    font-size: clamp(15px, 3vw, 19px);
+    gap: 7px;
+    color: white;
+    font-size: clamp(16px, 3.5vw, 21px);
+    font-weight: bold;
+    margin-top: 5px;
 }
 
 .profile-balance .coin-icon {
-    width: 23px;
-    height: 23px;
-    flex-basis: 23px;
+    width: 21px;
+    height: 21px;
+    flex: 0 0 21px;
+}
+
+.profile-balance-label {
+    color: #c5d7f3;
+    font-size: 14px;
+    font-weight: normal;
 }
 
 .hidden {
@@ -502,23 +499,6 @@ main {
         margin: auto;
     }
 }
-
-@media (max-width: 380px) {
-    header {
-        gap: 9px;
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    .logo {
-        width: 115px;
-    }
-
-    .header-balance {
-        padding: 8px 9px;
-        font-size: 14px;
-    }
-}
 </style>
 </head>
 
@@ -529,7 +509,7 @@ main {
     <img class="logo" src="logo2.png" alt="BrainRain">
 
     <div class="header-balance">
-        <span id="headerBalance">0</span>
+        <span class="balance-number" id="headerBalance">0</span>
         <img class="coin-icon" src="coin.png" alt="Coin">
     </div>
 </header>
@@ -546,7 +526,7 @@ main {
             <div class="menu-name" id="userName">Игрок</div>
 
             <div class="menu-balance">
-                <span id="menuBalance">0</span>
+                <span class="balance-number" id="menuBalance">0</span>
                 <img class="coin-icon" src="coin.png" alt="Coin">
             </div>
         </div>
@@ -622,9 +602,9 @@ main {
                 <div class="profile-username" id="profileUsername">@player</div>
 
                 <div class="profile-balance">
-                    <span id="profileBalance">0</span>
+                    <span class="balance-number" id="profileBalance">0</span>
                     <img class="coin-icon" src="coin.png" alt="Coin">
-                    <span>Coin</span>
+                    <span class="profile-balance-label">Coin</span>
                 </div>
             </div>
         </div>
@@ -636,28 +616,25 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-/* Баланс пока временный. Начальное значение — 0 */
+const user = tg.initDataUnsafe?.user;
+
+/* ВРЕМЕННЫЙ БАЛАНС */
 let playerBalance = 0;
 
 function updateBalance() {
-    document.getElementById("headerBalance").textContent =
-        playerBalance.toLocaleString("ru-RU");
+    const formattedBalance = playerBalance.toLocaleString("ru-RU");
 
-    document.getElementById("menuBalance").textContent =
-        playerBalance.toLocaleString("ru-RU");
-
-    document.getElementById("profileBalance").textContent =
-        playerBalance.toLocaleString("ru-RU");
+    document.getElementById("headerBalance").textContent = formattedBalance;
+    document.getElementById("menuBalance").textContent = formattedBalance;
+    document.getElementById("profileBalance").textContent = formattedBalance;
 }
 
-const user = tg.initDataUnsafe?.user;
-
 if (user) {
+    const displayName = user.first_name || "Игрок";
+
     const fullName = [user.first_name, user.last_name]
         .filter(Boolean)
         .join(" ");
-
-    const displayName = user.first_name || "Игрок";
 
     const nickname = user.username
         ? "@" + user.username
@@ -672,8 +649,6 @@ if (user) {
         document.getElementById("profilePhoto").src = user.photo_url;
     }
 }
-
-updateBalance();
 
 const seaItems = [
     { name: "Los Primos", image: "los-primos.png", price: 49, rarity: "rarity-blue" },
@@ -802,7 +777,6 @@ function showComingSoon(name) {
     alert(name + " скоро появится!");
 }
 
-/* Перемешивание массива */
 function shuffleItems(items) {
     const shuffled = [...items];
 
@@ -814,7 +788,6 @@ function shuffleItems(items) {
     return shuffled;
 }
 
-/* Создание случайной ленты рулетки */
 function createRoulette(elementId, items) {
     const track = document.getElementById(elementId);
 
@@ -868,6 +841,7 @@ createRoulette("seaRoulette", seaItems);
 createRoulette("impactRoulette", impactItems);
 createRoulette("allRoulette", allItems);
 
+updateBalance();
 showHome();
 </script>
 
