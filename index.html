@@ -48,27 +48,32 @@ header {
     object-fit: contain;
 }
 
+/* БАЛАНС В ШАПКЕ */
+
 .header-balance {
     margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    min-height: 42px;
+    background: #1b3156;
+    border: 1px solid #35527d;
+    border-radius: 12px;
     color: white;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: bold;
+}
+
+.header-balance .coin-icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
 }
 
 .balance-number {
     color: #fff;
-}
-
-.coin-icon {
-    display: inline-block;
-    width: 19px;
-    height: 19px;
-    object-fit: contain;
-    vertical-align: middle;
-    flex: 0 0 19px;
 }
 
 .menu {
@@ -116,7 +121,7 @@ header {
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
 }
 
 .menu-name {
@@ -125,19 +130,27 @@ header {
     color: white;
 }
 
+/* БАЛАНС В МЕНЮ */
+
 .menu-balance {
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    gap: 7px;
+    width: fit-content;
+    padding: 6px 10px;
+    background: #1b3156;
+    border: 1px solid #35527d;
+    border-radius: 10px;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
 }
 
 .menu-balance .coin-icon {
-    width: 19px;
-    height: 19px;
-    flex: 0 0 19px;
+    width: 21px;
+    height: 21px;
+    flex: 0 0 21px;
 }
 
 .menu-item {
@@ -180,24 +193,23 @@ main {
     margin: 15px 18px 20px;
 }
 
-.case-list {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    padding: 5px 18px 20px;
-    scrollbar-width: none;
-}
+/* КЕЙСЫ: ДВЕ КОЛОНКИ НА ТЕЛЕФОНЕ */
 
-.case-list::-webkit-scrollbar {
-    display: none;
+.case-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    padding: 5px 14px 20px;
+    width: 100%;
 }
 
 .case-card {
-    flex: 0 0 165px;
+    width: 100%;
+    min-width: 0;
     background: linear-gradient(145deg, #1b3156, #101b32);
     border: 1px solid #2b4772;
     border-radius: 17px;
-    padding: 12px;
+    padding: 10px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -208,14 +220,15 @@ main {
 
 .case-card > img {
     width: 100%;
-    height: 125px;
+    height: clamp(105px, 28vw, 165px);
     object-fit: contain;
 }
 
 .case-card h3 {
-    font-size: 14px;
+    font-size: clamp(12px, 3.2vw, 16px);
     margin: 8px 0;
-    min-height: 34px;
+    min-height: 36px;
+    overflow-wrap: anywhere;
 }
 
 .price {
@@ -225,6 +238,15 @@ main {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.coin-icon {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    object-fit: contain;
+    vertical-align: middle;
+    flex: 0 0 19px;
 }
 
 .case-page {
@@ -454,24 +476,31 @@ main {
     overflow-wrap: anywhere;
 }
 
+/* БАЛАНС В ПРОФИЛЕ */
+
 .profile-balance {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 8px;
+    width: fit-content;
+    padding: 8px 12px;
+    background: #1b3156;
+    border: 1px solid #35527d;
+    border-radius: 11px;
     color: white;
-    font-size: clamp(16px, 3.5vw, 21px);
+    font-size: clamp(17px, 3.5vw, 22px);
     font-weight: bold;
     margin-top: 5px;
 }
 
 .profile-balance .coin-icon {
-    width: 21px;
-    height: 21px;
-    flex: 0 0 21px;
+    width: 23px;
+    height: 23px;
+    flex: 0 0 23px;
 }
 
 .profile-balance-label {
-    color: #c5d7f3;
+    color: #fff;
     font-size: 14px;
     font-weight: normal;
 }
@@ -480,13 +509,30 @@ main {
     display: none !important;
 }
 
+/* ПЛАНШЕТЫ И КОМПЬЮТЕРЫ */
+
 @media (min-width: 600px) {
-    .items-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+    .case-list {
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 18px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
-    .case-list {
-        flex-wrap: wrap;
+    .case-card {
+        padding: 15px;
+    }
+
+    .case-card > img {
+        height: 180px;
+    }
+
+    .case-card h3 {
+        font-size: 16px;
+    }
+
+    .items-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .case-page {
@@ -497,6 +543,19 @@ main {
     .profile-page {
         max-width: 900px;
         margin: auto;
+    }
+}
+
+@media (min-width: 1000px) {
+    .case-list {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 22px;
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+    .case-card > img {
+        height: 210px;
     }
 }
 </style>
@@ -618,7 +677,6 @@ tg.expand();
 
 const user = tg.initDataUnsafe?.user;
 
-/* ВРЕМЕННЫЙ БАЛАНС */
 let playerBalance = 0;
 
 function updateBalance() {
