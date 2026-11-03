@@ -7,17 +7,14 @@
 <title>BrainRain 💧</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     border-radius: 0 !important;
-    font-family: 'Pixelify Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
 }
 
 button, input {
@@ -80,6 +77,12 @@ header {
 
 .balance-number {
     color: #fff;
+}
+
+.pixel-number {
+    font-family: "Courier New", Courier, monospace !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px;
 }
 
 .menu {
@@ -166,6 +169,16 @@ header {
     text-align: left;
     font-size: 16px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex: 0 0 28px;
 }
 
 .menu-item:hover {
@@ -599,7 +612,7 @@ main {
     <img class="logo" src="logo2.png" alt="BrainRain">
 
     <div class="header-balance">
-        <span class="balance-number" id="headerBalance">0</span>
+        <span class="balance-number pixel-number" id="headerBalance">0</span>
         <img class="coin-icon" src="coin.png" alt="Coin">
     </div>
 </header>
@@ -616,15 +629,21 @@ main {
             <div class="menu-name" id="userName">Игрок</div>
 
             <div class="menu-balance">
-                <span class="balance-number" id="menuBalance">0</span>
+                <span class="balance-number pixel-number" id="menuBalance">0</span>
                 <img class="coin-icon" src="coin.png" alt="Coin">
             </div>
         </div>
     </div>
 
-    <button class="menu-item" onclick="showHome()">🎁 Case</button>
-    <button class="menu-item" onclick="showComingSoon('Upgrade')">⚡ Upgrade</button>
-    <button class="menu-item" onclick="showProfile()">👤 Profile</button>
+    <button class="menu-item" onclick="showHome()">
+        <img class="menu-icon" src="case.png" alt=""> Case
+    </button>
+    <button class="menu-item" onclick="showComingSoon('Upgrade')">
+        <img class="menu-icon" src="upgrade.png" alt=""> Upgrade
+    </button>
+    <button class="menu-item" onclick="showProfile()">
+        <img class="menu-icon" src="profile.png" alt=""> Profile
+    </button>
 </nav>
 
 <main>
@@ -636,7 +655,7 @@ main {
                 <img src="sea-case.png" alt="Морской кейс">
                 <h3>Морской кейс 🌊</h3>
                 <div class="price">
-                    99 <img class="coin-icon" src="coin.png" alt="coin">
+                    <span class="pixel-number">99</span> <img class="coin-icon" src="coin.png" alt="coin">
                 </div>
             </div>
 
@@ -644,7 +663,7 @@ main {
                 <img src="impact-case.png" alt="Ударный кейс">
                 <h3>Ударный кейс 👊</h3>
                 <div class="price">
-                    12 <img class="coin-icon" src="coin.png" alt="coin">
+                    <span class="pixel-number">12</span> <img class="coin-icon" src="coin.png" alt="coin">
                 </div>
             </div>
 
@@ -652,7 +671,7 @@ main {
                 <img src="all-or-nothing.png" alt="Всё или ничего">
                 <h3>ВСЁ ИЛИ НИЧЕГО 🎲</h3>
                 <div class="price">
-                    499 <img class="coin-icon" src="coin.png" alt="coin">
+                    <span class="pixel-number">499</span> <img class="coin-icon" src="coin.png" alt="coin">
                 </div>
             </div>
         </div>
@@ -692,7 +711,7 @@ main {
                 <div class="profile-username" id="profileUsername">@player</div>
 
                 <div class="profile-balance">
-                    <span class="balance-number" id="profileBalance">0</span>
+                    <span class="balance-number pixel-number" id="profileBalance">0</span>
                     <img class="coin-icon" src="coin.png" alt="Coin">
                     <span class="profile-balance-label">Coin</span>
                 </div>
@@ -983,7 +1002,8 @@ function showCase(caseId) {
     document.getElementById("detailName").textContent = data.name;
 
     document.getElementById("detailPrice").innerHTML =
-        data.price + ' <img class="coin-icon" src="coin.png" alt="coin">';
+        '<span class="pixel-number">' + data.price.toLocaleString("ru-RU") +
+        '</span> <img class="coin-icon" src="coin.png" alt="coin">';
 
     document.querySelectorAll(".roulette-track").forEach(track => {
         track.classList.add("hidden");
@@ -1002,7 +1022,7 @@ function showCase(caseId) {
             <img src="${item.image}" alt="">
             <h4>${item.name}</h4>
             <div class="item-price">
-                ${item.price.toLocaleString("ru-RU")}
+                <span class="pixel-number">${item.price.toLocaleString("ru-RU")}</span>
                 <img class="coin-icon" src="coin.png" alt="coin">
             </div>
         `;
