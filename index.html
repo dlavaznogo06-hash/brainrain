@@ -1194,15 +1194,26 @@ body.streamer-mode .profile-page:hover {
 .upgrade-wheel-core img{display:block;width:100%;height:145px;object-fit:contain;filter:drop-shadow(0 5px 10px #0009)}
 .upgrade-wheel-core img[hidden]{display:none!important}
 .upgrade-wheel-core strong{max-width:100%;color:#f0e7f7;font-size:14px;font-weight:900;line-height:1.2;overflow-wrap:anywhere;text-shadow:0 2px 5px #000}
-.upgrade-wheel-core.breaking img{animation:upgradeItemShatter .9s cubic-bezier(.55,.05,.85,.3) forwards}
-.upgrade-wheel-core.breaking:after{content:"";position:absolute;inset:18%;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#ffd76a 0 1px,transparent 2px) 0 0/17px 17px,radial-gradient(circle,#9df7cf 0 1px,transparent 2px) 8px 6px/21px 21px;animation:upgradeShatterDust .9s ease-out forwards}
-@keyframes upgradeItemShatter{0%{opacity:1;transform:translateY(0) rotate(0) scale(1);filter:brightness(1);clip-path:inset(0)}24%{transform:translateY(2px) rotate(-3deg) scale(1.04);filter:brightness(1.8) saturate(.7)}52%{opacity:.85;transform:translate(-4px,8px) rotate(5deg) scale(.92);clip-path:polygon(0 0,100% 0,100% 42%,76% 42%,76% 64%,100% 64%,100% 100%,48% 100%,48% 78%,25% 78%,25% 100%,0 100%)}100%{opacity:0;transform:translate(10px,25px) rotate(13deg) scale(.55);filter:brightness(2) blur(5px);clip-path:polygon(0 0,38% 0,38% 28%,72% 28%,72% 0,100% 0,100% 38%,64% 38%,64% 60%,100% 60%,100% 100%,54% 100%,54% 76%,28% 76%,28% 100%,0 100%)}}
-@keyframes upgradeShatterDust{0%{opacity:0;transform:scale(.4)}30%{opacity:.9}100%{opacity:0;transform:scale(1.5)}}
 .upgrade-multiplier-row{display:flex;justify-content:center;gap:16px;width:min(100%,320px);margin:-8px auto 2px}
 .upgrade-multiplier-row .upgrade-preset{min-width:58px;min-height:34px;padding:5px 8px;border:0;border-radius:0;background:transparent;box-shadow:none;color:#d7c5e9;font-size:14px}
 .upgrade-multiplier-row .upgrade-preset:hover{color:#fff;text-shadow:0 0 10px #c49ce0}
 @media(max-width:700px){.upgrade-wheel-core{padding:18px}.upgrade-wheel-core img{height:116px}.upgrade-wheel-core strong{font-size:12px}}
 @media(max-width:420px){.upgrade-wheel-core{padding:12px}.upgrade-wheel-core img{height:90px}.upgrade-wheel-core strong{font-size:10px}.upgrade-selected-list{grid-template-columns:1fr}.upgrade-selected-list .upgrade-selected-row{min-height:105px}.upgrade-selected-list .upgrade-selected-row img{height:64px}.upgrade-card>.upgrade-selected-row{min-height:120px}.upgrade-card>.upgrade-selected-row img{height:86px}}
+
+.upgrade-selected-list .upgrade-selected-row{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:160px}
+.upgrade-selected-list .upgrade-selected-row img{height:155px;max-width:100%;object-fit:contain}
+.upgrade-selected-list .upgrade-selected-row span{padding:0 3px 5px;font-size:11px}
+.upgrade-card>.upgrade-selected-row{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:230px}
+.upgrade-card>.upgrade-selected-row img{height:190px;max-width:100%;object-fit:contain}
+.upgrade-card>.upgrade-selected-row span{padding:0 5px 6px;font-size:13px;font-weight:800}
+.upgrade-card>.upgrade-selected-row button{z-index:2}
+.upgrade-chance-row{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;width:min(100%,360px);margin:0 auto 4px}
+.upgrade-chance-row .upgrade-preset{min-width:50px;min-height:34px;padding:5px 7px;border:0;border-radius:0;background:transparent;box-shadow:none;color:#d7c5e9;font-size:13px}
+.upgrade-chance-row .upgrade-preset:hover{color:#fff;text-shadow:0 0 10px #c49ce0}
+@media(max-width:700px){.upgrade-selected-list .upgrade-selected-row{min-height:130px}.upgrade-selected-list .upgrade-selected-row img{height:118px}.upgrade-card>.upgrade-selected-row{min-height:190px}.upgrade-card>.upgrade-selected-row img{height:150px}}
+@media(max-width:420px){.upgrade-selected-list .upgrade-selected-row{min-height:108px}.upgrade-selected-list .upgrade-selected-row img{height:90px}.upgrade-card>.upgrade-selected-row{min-height:150px}.upgrade-card>.upgrade-selected-row img{height:112px}.upgrade-multiplier-row,.upgrade-chance-row{gap:8px}}
+
+.roulette-skip-button{display:block;width:min(100%,240px);margin:-7px auto 12px;padding:9px 14px;border:1px solid #80639e88;border-radius:10px;background:#ffffff0d;color:#e2d5ed;font-size:13px;font-weight:800;cursor:pointer}.roulette-skip-button:hover{background:#ffffff18;color:#fff}.roulette-skip-button[hidden]{display:none!important}
 </style>
 </head>
 
@@ -1325,6 +1336,7 @@ body.streamer-mode .profile-page:hover {
             <div class="roulette-track hidden" id="allRoulette"></div>
         </div>
 
+        <button class="roulette-skip-button" id="skipRouletteButton" type="button" onclick="skipRouletteAnimation()" hidden>Пропустить</button>
         <button class="open-button" id="openCaseButton" onclick="openCase()">ОТКРЫТЬ</button>
 
         <h3 class="items-title">Содержимое кейса</h3>
@@ -1412,18 +1424,7 @@ body.streamer-mode .profile-page:hover {
         </div>
         <button class="open-button" id="upgradeButton" type="button" onclick="performUpgrade()" disabled>НАЧАТЬ</button>
         <div class="upgrade-multiplier-row" id="upgradeMultiplierPresets"><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',2)">×2</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',5)">×5</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',10)">×10</button></div>
-    </div>
-    <div class="upgrade-controls">
-        <div class="upgrade-preset-box">
-            
-            <p class="upgrade-preset-title">Подобрать ближайшую цель под шанс</p>
-            <div class="upgrade-preset-row" id="upgradeChancePresets">
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',75)">75%</button>
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',60)">60%</button>
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',40)">40%</button>
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',20)">20%</button>
-            </div>
-        </div>
+        <div class="upgrade-chance-row" id="upgradeChancePresets"><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',75)">75%</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',60)">60%</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',40)">40%</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',20)">20%</button></div>
     </div>
     <div class="upgrade-count" id="upgradeStakeSummary">Стоимость ставки: 0 Coin</div>
     <div class="upgrader-info" id="upgradeInfo" aria-live="polite">Добавь предметы из инвентаря, затем выбери цель.</div>
@@ -1473,6 +1474,7 @@ let currentInventory = [];
 let vibrationEnabled = true;
 let streamerModeEnabled = false;
 let rouletteAnimation = null;
+let rouletteSkipHandler = null;
 let upgrading = false;
 
 const seaItems = [
@@ -2026,16 +2028,6 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
     upgradeWheelRotation = finalRotation;
     wheel.classList.remove("spinning");
 }
-async function animateUpgradeShatter() {
-    const core = document.getElementById("upgradeWheelCore");
-    if (!core) return;
-    core.classList.remove("breaking");
-    void core.offsetWidth;
-    core.classList.add("breaking");
-    await new Promise(resolve => setTimeout(resolve, 900));
-    core.classList.remove("breaking");
-}
-
 async function performUpgrade() {
     if (upgrading) return;
     const selectedItems = getSelectedUpgradeItems();
@@ -2065,7 +2057,12 @@ async function performUpgrade() {
         });
         result.textContent = "Стрелка крутится...";
         await animateUpgradeWheel(data.roll, data.chance, data.success);
-        if (!data.success) await animateUpgradeShatter();
+        if (!data.success) {
+            const wheelImage = document.getElementById("upgradeWheelItemImage");
+            const wheelName = document.getElementById("upgradeWheelItemName");
+            if (wheelImage) wheelImage.hidden = true;
+            if (wheelName) wheelName.textContent = "";
+        }
         playerBalance = Number(data.balance ?? playerBalance);
         updateBalance();
         result.textContent = data.success
@@ -2202,6 +2199,10 @@ function showCase(caseId) {
 
 /* АНИМАЦИЯ РУЛЕТКИ */
 
+function skipRouletteAnimation() {
+    if (rouletteSkipHandler) rouletteSkipHandler();
+}
+
 function animateRoulette(winningItem) {
     return new Promise((resolve, reject) => {
         const track = document.getElementById(cases[currentCase].roulette);
@@ -2243,10 +2244,12 @@ function animateRoulette(winningItem) {
         const gap = parseFloat(trackStyle.columnGap || trackStyle.gap) || 0;
         const step = itemWidth + gap;
 
+        const nearEdgeOffset = (Math.random() < 0.5 ? -1 : 1) * itemWidth * 0.42;
         const targetOffset =
             winningIndex * step -
             windowEl.clientWidth / 2 +
-            itemWidth / 2;
+            itemWidth / 2 +
+            nearEdgeOffset;
 
         void track.offsetWidth;
 
@@ -2256,24 +2259,35 @@ function animateRoulette(winningItem) {
                 { transform: `translateX(-${targetOffset}px)` }
             ],
             {
-                duration: 4500,
+                duration: 6500,
                 easing: "cubic-bezier(0.08, 0.65, 0.12, 1)",
                 fill: "forwards"
             }
         );
 
         rouletteAnimation = animation;
-
-        animation.onfinish = () => {
-            track.style.transform = `translateX(-${targetOffset}px)`;
+        const skipButton = document.getElementById("skipRouletteButton");
+        let finished = false;
+        const finishRoulette = () => {
+            if (finished) return;
+            finished = true;
+            track.style.transform = "translateX(-" + targetOffset + "px)";
+            if (rouletteAnimation === animation) rouletteAnimation = null;
+            if (rouletteSkipHandler === finishRoulette) rouletteSkipHandler = null;
+            if (skipButton) skipButton.hidden = true;
             animation.cancel();
-            rouletteAnimation = null;
             resolve();
         };
-
+        rouletteSkipHandler = finishRoulette;
+        if (skipButton) skipButton.hidden = false;
+        animation.onfinish = finishRoulette;
         animation.oncancel = () => {
-            if (rouletteAnimation === animation) {
-                rouletteAnimation = null;
+            if (rouletteAnimation === animation) rouletteAnimation = null;
+            if (rouletteSkipHandler === finishRoulette) rouletteSkipHandler = null;
+            if (skipButton) skipButton.hidden = true;
+            if (!finished) {
+                finished = true;
+                resolve();
             }
         };
     });
@@ -2360,6 +2374,8 @@ async function openCase() {
         opening = false;
         button.disabled = false;
         button.textContent = "ОТКРЫТЬ";
+        document.getElementById("skipRouletteButton").hidden = true;
+        rouletteSkipHandler = null;
     }
 }
 
