@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -31,54 +30,36 @@ header {
     height: max(76px, 10vh);
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 8px 14px;
-    gap: 10px;
+    gap: 16px;
     position: relative;
     z-index: 5;
+    background: #090d18;
+    border-bottom: 1px solid #26344b;
 }
 
-.header-left, .header-right {
+.header-left {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 12px;
     z-index: 2;
 }
 
-.header-right { margin-left: auto; }
-
-.logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(110px, 25vw, 230px);
-    height: 10vh;
-    max-height: 82px;
-    min-height: 58px;
-    object-fit: contain;
-    pointer-events: none;
-}
-
-.settings-button {
-    width: 34px;
-    height: 34px;
-    padding: 5px;
-    border: 1px solid #829fc9;
-    background: #405b83;
-    box-shadow: 0 0 12px #a8c9ff66;
-    cursor: pointer;
+.header-right {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex: 0 0 34px;
+    gap: 9px;
+    margin-left: auto;
+    z-index: 2;
 }
 
-.settings-button img {
-    width: 100%;
-    height: 100%;
+.logo {
+    position: static;
+    transform: none;
+    width: clamp(125px, 17vw, 190px);
+    height: 58px;
     object-fit: contain;
-    filter: brightness(1.8);
+    pointer-events: none;
 }
 
 .menu-button {
@@ -89,10 +70,61 @@ header {
     width: 42px;
     height: 42px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.desktop-nav {
+    display: none;
+    align-items: center;
+    gap: 5px;
+    height: 100%;
+}
+
+.desktop-nav button {
+    border: none;
+    background: transparent;
+    color: #9294a5;
+    padding: 13px 15px;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.desktop-nav button:hover {
+    color: white;
+    background: #20202a;
+}
+
+.desktop-nav button.active {
+    color: white;
+    background: linear-gradient(135deg, #d66b20, #8e3d15);
+}
+
+.settings-button {
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    border: 1px solid #829fc9;
+    background: #405b83;
+    box-shadow: 0 0 12px #a8c9ff66;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 36px;
+}
+
+.settings-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(1.8);
 }
 
 .header-balance {
-    margin-left: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,6 +158,8 @@ header {
     letter-spacing: 1px;
 }
 
+/* МЕНЮ */
+
 .menu {
     position: fixed;
     top: 0;
@@ -135,7 +169,7 @@ header {
     background: #101c35;
     z-index: 20;
     padding: 25px 18px;
-    transition: 0.25s;
+    transition: .25s;
     box-shadow: 10px 0 35px #0008;
 }
 
@@ -236,6 +270,8 @@ main { padding: 12px 0 40px; }
     margin: 15px 18px 20px;
 }
 
+/* КЕЙСЫ */
+
 .case-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -251,10 +287,10 @@ main { padding: 12px 0 40px; }
     border: 1px solid #2b4772;
     padding: 10px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: .2s;
 }
 
-.case-card:active { transform: scale(0.97); }
+.case-card:active { transform: scale(.97); }
 
 .case-card > img {
     width: 100%;
@@ -316,6 +352,8 @@ main { padding: 12px 0 40px; }
     margin-bottom: 20px;
 }
 
+/* РУЛЕТКА */
+
 .roulette-window {
     width: 100%;
     overflow: hidden;
@@ -329,13 +367,31 @@ main { padding: 12px 0 40px; }
 .roulette-window::before {
     content: "";
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     left: 50%;
     top: 0;
     bottom: 0;
     width: 3px;
     background: #ffd45c;
     box-shadow: 0 0 10px #ffd45c;
+    pointer-events: none;
+}
+
+.roulette-window::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        #0d172b 0%,
+        transparent 12%,
+        transparent 88%,
+        #0d172b 100%
+    );
     pointer-events: none;
 }
 
@@ -346,6 +402,15 @@ main { padding: 12px 0 40px; }
     align-items: center;
     width: max-content;
     will-change: transform;
+}
+
+.roulette-track.idle {
+    animation: roulette-idle 16s linear infinite;
+}
+
+@keyframes roulette-idle {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 .roulette-item {
@@ -381,7 +446,7 @@ main { padding: 12px 0 40px; }
 }
 
 .open-button:disabled {
-    opacity: 0.6;
+    opacity: .6;
     cursor: not-allowed;
 }
 
@@ -635,7 +700,7 @@ main { padding: 12px 0 40px; }
 
 .hidden { display: none !important; }
 
-/* ОКНО НАСТРОЕК */
+/* НАСТРОЙКИ */
 
 .settings-backdrop {
     display: none;
@@ -819,15 +884,35 @@ body.streamer-mode .profile-page:hover {
     }
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ */
+/* АДАПТИВ */
+
+@media (min-width: 900px) {
+    header {
+        padding: 8px 18px;
+        gap: 18px;
+    }
+
+    .menu-button { display: none; }
+
+    .desktop-nav {
+        display: flex;
+    }
+
+    .logo {
+        width: 155px;
+        height: 55px;
+    }
+}
 
 @media (max-width: 420px) {
+    header {
+        gap: 8px;
+        padding: 8px 10px;
+    }
+
     .logo {
-        width: clamp(125px, 38vw, 155px);
-        min-width: 125px;
-        max-width: 155px;
-        height: 9vh;
-        max-height: 76px;
+        width: clamp(100px, 29vw, 135px);
+        height: 52px;
     }
 
     .header-right { gap: 5px; }
@@ -849,13 +934,6 @@ body.streamer-mode .profile-page:hover {
         width: 30px;
         height: 30px;
         flex-basis: 30px;
-    }
-}
-
-@media (max-width: 350px) {
-    .logo {
-        width: 120px;
-        min-width: 120px;
     }
 }
 
@@ -901,18 +979,27 @@ body.streamer-mode .profile-page:hover {
 <header>
     <div class="header-left">
         <button class="menu-button" onclick="toggleMenu()" aria-label="Открыть меню">☰</button>
+        <img class="logo" src="logotipe.png" alt="BrainRain">
     </div>
 
-    <img class="logo" src="logotipe.png" alt="BrainRain">
+    <nav class="desktop-nav">
+        <button class="active" onclick="showHome()">⌂ HOME</button>
+        <button onclick="showComingSoon('Halloween')">♛ HALLOWEEN</button>
+        <button onclick="showComingSoon('Upgrader')">⏫ UPGRADER</button>
+        <button onclick="showComingSoon('Games')">🎮 GAMES</button>
+        <button onclick="showComingSoon('Quests')">☑ QUESTS</button>
+        <button onclick="showComingSoon('Giveaways')">♔ GIVEAWAYS</button>
+    </nav>
 
     <div class="header-right">
-        <button class="settings-button" onclick="openSettings()" aria-label="Настройки">
-            <img src="settings.png" alt="">
-        </button>
         <div class="header-balance">
             <span class="balance-number pixel-number" id="headerBalance">0</span>
             <img class="coin-icon" src="coin.png" alt="Coin">
         </div>
+
+        <button class="settings-button" onclick="openSettings()" aria-label="Настройки">
+            <img src="settings.png" alt="">
+        </button>
     </div>
 </header>
 
@@ -1077,6 +1164,7 @@ let currentResult = null;
 let currentInventory = [];
 let vibrationEnabled = true;
 let streamerModeEnabled = false;
+let rouletteAnimation = null;
 
 const seaItems = [
     {id:"los-primos", name:"Los Primos", image:"los-primos.png", price:49, rarity:"rarity-blue"},
@@ -1131,9 +1219,7 @@ const cases = {
 
 let currentCase = "sea";
 
-// ==========================
-// API
-// ==========================
+/* API */
 
 async function apiPost(route, extra = {}) {
     if (!tg.initData) {
@@ -1176,9 +1262,7 @@ async function loadBalance() {
     }
 }
 
-// ==========================
-// ПРОМОКОДЫ
-// ==========================
+/* ПРОМОКОДЫ */
 
 async function redeemPromo() {
     const input = document.getElementById("promoInput");
@@ -1220,9 +1304,7 @@ async function redeemPromo() {
     }
 }
 
-// ==========================
-// ИГРОК
-// ==========================
+/* ИГРОК */
 
 if (user) {
     const displayName = user.first_name || "Игрок";
@@ -1239,9 +1321,7 @@ if (user) {
     }
 }
 
-// ==========================
-// НАСТРОЙКИ
-// ==========================
+/* НАСТРОЙКИ */
 
 function openSettings() {
     closeMenu();
@@ -1290,9 +1370,7 @@ document.addEventListener("keydown", event => {
     }
 });
 
-// ==========================
-// МЕНЮ
-// ==========================
+/* МЕНЮ И СТРАНИЦЫ */
 
 function closeMenu() {
     document.getElementById("menu").classList.remove("active");
@@ -1314,6 +1392,11 @@ function showHome() {
     hideAllPages();
     document.getElementById("homePage").style.display = "block";
     closeMenu();
+
+    document.querySelectorAll(".desktop-nav button").forEach(button => {
+        button.classList.remove("active");
+    });
+    document.querySelector(".desktop-nav button")?.classList.add("active");
 }
 
 function showProfile() {
@@ -1327,9 +1410,7 @@ function showComingSoon(name) {
     alert(name + " скоро появится!");
 }
 
-// ==========================
-// РУЛЕТКА: ПОСТОЯННАЯ ЛЕНТА
-// ==========================
+/* РУЛЕТКА: ПОСТОЯННОЕ ДВИЖЕНИЕ */
 
 function rouletteItem(item) {
     const el = document.createElement("div");
@@ -1343,70 +1424,46 @@ function rouletteItem(item) {
     return el;
 }
 
-function fillIdleRoulette(track, pool) {
-    track.innerHTML = "";
-    track.style.transition = "none";
-    track.style.transform = "translateX(0)";
+function stopIdleRoulette(track) {
+    track.classList.remove("idle");
 
-    // Длинная лента заранее заполнена предметами.
-    // Она остаётся на экране до и после открытия кейса.
-    for (let i = 0; i < 24; i++) {
-        track.appendChild(rouletteItem(pool[i % pool.length]));
+    if (rouletteAnimation) {
+        rouletteAnimation.cancel();
+        rouletteAnimation = null;
+    }
+
+    const computed = getComputedStyle(track).transform;
+    if (computed && computed !== "none") {
+        track.style.transform = computed;
     }
 }
 
-function animateRoulette(winningItem) {
-    return new Promise(resolve => {
-        const track = document.getElementById(cases[currentCase].roulette);
-        const windowEl = track.parentElement;
-        const pool = cases[currentCase].items;
+function startIdleRoulette(track, pool) {
+    stopIdleRoulette(track);
 
-        track.innerHTML = "";
-        track.style.transition = "none";
-        track.style.transform = "translateX(0)";
+    track.style.transition = "none";
+    track.style.transform = "translateX(0)";
+    track.innerHTML = "";
 
-        // Большая лента: предметы есть и до, и после выигрыша.
-        // Выигрышный предмет не является последним.
-        const sequence = [];
-        const winnerIndex = 55;
+    // Две одинаковые половины позволяют бесконечно зацикливать ленту.
+    const sequence = [];
 
-        for (let i = 0; i < winnerIndex; i++) {
-            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
-        }
+    for (let i = 0; i < 12; i++) {
+        sequence.push(pool[i % pool.length]);
+    }
 
-        sequence.push(winningItem);
+    const fullSequence = [...sequence, ...sequence];
 
-        for (let i = 0; i < 22; i++) {
-            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
-        }
-
-        sequence.forEach(item => {
-            track.appendChild(rouletteItem(item));
-        });
-
-        // Измеряем фактическое положение карточки,
-        // чтобы точно поставить выигрыш по центру.
-        const winnerElement = track.children[winnerIndex];
-        const targetOffset =
-            winnerElement.offsetLeft +
-            winnerElement.offsetWidth / 2 -
-            windowEl.clientWidth / 2;
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                track.style.transition =
-                    "transform 3s cubic-bezier(.08,.65,.12,1)";
-                track.style.transform = `translateX(-${targetOffset}px)`;
-
-                setTimeout(resolve, 3100);
-            });
-        });
+    fullSequence.forEach(item => {
+        track.appendChild(rouletteItem(item));
     });
+
+    // Даём браузеру применить размеры элементов перед запуском анимации.
+    void track.offsetWidth;
+    track.classList.add("idle");
 }
 
-// ==========================
-// ОТОБРАЖЕНИЕ КЕЙСА
-// ==========================
+/* ОТОБРАЖЕНИЕ КЕЙСА */
 
 function showCase(caseId) {
     if (!cases[caseId]) return;
@@ -1426,15 +1483,15 @@ function showCase(caseId) {
 
     document.querySelectorAll(".roulette-track").forEach(track => {
         track.classList.add("hidden");
-        track.style.transition = "none";
+        track.classList.remove("idle");
         track.style.transform = "translateX(0)";
     });
 
     const track = document.getElementById(data.roulette);
     track.classList.remove("hidden");
 
-    // Сразу показываем заполненную рулетку.
-    fillIdleRoulette(track, data.items);
+    // Сразу запускаем бесконечное движение рулетки.
+    startIdleRoulette(track, data.items);
 
     const grid = document.getElementById("itemsGrid");
     grid.innerHTML = "";
@@ -1455,9 +1512,89 @@ function showCase(caseId) {
     });
 }
 
-// ==========================
-// ОТКРЫТИЕ КЕЙСА
-// ==========================
+/* ПОЛНОЦЕННАЯ КРУТКА ДО ВЫПАВШЕГО ПРЕДМЕТА */
+
+function animateRoulette(winningItem) {
+    return new Promise((resolve, reject) => {
+        const track = document.getElementById(cases[currentCase].roulette);
+        const windowEl = track.parentElement;
+        const pool = cases[currentCase].items;
+
+        stopIdleRoulette(track);
+
+        track.classList.remove("idle");
+        track.style.transition = "none";
+        track.style.transform = "translateX(0)";
+        track.innerHTML = "";
+
+        // Длинная лента: выпавший предмет стоит ближе к самому концу.
+        const sequence = [];
+        const winningIndex = 44;
+
+        for (let i = 0; i < winningIndex; i++) {
+            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
+        }
+
+        sequence.push(winningItem);
+
+        // Несколько элементов после выигрыша нужны только для ширины ленты.
+        for (let i = 0; i < 4; i++) {
+            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
+        }
+
+        sequence.forEach(item => {
+            track.appendChild(rouletteItem(item));
+        });
+
+        const firstItem = track.querySelector(".roulette-item");
+        if (!firstItem) {
+            reject(new Error("Не удалось построить рулетку"));
+            return;
+        }
+
+        const itemWidth = firstItem.getBoundingClientRect().width;
+        const trackStyle = getComputedStyle(track);
+        const gap = parseFloat(trackStyle.columnGap || trackStyle.gap) || 0;
+        const step = itemWidth + gap;
+
+        const targetOffset =
+            winningIndex * step -
+            windowEl.clientWidth / 2 +
+            itemWidth / 2;
+
+        // Сбрасываем старую позицию до начала новой анимации.
+        void track.offsetWidth;
+
+        const animation = track.animate(
+            [
+                { transform: "translateX(0px)" },
+                { transform: `translateX(-${targetOffset}px)` }
+            ],
+            {
+                duration: 4500,
+                easing: "cubic-bezier(0.08, 0.65, 0.12, 1)",
+                fill: "forwards"
+            }
+        );
+
+        rouletteAnimation = animation;
+
+        animation.onfinish = () => {
+            track.style.transform = `translateX(-${targetOffset}px)`;
+            animation.cancel();
+            rouletteAnimation = null;
+            resolve();
+        };
+
+        animation.oncancel = () => {
+            if (rouletteAnimation === animation) {
+                rouletteAnimation = null;
+            }
+        };
+    });
+}
+
+/* ОТКРЫТИЕ КЕЙСА */
 
 function makeRequestId() {
     if (crypto.randomUUID) return crypto.randomUUID();
@@ -1487,11 +1624,20 @@ async function openCase() {
         updateBalance();
 
         const item = data.item;
+
+        const catalogItem = cases[currentCase].items.find(x =>
+            x.id === item.id || x.id === item.itemId
+        );
+
         const visualItem = {
             ...item,
-            rarity: cases[currentCase].items.find(x => x.id === item.id)?.rarity || ""
+            id: item.id || item.itemId,
+            image: item.image || catalogItem?.image || "coin.png",
+            name: item.name || catalogItem?.name || "Предмет",
+            rarity: catalogItem?.rarity || ""
         };
 
+        // Крутим ленту до серверного результата.
         await animateRoulette(visualItem);
 
         currentResult = {
@@ -1499,10 +1645,10 @@ async function openCase() {
             item:item
         };
 
-        document.getElementById("resultImage").src = item.image;
-        document.getElementById("resultName").textContent = item.name;
+        document.getElementById("resultImage").src = visualItem.image;
+        document.getElementById("resultName").textContent = visualItem.name;
         document.getElementById("resultPrice").textContent =
-            "Стоимость продажи: " + item.sell + " Coin";
+            "Стоимость продажи: " + (item.sell ?? item.price ?? 0) + " Coin";
 
         document.getElementById("resultBackdrop").classList.add("active");
         vibrate("success");
@@ -1510,6 +1656,11 @@ async function openCase() {
     } catch (error) {
         alert(error.message);
         await loadBalance();
+
+        // Если открытие не удалось, снова запускаем бесконечную рулетку.
+        const track = document.getElementById(cases[currentCase].roulette);
+        startIdleRoulette(track, cases[currentCase].items);
+
     } finally {
         opening = false;
         button.disabled = false;
@@ -1517,9 +1668,7 @@ async function openCase() {
     }
 }
 
-// ==========================
-// ОСТАВИТЬ / ПРОДАТЬ ВЫПАВШИЙ ПРЕДМЕТ
-// ==========================
+/* ОСТАВИТЬ / ПРОДАТЬ ВЫПАВШИЙ ПРЕДМЕТ */
 
 async function keepResult() {
     if (!currentResult) return;
@@ -1558,9 +1707,7 @@ async function sellResult() {
     }
 }
 
-// ==========================
-// ИНВЕНТАРЬ
-// ==========================
+/* ИНВЕНТАРЬ */
 
 async function loadInventory() {
     const box = document.getElementById("inventoryBox");
@@ -1665,9 +1812,7 @@ async function sellAllItems() {
     }
 }
 
-// ==========================
-// ЗАПУСК
-// ==========================
+/* ЗАПУСК */
 
 updateBalance();
 showHome();
