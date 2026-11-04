@@ -1200,10 +1200,10 @@ body.streamer-mode .profile-page:hover {
 @media(max-width:700px){.upgrade-wheel-core{padding:18px}.upgrade-wheel-core img{height:116px}.upgrade-wheel-core strong{font-size:12px}}
 @media(max-width:420px){.upgrade-wheel-core{padding:12px}.upgrade-wheel-core img{height:90px}.upgrade-wheel-core strong{font-size:10px}.upgrade-selected-list{grid-template-columns:1fr}.upgrade-selected-list .upgrade-selected-row{min-height:105px}.upgrade-selected-list .upgrade-selected-row img{height:64px}.upgrade-card>.upgrade-selected-row{min-height:120px}.upgrade-card>.upgrade-selected-row img{height:86px}}
 
-.upgrade-selected-list .upgrade-selected-row{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:160px}
+.upgrade-selected-list{grid-template-columns:1fr!important}.upgrade-selected-list .upgrade-selected-row{width:100%;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:160px}
 .upgrade-selected-list .upgrade-selected-row img{height:155px;max-width:100%;object-fit:contain}
 .upgrade-selected-list .upgrade-selected-row span{padding:0 3px 5px;font-size:11px}
-.upgrade-card>.upgrade-selected-row{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:230px}
+.upgrade-card>.upgrade-selected-row{width:100%;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:230px}
 .upgrade-card>.upgrade-selected-row img{height:190px;max-width:100%;object-fit:contain}
 .upgrade-card>.upgrade-selected-row span{padding:0 5px 6px;font-size:13px;font-weight:800}
 .upgrade-card>.upgrade-selected-row button{z-index:2}
@@ -1214,6 +1214,8 @@ body.streamer-mode .profile-page:hover {
 @media(max-width:420px){.upgrade-selected-list .upgrade-selected-row{min-height:108px}.upgrade-selected-list .upgrade-selected-row img{height:90px}.upgrade-card>.upgrade-selected-row{min-height:150px}.upgrade-card>.upgrade-selected-row img{height:112px}.upgrade-multiplier-row,.upgrade-chance-row{gap:8px}}
 
 .roulette-skip-button{display:block;width:min(100%,240px);margin:-7px auto 12px;padding:9px 14px;border:1px solid #80639e88;border-radius:10px;background:#ffffff0d;color:#e2d5ed;font-size:13px;font-weight:800;cursor:pointer}.roulette-skip-button:hover{background:#ffffff18;color:#fff}.roulette-skip-button[hidden]{display:none!important}
+
+.result-backdrop.active{display:flex;animation:resultBackdropFade .24s ease both}.result-backdrop.active .result-panel{animation:resultPanelReveal .3s cubic-bezier(.2,.8,.2,1) both}@keyframes resultBackdropFade{from{opacity:0}to{opacity:1}}@keyframes resultPanelReveal{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 </style>
 </head>
 
@@ -1870,13 +1872,9 @@ function updateUpgradeState() {
         list.appendChild(row);
     });
     const stakePicker = document.getElementById("upgradeStakeEmpty");
-    stakePicker.hidden = false;
+    stakePicker.hidden = selectedItems.length > 0;
     stakePicker.setAttribute("aria-disabled", String(selectedItems.length >= 5));
-    stakePicker.innerHTML = selectedItems.length >= 5
-        ? "Максимум 5 предметов выбрано"
-        : selectedItems.length
-            ? "＋ Добавить предмет из инвентаря"
-            : "＋ Выбрать предмет из инвентаря";
+    stakePicker.innerHTML = selectedItems.length ? "" : "＋ Выбрать предмет из инвентаря";
     const stake = getUpgradeStakeTotal();
     document.getElementById("upgradeStakeSummary").textContent = `Стоимость ставки: ${stake.toLocaleString("ru-RU")} Coin · предметов ${selectedItems.length}/5`;
 
@@ -1894,13 +1892,13 @@ function updateUpgradeState() {
         wheelName.textContent = validTarget ? validTarget.name : "ВЫБЕРИ ЦЕЛЬ";
     }
     const chance = validTarget && stake > 0
-        ? Math.max(1, Math.min(90, Math.floor(90 * stake / Number(validTarget.price))))
+        ? Math.max(0.01, Math.min(90, 90 * stake / Number(validTarget.price)))
         : 0;
 
     setUpgradeWheelSector(chance);
     document.getElementById("upgradeButton").disabled = upgrading || !validTarget || stake <= 0 || Number(validTarget.price) <= stake;
     document.getElementById("upgradeInfo").textContent = validTarget
-        ? `Предварительный шанс ${chance}%. Результат и расчёт выполняет сервер. При неудаче вклад сгорит.`
+        ? `Предварительный шанс ${chance.toFixed(2)}%. Результат и расчёт выполняет сервер. При неудаче вклад сгорит.`
         : stake > 0 ? "Выбери цель дороже общего вклада." : "Добавь предметы из инвентаря во вклад.";
 }
 function renderSelectedUpgradeTarget() {
@@ -1982,7 +1980,7 @@ function applyUpgradePreset(type, value) {
 }
 
 function visualRollForResult(serverRoll, chance, success) {
-    const limit = Math.max(1, Math.min(90, Number(chance))) * 100;
+    const limit = Math.max(0.01, Math.min(90, Number(chance))) * 100;
     const half = limit / 2;
     const roll = Number(serverRoll);
     const isGreenRoll = Number.isInteger(roll) && roll >= 0 && roll < 10000 && (roll < half || roll >= 10000 - half);
@@ -2066,8 +2064,8 @@ async function performUpgrade() {
         playerBalance = Number(data.balance ?? playerBalance);
         updateBalance();
         result.textContent = data.success
-            ? `🎉 Успех! Получен ${data.item.name}. Шанс: ${data.chance}%.`
-            : `😔 Неудача — вклад сгорел. Шанс был ${data.chance}%.`;
+            ? `🎉 Успех! Получен ${data.item.name}. Шанс: ${Number(data.chance).toFixed(2)}%.`
+            : `😔 Неудача — вклад сгорел. Шанс был ${Number(data.chance).toFixed(2)}%.`;
         vibrate(data.success ? "success" : "error");
         selectedUpgradeInventoryIds.clear();
         selectedUpgradeTargetId = "";
@@ -2253,13 +2251,14 @@ function animateRoulette(winningItem) {
 
         void track.offsetWidth;
 
+        const spinDuration = 6500;
         const animation = track.animate(
             [
                 { transform: "translateX(0px)" },
                 { transform: `translateX(-${targetOffset}px)` }
             ],
             {
-                duration: 6500,
+                duration: spinDuration,
                 easing: "cubic-bezier(0.08, 0.65, 0.12, 1)",
                 fill: "forwards"
             }
@@ -2272,18 +2271,30 @@ function animateRoulette(winningItem) {
             if (finished) return;
             finished = true;
             track.style.transform = "translateX(-" + targetOffset + "px)";
-            if (rouletteAnimation === animation) rouletteAnimation = null;
-            if (rouletteSkipHandler === finishRoulette) rouletteSkipHandler = null;
+            rouletteAnimation = null;
+            rouletteSkipHandler = null;
             if (skipButton) skipButton.hidden = true;
             animation.cancel();
             resolve();
         };
-        rouletteSkipHandler = finishRoulette;
+        const speedUpRoulette = () => {
+            if (finished) return;
+            const current = Number(animation.currentTime) || 0;
+            const remaining = Math.max(1, spinDuration - current);
+            const rate = Math.max(1, remaining / 350);
+            if (skipButton) {
+                skipButton.disabled = true;
+                skipButton.textContent = "Завершаем…";
+            }
+            if (typeof animation.updatePlaybackRate === "function") animation.updatePlaybackRate(rate);
+            else animation.playbackRate = rate;
+        };
+        rouletteSkipHandler = speedUpRoulette;
         if (skipButton) skipButton.hidden = false;
         animation.onfinish = finishRoulette;
         animation.oncancel = () => {
             if (rouletteAnimation === animation) rouletteAnimation = null;
-            if (rouletteSkipHandler === finishRoulette) rouletteSkipHandler = null;
+            rouletteSkipHandler = null;
             if (skipButton) skipButton.hidden = true;
             if (!finished) {
                 finished = true;
@@ -2319,10 +2330,12 @@ async function openCase() {
             requestId:makeRequestId()
         });
 
-        playerBalance = data.balance;
-        updateBalance();
-
         const item = data.item;
+        const isCoinReward = item.id === "coin" || item.itemId === "coin";
+        if (!isCoinReward) {
+            playerBalance = data.balance;
+            updateBalance();
+        }
 
         const catalogItem = cases[currentCase].items.find(x =>
             x.id === item.id || x.id === item.itemId
@@ -2338,7 +2351,10 @@ async function openCase() {
 
         await animateRoulette(visualItem);
 
-        const isCoinReward = item.id === "coin" || item.itemId === "coin";
+        if (isCoinReward) {
+            playerBalance = data.balance;
+            updateBalance();
+        }
         currentResult = {
             inventoryId:data.inventoryId,
             item:item,
@@ -2353,13 +2369,14 @@ async function openCase() {
             const credited = Number(data.coinReward ?? item.sell ?? item.price ?? 0);
             document.getElementById("resultPrice").textContent = "+" + credited + " Coin уже зачислено на баланс";
             if (sellButton) sellButton.style.display = "none";
-            if (keepButton) keepButton.textContent = "ЗАКРЫТЬ";
+            if (keepButton) keepButton.textContent = "Оставить";
         } else {
             document.getElementById("resultPrice").textContent =
                 "Стоимость продажи: " + (item.sell ?? item.price ?? 0) + " Coin";
             if (sellButton) sellButton.style.display = "";
             if (keepButton) keepButton.textContent = "Оставить";
         }
+        await new Promise(resolve => setTimeout(resolve, 500));
         document.getElementById("resultBackdrop").classList.add("active");
         vibrate("success");
 
@@ -2375,6 +2392,8 @@ async function openCase() {
         button.disabled = false;
         button.textContent = "ОТКРЫТЬ";
         document.getElementById("skipRouletteButton").hidden = true;
+        document.getElementById("skipRouletteButton").disabled = false;
+        document.getElementById("skipRouletteButton").textContent = "Пропустить";
         rouletteSkipHandler = null;
     }
 }
