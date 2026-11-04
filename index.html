@@ -1127,6 +1127,7 @@ body.streamer-mode .profile-page:hover {
 .upgrade-mode button,.upgrade-preset{min-height:42px;padding:9px 12px;border:1px solid #80639e66;border-radius:10px;background:#ffffff0c;color:#d7c5e9;font-weight:800;cursor:pointer}
 .upgrade-mode button.active,.upgrade-preset.active{background:linear-gradient(120deg,#7542a5,#9a5bc1);border-color:#c49ce0;color:white;box-shadow:0 4px 14px #0005}
 .upgrade-layout{display:grid;grid-template-columns:minmax(0,1fr) 260px minmax(0,1fr);gap:16px;align-items:center}
+.upgrade-center{grid-column:2;display:flex;flex-direction:column;align-items:center;width:100%}.upgrade-wheel-brand{display:flex;align-items:center;justify-content:center;height:38px;margin:0 0 9px}.upgrade-wheel-brand img{display:block;width:142px;height:38px;object-fit:contain}.upgrade-center .open-button{width:100%;max-width:240px;margin:12px 0 0;background:#292330;border:1px solid #574766;color:#b9a8d0;box-shadow:none}.upgrade-center .open-button:disabled{opacity:.6}
 .upgrade-card{min-width:0;min-height:188px;padding:14px;border:1px solid #80639e;border-radius:16px;background:linear-gradient(145deg,#2c1d3d,#190f25);text-align:center}
 .upgrade-card h3{margin:0 0 14px;color:#d7c5e9;font-size:13px;letter-spacing:.5px}
 .upgrade-selected-list{display:grid;gap:7px;text-align:left}
@@ -1175,8 +1176,8 @@ body.streamer-mode .profile-page:hover {
 .upgrade-target-card strong{display:block;min-height:26px;font-size:10px;overflow-wrap:anywhere}
 .upgrade-target-card span{display:block;margin-top:3px;color:#ffd45c;font-size:10px}
 .upgrade-result{min-height:24px;margin:8px 0;color:#ffd45c;text-align:center;line-height:1.5}
-@media(max-width:700px){.upgrade-layout{grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);gap:7px}.upgrade-card{min-height:160px;padding:10px 6px}.upgrade-wheel{width:150px;height:150px}.upgrade-wheel-core{width:112px;height:112px}.upgrade-wheel-core strong{font-size:25px}.upgrade-controls{grid-template-columns:1fr}.upgrade-target-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:420px){.upgrade-layout{grid-template-columns:1fr 100px 1fr;gap:5px}.upgrade-card{min-height:145px;padding:9px 5px}.upgrade-card h3{font-size:10px}.upgrade-wheel{width:92px;height:92px}.upgrade-wheel-core{width:70px;height:70px}.upgrade-wheel-core strong{font-size:18px}.upgrade-wheel-pointer{top:-7px;font-size:18px}.upgrade-wheel-label{font-size:9px}.upgrade-wheel-label.top{top:4px}.upgrade-wheel-label.bottom{bottom:4px}.upgrade-wheel-label.left{left:4px}.upgrade-wheel-label.right{right:4px}.upgrade-empty-slot,.upgrade-target-pick{min-height:105px;font-size:11px}.upgrade-selected-row{gap:4px;padding:4px}.upgrade-selected-row img{width:28px;height:28px}.upgrade-target-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.upgrade-layout{grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);gap:7px}.upgrade-center{width:160px}.upgrade-wheel-brand{height:26px;margin-bottom:6px}.upgrade-wheel-brand img{width:110px;height:26px}.upgrade-center .open-button{max-width:150px;padding:8px 3px;font-size:11px;margin-top:8px}.upgrade-card{min-height:160px;padding:10px 6px}.upgrade-wheel{width:150px;height:150px}.upgrade-wheel-core{width:112px;height:112px}.upgrade-wheel-core strong{font-size:25px}.upgrade-controls{grid-template-columns:1fr}.upgrade-target-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:420px){.upgrade-layout{grid-template-columns:1fr 100px 1fr;gap:5px}.upgrade-center{width:100px}.upgrade-wheel-brand{height:20px;margin-bottom:4px}.upgrade-wheel-brand img{width:82px;height:20px}.upgrade-center .open-button{max-width:100px;font-size:9px;min-height:34px;margin-top:6px}.upgrade-card{min-height:145px;padding:9px 5px}.upgrade-card h3{font-size:10px}.upgrade-wheel{width:92px;height:92px}.upgrade-wheel-core{width:70px;height:70px}.upgrade-wheel-core strong{font-size:18px}.upgrade-wheel-pointer{top:-7px;font-size:18px}.upgrade-wheel-label{font-size:9px}.upgrade-wheel-label.top{top:4px}.upgrade-wheel-label.bottom{bottom:4px}.upgrade-wheel-label.left{left:4px}.upgrade-wheel-label.right{right:4px}.upgrade-empty-slot,.upgrade-target-pick{min-height:105px;font-size:11px}.upgrade-selected-row{gap:4px;padding:4px}.upgrade-selected-row img{width:28px;height:28px}.upgrade-target-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 
@@ -1363,14 +1364,18 @@ body.streamer-mode .profile-page:hover {
             <div class="upgrade-empty-slot" id="upgradeStakeEmpty">Выбери предметы ниже<br>Можно добавить до 5</div>
         </section>
 
-        <div class="upgrade-wheel" id="upgradeWheel" aria-label="Колесо апгрейда">
+        <div class="upgrade-center">
+            <div class="upgrade-wheel-brand"><img src="logotipe.png" alt="BrainRain"></div>
+            <div class="upgrade-wheel" id="upgradeWheel" aria-label="Колесо апгрейда">
             <div class="upgrade-wheel-disc" id="upgradeWheelDisc" aria-hidden="true"></div>
-            <span class="upgrade-wheel-label top">100</span>
-            <span class="upgrade-wheel-label right">50</span>
-            <span class="upgrade-wheel-label bottom">0</span>
-            <span class="upgrade-wheel-label left">50</span>
+
+
+
+
             <div class="upgrade-wheel-arrow-orbit" id="upgradeWheelArrow"><span class="upgrade-wheel-pointer" aria-hidden="true">▼</span></div>
-            <div class="upgrade-wheel-core"><strong id="upgradeWheelChance">—</strong><small>ШАНС</small></div>
+            <div class="upgrade-wheel-core"><strong id="upgradeWheelChance">0.00%</strong><small id="upgradeWheelHint">no chance</small></div>
+        </div>
+                            <button class="open-button" id="upgradeButton" type="button" onclick="performUpgrade()" disabled>Прокачать</button>
         </div>
 
         <section class="upgrade-card">
@@ -1409,7 +1414,7 @@ body.streamer-mode .profile-page:hover {
     <h3 class="upgrade-inventory-title">ТВОЙ ИНВЕНТАРЬ — выбери до 5 предметов</h3>
     <div class="upgrade-inventory-grid" id="upgradeInventoryGrid"><div class="inventory-empty">Загрузка инвентаря...</div></div>
     <div class="upgrade-result" id="upgradeResult" aria-live="polite"></div>
-    <button class="open-button" id="upgradeButton" type="button" onclick="performUpgrade()" disabled>Прокачать</button>
+
 
     <div class="upgrade-target-modal" id="upgradeTargetModal" onclick="closeUpgradeTargetPicker(event)">
         <section class="upgrade-target-dialog" role="dialog" aria-modal="true" aria-labelledby="upgradeTargetTitle">
@@ -1855,6 +1860,7 @@ function updateUpgradeState() {
         ? Math.max(1, Math.min(90, Math.floor(90 * stake / Number(validTarget.price))))
         : 0;
     document.getElementById("upgradeWheelChance").textContent = `${chance.toFixed(2)}%`;
+    document.getElementById("upgradeWheelHint").textContent = chance > 0 ? "chance" : "no chance";
     setUpgradeWheelSector(chance);
     document.getElementById("upgradeButton").disabled = upgrading || !validTarget || stake <= 0 || Number(validTarget.price) <= stake;
     document.getElementById("upgradeInfo").textContent = validTarget
