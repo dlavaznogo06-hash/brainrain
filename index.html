@@ -2,21 +2,654 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#160e24">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BrainRain 💧</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+
 <style>
-:root{color-scheme:dark;--bg:#160e24;--panel:#241633;--panel2:#302044;--purple:#7542a5;--purple2:#9254bd;--line:#694b88;--text:#fff;--muted:#d7c5e9;--gold:#ffd45c}
-*{box-sizing:border-box}
-html{min-height:100%;background:var(--bg)}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#47245c 0,#21152f 45%,var(--bg) 100%);color:var(--text);font-family:Arial,Helvetica,sans-serif;font-size:14px;overflow-x:hidden}
-button,input,select{font:inherit}button{color:inherit}
-header{position:sticky;top:0;z-index:20;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;background:#170f22ee;border-bottom:1px solid #694b8877;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.header-left,.header-right{display:flex;align-items:center;gap:10px;min-width:0}.header-right{margin-left:auto}.logo{display:block;width:130px;height:50px;object-fit:contain}.menu-button,.settings-button,.header-avatar-button{display:grid;place-items:center;border:1px solid #80639e;background:#ffffff12;cursor:pointer}.menu-button{width:40px;height:40px;border-radius:10px;font-size:22px}.desktop-nav{display:flex;align-items:center;gap:8px}.desktop-nav button{display:flex;align-items:center;gap:7px;padding:10px 13px;border:1px solid transparent;border-radius:10px;background:transparent;color:#d7c5e9;font-weight:700;cursor:pointer}.desktop-nav button.active,.desktop-nav button:hover{background:#7542a533;border-color:#80639e;color:#fff}.nav-icon{width:20px;height:20px;object-fit:contain}.header-balance,.menu-balance{display:flex;align-items:center;gap:6px;font-weight:700}.header-balance{min-height:38px;padding:6px 10px;border:1px solid #80639e88;border-radius:10px;background:#ffffff10}.coin-icon{width:20px;height:20px;object-fit:contain;vertical-align:middle}.settings-button{width:36px;height:36px;border-radius:10px}.settings-button img{width:22px;height:22px;object-fit:contain}.header-avatar-button{width:40px;height:40px;flex:0 0 40px;padding:0;overflow:hidden;border-radius:50%}.header-avatar{width:100%;height:100%;object-fit:cover}
-main{width:min(100%,1040px);margin:0 auto;padding:18px 14px 42px}.page-title{margin:12px 0 20px;font-size:clamp(23px,5vw,30px);font-weight:900;letter-spacing:.3px}.case-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}.case-card{min-width:0;padding:12px;border:1px solid #80639e88;border-radius:16px;background:linear-gradient(145deg,#392653,#201532);box-shadow:0 8px 25px #0004;text-align:center;cursor:pointer;transition:transform .18s,border-color .18s}.case-card:hover{transform:translateY(-3px);border-color:#c49ce0}.case-card>img{display:block;width:100%;height:135px;object-fit:contain}.case-card h3{margin:10px 0;font-size:15px}.price,.case-price{display:flex;align-items:center;justify-content:center;gap:5px;color:var(--gold);font-weight:800}.back-button{margin:0 0 16px;padding:9px 13px;border:1px solid #80639e;border-radius:10px;background:#7542a533;font-weight:700;cursor:pointer}.case-page,.profile-page{display:none}.case-cover{display:block;width:min(220px,65vw);height:180px;margin:10px auto;object-fit:contain}.case-name{text-align:center;font-size:24px}.case-price{margin:8px 0 18px;font-size:18px}.roulette-window{position:relative;height:110px;overflow:hidden;border:1px solid #80639e;border-radius:14px;background:#100b18}.roulette-window:after{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--gold);content:"";z-index:2;box-shadow:0 0 12px var(--gold)}.roulette-track{display:flex;align-items:center;gap:8px;width:max-content;height:100%;padding:8px}.roulette-item{width:74px;height:84px;flex:0 0 74px;border:1px solid #80639e;border-radius:10px;background:#ffffff12;text-align:center}.roulette-item img{width:56px;height:56px;object-fit:contain}.roulette-item span{display:block;font-size:10px}.open-button{display:block;width:min(100%,320px);min-height:48px;margin:14px auto;padding:12px 18px;border:0;border-radius:12px;background:linear-gradient(135deg,#9254bd,#67338f);box-shadow:0 6px 18px #0004;color:#fff;font-weight:900;cursor:pointer}.open-button:disabled{opacity:.48;cursor:not-allowed}.items-title{margin:22px 0 12px;text-align:center;font-size:18px}.items-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.item-card{padding:10px;border:1px solid #80639e66;border-radius:12px;background:#ffffff0c;text-align:center}.item-card img{width:72px;height:72px;object-fit:contain}.item-card h4{margin:7px 0 0;font-size:12px}
-.profile-card{display:flex;align-items:center;gap:18px;padding:18px;border:1px solid #80639e88;border-radius:16px;background:linear-gradient(145deg,#392653,#201532)}.profile-avatar{width:88px;height:88px;flex:0 0 88px;object-fit:cover;border-radius:50%;border:2px solid #9d70bd}.profile-info{min-width:0}.profile-label{color:var(--muted);font-size:11px;letter-spacing:1px}.profile-nickname{margin:5px 0;font-size:21px;font-weight:800;overflow-wrap:anywhere}.profile-username{color:#c2afd5}.profile-balance{display:flex;align-items:center;gap:7px;margin-top:12px;font-size:19px;font-weight:800;color:var(--gold)}.inventory-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 10px}.inventory-heading h2{font-size:20px}.inventory-box{min-height:115px}.inventory-item img{object-fit:contain}.inventory-sell,.sell-all-button{border-radius:9px}.promo-card{border-radius:15px}
-.overlay{position:fixed;inset:0;z-index:29;display:none;background:#0009}.overlay.active{display:block}.menu{position:fixed;top:0;bottom:0;left:0;z-index:30;width:min(310px,86vw);padding:22px 16px;background:linear-gradient(160deg,#2c1d3d,#160e24);border-right:1px solid #694b88;box-shadow:12px 0 35px #0008;transform:translateX(-105%);transition:transform .22s}.menu.open{transform:translateX(0)}.menu-close{position:absolute;top:10px;right:12px;border:0;background:transparent;font-size:28px;cursor:pointer}.profile-mini{display:flex;align-items:center;gap:12px;margin:20px 0 24px;padding:12px 4px;border-bottom:1px solid #694b88}.profile-mini>img{width:48px;height:48px;object-fit:cover;border-radius:50%}.menu-name{font-size:16px;font-weight:800}.menu-item{display:flex;align-items:center;gap:12px;width:100%;margin:5px 0;padding:12px;border:1px solid transparent;border-radius:10px;background:#ffffff0a;text-align:left;cursor:pointer}.menu-item:hover{background:#7542a533;border-color:#80639e}.menu-icon{width:22px;height:22px;object-fit:contain}
-@media(max-width:899px){.desktop-nav{display:none}}@media(min-width:900px){.menu-button{display:none}}@media(max-width:600px){header{min-height:58px;padding:7px 9px}.logo{width:clamp(85px,25vw,125px);height:46px}.header-left,.header-right{gap:6px}main{padding:14px 11px 34px}.items-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-card{gap:12px;padding:14px}.profile-avatar{width:70px;height:70px;flex-basis:70px}}@media(max-width:380px){.header-balance{padding:4px 6px;font-size:13px}.header-balance .coin-icon{width:18px;height:18px}}}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-radius: 0 !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+
+body {
+    background: radial-gradient(circle at top, #392052 0%, #1b102b 48%, #0c0714 100%);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button, input { font-family: inherit; }
+
+header {
+    min-height: 76px;
+    height: max(76px, 10vh);
+    display: flex;
+    align-items: center;
+    padding: 8px 14px;
+    gap: 16px;
+    position: relative;
+    z-index: 5;
+    background: linear-gradient(90deg, #1b102b, #302044, #1b102b);
+    border-bottom: 1px solid #65477e;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-left: auto;
+    z-index: 2;
+}
+
+.logo {
+    position: static;
+    transform: none;
+    width: clamp(125px, 17vw, 190px);
+    height: 58px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.menu-button {
+    border: none;
+    background: #392653;
+    color: white;
+    font-size: 25px;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* НАВИГАЦИЯ */
+
+.desktop-nav {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+.desktop-nav button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: none;
+    background: transparent;
+    color: #c5b5d8;
+    padding: 13px 17px;
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.desktop-nav button:hover {
+    color: #e5c5ff;
+    background: #49305f;
+    border-radius: 13px !important;
+}
+
+.desktop-nav button.active {
+    color: #ffdf70 !important;
+    background: linear-gradient(180deg, #a65320, #71350f);
+    border-radius: 13px !important;
+    box-shadow: 0 4px 15px #d8752544;
+    text-shadow: 0 0 10px #ffd45c66;
+}
+
+.nav-icon {
+    width: 23px;
+    height: 23px;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0) invert(.8);
+}
+
+.desktop-nav button.active .nav-icon {
+    filter: brightness(0) saturate(100%) invert(84%) sepia(48%) saturate(600%) hue-rotate(350deg) brightness(105%);
+}
+
+.nav-icon-up { transform: rotate(90deg); }
+
+/* ПРАВАЯ ЧАСТЬ ШАПКИ */
+
+.settings-button {
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    border: 1px solid #80639e;
+    background: #493064;
+    box-shadow: 0 0 12px #a77bd033;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 36px;
+    border-radius: 10px !important;
+}
+
+.settings-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(1.8);
+}
+
+.header-balance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    min-height: 42px;
+    background: #392653;
+    border: 1px solid #694b88;
+    color: white;
+    font-size: 20px;
+    border-radius: 11px !important;
+}
+
+.coin-icon {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    object-fit: contain;
+    vertical-align: middle;
+    flex: 0 0 19px;
+}
+
+.header-balance .coin-icon {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+}
+
+.pixel-number {
+    font-family: "Courier New", Courier, monospace !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px;
+}
+
+/* КРУГЛЫЙ АВАТАР */
+
+.header-avatar-button {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    padding: 2px;
+    border: 2px solid #b47bdf;
+    background: #302044;
+    box-shadow: 0 0 10px #a77bd055;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+    border-radius: 50% !important;
+    overflow: hidden;
+}
+
+.header-avatar-button:hover {
+    border-color: #e0baff;
+    box-shadow: 0 0 15px #b47bdfaa;
+}
+
+.header-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #26395e;
+    border-radius: 50% !important;
+}
+
+/* МЕНЮ */
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 260px;
+    height: 100%;
+    background: linear-gradient(180deg, #302044, #160e25);
+    z-index: 20;
+    padding: 25px 18px;
+    transition: .25s;
+    box-shadow: 10px 0 35px #0008;
+}
+
+.menu.active { left: 0; }
+
+.menu-close {
+    float: right;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.profile-mini {
+    margin: 45px 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-mini > img:not(.coin-icon) {
+    width: 48px;
+    height: 48px;
+    background: #26395e;
+    object-fit: cover;
+    border-radius: 50% !important;
+}
+
+.menu-user-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.menu-name {
+    overflow-wrap: anywhere;
+    color: white;
+}
+
+.menu-balance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: fit-content;
+    padding: 6px 10px;
+    background: #392653;
+    border: 1px solid #694b88;
+    color: white;
+    font-size: 16px;
+    border-radius: 9px !important;
+}
+
+.menu-balance .coin-icon {
+    width: 21px;
+    height: 21px;
+    flex-basis: 21px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border: none;
+    background: #392653;
+    color: white;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px !important;
+}
+
+.menu-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex: 0 0 28px;
+}
+
+.menu-item:hover { background: #594078; }
+
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0009;
+    z-index: 15;
+}
+
+.overlay.active { display: block; }
+
+main { padding: 12px 0 40px; }
+
+.page-title {
+    font-size: 25px;
+    margin: 15px 18px 20px;
+}
+
+/* КЕЙСЫ */
+
+.case-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    padding: 5px 14px 20px;
+    width: 100%;
+}
+
+.case-card {
+    width: 100%;
+    min-width: 0;
+    background: linear-gradient(145deg, #382653, #201532);
+    border: 1px solid #594078;
+    padding: 10px;
+    cursor: pointer;
+    transition: .2s;
+    border-radius: 13px !important;
+}
+
+.case-card:active { transform: scale(.97); }
+
+.case-card > img {
+    width: 100%;
+    height: clamp(105px, 28vw, 165px);
+    object-fit: contain;
+}
+
+.case-card h3 {
+    font-size: clamp(12px, 3.2vw, 16px);
+    margin: 8px 0;
+    min-height: 36px;
+    overflow-wrap: anywhere;
+}
+
+.price {
+    color: #ffd45c;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.case-page {
+    display: none;
+    padding: 0 16px 35px;
+}
+
+.back-button {
+    background: #392653;
+    color: white;
+    border: 1px solid #694b88;
+    padding: 11px 17px;
+    font-size: 15px;
+    margin: 5px 0 18px;
+    cursor: pointer;
+    border-radius: 10px !important;
+}
+
+.case-cover {
+    display: block;
+    width: 190px;
+    height: 165px;
+    object-fit: contain;
+    margin: 0 auto 10px;
+}
+
+.case-name {
+    text-align: center;
+    font-size: 23px;
+    margin: 10px 0;
+}
+
+.case-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #ffd45c;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+/* РУЛЕТКА */
+
+.roulette-window {
+    width: 100%;
+    overflow: hidden;
+    height: 115px;
+    background: #171023;
+    border: 2px solid #654987;
+    position: relative;
+    margin: 15px 0 18px;
+    border-radius: 12px !important;
+}
+
+.roulette-window::before {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #ffd45c;
+    box-shadow: 0 0 10px #ffd45c;
+    pointer-events: none;
+}
+
+.roulette-window::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #171023 0%, transparent 12%, transparent 88%, #171023 100%);
+    pointer-events: none;
+}
+
+.roulette-track {
+    display: flex;
+    gap: 9px;
+    height: 100%;
+    align-items: center;
+    width: max-content;
+    will-change: transform;
+}
+
+.roulette-track.idle {
+    animation: roulette-idle 16s linear infinite;
+}
+
+@keyframes roulette-idle {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.roulette-item {
+    width: 112px;
+    height: 88px;
+    flex: 0 0 112px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #302044;
+    border: 1px solid #76539a;
+    overflow: hidden;
+    border-radius: 9px !important;
+}
+
+.roulette-item img {
+    width: 85px;
+    height: 75px;
+    object-fit: contain;
+}
+
+.open-button {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 30px;
+    padding: 15px;
+    border: none;
+    background: linear-gradient(100deg, #7542a5, #a45bd0);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px #7542a555;
+    border-radius: 12px !important;
+}
+
+.open-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.items-title {
+    font-size: 19px;
+    margin: 20px 0 13px;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+}
+
+.item-card {
+    background: #302044;
+    border: 1px solid #594078;
+    padding: 10px;
+    min-width: 0;
+    border-radius: 11px !important;
+}
+
+.item-card > img {
+    width: 100%;
+    height: 105px;
+    object-fit: contain;
+}
+
+.item-card h4 {
+    font-size: 13px;
+    min-height: 30px;
+    margin: 6px 0;
+}
+
+.item-price {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #ffd45c;
+}
+
+.rarity-blue {
+    border-color: #299bdc;
+    box-shadow: inset 0 0 12px #1689d322;
+}
+
+.rarity-purple {
+    border-color: #a45bff;
+    box-shadow: inset 0 0 12px #a45bff33;
+}
+
+.rarity-red {
+    border-color: #ff4545;
+    box-shadow: inset 0 0 12px #ff303033;
+}
+
+.rarity-gold {
+    border-color: #ffd45c;
+    box-shadow: inset 0 0 12px #ffd45c33;
+}
+
+/* ПРОФИЛЬ */
+
+.profile-page {
+    display: none;
+    padding: 0 16px 35px;
+}
+
+.profile-card {
+    width: 100%;
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 3vw, 28px);
+    padding: clamp(14px, 3vw, 26px);
+    background: linear-gradient(135deg, #392653, #211532);
+    border: 1px solid #694b88;
+    box-shadow: 0 8px 25px #0003;
+    border-radius: 15px !important;
+}
+
+.profile-avatar {
+    width: clamp(75px, 18vw, 145px);
+    height: clamp(75px, 18vw, 145px);
+    flex: 0 0 auto;
+    object-fit: cover;
+    background: #26395e;
+    border: 3px solid #80639e;
+    box-shadow: 0 0 18px #0005;
+    border-radius: 50% !important;
+}
+
+.profile-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.profile-nickname {
+    font-size: clamp(18px, 4vw, 30px);
+    overflow-wrap: anywhere;
+    line-height: 1.2;
+}
+
+.profile-label {
+    color: #c2a7dc;
+    font-size: clamp(12px, 2.5vw, 15px);
+}
+
+.profile-username {
+    color: #d7c5e9;
+    font-size: clamp(13px, 2.8vw, 17px);
+    overflow-wrap: anywhere;
+}
+
+.profile-balance {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    padding: 8px 12px;
+    background: #392653;
+    border: 1px solid #694b88;
+    color: white;
+    font-size: clamp(17px, 3.5vw, 22px);
+    margin-top: 5px;
+    border-radius: 10px !important;
+}
 
 .profile-balance .coin-icon {
     width: 23px;
@@ -158,120 +791,6 @@ main{width:min(100%,1040px);margin:0 auto;padding:18px 14px 42px}.page-title{mar
 }
 
 .hidden { display: none !important; }
-
-/* АПГРЕЙДЕР */
-
-.upgrader-page {
-    display: none;
-    max-width: 760px;
-    margin: auto;
-    padding: 0 16px 40px;
-}
-
-.upgrader-panel {
-    background: linear-gradient(145deg, #392653, #201532);
-    border: 1px solid #694b88;
-    border-radius: 15px !important;
-    padding: 18px;
-    box-shadow: 0 8px 25px #0003;
-}
-
-.upgrader-label {
-    display: block;
-    color: #d7c5e9;
-    font-size: 14px;
-    margin: 7px 0;
-}
-
-.upgrader-select {
-    display: block;
-    width: 100%;
-    margin: 10px 0 18px;
-    padding: 13px;
-    color: white;
-    background: #211532;
-    border: 1px solid #80639e;
-    border-radius: 10px !important;
-    font-size: 14px;
-    outline: none;
-}
-
-.upgrader-select option {
-    background: #211532;
-    color: white;
-}
-
-.upgrader-chance {
-    text-align: center;
-    color: #ffd45c;
-    font-size: 34px;
-    margin: 18px 0 8px;
-}
-
-.upgrader-info {
-    text-align: center;
-    color: #d7c5e9;
-    font-size: 13px;
-    line-height: 1.5;
-    min-height: 40px;
-    margin-bottom: 12px;
-}
-
-.upgrader-targets {
-    color: #cbb9dc;
-    font-size: 12px;
-    margin-top: -10px;
-    margin-bottom: 15px;
-    line-height: 1.5;
-}
-
-.upgrader-result {
-    text-align: center;
-    margin-top: 15px;
-    line-height: 1.6;
-    color: #ffd45c;
-    overflow-wrap: anywhere;
-}
-
-.upgrader-preview {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 16px 0;
-}
-
-.upgrader-preview-card {
-    min-width: 0;
-    text-align: center;
-    padding: 10px;
-    background: #ffffff0c;
-    border: 1px solid #80639e66;
-    border-radius: 12px !important;
-}
-
-.upgrader-preview-card img {
-    width: 100%;
-    height: 105px;
-    object-fit: contain;
-}
-
-.upgrader-preview-card strong {
-    display: block;
-    font-size: 12px;
-    overflow-wrap: anywhere;
-    margin-top: 6px;
-}
-
-.upgrader-preview-card span {
-    display: block;
-    color: #ffd45c;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-#upgradeButton {
-    margin-bottom: 5px;
-}
 
 /* НАСТРОЙКИ */
 
@@ -437,7 +956,6 @@ body.streamer-mode .inventory-box,
 body.streamer-mode .promo-card,
 body.streamer-mode .case-page,
 body.streamer-mode .profile-page,
-body.streamer-mode .upgrader-page,
 body.streamer-mode .menu-name,
 body.streamer-mode .profile-mini,
 body.streamer-mode .result-panel {
@@ -450,8 +968,7 @@ body.streamer-mode .header-balance:hover,
 body.streamer-mode .menu-balance:hover,
 body.streamer-mode .profile-balance:hover,
 body.streamer-mode .case-page:hover,
-body.streamer-mode .profile-page:hover,
-body.streamer-mode .upgrader-page:hover {
+body.streamer-mode .profile-page:hover {
     filter: blur(0);
 }
 
@@ -585,6 +1102,23 @@ body.streamer-mode .upgrader-page:hover {
 
     .case-card > img { height: 210px; }
 }
+
+/* АПГРЕЙДЕР */
+.upgrader-page{display:none;max-width:760px;margin:0 auto;padding:0 16px 40px}
+.upgrader-panel{padding:18px;background:linear-gradient(145deg,#392653,#201532);border:1px solid #694b88;border-radius:15px;box-shadow:0 8px 25px #0003}
+.upgrader-label{display:block;margin:8px 0;color:#d7c5e9;font-size:14px;font-weight:700}
+.upgrader-select{display:block;width:100%;margin:9px 0 17px;padding:13px;color:#fff;background:#211532;border:1px solid #80639e;border-radius:10px;font-size:14px;outline:none}
+.upgrader-select option{color:#fff;background:#211532}
+.upgrader-targets{margin:-8px 0 14px;color:#cbb9dc;font-size:12px;line-height:1.5}
+.upgrader-preview{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.upgrader-preview-card{min-width:0;padding:10px;border:1px solid #80639e66;border-radius:12px;background:#ffffff0c;text-align:center}
+.upgrader-preview-card img{display:block;width:100%;height:105px;object-fit:contain}
+.upgrader-preview-card strong{display:block;margin-top:6px;font-size:12px;overflow-wrap:anywhere}
+.upgrader-preview-card span{display:block;margin-top:5px;color:#ffd45c;font-size:12px}
+.upgrader-chance{text-align:center;margin:18px 0 8px;color:#ffd45c;font-size:34px;font-weight:900}
+.upgrader-info{text-align:center;min-height:40px;margin-bottom:12px;color:#d7c5e9;font-size:13px;line-height:1.5}
+.upgrader-result{text-align:center;margin-top:15px;color:#ffd45c;line-height:1.6;overflow-wrap:anywhere}
+#upgradeButton{margin-bottom:5px}
 </style>
 </head>
 
@@ -754,35 +1288,20 @@ body.streamer-mode .upgrader-page:hover {
         </div>
     </section>
 
-    <!-- СТРАНИЦА АПГРЕЙДЕРА -->
-
     <section class="upgrader-page" id="upgraderPage">
         <button class="back-button" onclick="showHome()">← Назад</button>
-
         <h1 class="page-title">АПГРЕЙДЕР 💎</h1>
-
         <div class="upgrader-panel">
-            <label class="upgrader-label" for="upgradeSource">
-                1. Выбери предмет из инвентаря
-            </label>
-
-            <select class="upgrader-select" id="upgradeSource"
-                onchange="updateUpgradeChance()">
+            <label class="upgrader-label" for="upgradeSource">1. Выбери предмет из своего инвентаря</label>
+            <select class="upgrader-select" id="upgradeSource">
                 <option value="">Загрузка инвентаря...</option>
             </select>
 
-            <label class="upgrader-label" for="upgradeTarget">
-                2. Выбери предмет, который хочешь получить
-            </label>
-
-            <select class="upgrader-select" id="upgradeTarget"
-                onchange="updateUpgradeChance()">
-                <option value="">Сначала выбери исходный предмет</option>
+            <label class="upgrader-label" for="upgradeTarget">2. Выбери предмет из всех кейсов</label>
+            <select class="upgrader-select" id="upgradeTarget" disabled>
+                <option value="">Сначала выбери свой предмет</option>
             </select>
-
-            <div class="upgrader-targets" id="upgradeTargetHint">
-                Доступны только предметы дороже твоего.
-            </div>
+            <div class="upgrader-targets" id="upgradeTargetHint">Цель должна быть дороже твоего предмета.</div>
 
             <div class="upgrader-preview">
                 <div class="upgrader-preview-card">
@@ -790,7 +1309,6 @@ body.streamer-mode .upgrader-page:hover {
                     <strong id="upgradeSourceName">Твой предмет</strong>
                     <span id="upgradeSourcePrice">— Coin</span>
                 </div>
-
                 <div class="upgrader-preview-card">
                     <img id="upgradeTargetImage" src="logo2.png" alt="">
                     <strong id="upgradeTargetName">Целевой предмет</strong>
@@ -799,17 +1317,9 @@ body.streamer-mode .upgrader-page:hover {
             </div>
 
             <div class="upgrader-chance" id="upgradeChance">—</div>
-
-            <div class="upgrader-info" id="upgradeInfo">
-                Выбери два предмета, чтобы увидеть шанс.
-            </div>
-
-            <button class="open-button" id="upgradeButton"
-                onclick="performUpgrade()" disabled>
-                АПГРЕЙД
-            </button>
-
-            <div class="upgrader-result" id="upgradeResult"></div>
+            <div class="upgrader-info" id="upgradeInfo">Выбери ставку и цель, чтобы увидеть шанс.</div>
+            <button class="open-button" id="upgradeButton" onclick="performUpgrade()" disabled>АПГРЕЙД</button>
+            <div class="upgrader-result" id="upgradeResult" aria-live="polite"></div>
         </div>
     </section>
 </main>
@@ -869,12 +1379,6 @@ const impactItems = [
 const allItems = [
     {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
-];
-
-const upgradeCatalog = [
-    ...seaItems,
-    ...impactItems,
-    ...allItems
 ];
 
 const cases = {
@@ -1074,17 +1578,15 @@ function hideAllPages() {
     document.getElementById("upgraderPage").style.display = "none";
 }
 
-function setDesktopNav(activeIndex) {
-    document.querySelectorAll(".desktop-nav button").forEach((button, index) => {
-        button.classList.toggle("active", index === activeIndex);
-    });
-}
-
 function showHome() {
     hideAllPages();
     document.getElementById("homePage").style.display = "block";
     closeMenu();
-    setDesktopNav(0);
+
+    document.querySelectorAll(".desktop-nav button").forEach(button => {
+        button.classList.remove("active");
+    });
+    document.querySelector(".desktop-nav button")?.classList.add("active");
 }
 
 function showProfile() {
@@ -1099,289 +1601,172 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
+const upgradeCatalog = [...seaItems, ...impactItems, ...allItems];
 
-function getUpgradeItem(id) {
+function getUpgradeCatalogItem(id) {
     return upgradeCatalog.find(item => item.id === id);
 }
 
 async function showUpgrader() {
     hideAllPages();
-
     document.getElementById("upgraderPage").style.display = "block";
-    document.getElementById("upgradeResult").textContent = "";
-    document.getElementById("upgradeChance").textContent = "—";
-    document.getElementById("upgradeInfo").textContent =
-        "Загружаем твой инвентарь...";
-
     closeMenu();
-    setDesktopNav(1);
+    document.querySelectorAll(".desktop-nav button").forEach(button => button.classList.remove("active"));
+    document.querySelectorAll(".desktop-nav button")[1]?.classList.add("active");
 
     const sourceSelect = document.getElementById("upgradeSource");
-    sourceSelect.innerHTML = "<option value=''>Загрузка...</option>";
-
+    sourceSelect.innerHTML = '<option value="">Загрузка инвентаря...</option>';
+    document.getElementById("upgradeResult").textContent = "";
     try {
         await loadInventory();
         renderUpgradeSources();
     } catch (error) {
-        sourceSelect.innerHTML =
-            "<option value=''>Не удалось загрузить инвентарь</option>";
-        document.getElementById("upgradeInfo").textContent = error.message;
+        sourceSelect.innerHTML = '<option value="">Не удалось загрузить инвентарь</option>';
+        updateUpgradeChance();
     }
 }
 
 function renderUpgradeSources() {
     const sourceSelect = document.getElementById("upgradeSource");
-    const targetSelect = document.getElementById("upgradeTarget");
-
     sourceSelect.innerHTML = "";
-    targetSelect.innerHTML =
-        "<option value=''>Сначала выбери исходный предмет</option>";
-
-    if (!currentInventory.length) {
-        sourceSelect.innerHTML =
-            "<option value=''>Инвентарь пуст</option>";
-        updateUpgradeChance();
-        return;
-    }
-
-    sourceSelect.innerHTML =
-        "<option value=''>Выбери предмет</option>";
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = currentInventory.length ? "Выбери предмет из инвентаря" : "Инвентарь пуст";
+    sourceSelect.appendChild(placeholder);
 
     currentInventory.forEach(item => {
+        const catalogItem = getUpgradeCatalogItem(item.itemId);
+        if (!catalogItem) return;
         const option = document.createElement("option");
-        option.value = item.id;
-        option.textContent = `${item.name} — ${item.sell} Coin`;
+        option.value = String(item.id);
+        option.textContent = `${item.name} — ${catalogItem.price} Coin`;
         sourceSelect.appendChild(option);
     });
-
     updateUpgradeChance();
 }
 
 function updateUpgradeChance() {
     const sourceSelect = document.getElementById("upgradeSource");
     const targetSelect = document.getElementById("upgradeTarget");
+    if (!sourceSelect || !targetSelect) return;
+
+    const source = currentInventory.find(item => String(item.id) === sourceSelect.value);
+    const sourceCatalog = source ? getUpgradeCatalogItem(source.itemId) : null;
+    const targetId = targetSelect.value;
+    const target = targetId ? getUpgradeCatalogItem(targetId) : null;
     const chanceElement = document.getElementById("upgradeChance");
     const infoElement = document.getElementById("upgradeInfo");
     const button = document.getElementById("upgradeButton");
     const hint = document.getElementById("upgradeTargetHint");
 
-    const source = currentInventory.find(
-        item => String(item.id) === sourceSelect.value
-    );
-
-    targetSelect.innerHTML = "";
-
-    document.getElementById("upgradeResult").textContent = "";
-
-    if (!source) {
-        targetSelect.innerHTML =
-            "<option value=''>Сначала выбери исходный предмет</option>";
-
+    if (!source || !sourceCatalog) {
+        targetSelect.disabled = true;
+        targetSelect.innerHTML = '<option value="">Сначала выбери свой предмет</option>';
         chanceElement.textContent = "—";
-        infoElement.textContent = "Выбери исходный предмет.";
+        infoElement.textContent = currentInventory.length ? "Выбери предмет из инвентаря." : "Сначала получи предмет из кейса.";
         button.disabled = true;
-        hint.textContent = "Доступны только предметы дороже твоего.";
-
         document.getElementById("upgradeSourceImage").src = "logo2.png";
         document.getElementById("upgradeSourceName").textContent = "Твой предмет";
         document.getElementById("upgradeSourcePrice").textContent = "— Coin";
-
         document.getElementById("upgradeTargetImage").src = "logo2.png";
         document.getElementById("upgradeTargetName").textContent = "Целевой предмет";
         document.getElementById("upgradeTargetPrice").textContent = "— Coin";
-        return;
-    }
-
-    const sourceCatalog = getUpgradeItem(source.itemId);
-
-    if (!sourceCatalog) {
-        targetSelect.innerHTML =
-            "<option value=''>Этот предмет нельзя улучшить</option>";
-        chanceElement.textContent = "—";
-        infoElement.textContent = "Предмет отсутствует в каталоге апгрейда.";
-        button.disabled = true;
+        hint.textContent = "Цель должна быть дороже твоего предмета.";
         return;
     }
 
     const sourcePrice = Number(sourceCatalog.price);
+    document.getElementById("upgradeSourceImage").src = source.image || sourceCatalog.image;
+    document.getElementById("upgradeSourceName").textContent = source.name || sourceCatalog.name;
+    document.getElementById("upgradeSourcePrice").textContent = `${sourcePrice} Coin`;
 
-    document.getElementById("upgradeSourceImage").src = source.image;
-    document.getElementById("upgradeSourceName").textContent = source.name;
-    document.getElementById("upgradeSourcePrice").textContent =
-        sourcePrice + " Coin";
-
-    const targets = upgradeCatalog
-        .filter(item => Number(item.price) > sourcePrice)
-        .sort((a, b) => a.price - b.price);
-
-    if (!targets.length) {
-        targetSelect.innerHTML =
-            "<option value=''>Нет доступных целей</option>";
-        chanceElement.textContent = "—";
-        infoElement.textContent = "Для этого предмета пока нет более дорогих целей.";
-        button.disabled = true;
-        hint.textContent = "Нет предметов дороже выбранного.";
-        return;
-    }
-
-    targetSelect.innerHTML = "<option value=''>Выбери цель</option>";
-
+    const targets = upgradeCatalog.filter(item => Number(item.price) > sourcePrice).sort((a,b) => a.price-b.price);
+    const previousTarget = targetSelect.value;
+    targetSelect.innerHTML = "";
+    const targetPlaceholder = document.createElement("option");
+    targetPlaceholder.value = "";
+    targetPlaceholder.textContent = "Выбери желаемый предмет";
+    targetSelect.appendChild(targetPlaceholder);
     targets.forEach(item => {
         const option = document.createElement("option");
         option.value = item.id;
         option.textContent = `${item.name} — ${item.price} Coin`;
         targetSelect.appendChild(option);
     });
+    targetSelect.disabled = !targets.length || upgrading;
+    hint.textContent = targets.length ? `Доступны цели из всех кейсов: ${targets.length}. При неудаче ставка сгорает.` : "Нет предметов дороже выбранного.";
+    if (targets.some(item => item.id === previousTarget)) targetSelect.value = previousTarget;
 
-    hint.textContent = `Доступно целей: ${targets.length}. При неудаче исходный предмет сгорает.`;
-
-    const target = getUpgradeItem(targetSelect.value);
-
-    if (!target) {
+    const selectedTarget = getUpgradeCatalogItem(targetSelect.value);
+    if (!selectedTarget) {
         chanceElement.textContent = "—";
-        infoElement.textContent = "Теперь выбери предмет, который хочешь получить.";
+        infoElement.textContent = "Теперь выбери целевой предмет.";
         button.disabled = true;
-
         document.getElementById("upgradeTargetImage").src = "logo2.png";
         document.getElementById("upgradeTargetName").textContent = "Целевой предмет";
         document.getElementById("upgradeTargetPrice").textContent = "— Coin";
         return;
     }
 
-    updateSelectedUpgradeTarget(source, target);
-}
-
-function updateSelectedUpgradeTarget(source, target) {
-    const chanceElement = document.getElementById("upgradeChance");
-    const infoElement = document.getElementById("upgradeInfo");
-    const button = document.getElementById("upgradeButton");
-
-    if (!source || !target) {
-        button.disabled = true;
-        return;
-    }
-
-    const sourceCatalog = getUpgradeItem(source.itemId);
-    if (!sourceCatalog) {
-        button.disabled = true;
-        return;
-    }
-
-    const sourcePrice = Number(sourceCatalog.price);
-    const targetPrice = Number(target.price);
-
-    if (targetPrice <= sourcePrice) {
-        chanceElement.textContent = "—";
-        infoElement.textContent = "Цель должна быть дороже исходного предмета.";
-        button.disabled = true;
-        return;
-    }
-
-    const chance = Math.max(
-        1,
-        Math.min(90, Math.floor(90 * sourcePrice / targetPrice))
-    );
-
-    document.getElementById("upgradeTargetImage").src = target.image;
-    document.getElementById("upgradeTargetName").textContent = target.name;
-    document.getElementById("upgradeTargetPrice").textContent =
-        targetPrice + " Coin";
-
-    chanceElement.textContent = chance + "%";
-    infoElement.textContent =
-        `Шанс получить ${target.name}: ${chance}%. При неудаче ${source.name} сгорит.`;
-
+    const targetPrice = Number(selectedTarget.price);
+    const chance = Math.max(1, Math.min(90, Math.floor(90 * sourcePrice / targetPrice)));
+    document.getElementById("upgradeTargetImage").src = selectedTarget.image;
+    document.getElementById("upgradeTargetName").textContent = selectedTarget.name;
+    document.getElementById("upgradeTargetPrice").textContent = `${targetPrice} Coin`;
+    chanceElement.textContent = `${chance}%`;
+    infoElement.textContent = `Шанс показан предварительно. Сервер проведёт проверку. При неудаче ${source.name} сгорит.`;
     button.disabled = upgrading;
 }
 
 async function performUpgrade() {
     if (upgrading) return;
-
-    const sourceSelect = document.getElementById("upgradeSource");
-    const targetSelect = document.getElementById("upgradeTarget");
-
-    const source = currentInventory.find(
-        item => String(item.id) === sourceSelect.value
-    );
-
-    const target = getUpgradeItem(targetSelect.value);
-
-    if (!source || !target) {
-        alert("Выбери исходный предмет и цель.");
-        return;
-    }
-
-    const sourceCatalog = getUpgradeItem(source.itemId);
-
-    if (!sourceCatalog || target.price <= sourceCatalog.price) {
-        alert("Выбери предмет дороже исходного.");
-        return;
-    }
+    const source = currentInventory.find(item => String(item.id) === document.getElementById("upgradeSource").value);
+    const target = getUpgradeCatalogItem(document.getElementById("upgradeTarget").value);
+    if (!source || !target) return;
 
     const button = document.getElementById("upgradeButton");
     const result = document.getElementById("upgradeResult");
-
     upgrading = true;
     button.disabled = true;
-    button.textContent = "УЛУЧШАЕМ...";
-    result.textContent = "⏳ Проверяем результат...";
-
+    button.textContent = "ПРОВЕРЯЕМ...";
+    result.textContent = "";
     try {
         const data = await apiPost("/api/upgrade", {
-            inventoryId: Number(source.id),
-            targetItemId: target.id
+            inventoryId:Number(source.id),
+            targetItemId:target.id
         });
-
         if (data.success) {
-            result.textContent =
-                `🎉 УСПЕХ! Ты получил ${data.item.name}!`;
-
+            result.textContent = `🎉 Успех! Получен предмет ${data.item.name}. Шанс был ${data.chance}%.`;
             vibrate("success");
         } else {
-            result.textContent =
-                `❌ НЕУДАЧА! ${source.name} сгорел. Попробуй ещё раз!`;
-
+            result.textContent = `😔 Неудача. ${source.name} сгорел. Шанс был ${data.chance}%.`;
             vibrate("error");
         }
-
         await loadInventory();
         renderUpgradeSources();
-
-        sourceSelect.value = "";
+        document.getElementById("upgradeSource").value = "";
         updateUpgradeChance();
-
     } catch (error) {
-        result.textContent = "❌ " + error.message;
+        result.textContent = `❌ ${error.message}`;
         vibrate("error");
-
         await loadInventory();
         renderUpgradeSources();
-
     } finally {
         upgrading = false;
-        button.disabled = false;
         button.textContent = "АПГРЕЙД";
         updateUpgradeChance();
     }
 }
 
-document.getElementById("upgradeTarget").addEventListener("change", () => {
-    const source = currentInventory.find(
-        item => String(item.id) === document.getElementById("upgradeSource").value
-    );
-
-    const target = getUpgradeItem(
-        document.getElementById("upgradeTarget").value
-    );
-
-    if (!source || !target) {
-        updateUpgradeChance();
-        return;
-    }
-
-    updateSelectedUpgradeTarget(source, target);
+document.getElementById("upgradeSource").addEventListener("change", () => {
+    document.getElementById("upgradeTarget").value = "";
+    document.getElementById("upgradeResult").textContent = "";
+    updateUpgradeChance();
 });
-
+document.getElementById("upgradeTarget").addEventListener("change", () => {
+    document.getElementById("upgradeResult").textContent = "";
+    updateUpgradeChance();
+});
 /* РУЛЕТКА */
 
 function rouletteItem(item) {
@@ -1443,7 +1828,6 @@ function showCase(caseId) {
 
     hideAllPages();
     document.getElementById("casePage").style.display = "block";
-    closeMenu();
 
     document.getElementById("detailImage").src = data.image;
     document.getElementById("detailName").textContent = data.name;
@@ -1482,7 +1866,7 @@ function showCase(caseId) {
     });
 }
 
-/* АНИМАЦИЯ РУЛЕТКИ КЕЙСА */
+/* АНИМАЦИЯ РУЛЕТКИ */
 
 function animateRoulette(winningItem) {
     return new Promise((resolve, reject) => {
@@ -1722,7 +2106,6 @@ async function loadInventory() {
         message.className = "inventory-empty";
         message.textContent = error.message;
         box.appendChild(message);
-        throw error;
     }
 }
 
