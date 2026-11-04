@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BrainRain 💧</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -75,33 +78,60 @@ header {
     justify-content: center;
 }
 
+/* ЦЕНТРАЛЬНАЯ НАВИГАЦИЯ */
+
 .desktop-nav {
     display: none;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    gap: 28px;
     height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
 }
 
 .desktop-nav button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
     border: none;
     background: transparent;
-    color: #9294a5;
-    padding: 13px 15px;
+    color: #aebbd0;
+    padding: 13px 12px;
+    font-family: 'Orbitron', Arial, sans-serif;
     font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
     white-space: nowrap;
     cursor: pointer;
     transition: .2s;
 }
 
 .desktop-nav button:hover {
-    color: white;
-    background: #20202a;
+    color: #fff;
+    text-shadow: 0 0 12px #3295ff;
 }
 
 .desktop-nav button.active {
-    color: white;
-    background: linear-gradient(135deg, #d66b20, #8e3d15);
+    color: #fff;
+    text-shadow: 0 0 12px #3295ff;
 }
+
+.nav-icon {
+    width: 23px;
+    height: 23px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px #369cff88);
+}
+
+.nav-icon-up {
+    transform: rotate(90deg);
+}
+
+/* ПРАВАЯ ЧАСТЬ ШАПКИ */
 
 .settings-button {
     width: 36px;
@@ -156,6 +186,35 @@ header {
     font-family: "Courier New", Courier, monospace !important;
     font-weight: 900 !important;
     letter-spacing: 1px;
+}
+
+/* АВАТАР В ШАПКЕ */
+
+.header-avatar-button {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    padding: 2px;
+    border: 2px solid #278cff;
+    background: #142d50;
+    box-shadow: 0 0 9px #168aff66;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+
+.header-avatar-button:hover {
+    border-color: #72bdff;
+    box-shadow: 0 0 15px #168affaa;
+}
+
+.header-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #26395e;
 }
 
 /* МЕНЮ */
@@ -385,13 +444,7 @@ main { padding: 12px 0 40px; }
     right: 0;
     top: 0;
     bottom: 0;
-    background: linear-gradient(
-        90deg,
-        #0d172b 0%,
-        transparent 12%,
-        transparent 88%,
-        #0d172b 100%
-    );
+    background: linear-gradient(90deg, #0d172b 0%, transparent 12%, transparent 88%, #0d172b 100%);
     pointer-events: none;
 }
 
@@ -904,36 +957,67 @@ body.streamer-mode .profile-page:hover {
     }
 }
 
+@media (max-width: 899px) {
+    .desktop-nav { display: none; }
+}
+
+@media (max-width: 600px) {
+    header { gap: 7px; }
+    .header-left { gap: 7px; }
+    .header-right { gap: 5px; }
+    .logo {
+        width: clamp(85px, 25vw, 125px);
+        height: 48px;
+    }
+    .header-avatar-button {
+        width: 37px;
+        height: 37px;
+        flex-basis: 37px;
+    }
+}
+
 @media (max-width: 420px) {
     header {
-        gap: 8px;
-        padding: 8px 10px;
+        gap: 6px;
+        padding: 8px 7px;
     }
 
     .logo {
-        width: clamp(100px, 29vw, 135px);
-        height: 52px;
+        width: clamp(78px, 23vw, 105px);
+        height: 45px;
     }
 
-    .header-right { gap: 5px; }
+    .header-right { gap: 4px; }
 
     .header-balance {
-        min-height: 36px;
-        padding: 5px 7px;
-        gap: 5px;
-        font-size: 15px;
+        min-height: 34px;
+        padding: 4px 6px;
+        gap: 4px;
+        font-size: 14px;
     }
 
     .header-balance .coin-icon {
-        width: 19px;
-        height: 19px;
-        flex-basis: 19px;
+        width: 18px;
+        height: 18px;
+        flex-basis: 18px;
     }
 
     .settings-button {
-        width: 30px;
-        height: 30px;
-        flex-basis: 30px;
+        width: 29px;
+        height: 29px;
+        flex-basis: 29px;
+    }
+
+    .header-avatar-button {
+        width: 35px;
+        height: 35px;
+        flex-basis: 35px;
+    }
+
+    .menu-button {
+        width: 34px;
+        height: 38px;
+        font-size: 22px;
     }
 }
 
@@ -983,12 +1067,12 @@ body.streamer-mode .profile-page:hover {
     </div>
 
     <nav class="desktop-nav">
-        <button class="active" onclick="showHome()">⌂ HOME</button>
-        <button onclick="showComingSoon('Halloween')">♛ HALLOWEEN</button>
-        <button onclick="showComingSoon('Upgrader')">⏫ UPGRADER</button>
-        <button onclick="showComingSoon('Games')">🎮 GAMES</button>
-        <button onclick="showComingSoon('Quests')">☑ QUESTS</button>
-        <button onclick="showComingSoon('Giveaways')">♔ GIVEAWAYS</button>
+        <button class="active" onclick="showHome()">
+            <img class="nav-icon" src="house.png" alt=""> HOME
+        </button>
+        <button onclick="showComingSoon('Upgrader')">
+            <img class="nav-icon nav-icon-up" src="up.png" alt=""> UPGRADER
+        </button>
     </nav>
 
     <div class="header-right">
@@ -999,6 +1083,10 @@ body.streamer-mode .profile-page:hover {
 
         <button class="settings-button" onclick="openSettings()" aria-label="Настройки">
             <img src="settings.png" alt="">
+        </button>
+
+        <button class="header-avatar-button" onclick="showProfile()" aria-label="Открыть профиль">
+            <img class="header-avatar" id="headerAvatar" src="logo2.png" alt="Профиль">
         </button>
     </div>
 </header>
@@ -1041,7 +1129,7 @@ body.streamer-mode .profile-page:hover {
     </div>
 
     <button class="menu-item" onclick="showHome()">
-        <img class="menu-icon" src="case.png" alt=""> Case
+        <img class="menu-icon" src="house.png" alt=""> Home
     </button>
     <button class="menu-item" onclick="showComingSoon('Upgrade')">
         <img class="menu-icon" src="upgrade.png" alt=""> Upgrade
@@ -1318,6 +1406,7 @@ if (user) {
     if (user.photo_url) {
         document.getElementById("userPhoto").src = user.photo_url;
         document.getElementById("profilePhoto").src = user.photo_url;
+        document.getElementById("headerAvatar").src = user.photo_url;
     }
 }
 
@@ -1445,7 +1534,6 @@ function startIdleRoulette(track, pool) {
     track.style.transform = "translateX(0)";
     track.innerHTML = "";
 
-    // Две одинаковые половины позволяют бесконечно зацикливать ленту.
     const sequence = [];
 
     for (let i = 0; i < 12; i++) {
@@ -1458,7 +1546,6 @@ function startIdleRoulette(track, pool) {
         track.appendChild(rouletteItem(item));
     });
 
-    // Даём браузеру применить размеры элементов перед запуском анимации.
     void track.offsetWidth;
     track.classList.add("idle");
 }
@@ -1490,7 +1577,6 @@ function showCase(caseId) {
     const track = document.getElementById(data.roulette);
     track.classList.remove("hidden");
 
-    // Сразу запускаем бесконечное движение рулетки.
     startIdleRoulette(track, data.items);
 
     const grid = document.getElementById("itemsGrid");
@@ -1527,7 +1613,6 @@ function animateRoulette(winningItem) {
         track.style.transform = "translateX(0)";
         track.innerHTML = "";
 
-        // Длинная лента: выпавший предмет стоит ближе к самому концу.
         const sequence = [];
         const winningIndex = 44;
 
@@ -1537,7 +1622,6 @@ function animateRoulette(winningItem) {
 
         sequence.push(winningItem);
 
-        // Несколько элементов после выигрыша нужны только для ширины ленты.
         for (let i = 0; i < 4; i++) {
             sequence.push(pool[Math.floor(Math.random() * pool.length)]);
         }
@@ -1562,7 +1646,6 @@ function animateRoulette(winningItem) {
             windowEl.clientWidth / 2 +
             itemWidth / 2;
 
-        // Сбрасываем старую позицию до начала новой анимации.
         void track.offsetWidth;
 
         const animation = track.animate(
@@ -1637,7 +1720,6 @@ async function openCase() {
             rarity: catalogItem?.rarity || ""
         };
 
-        // Крутим ленту до серверного результата.
         await animateRoulette(visualItem);
 
         currentResult = {
@@ -1657,7 +1739,6 @@ async function openCase() {
         alert(error.message);
         await loadBalance();
 
-        // Если открытие не удалось, снова запускаем бесконечную рулетку.
         const track = document.getElementById(cases[currentCase].roulette);
         startIdleRoulette(track, cases[currentCase].items);
 
