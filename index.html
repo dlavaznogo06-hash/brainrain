@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -818,12 +819,15 @@ body.streamer-mode .profile-page:hover {
     }
 }
 
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+
 @media (max-width: 420px) {
     .logo {
-        width: 19vw;
-        min-width: 68px;
-        max-width: 82px;
-        height: 8vh;
+        width: clamp(125px, 38vw, 155px);
+        min-width: 125px;
+        max-width: 155px;
+        height: 9vh;
+        max-height: 76px;
     }
 
     .header-right { gap: 5px; }
@@ -845,6 +849,13 @@ body.streamer-mode .profile-page:hover {
         width: 30px;
         height: 30px;
         flex-basis: 30px;
+    }
+}
+
+@media (max-width: 350px) {
+    .logo {
+        width: 120px;
+        min-width: 120px;
     }
 }
 
@@ -1317,6 +1328,83 @@ function showComingSoon(name) {
 }
 
 // ==========================
+// РУЛЕТКА: ПОСТОЯННАЯ ЛЕНТА
+// ==========================
+
+function rouletteItem(item) {
+    const el = document.createElement("div");
+    el.className = "roulette-item " + (item.rarity || "");
+
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.name;
+
+    el.appendChild(img);
+    return el;
+}
+
+function fillIdleRoulette(track, pool) {
+    track.innerHTML = "";
+    track.style.transition = "none";
+    track.style.transform = "translateX(0)";
+
+    // Длинная лента заранее заполнена предметами.
+    // Она остаётся на экране до и после открытия кейса.
+    for (let i = 0; i < 24; i++) {
+        track.appendChild(rouletteItem(pool[i % pool.length]));
+    }
+}
+
+function animateRoulette(winningItem) {
+    return new Promise(resolve => {
+        const track = document.getElementById(cases[currentCase].roulette);
+        const windowEl = track.parentElement;
+        const pool = cases[currentCase].items;
+
+        track.innerHTML = "";
+        track.style.transition = "none";
+        track.style.transform = "translateX(0)";
+
+        // Большая лента: предметы есть и до, и после выигрыша.
+        // Выигрышный предмет не является последним.
+        const sequence = [];
+        const winnerIndex = 55;
+
+        for (let i = 0; i < winnerIndex; i++) {
+            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
+        }
+
+        sequence.push(winningItem);
+
+        for (let i = 0; i < 22; i++) {
+            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
+        }
+
+        sequence.forEach(item => {
+            track.appendChild(rouletteItem(item));
+        });
+
+        // Измеряем фактическое положение карточки,
+        // чтобы точно поставить выигрыш по центру.
+        const winnerElement = track.children[winnerIndex];
+        const targetOffset =
+            winnerElement.offsetLeft +
+            winnerElement.offsetWidth / 2 -
+            windowEl.clientWidth / 2;
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                track.style.transition =
+                    "transform 3s cubic-bezier(.08,.65,.12,1)";
+                track.style.transform = `translateX(-${targetOffset}px)`;
+
+                setTimeout(resolve, 3100);
+            });
+        });
+    });
+}
+
+// ==========================
 // ОТОБРАЖЕНИЕ КЕЙСА
 // ==========================
 
@@ -1338,13 +1426,15 @@ function showCase(caseId) {
 
     document.querySelectorAll(".roulette-track").forEach(track => {
         track.classList.add("hidden");
+        track.style.transition = "none";
+        track.style.transform = "translateX(0)";
     });
 
     const track = document.getElementById(data.roulette);
     track.classList.remove("hidden");
-    track.style.transition = "none";
-    track.style.transform = "translateX(0)";
-    track.innerHTML = "";
+
+    // Сразу показываем заполненную рулетку.
+    fillIdleRoulette(track, data.items);
 
     const grid = document.getElementById("itemsGrid");
     grid.innerHTML = "";
@@ -1362,61 +1452,6 @@ function showCase(caseId) {
 
         card.append(img, name);
         grid.appendChild(card);
-    });
-}
-
-// ==========================
-// РУЛЕТКА
-// ==========================
-
-function rouletteItem(item) {
-    const el = document.createElement("div");
-    el.className = "roulette-item " + (item.rarity || "");
-
-    const img = document.createElement("img");
-    img.src = item.image;
-    img.alt = item.name;
-
-    el.appendChild(img);
-    return el;
-}
-
-function animateRoulette(winningItem) {
-    return new Promise(resolve => {
-        const track = document.getElementById(cases[currentCase].roulette);
-        const windowEl = track.parentElement;
-        const pool = cases[currentCase].items;
-
-        track.innerHTML = "";
-        track.style.transition = "none";
-        track.style.transform = "translateX(0)";
-
-        const sequence = [];
-
-        for (let i = 0; i < 35; i++) {
-            sequence.push(pool[Math.floor(Math.random() * pool.length)]);
-        }
-
-        sequence.push(winningItem);
-
-        sequence.forEach(item => {
-            track.appendChild(rouletteItem(item));
-        });
-
-        const step = 121;
-        const targetIndex = sequence.length - 1;
-        const targetOffset = targetIndex * step -
-            windowEl.clientWidth / 2 + step / 2;
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                track.style.transition =
-                    "transform 3s cubic-bezier(.08,.65,.12,1)";
-                track.style.transform = `translateX(-${targetOffset}px)`;
-
-                setTimeout(resolve, 3100);
-            });
-        });
     });
 }
 
