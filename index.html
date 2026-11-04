@@ -1329,6 +1329,12 @@ body.streamer-mode .profile-page:hover {
                 <div class="price">12 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('red_case')">
+                <img src="red-case.png" alt="Красный кейс">
+                <h3>Красный кейс 🔴</h3>
+                <div class="price">159 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('all')">
                 <img src="all-or-nothing.png" alt="Всё или ничего">
                 <h3>ВСЁ ИЛИ НИЧЕГО 🎲</h3>
@@ -1347,6 +1353,7 @@ body.streamer-mode .profile-page:hover {
         <div class="roulette-window">
             <div class="roulette-track" id="seaRoulette"></div>
             <div class="roulette-track hidden" id="impactRoulette"></div>
+            <div class="roulette-track hidden" id="redCaseRoulette"></div>
             <div class="roulette-track hidden" id="allRoulette"></div>
         </div>
 
@@ -1513,6 +1520,16 @@ const impactItems = [
     {id:"bloodmoon-hammer", name:"Bloodmoon Hammer", image:"bloodmoon-hammer.png", price:1100, rarity:"rarity-red"}
 ];
 
+const redCaseItems = [
+    {id:"sammyni-fattini", name:"Sammyni Fattini", image:"sammyni-fattini.png", price:70, rarity:"rarity-blue"},
+    {id:"cerberus", name:"Cerberus", image:"cerberus.png", price:160, rarity:"rarity-purple"},
+    {id:"chillin-chili", name:"Chillin Chili", image:"chillin-chili.png", price:165, rarity:"rarity-purple"},
+    {id:"lovin-rose", name:"Lovin Rose", image:"lovin-rose.png", price:180, rarity:"rarity-purple"},
+    {id:"fragola-la-la-la", name:"Fragola La La La", image:"fragola-la-la-la.png", price:210, rarity:"rarity-red"},
+    {id:"guest-666", name:"Guest 666", image:"guest-666.png", price:333, rarity:"rarity-red"},
+    {id:"sammyni-truckini", name:"Sammyni Truckini", image:"sammyni-truckini.png", price:600, rarity:"rarity-gold"}
+];
+
 const allItems = [
     {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
@@ -1532,6 +1549,13 @@ const cases = {
         price:12,
         items:impactItems,
         roulette:"impactRoulette"
+    },
+    red_case: {
+        name:"Красный кейс 🔴",
+        image:"red-case.png",
+        price:159,
+        items:redCaseItems,
+        roulette:"redCaseRoulette"
     },
     all: {
         name:"ВСЁ ИЛИ НИЧЕГО 🎲",
@@ -1756,7 +1780,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const upgradeCatalog = [...seaItems, ...impactItems, ...allItems];
+const upgradeCatalog = [...seaItems, ...impactItems, ...redCaseItems, ...allItems];
 const selectedUpgradeInventoryIds = new Set();
 let upgradeWheelRotation = 0;
 let selectedUpgradeTargetId = "";
