@@ -547,6 +547,7 @@ main { padding: 12px 0 40px; }
     object-fit: contain;
 }
 
+.case-item-price{margin:0 0 10px;color:#ffd447;font-size:12px;font-weight:800;text-align:center}
 .item-card h4 {
     font-size: 13px;
     min-height: 30px;
@@ -1335,6 +1336,12 @@ body.streamer-mode .profile-page:hover {
                 <div class="price">159 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('lucky_blocks')">
+                <img src="lucky-blocks-case.png" alt="Lucky Blocks">
+                <h3>LUCKY BLOCKS 🍀</h3>
+                <div class="price">5 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('all')">
                 <img src="all-or-nothing.png" alt="Всё или ничего">
                 <h3>ВСЁ ИЛИ НИЧЕГО 🎲</h3>
@@ -1354,6 +1361,7 @@ body.streamer-mode .profile-page:hover {
             <div class="roulette-track" id="seaRoulette"></div>
             <div class="roulette-track hidden" id="impactRoulette"></div>
             <div class="roulette-track hidden" id="redCaseRoulette"></div>
+            <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
             <div class="roulette-track hidden" id="allRoulette"></div>
         </div>
 
@@ -1530,6 +1538,16 @@ const redCaseItems = [
     {id:"sammyni-truckini", name:"Sammyni Truckini", image:"sammyni-truckini.png", price:600, rarity:"rarity-gold"}
 ];
 
+const luckyBlocksItems = [
+    {id:"taco-lucky-block", name:"Taco Lucky Block", image:"taco-lucky-block.png", price:1, rarity:"rarity-blue"},
+    {id:"admin-lucky-block", name:"Admin Lucky Block", image:"admin-lucky-block.png", price:2, rarity:"rarity-blue"},
+    {id:"los-lucky-block", name:"Los Lucky Block", image:"los-lucky-block.png", price:5, rarity:"rarity-purple"},
+    {id:"secret-lucky-block", name:"Secret Lucky Block", image:"secret-lucky-block.png", price:8, rarity:"rarity-purple"},
+    {id:"bee-lucky-block", name:"Bee Lucky Block", image:"bee.png", price:10, rarity:"rarity-red"},
+    {id:"festive-lucky-block", name:"Festive Lucky Block", image:"festive-lucky-block.png", price:25, rarity:"rarity-red"},
+    {id:"egg-lucky-block", name:"Egg Lucky Block", image:"egg-lucky-block.png", price:33, rarity:"rarity-gold"}
+];
+
 const allItems = [
     {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
@@ -1556,6 +1574,13 @@ const cases = {
         price:159,
         items:redCaseItems,
         roulette:"redCaseRoulette"
+    },
+    lucky_blocks: {
+        name:"LUCKY BLOCKS 🍀",
+        image:"lucky-blocks-case.png",
+        price:5,
+        items:luckyBlocksItems,
+        roulette:"luckyBlocksRoulette"
     },
     all: {
         name:"ВСЁ ИЛИ НИЧЕГО 🎲",
@@ -1780,7 +1805,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const upgradeCatalog = [...seaItems, ...impactItems, ...redCaseItems, ...allItems];
+const upgradeCatalog = [...seaItems, ...impactItems, ...redCaseItems, ...luckyBlocksItems, ...allItems].filter(item => item.id !== "coin");
 const selectedUpgradeInventoryIds = new Set();
 let upgradeWheelRotation = 0;
 let selectedUpgradeTargetId = "";
@@ -2221,7 +2246,11 @@ function showCase(caseId) {
         const name = document.createElement("h4");
         name.textContent = item.name;
 
-        card.append(img, name);
+        const itemPrice = document.createElement("div");
+        itemPrice.className = "case-item-price";
+        itemPrice.textContent = `${Number(item.price || 0).toLocaleString("ru-RU")} Coin`;
+
+        card.append(img, name, itemPrice);
         grid.appendChild(card);
     });
 }
