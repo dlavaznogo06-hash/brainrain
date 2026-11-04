@@ -1178,6 +1178,31 @@ body.streamer-mode .profile-page:hover {
 .upgrade-result{min-height:24px;margin:8px 0;color:#ffd45c;text-align:center;line-height:1.5}
 @media(max-width:700px){.upgrade-choice-row{width:100%;gap:8px}.upgrade-wheel-brand{height:30px;margin-bottom:8px}.upgrade-wheel-brand img{width:124px;height:30px}.upgrade-center .open-button{max-width:260px;padding:10px 8px;font-size:14px;margin-top:2px}.upgrade-card{min-height:160px;padding:10px 6px}.upgrade-wheel{width:240px;height:240px}.upgrade-wheel-core{width:184px;height:184px}.upgrade-wheel-core strong{font-size:30px}.upgrade-controls{grid-template-columns:1fr}.upgrade-target-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:420px){.upgrade-choice-row{gap:6px}.upgrade-wheel-brand{height:25px;margin-bottom:6px}.upgrade-wheel-brand img{width:104px;height:25px}.upgrade-center .open-button{max-width:220px;font-size:12px;min-height:40px;margin-top:0}.upgrade-card{min-height:135px;padding:8px 5px}.upgrade-card h3{font-size:10px}.upgrade-wheel{width:200px;height:200px}.upgrade-wheel-core{width:150px;height:150px}.upgrade-wheel-core strong{font-size:24px}.upgrade-wheel-pointer{top:-8px;font-size:21px}.upgrade-wheel-label{font-size:8px}.upgrade-wheel-label.top{top:6px}.upgrade-wheel-label.bottom{bottom:6px}.upgrade-wheel-label.left{left:6px}.upgrade-wheel-label.right{right:6px}.upgrade-empty-slot,.upgrade-target-pick{min-height:105px;font-size:11px}.upgrade-selected-row{gap:4px;padding:4px}.upgrade-selected-row img{width:28px;height:28px}.upgrade-target-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Финальный вид выбранных персонажей и эффект проигрыша */
+.upgrade-selected-list{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:7px;text-align:center}
+.upgrade-selected-list .upgrade-selected-row{position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:132px;padding:8px 6px;text-align:center}
+.upgrade-selected-list .upgrade-selected-row img{width:100%;height:86px;object-fit:contain}
+.upgrade-selected-list .upgrade-selected-row span{flex:0 0 auto;width:100%;font-size:10px}
+.upgrade-selected-list .upgrade-selected-row button{position:absolute;top:2px;right:4px;padding:0 4px}
+.upgrade-selected-row[hidden],.upgrade-empty-slot[hidden],.upgrade-target-pick[hidden]{display:none!important}
+.upgrade-card>.upgrade-selected-row{display:flex;position:relative;flex-direction:column;justify-content:center;gap:5px;min-height:180px;padding:10px}
+.upgrade-card>.upgrade-selected-row img{width:100%;height:138px;object-fit:contain}
+.upgrade-card>.upgrade-selected-row span{font-size:12px}
+.upgrade-card>.upgrade-selected-row button{position:absolute;top:5px;right:7px}
+.upgrade-wheel-core{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:24px;overflow:hidden}
+.upgrade-wheel-core img{display:block;width:100%;height:145px;object-fit:contain;filter:drop-shadow(0 5px 10px #0009)}
+.upgrade-wheel-core img[hidden]{display:none!important}
+.upgrade-wheel-core strong{max-width:100%;color:#f0e7f7;font-size:14px;font-weight:900;line-height:1.2;overflow-wrap:anywhere;text-shadow:0 2px 5px #000}
+.upgrade-wheel-core.breaking img{animation:upgradeItemShatter .9s cubic-bezier(.55,.05,.85,.3) forwards}
+.upgrade-wheel-core.breaking:after{content:"";position:absolute;inset:18%;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#ffd76a 0 1px,transparent 2px) 0 0/17px 17px,radial-gradient(circle,#9df7cf 0 1px,transparent 2px) 8px 6px/21px 21px;animation:upgradeShatterDust .9s ease-out forwards}
+@keyframes upgradeItemShatter{0%{opacity:1;transform:translateY(0) rotate(0) scale(1);filter:brightness(1);clip-path:inset(0)}24%{transform:translateY(2px) rotate(-3deg) scale(1.04);filter:brightness(1.8) saturate(.7)}52%{opacity:.85;transform:translate(-4px,8px) rotate(5deg) scale(.92);clip-path:polygon(0 0,100% 0,100% 42%,76% 42%,76% 64%,100% 64%,100% 100%,48% 100%,48% 78%,25% 78%,25% 100%,0 100%)}100%{opacity:0;transform:translate(10px,25px) rotate(13deg) scale(.55);filter:brightness(2) blur(5px);clip-path:polygon(0 0,38% 0,38% 28%,72% 28%,72% 0,100% 0,100% 38%,64% 38%,64% 60%,100% 60%,100% 100%,54% 100%,54% 76%,28% 76%,28% 100%,0 100%)}}
+@keyframes upgradeShatterDust{0%{opacity:0;transform:scale(.4)}30%{opacity:.9}100%{opacity:0;transform:scale(1.5)}}
+.upgrade-multiplier-row{display:flex;justify-content:center;gap:16px;width:min(100%,320px);margin:-8px auto 2px}
+.upgrade-multiplier-row .upgrade-preset{min-width:58px;min-height:34px;padding:5px 8px;border:0;border-radius:0;background:transparent;box-shadow:none;color:#d7c5e9;font-size:14px}
+.upgrade-multiplier-row .upgrade-preset:hover{color:#fff;text-shadow:0 0 10px #c49ce0}
+@media(max-width:700px){.upgrade-wheel-core{padding:18px}.upgrade-wheel-core img{height:116px}.upgrade-wheel-core strong{font-size:12px}}
+@media(max-width:420px){.upgrade-wheel-core{padding:12px}.upgrade-wheel-core img{height:90px}.upgrade-wheel-core strong{font-size:10px}.upgrade-selected-list{grid-template-columns:1fr}.upgrade-selected-list .upgrade-selected-row{min-height:105px}.upgrade-selected-list .upgrade-selected-row img{height:64px}.upgrade-card>.upgrade-selected-row{min-height:120px}.upgrade-card>.upgrade-selected-row img{height:86px}}
 </style>
 </head>
 
@@ -1348,9 +1373,6 @@ body.streamer-mode .profile-page:hover {
     </section>
 
     <section class="upgrader-page" id="upgraderPage">
-    <button class="back-button" onclick="showHome()">← Назад</button>
-    <h1 class="page-title">АПГРЕЙДЕР 💎</h1>
-    <p class="upgrader-intro">Добавь до 5 предметов из инвентаря во вклад и выбери цель дороже ставки. При удаче цель попадёт в инвентарь, при неудаче вклад сгорит.</p>
 
     <div class="upgrade-mode" role="group" aria-label="Режим апгрейда">
         <button type="button" class="active" data-upgrade-mode="normal" onclick="setUpgradeMode('normal')">✦ Обычно</button>
@@ -1367,7 +1389,7 @@ body.streamer-mode .profile-page:hover {
                 <span class="upgrade-wheel-label bottom">0%</span>
                 <span class="upgrade-wheel-label left">50%</span>
                 <div class="upgrade-wheel-arrow-orbit" id="upgradeWheelArrow"><span class="upgrade-wheel-pointer" aria-hidden="true">▼</span></div>
-                <div class="upgrade-wheel-core"><strong id="upgradeWheelChance">0.00%</strong><small id="upgradeWheelHint">no chance</small></div>
+                <div class="upgrade-wheel-core" id="upgradeWheelCore"><img id="upgradeWheelItemImage" alt="" hidden><strong id="upgradeWheelItemName">ВЫБЕРИ ЦЕЛЬ</strong></div>
             </div>
         </div>
         <div class="upgrade-choice-row">
@@ -1389,16 +1411,11 @@ body.streamer-mode .profile-page:hover {
         </section>
         </div>
         <button class="open-button" id="upgradeButton" type="button" onclick="performUpgrade()" disabled>НАЧАТЬ</button>
+        <div class="upgrade-multiplier-row" id="upgradeMultiplierPresets"><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',2)">×2</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',5)">×5</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',10)">×10</button></div>
     </div>
     <div class="upgrade-controls">
         <div class="upgrade-preset-box">
-            <p class="upgrade-preset-title">Быстрый выбор цели по множителю ставки</p>
-            <div class="upgrade-preset-row" id="upgradeMultiplierPresets">
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',2)">×2</button>
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',3)">×3</button>
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',5)">×5</button>
-                <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',10)">×10</button>
-            </div>
+            
             <p class="upgrade-preset-title">Подобрать ближайшую цель под шанс</p>
             <div class="upgrade-preset-row" id="upgradeChancePresets">
                 <button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',75)">75%</button>
@@ -1866,11 +1883,17 @@ function updateUpgradeState() {
     renderSelectedUpgradeTarget();
     renderUpgradeTargetGrid();
     const validTarget = getUpgradeCatalogItem(selectedUpgradeTargetId);
+    const wheelImage = document.getElementById("upgradeWheelItemImage");
+    const wheelName = document.getElementById("upgradeWheelItemName");
+    if (wheelImage && wheelName) {
+        wheelImage.hidden = !validTarget;
+        wheelImage.src = validTarget ? validTarget.image : "";
+        wheelImage.alt = validTarget ? validTarget.name : "";
+        wheelName.textContent = validTarget ? validTarget.name : "ВЫБЕРИ ЦЕЛЬ";
+    }
     const chance = validTarget && stake > 0
         ? Math.max(1, Math.min(90, Math.floor(90 * stake / Number(validTarget.price))))
         : 0;
-    document.getElementById("upgradeWheelChance").textContent = `${chance.toFixed(2)}%`;
-    document.getElementById("upgradeWheelHint").textContent = chance > 0 ? "chance" : "no chance";
 
     setUpgradeWheelSector(chance);
     document.getElementById("upgradeButton").disabled = upgrading || !validTarget || stake <= 0 || Number(validTarget.price) <= stake;
@@ -1980,7 +2003,7 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
     const alignment = (rollAngle - currentSector + 360) % 360;
     const turns = upgradeMode === "fast" ? 3 : 7;
     const finalRotation = currentRotation + turns * 360 + alignment;
-    const duration = upgradeMode === "fast" ? 1100 : 3200;
+    const duration = upgradeMode === "fast" ? 3100 : 5200;
 
     wheel.classList.add("spinning");
     if (typeof arrow.animate === "function") {
@@ -2003,6 +2026,16 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
     upgradeWheelRotation = finalRotation;
     wheel.classList.remove("spinning");
 }
+async function animateUpgradeShatter() {
+    const core = document.getElementById("upgradeWheelCore");
+    if (!core) return;
+    core.classList.remove("breaking");
+    void core.offsetWidth;
+    core.classList.add("breaking");
+    await new Promise(resolve => setTimeout(resolve, 900));
+    core.classList.remove("breaking");
+}
+
 async function performUpgrade() {
     if (upgrading) return;
     const selectedItems = getSelectedUpgradeItems();
@@ -2032,6 +2065,7 @@ async function performUpgrade() {
         });
         result.textContent = "Стрелка крутится...";
         await animateUpgradeWheel(data.roll, data.chance, data.success);
+        if (!data.success) await animateUpgradeShatter();
         playerBalance = Number(data.balance ?? playerBalance);
         updateBalance();
         result.textContent = data.success
