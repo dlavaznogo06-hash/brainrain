@@ -547,7 +547,8 @@ main { padding: 12px 0 40px; }
     object-fit: contain;
 }
 
-.case-item-price{margin:0 0 10px;color:#ffd447;font-size:12px;font-weight:800;text-align:center}
+.case-item-price{display:flex;align-items:center;justify-content:center;gap:4px;margin:0 0 10px;color:#ffd447;font-size:12px;font-weight:800;text-align:center}
+.case-item-price .coin-icon{width:15px;height:15px;object-fit:contain}
 .item-card h4 {
     font-size: 13px;
     min-height: 30px;
@@ -1384,7 +1385,7 @@ body.streamer-mode .profile-page:hover {
                 <div class="profile-balance">
                     <span class="balance-number pixel-number" id="profileBalance">0</span>
                     <img class="coin-icon" src="coin.png" alt="Coin">
-                    <span class="profile-balance-label">Coin</span>
+
                 </div>
             </div>
         </div>
@@ -1805,7 +1806,12 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const upgradeCatalog = [...seaItems, ...impactItems, ...redCaseItems, ...luckyBlocksItems, ...allItems].filter(item => item.id !== "coin");
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...luckyBlocksItems, ...allItems];
+allCatalogItems.forEach(item => {
+    const price = Number(item.price || 0);
+    item.rarity = price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
+});
+const upgradeCatalog = allCatalogItems.filter(item => item.id !== "coin");
 const selectedUpgradeInventoryIds = new Set();
 let upgradeWheelRotation = 0;
 let selectedUpgradeTargetId = "";
@@ -2248,7 +2254,13 @@ function showCase(caseId) {
 
         const itemPrice = document.createElement("div");
         itemPrice.className = "case-item-price";
-        itemPrice.textContent = `${Number(item.price || 0).toLocaleString("ru-RU")} Coin`;
+        const itemPriceValue = document.createElement("span");
+        itemPriceValue.textContent = Number(item.price || 0).toLocaleString("ru-RU");
+        const itemCoinIcon = document.createElement("img");
+        itemCoinIcon.className = "coin-icon";
+        itemCoinIcon.src = "coin.png";
+        itemCoinIcon.alt = "Coin";
+        itemPrice.append(itemPriceValue, itemCoinIcon);
 
         card.append(img, name, itemPrice);
         grid.appendChild(card);
