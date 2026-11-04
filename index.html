@@ -20,7 +20,7 @@
 }
 
 body {
-    background: radial-gradient(circle at top, #14264a 0%, #080d1b 55%);
+    background: radial-gradient(circle at top, #392052 0%, #1b102b 48%, #0c0714 100%);
     color: white;
     min-height: 100vh;
     overflow-x: hidden;
@@ -37,8 +37,8 @@ header {
     gap: 16px;
     position: relative;
     z-index: 5;
-    background: linear-gradient(90deg, #1b102b, #241337, #1b102b);
-    border-bottom: 1px solid #38234f;
+    background: linear-gradient(90deg, #1b102b, #302044, #1b102b);
+    border-bottom: 1px solid #65477e;
 }
 
 .header-left {
@@ -67,7 +67,7 @@ header {
 
 .menu-button {
     border: none;
-    background: #172746;
+    background: #392653;
     color: white;
     font-size: 25px;
     width: 42px;
@@ -78,13 +78,13 @@ header {
     justify-content: center;
 }
 
-/* ЦЕНТРАЛЬНАЯ НАВИГАЦИЯ */
+/* НАВИГАЦИЯ */
 
 .desktop-nav {
     display: none;
     align-items: center;
     justify-content: center;
-    gap: 28px;
+    gap: 18px;
     height: 100%;
     position: absolute;
     left: 50%;
@@ -99,8 +99,8 @@ header {
     gap: 9px;
     border: none;
     background: transparent;
-    color: #b8bdc7;
-    padding: 13px 12px;
+    color: #c5b5d8;
+    padding: 13px 17px;
     font-family: 'Orbitron', Arial, sans-serif;
     font-size: 13px;
     font-weight: 800;
@@ -110,22 +110,32 @@ header {
     transition: .2s;
 }
 
-.desktop-nav button:hover,
+.desktop-nav button:hover {
+    color: #e5c5ff;
+    background: #49305f;
+    border-radius: 13px !important;
+}
+
 .desktop-nav button.active {
-    color: #b8bdc7;
-    text-shadow: none;
+    color: #ffdf70 !important;
+    background: linear-gradient(180deg, #a65320, #71350f);
+    border-radius: 13px !important;
+    box-shadow: 0 4px 15px #d8752544;
+    text-shadow: 0 0 10px #ffd45c66;
 }
 
 .nav-icon {
     width: 23px;
     height: 23px;
     object-fit: contain;
-    filter: grayscale(1) brightness(0.85);
+    filter: grayscale(1) brightness(0) invert(.8);
 }
 
-.nav-icon-up {
-    transform: rotate(90deg);
+.desktop-nav button.active .nav-icon {
+    filter: brightness(0) saturate(100%) invert(84%) sepia(48%) saturate(600%) hue-rotate(350deg) brightness(105%);
 }
+
+.nav-icon-up { transform: rotate(90deg); }
 
 /* ПРАВАЯ ЧАСТЬ ШАПКИ */
 
@@ -133,14 +143,15 @@ header {
     width: 36px;
     height: 36px;
     padding: 5px;
-    border: 1px solid #829fc9;
-    background: #405b83;
-    box-shadow: 0 0 12px #a8c9ff66;
+    border: 1px solid #80639e;
+    background: #493064;
+    box-shadow: 0 0 12px #a77bd033;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 36px;
+    border-radius: 10px !important;
 }
 
 .settings-button img {
@@ -157,10 +168,11 @@ header {
     gap: 8px;
     padding: 8px 12px;
     min-height: 42px;
-    background: #1b3156;
-    border: 1px solid #35527d;
+    background: #392653;
+    border: 1px solid #694b88;
     color: white;
     font-size: 20px;
+    border-radius: 11px !important;
 }
 
 .coin-icon {
@@ -184,26 +196,28 @@ header {
     letter-spacing: 1px;
 }
 
-/* АВАТАР В ШАПКЕ */
+/* КРУГЛЫЙ АВАТАР */
 
 .header-avatar-button {
     width: 43px;
     height: 43px;
     flex: 0 0 43px;
     padding: 2px;
-    border: 2px solid #278cff;
-    background: #142d50;
-    box-shadow: 0 0 9px #168aff66;
+    border: 2px solid #b47bdf;
+    background: #302044;
+    box-shadow: 0 0 10px #a77bd055;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: .2s;
+    border-radius: 50% !important;
+    overflow: hidden;
 }
 
 .header-avatar-button:hover {
-    border-color: #72bdff;
-    box-shadow: 0 0 15px #168affaa;
+    border-color: #e0baff;
+    box-shadow: 0 0 15px #b47bdfaa;
 }
 
 .header-avatar {
@@ -211,6 +225,7 @@ header {
     height: 100%;
     object-fit: cover;
     background: #26395e;
+    border-radius: 50% !important;
 }
 
 /* МЕНЮ */
@@ -221,7 +236,7 @@ header {
     left: -280px;
     width: 260px;
     height: 100%;
-    background: #101c35;
+    background: linear-gradient(180deg, #302044, #160e25);
     z-index: 20;
     padding: 25px 18px;
     transition: .25s;
@@ -251,6 +266,7 @@ header {
     height: 48px;
     background: #26395e;
     object-fit: cover;
+    border-radius: 50% !important;
 }
 
 .menu-user-info {
@@ -272,10 +288,11 @@ header {
     gap: 7px;
     width: fit-content;
     padding: 6px 10px;
-    background: #1b3156;
-    border: 1px solid #35527d;
+    background: #392653;
+    border: 1px solid #694b88;
     color: white;
     font-size: 16px;
+    border-radius: 9px !important;
 }
 
 .menu-balance .coin-icon {
@@ -292,11 +309,12 @@ header {
     padding: 15px;
     margin: 8px 0;
     border: none;
-    background: #1b2d50;
+    background: #392653;
     color: white;
     text-align: left;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 10px !important;
 }
 
 .menu-icon {
@@ -306,7 +324,7 @@ header {
     flex: 0 0 28px;
 }
 
-.menu-item:hover { background: #294577; }
+.menu-item:hover { background: #594078; }
 
 .overlay {
     display: none;
@@ -338,11 +356,12 @@ main { padding: 12px 0 40px; }
 .case-card {
     width: 100%;
     min-width: 0;
-    background: linear-gradient(145deg, #1b3156, #101b32);
-    border: 1px solid #2b4772;
+    background: linear-gradient(145deg, #382653, #201532);
+    border: 1px solid #594078;
     padding: 10px;
     cursor: pointer;
     transition: .2s;
+    border-radius: 13px !important;
 }
 
 .case-card:active { transform: scale(.97); }
@@ -374,13 +393,14 @@ main { padding: 12px 0 40px; }
 }
 
 .back-button {
-    background: #1b2d50;
+    background: #392653;
     color: white;
-    border: 1px solid #35527d;
+    border: 1px solid #694b88;
     padding: 11px 17px;
     font-size: 15px;
     margin: 5px 0 18px;
     cursor: pointer;
+    border-radius: 10px !important;
 }
 
 .case-cover {
@@ -413,10 +433,11 @@ main { padding: 12px 0 40px; }
     width: 100%;
     overflow: hidden;
     height: 115px;
-    background: #0d172b;
-    border: 2px solid #29436b;
+    background: #171023;
+    border: 2px solid #654987;
     position: relative;
     margin: 15px 0 18px;
+    border-radius: 12px !important;
 }
 
 .roulette-window::before {
@@ -440,7 +461,7 @@ main { padding: 12px 0 40px; }
     right: 0;
     top: 0;
     bottom: 0;
-    background: linear-gradient(90deg, #0d172b 0%, transparent 12%, transparent 88%, #0d172b 100%);
+    background: linear-gradient(90deg, #171023 0%, transparent 12%, transparent 88%, #171023 100%);
     pointer-events: none;
 }
 
@@ -469,9 +490,10 @@ main { padding: 12px 0 40px; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #172c4c;
-    border: 1px solid #3974a9;
+    background: #302044;
+    border: 1px solid #76539a;
     overflow: hidden;
+    border-radius: 9px !important;
 }
 
 .roulette-item img {
@@ -487,11 +509,12 @@ main { padding: 12px 0 40px; }
     margin: 0 auto 30px;
     padding: 15px;
     border: none;
-    background: linear-gradient(90deg, #2478ed, #42a5ff);
+    background: linear-gradient(100deg, #7542a5, #a45bd0);
     color: white;
     font-size: 17px;
     cursor: pointer;
-    box-shadow: 0 5px 20px #1678ed55;
+    box-shadow: 0 5px 20px #7542a555;
+    border-radius: 12px !important;
 }
 
 .open-button:disabled {
@@ -511,10 +534,11 @@ main { padding: 12px 0 40px; }
 }
 
 .item-card {
-    background: #142440;
-    border: 1px solid #2a4770;
+    background: #302044;
+    border: 1px solid #594078;
     padding: 10px;
     min-width: 0;
+    border-radius: 11px !important;
 }
 
 .item-card > img {
@@ -571,9 +595,10 @@ main { padding: 12px 0 40px; }
     align-items: center;
     gap: clamp(14px, 3vw, 28px);
     padding: clamp(14px, 3vw, 26px);
-    background: linear-gradient(135deg, #1b3156, #12213d);
-    border: 1px solid #35527d;
+    background: linear-gradient(135deg, #392653, #211532);
+    border: 1px solid #694b88;
     box-shadow: 0 8px 25px #0003;
+    border-radius: 15px !important;
 }
 
 .profile-avatar {
@@ -582,8 +607,9 @@ main { padding: 12px 0 40px; }
     flex: 0 0 auto;
     object-fit: cover;
     background: #26395e;
-    border: 3px solid #45658f;
+    border: 3px solid #80639e;
     box-shadow: 0 0 18px #0005;
+    border-radius: 50% !important;
 }
 
 .profile-info {
@@ -601,12 +627,12 @@ main { padding: 12px 0 40px; }
 }
 
 .profile-label {
-    color: #91a9cc;
+    color: #c2a7dc;
     font-size: clamp(12px, 2.5vw, 15px);
 }
 
 .profile-username {
-    color: #c5d7f3;
+    color: #d7c5e9;
     font-size: clamp(13px, 2.8vw, 17px);
     overflow-wrap: anywhere;
 }
@@ -617,11 +643,12 @@ main { padding: 12px 0 40px; }
     gap: 8px;
     width: fit-content;
     padding: 8px 12px;
-    background: #1b3156;
-    border: 1px solid #35527d;
+    background: #392653;
+    border: 1px solid #694b88;
     color: white;
     font-size: clamp(17px, 3.5vw, 22px);
     margin-top: 5px;
+    border-radius: 10px !important;
 }
 
 .profile-balance .coin-icon {
@@ -648,12 +675,20 @@ main { padding: 12px 0 40px; }
 .inventory-heading h2 { font-size: 20px; }
 
 .sell-all-button, .inventory-sell {
-    background: #ff941f;
+    background: #a6a6ad55;
     color: white;
-    border: 0;
+    border: 1px solid #dedee044;
     padding: 9px 12px;
     cursor: pointer;
     font-size: 12px;
+    border-radius: 9px !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: .2s;
+}
+
+.sell-all-button:hover, .inventory-sell:hover {
+    background: #c4c4cc77;
 }
 
 .sell-all-button:disabled, .inventory-sell:disabled {
@@ -662,16 +697,19 @@ main { padding: 12px 0 40px; }
 
 .inventory-box {
     min-height: 115px;
-    background: #39414e;
-    border: 1px solid #687486;
+    background: #a6a6ad26;
+    border: 1px solid #c4c4d044;
     padding: 12px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
     gap: 12px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px !important;
 }
 
 .inventory-empty {
-    color: #c2cad7;
+    color: #d0c7d9;
     font-size: 13px;
     align-self: center;
     grid-column: 1 / -1;
@@ -680,10 +718,13 @@ main { padding: 12px 0 40px; }
 
 .inventory-item {
     min-width: 0;
-    background: #263247;
-    border: 1px solid #52627c;
+    background: #bcbcc326;
+    border: 1px solid #d0d0d044;
     padding: 7px;
     text-align: center;
+    border-radius: 12px !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .inventory-item img {
@@ -710,16 +751,17 @@ main { padding: 12px 0 40px; }
 
 .promo-card {
     max-width: 480px;
-    background: linear-gradient(135deg, #1b3156, #12213d);
-    border: 1px solid #35527d;
+    background: linear-gradient(135deg, #392653, #211532);
+    border: 1px solid #694b88;
     padding: 15px;
     text-align: center;
     margin: 16px auto 0;
     box-shadow: 0 8px 25px #0003;
+    border-radius: 15px !important;
 }
 
 .promo-description {
-    color: #c5d7f3;
+    color: #d7c5e9;
     margin-bottom: 14px;
     line-height: 1.5;
 }
@@ -728,17 +770,18 @@ main { padding: 12px 0 40px; }
     display: block;
     width: 100%;
     padding: 13px;
-    border: 1px solid #35527d;
-    background: #0d172b;
+    border: 1px solid #694b88;
+    background: #1a1128;
     color: white;
     font-size: 18px;
     text-align: center;
     outline: none;
     margin-bottom: 12px;
     text-transform: uppercase;
+    border-radius: 9px !important;
 }
 
-#promoInput::placeholder { color: #8295b5; }
+#promoInput::placeholder { color: #a995bb; }
 
 #promoMessage {
     min-height: 22px;
@@ -770,21 +813,22 @@ main { padding: 12px 0 40px; }
     aspect-ratio: 1 / 1;
     max-height: min(390px, 82vh);
     overflow-y: auto;
-    background: linear-gradient(145deg, #1b3156, #101b32);
-    border: 1px solid #45658f;
+    background: linear-gradient(145deg, #392653, #1c122b);
+    border: 1px solid #76539a;
     box-shadow: 0 15px 50px #000b;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 18px;
     position: relative;
+    border-radius: 14px !important;
 }
 
 .settings-heading {
     text-align: center;
     font-size: 20px;
     padding: 4px 25px 10px;
-    border-bottom: 1px solid #35527d;
+    border-bottom: 1px solid #694b88;
 }
 
 .settings-close {
@@ -810,12 +854,13 @@ main { padding: 12px 0 40px; }
     width: 48px;
     height: 27px;
     flex: 0 0 48px;
-    border: 1px solid #52709a;
+    border: 1px solid #80639e;
     background: #687386;
     padding: 3px;
     cursor: pointer;
     position: relative;
     transition: background .18s ease;
+    border-radius: 20px !important;
 }
 
 .setting-switch::after {
@@ -826,11 +871,12 @@ main { padding: 12px 0 40px; }
     background: #fff;
     transform: translateX(0);
     transition: transform .18s ease;
+    border-radius: 50% !important;
 }
 
 .setting-switch[aria-checked="true"] {
-    background: #2585e8;
-    border-color: #2585e8;
+    background: #9254bd;
+    border-color: #9254bd;
 }
 
 .setting-switch[aria-checked="true"]::after {
@@ -838,7 +884,7 @@ main { padding: 12px 0 40px; }
 }
 
 .setting-hint {
-    color: #a9bddb;
+    color: #c2afd5;
     font-size: 11px;
     line-height: 1.4;
     font-weight: 400;
@@ -863,10 +909,11 @@ main { padding: 12px 0 40px; }
 .result-panel {
     width: min(330px, 100%);
     padding: 22px;
-    background: #172746;
-    border: 1px solid #52709a;
+    background: linear-gradient(145deg, #392653, #1c122b);
+    border: 1px solid #76539a;
     text-align: center;
     box-shadow: 0 15px 50px #0009;
+    border-radius: 14px !important;
 }
 
 .result-panel > img {
@@ -890,10 +937,11 @@ main { padding: 12px 0 40px; }
     border: 0;
     color: white;
     cursor: pointer;
-    background: #2478ed;
+    background: #7542a5;
+    border-radius: 9px !important;
 }
 
-.result-actions .sell-result { background: #ff941f; }
+.result-actions .sell-result { background: #a65320; }
 
 /* РЕЖИМ СТРИМЕРА */
 
@@ -1008,7 +1056,10 @@ body.streamer-mode .profile-page:hover {
         width: 35px;
         height: 35px;
         flex-basis: 35px;
+        border-radius: 50% !important;
     }
+
+    .header-avatar { border-radius: 50% !important; }
 
     .menu-button {
         width: 34px;
@@ -1495,7 +1546,7 @@ function showComingSoon(name) {
     alert(name + " скоро появится!");
 }
 
-/* РУЛЕТКА: ПОСТОЯННОЕ ДВИЖЕНИЕ */
+/* РУЛЕТКА */
 
 function rouletteItem(item) {
     const el = document.createElement("div");
@@ -1594,7 +1645,7 @@ function showCase(caseId) {
     });
 }
 
-/* ПОЛНОЦЕННАЯ КРУТКА ДО ВЫПАВШЕГО ПРЕДМЕТА */
+/* АНИМАЦИЯ РУЛЕТКИ */
 
 function animateRoulette(winningItem) {
     return new Promise((resolve, reject) => {
@@ -1745,7 +1796,7 @@ async function openCase() {
     }
 }
 
-/* ОСТАВИТЬ / ПРОДАТЬ ВЫПАВШИЙ ПРЕДМЕТ */
+/* ОСТАВИТЬ / ПРОДАТЬ ПРЕДМЕТ */
 
 async function keepResult() {
     if (!currentResult) return;
