@@ -26,7 +26,7 @@ body {
     overflow-x: hidden;
 }
 
-button, input { font-family: inherit; }
+button, input, select { font-family: inherit; }
 
 header {
     min-height: 76px;
@@ -196,7 +196,7 @@ header {
     letter-spacing: 1px;
 }
 
-/* КРУГЛЫЙ АВАТАР */
+/* АВАТАР */
 
 .header-avatar-button {
     width: 43px;
@@ -427,7 +427,7 @@ main { padding: 12px 0 40px; }
     margin-bottom: 20px;
 }
 
-/* РУЛЕТКА */
+/* РУЛЕТКА КЕЙСОВ */
 
 .roulette-window {
     width: 100%;
@@ -792,6 +792,120 @@ main { padding: 12px 0 40px; }
 
 .hidden { display: none !important; }
 
+/* АПГРЕЙДЕР */
+
+.upgrader-page {
+    display: none;
+    max-width: 760px;
+    margin: auto;
+    padding: 0 16px 40px;
+}
+
+.upgrader-panel {
+    background: linear-gradient(145deg, #392653, #201532);
+    border: 1px solid #694b88;
+    border-radius: 15px !important;
+    padding: 18px;
+    box-shadow: 0 8px 25px #0003;
+}
+
+.upgrader-label {
+    display: block;
+    color: #d7c5e9;
+    font-size: 14px;
+    margin: 7px 0;
+}
+
+.upgrader-select {
+    display: block;
+    width: 100%;
+    margin: 10px 0 18px;
+    padding: 13px;
+    color: white;
+    background: #211532;
+    border: 1px solid #80639e;
+    border-radius: 10px !important;
+    font-size: 14px;
+    outline: none;
+}
+
+.upgrader-select option {
+    background: #211532;
+    color: white;
+}
+
+.upgrader-chance {
+    text-align: center;
+    color: #ffd45c;
+    font-size: 34px;
+    margin: 18px 0 8px;
+}
+
+.upgrader-info {
+    text-align: center;
+    color: #d7c5e9;
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 40px;
+    margin-bottom: 12px;
+}
+
+.upgrader-targets {
+    color: #cbb9dc;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.upgrader-result {
+    text-align: center;
+    margin-top: 15px;
+    line-height: 1.6;
+    color: #ffd45c;
+    overflow-wrap: anywhere;
+}
+
+.upgrader-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.upgrader-preview-card {
+    min-width: 0;
+    text-align: center;
+    padding: 10px;
+    background: #ffffff0c;
+    border: 1px solid #80639e66;
+    border-radius: 12px !important;
+}
+
+.upgrader-preview-card img {
+    width: 100%;
+    height: 105px;
+    object-fit: contain;
+}
+
+.upgrader-preview-card strong {
+    display: block;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+    margin-top: 6px;
+}
+
+.upgrader-preview-card span {
+    display: block;
+    color: #ffd45c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+#upgradeButton {
+    margin-bottom: 5px;
+}
+
 /* НАСТРОЙКИ */
 
 .settings-backdrop {
@@ -956,6 +1070,7 @@ body.streamer-mode .inventory-box,
 body.streamer-mode .promo-card,
 body.streamer-mode .case-page,
 body.streamer-mode .profile-page,
+body.streamer-mode .upgrader-page,
 body.streamer-mode .menu-name,
 body.streamer-mode .profile-mini,
 body.streamer-mode .result-panel {
@@ -968,7 +1083,8 @@ body.streamer-mode .header-balance:hover,
 body.streamer-mode .menu-balance:hover,
 body.streamer-mode .profile-balance:hover,
 body.streamer-mode .case-page:hover,
-body.streamer-mode .profile-page:hover {
+body.streamer-mode .profile-page:hover,
+body.streamer-mode .upgrader-page:hover {
     filter: blur(0);
 }
 
@@ -1117,7 +1233,7 @@ body.streamer-mode .profile-page:hover {
         <button class="active" onclick="showHome()">
             <img class="nav-icon" src="house.png" alt=""> HOME
         </button>
-        <button onclick="showComingSoon('Upgrader')">
+        <button onclick="showUpgrader()">
             <img class="nav-icon nav-icon-up" src="up.png" alt=""> UPGRADER
         </button>
     </nav>
@@ -1178,7 +1294,7 @@ body.streamer-mode .profile-page:hover {
     <button class="menu-item" onclick="showHome()">
         <img class="menu-icon" src="house.png" alt=""> Home
     </button>
-    <button class="menu-item" onclick="showComingSoon('Upgrade')">
+    <button class="menu-item" onclick="showUpgrader()">
         <img class="menu-icon" src="upgrade.png" alt=""> Upgrade
     </button>
     <button class="menu-item" onclick="showProfile()">
@@ -1270,6 +1386,65 @@ body.streamer-mode .profile-page:hover {
             <p id="promoMessage"></p>
         </div>
     </section>
+
+    <!-- СТРАНИЦА АПГРЕЙДЕРА -->
+
+    <section class="upgrader-page" id="upgraderPage">
+        <button class="back-button" onclick="showHome()">← Назад</button>
+
+        <h1 class="page-title">АПГРЕЙДЕР 💎</h1>
+
+        <div class="upgrader-panel">
+            <label class="upgrader-label" for="upgradeSource">
+                1. Выбери предмет из инвентаря
+            </label>
+
+            <select class="upgrader-select" id="upgradeSource"
+                onchange="updateUpgradeChance()">
+                <option value="">Загрузка инвентаря...</option>
+            </select>
+
+            <label class="upgrader-label" for="upgradeTarget">
+                2. Выбери предмет, который хочешь получить
+            </label>
+
+            <select class="upgrader-select" id="upgradeTarget"
+                onchange="updateUpgradeChance()">
+                <option value="">Сначала выбери исходный предмет</option>
+            </select>
+
+            <div class="upgrader-targets" id="upgradeTargetHint">
+                Доступны только предметы дороже твоего.
+            </div>
+
+            <div class="upgrader-preview">
+                <div class="upgrader-preview-card">
+                    <img id="upgradeSourceImage" src="logo2.png" alt="">
+                    <strong id="upgradeSourceName">Твой предмет</strong>
+                    <span id="upgradeSourcePrice">— Coin</span>
+                </div>
+
+                <div class="upgrader-preview-card">
+                    <img id="upgradeTargetImage" src="logo2.png" alt="">
+                    <strong id="upgradeTargetName">Целевой предмет</strong>
+                    <span id="upgradeTargetPrice">— Coin</span>
+                </div>
+            </div>
+
+            <div class="upgrader-chance" id="upgradeChance">—</div>
+
+            <div class="upgrader-info" id="upgradeInfo">
+                Выбери два предмета, чтобы увидеть шанс.
+            </div>
+
+            <button class="open-button" id="upgradeButton"
+                onclick="performUpgrade()" disabled>
+                АПГРЕЙД
+            </button>
+
+            <div class="upgrader-result" id="upgradeResult"></div>
+        </div>
+    </section>
 </main>
 
 <div class="result-backdrop" id="resultBackdrop">
@@ -1300,6 +1475,7 @@ let currentInventory = [];
 let vibrationEnabled = true;
 let streamerModeEnabled = false;
 let rouletteAnimation = null;
+let upgrading = false;
 
 const seaItems = [
     {id:"los-primos", name:"Los Primos", image:"los-primos.png", price:49, rarity:"rarity-blue"},
@@ -1326,6 +1502,12 @@ const impactItems = [
 const allItems = [
     {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
+];
+
+const upgradeCatalog = [
+    ...seaItems,
+    ...impactItems,
+    ...allItems
 ];
 
 const cases = {
@@ -1522,17 +1704,20 @@ function hideAllPages() {
     document.getElementById("homePage").style.display = "none";
     document.getElementById("casePage").style.display = "none";
     document.getElementById("profilePage").style.display = "none";
+    document.getElementById("upgraderPage").style.display = "none";
+}
+
+function setDesktopNav(activeIndex) {
+    document.querySelectorAll(".desktop-nav button").forEach((button, index) => {
+        button.classList.toggle("active", index === activeIndex);
+    });
 }
 
 function showHome() {
     hideAllPages();
     document.getElementById("homePage").style.display = "block";
     closeMenu();
-
-    document.querySelectorAll(".desktop-nav button").forEach(button => {
-        button.classList.remove("active");
-    });
-    document.querySelector(".desktop-nav button")?.classList.add("active");
+    setDesktopNav(0);
 }
 
 function showProfile() {
@@ -1545,6 +1730,290 @@ function showProfile() {
 function showComingSoon(name) {
     alert(name + " скоро появится!");
 }
+
+/* АПГРЕЙДЕР */
+
+function getUpgradeItem(id) {
+    return upgradeCatalog.find(item => item.id === id);
+}
+
+async function showUpgrader() {
+    hideAllPages();
+
+    document.getElementById("upgraderPage").style.display = "block";
+    document.getElementById("upgradeResult").textContent = "";
+    document.getElementById("upgradeChance").textContent = "—";
+    document.getElementById("upgradeInfo").textContent =
+        "Загружаем твой инвентарь...";
+
+    closeMenu();
+    setDesktopNav(1);
+
+    const sourceSelect = document.getElementById("upgradeSource");
+    sourceSelect.innerHTML = "<option value=''>Загрузка...</option>";
+
+    try {
+        await loadInventory();
+        renderUpgradeSources();
+    } catch (error) {
+        sourceSelect.innerHTML =
+            "<option value=''>Не удалось загрузить инвентарь</option>";
+        document.getElementById("upgradeInfo").textContent = error.message;
+    }
+}
+
+function renderUpgradeSources() {
+    const sourceSelect = document.getElementById("upgradeSource");
+    const targetSelect = document.getElementById("upgradeTarget");
+
+    sourceSelect.innerHTML = "";
+    targetSelect.innerHTML =
+        "<option value=''>Сначала выбери исходный предмет</option>";
+
+    if (!currentInventory.length) {
+        sourceSelect.innerHTML =
+            "<option value=''>Инвентарь пуст</option>";
+        updateUpgradeChance();
+        return;
+    }
+
+    sourceSelect.innerHTML =
+        "<option value=''>Выбери предмет</option>";
+
+    currentInventory.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = `${item.name} — ${item.sell} Coin`;
+        sourceSelect.appendChild(option);
+    });
+
+    updateUpgradeChance();
+}
+
+function updateUpgradeChance() {
+    const sourceSelect = document.getElementById("upgradeSource");
+    const targetSelect = document.getElementById("upgradeTarget");
+    const chanceElement = document.getElementById("upgradeChance");
+    const infoElement = document.getElementById("upgradeInfo");
+    const button = document.getElementById("upgradeButton");
+    const hint = document.getElementById("upgradeTargetHint");
+
+    const source = currentInventory.find(
+        item => String(item.id) === sourceSelect.value
+    );
+
+    targetSelect.innerHTML = "";
+
+    document.getElementById("upgradeResult").textContent = "";
+
+    if (!source) {
+        targetSelect.innerHTML =
+            "<option value=''>Сначала выбери исходный предмет</option>";
+
+        chanceElement.textContent = "—";
+        infoElement.textContent = "Выбери исходный предмет.";
+        button.disabled = true;
+        hint.textContent = "Доступны только предметы дороже твоего.";
+
+        document.getElementById("upgradeSourceImage").src = "logo2.png";
+        document.getElementById("upgradeSourceName").textContent = "Твой предмет";
+        document.getElementById("upgradeSourcePrice").textContent = "— Coin";
+
+        document.getElementById("upgradeTargetImage").src = "logo2.png";
+        document.getElementById("upgradeTargetName").textContent = "Целевой предмет";
+        document.getElementById("upgradeTargetPrice").textContent = "— Coin";
+        return;
+    }
+
+    const sourceCatalog = getUpgradeItem(source.itemId);
+
+    if (!sourceCatalog) {
+        targetSelect.innerHTML =
+            "<option value=''>Этот предмет нельзя улучшить</option>";
+        chanceElement.textContent = "—";
+        infoElement.textContent = "Предмет отсутствует в каталоге апгрейда.";
+        button.disabled = true;
+        return;
+    }
+
+    const sourcePrice = Number(sourceCatalog.price);
+
+    document.getElementById("upgradeSourceImage").src = source.image;
+    document.getElementById("upgradeSourceName").textContent = source.name;
+    document.getElementById("upgradeSourcePrice").textContent =
+        sourcePrice + " Coin";
+
+    const targets = upgradeCatalog
+        .filter(item => Number(item.price) > sourcePrice)
+        .sort((a, b) => a.price - b.price);
+
+    if (!targets.length) {
+        targetSelect.innerHTML =
+            "<option value=''>Нет доступных целей</option>";
+        chanceElement.textContent = "—";
+        infoElement.textContent = "Для этого предмета пока нет более дорогих целей.";
+        button.disabled = true;
+        hint.textContent = "Нет предметов дороже выбранного.";
+        return;
+    }
+
+    targetSelect.innerHTML = "<option value=''>Выбери цель</option>";
+
+    targets.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = `${item.name} — ${item.price} Coin`;
+        targetSelect.appendChild(option);
+    });
+
+    hint.textContent = `Доступно целей: ${targets.length}. При неудаче исходный предмет сгорает.`;
+
+    const target = getUpgradeItem(targetSelect.value);
+
+    if (!target) {
+        chanceElement.textContent = "—";
+        infoElement.textContent = "Теперь выбери предмет, который хочешь получить.";
+        button.disabled = true;
+
+        document.getElementById("upgradeTargetImage").src = "logo2.png";
+        document.getElementById("upgradeTargetName").textContent = "Целевой предмет";
+        document.getElementById("upgradeTargetPrice").textContent = "— Coin";
+        return;
+    }
+
+    updateSelectedUpgradeTarget(source, target);
+}
+
+function updateSelectedUpgradeTarget(source, target) {
+    const chanceElement = document.getElementById("upgradeChance");
+    const infoElement = document.getElementById("upgradeInfo");
+    const button = document.getElementById("upgradeButton");
+
+    if (!source || !target) {
+        button.disabled = true;
+        return;
+    }
+
+    const sourceCatalog = getUpgradeItem(source.itemId);
+    if (!sourceCatalog) {
+        button.disabled = true;
+        return;
+    }
+
+    const sourcePrice = Number(sourceCatalog.price);
+    const targetPrice = Number(target.price);
+
+    if (targetPrice <= sourcePrice) {
+        chanceElement.textContent = "—";
+        infoElement.textContent = "Цель должна быть дороже исходного предмета.";
+        button.disabled = true;
+        return;
+    }
+
+    const chance = Math.max(
+        1,
+        Math.min(90, Math.floor(90 * sourcePrice / targetPrice))
+    );
+
+    document.getElementById("upgradeTargetImage").src = target.image;
+    document.getElementById("upgradeTargetName").textContent = target.name;
+    document.getElementById("upgradeTargetPrice").textContent =
+        targetPrice + " Coin";
+
+    chanceElement.textContent = chance + "%";
+    infoElement.textContent =
+        `Шанс получить ${target.name}: ${chance}%. При неудаче ${source.name} сгорит.`;
+
+    button.disabled = upgrading;
+}
+
+async function performUpgrade() {
+    if (upgrading) return;
+
+    const sourceSelect = document.getElementById("upgradeSource");
+    const targetSelect = document.getElementById("upgradeTarget");
+
+    const source = currentInventory.find(
+        item => String(item.id) === sourceSelect.value
+    );
+
+    const target = getUpgradeItem(targetSelect.value);
+
+    if (!source || !target) {
+        alert("Выбери исходный предмет и цель.");
+        return;
+    }
+
+    const sourceCatalog = getUpgradeItem(source.itemId);
+
+    if (!sourceCatalog || target.price <= sourceCatalog.price) {
+        alert("Выбери предмет дороже исходного.");
+        return;
+    }
+
+    const button = document.getElementById("upgradeButton");
+    const result = document.getElementById("upgradeResult");
+
+    upgrading = true;
+    button.disabled = true;
+    button.textContent = "УЛУЧШАЕМ...";
+    result.textContent = "⏳ Проверяем результат...";
+
+    try {
+        const data = await apiPost("/api/upgrade", {
+            inventoryId: Number(source.id),
+            targetItemId: target.id
+        });
+
+        if (data.success) {
+            result.textContent =
+                `🎉 УСПЕХ! Ты получил ${data.item.name}!`;
+
+            vibrate("success");
+        } else {
+            result.textContent =
+                `❌ НЕУДАЧА! ${source.name} сгорел. Попробуй ещё раз!`;
+
+            vibrate("error");
+        }
+
+        await loadInventory();
+        renderUpgradeSources();
+
+        sourceSelect.value = "";
+        updateUpgradeChance();
+
+    } catch (error) {
+        result.textContent = "❌ " + error.message;
+        vibrate("error");
+
+        await loadInventory();
+        renderUpgradeSources();
+
+    } finally {
+        upgrading = false;
+        button.disabled = false;
+        button.textContent = "АПГРЕЙД";
+        updateUpgradeChance();
+    }
+}
+
+document.getElementById("upgradeTarget").addEventListener("change", () => {
+    const source = currentInventory.find(
+        item => String(item.id) === document.getElementById("upgradeSource").value
+    );
+
+    const target = getUpgradeItem(
+        document.getElementById("upgradeTarget").value
+    );
+
+    if (!source || !target) {
+        updateUpgradeChance();
+        return;
+    }
+
+    updateSelectedUpgradeTarget(source, target);
+});
 
 /* РУЛЕТКА */
 
@@ -1607,6 +2076,7 @@ function showCase(caseId) {
 
     hideAllPages();
     document.getElementById("casePage").style.display = "block";
+    closeMenu();
 
     document.getElementById("detailImage").src = data.image;
     document.getElementById("detailName").textContent = data.name;
@@ -1645,7 +2115,7 @@ function showCase(caseId) {
     });
 }
 
-/* АНИМАЦИЯ РУЛЕТКИ */
+/* АНИМАЦИЯ РУЛЕТКИ КЕЙСА */
 
 function animateRoulette(winningItem) {
     return new Promise((resolve, reject) => {
@@ -1885,6 +2355,7 @@ async function loadInventory() {
         message.className = "inventory-empty";
         message.textContent = error.message;
         box.appendChild(message);
+        throw error;
     }
 }
 
