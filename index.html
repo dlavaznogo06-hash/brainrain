@@ -37,8 +37,8 @@ header {
     gap: 16px;
     position: relative;
     z-index: 5;
-    background: #090d18;
-    border-bottom: 1px solid #26344b;
+    background: linear-gradient(90deg, #1b102b, #241337, #1b102b);
+    border-bottom: 1px solid #38234f;
 }
 
 .header-left {
@@ -99,7 +99,7 @@ header {
     gap: 9px;
     border: none;
     background: transparent;
-    color: #aebbd0;
+    color: #b8bdc7;
     padding: 13px 12px;
     font-family: 'Orbitron', Arial, sans-serif;
     font-size: 13px;
@@ -110,21 +110,17 @@ header {
     transition: .2s;
 }
 
-.desktop-nav button:hover {
-    color: #fff;
-    text-shadow: 0 0 12px #3295ff;
-}
-
+.desktop-nav button:hover,
 .desktop-nav button.active {
-    color: #fff;
-    text-shadow: 0 0 12px #3295ff;
+    color: #b8bdc7;
+    text-shadow: none;
 }
 
 .nav-icon {
     width: 23px;
     height: 23px;
     object-fit: contain;
-    filter: drop-shadow(0 0 5px #369cff88);
+    filter: grayscale(1) brightness(0.85);
 }
 
 .nav-icon-up {
