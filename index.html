@@ -1138,16 +1138,16 @@ body.streamer-mode .profile-page:hover {
 .upgrade-target-pick{width:100%;border:0;background:transparent;cursor:pointer}
 .upgrade-target-pick strong{font-size:16px;color:#fff}
 .upgrade-wheel{display:grid;place-items:center;width:244px;height:244px;margin:auto;border:0;border-radius:50%;background:transparent;box-shadow:0 0 28px #0008;position:relative;overflow:visible}
-.upgrade-wheel-disc{position:absolute;inset:0;border:0;border-radius:50%;background:conic-gradient(from 0deg,#39df91 0deg var(--success-angle,0deg),#303633 var(--success-angle,0deg) 360deg);box-shadow:inset 0 0 12px #0009;will-change:transform}
+.upgrade-wheel-disc{position:absolute;inset:0;border:0;border-radius:50%;background:#303633;box-shadow:inset 0 0 12px #0009}
 .upgrade-wheel-disc:after{content:"";position:absolute;inset:1px;border:1px solid #69706c;border-radius:50%}
-.upgrade-wheel-pointer{position:absolute;z-index:4;top:-17px;left:50%;transform:translateX(-50%);color:#fff;font-size:23px;line-height:1;text-shadow:0 0 8px #fff}.upgrade-wheel-core{z-index:2;display:grid;place-items:center;align-content:center;width:188px;height:188px;border:0;border-radius:50%;background:#0b0c0f;text-align:center;box-shadow:0 0 18px #000b}
+.upgrade-wheel-arrow-orbit{position:absolute;z-index:4;inset:0;border-radius:50%;pointer-events:none;transform:rotate(0deg);will-change:transform}.upgrade-wheel-pointer{position:absolute;top:-9px;left:50%;transform:translateX(-50%);color:#fff;font-size:23px;line-height:1;text-shadow:0 0 8px #fff}.upgrade-wheel-core{z-index:2;display:grid;place-items:center;align-content:center;width:188px;height:188px;border:0;border-radius:50%;background:#0b0c0f;text-align:center;box-shadow:0 0 18px #000b}
 .upgrade-wheel-core strong{color:#37dc98;font-size:38px;font-weight:800;letter-spacing:-1px}.upgrade-wheel-core small{margin-top:5px;color:#8e9c9b;font-size:11px;letter-spacing:.2px}
-.upgrade-wheel.spinning{filter:drop-shadow(0 0 14px #39df91)}
-.upgrade-controls{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,2fr);gap:14px;margin:16px 0}
-.upgrade-coin-box,.upgrade-preset-box{padding:12px;border:1px solid #80639e77;border-radius:13px;background:#ffffff08}
+.upgrade-wheel.spinning{filter:drop-shadow(0 0 14px #39df91)}.upgrade-wheel-label{position:absolute;z-index:3;color:#a6b0ad;font-size:12px;font-weight:800;line-height:1;text-shadow:0 1px 3px #000;pointer-events:none}.upgrade-wheel-label.top{top:7px;left:50%;transform:translateX(-50%)}.upgrade-wheel-label.right{right:8px;top:50%;transform:translateY(-50%)}.upgrade-wheel-label.bottom{bottom:7px;left:50%;transform:translateX(-50%)}.upgrade-wheel-label.left{left:8px;top:50%;transform:translateY(-50%)}
+.upgrade-controls{display:block;margin:16px 0}.upgrade-preset-box{width:100%}
+.upgrade-preset-box{padding:12px;border:1px solid #80639e77;border-radius:13px;background:#ffffff08}
 .upgrade-coin-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;color:#d7c5e9;font-weight:800}
 .upgrade-coin-head output{color:#ffd45c}
-#upgradeCoinsRange{width:100%;accent-color:#a46bc8}
+
 .upgrade-preset-title{margin:0 0 8px;color:#d7c5e9;font-size:12px}
 .upgrade-preset-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .upgrade-preset{min-height:34px;padding:6px 10px;font-size:12px}
@@ -1176,7 +1176,7 @@ body.streamer-mode .profile-page:hover {
 .upgrade-target-card span{display:block;margin-top:3px;color:#ffd45c;font-size:10px}
 .upgrade-result{min-height:24px;margin:8px 0;color:#ffd45c;text-align:center;line-height:1.5}
 @media(max-width:700px){.upgrade-layout{grid-template-columns:minmax(0,1fr) 160px minmax(0,1fr);gap:7px}.upgrade-card{min-height:160px;padding:10px 6px}.upgrade-wheel{width:150px;height:150px}.upgrade-wheel-core{width:112px;height:112px}.upgrade-wheel-core strong{font-size:25px}.upgrade-controls{grid-template-columns:1fr}.upgrade-target-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:420px){.upgrade-layout{grid-template-columns:1fr 100px 1fr;gap:5px}.upgrade-card{min-height:145px;padding:9px 5px}.upgrade-card h3{font-size:10px}.upgrade-wheel{width:92px;height:92px}.upgrade-wheel-core{width:70px;height:70px}.upgrade-wheel-core strong{font-size:18px}.upgrade-wheel-pointer{top:-14px;font-size:18px}.upgrade-empty-slot,.upgrade-target-pick{min-height:105px;font-size:11px}.upgrade-selected-row{gap:4px;padding:4px}.upgrade-selected-row img{width:28px;height:28px}.upgrade-target-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.upgrade-layout{grid-template-columns:1fr 100px 1fr;gap:5px}.upgrade-card{min-height:145px;padding:9px 5px}.upgrade-card h3{font-size:10px}.upgrade-wheel{width:92px;height:92px}.upgrade-wheel-core{width:70px;height:70px}.upgrade-wheel-core strong{font-size:18px}.upgrade-wheel-pointer{top:-7px;font-size:18px}.upgrade-wheel-label{font-size:9px}.upgrade-wheel-label.top{top:4px}.upgrade-wheel-label.bottom{bottom:4px}.upgrade-wheel-label.left{left:4px}.upgrade-wheel-label.right{right:4px}.upgrade-empty-slot,.upgrade-target-pick{min-height:105px;font-size:11px}.upgrade-selected-row{gap:4px;padding:4px}.upgrade-selected-row img{width:28px;height:28px}.upgrade-target-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 
@@ -1349,7 +1349,7 @@ body.streamer-mode .profile-page:hover {
     <section class="upgrader-page" id="upgraderPage">
     <button class="back-button" onclick="showHome()">← Назад</button>
     <h1 class="page-title">АПГРЕЙДЕР 💎</h1>
-    <p class="upgrader-intro">Добавь до 5 предметов и Coin во вклад, выбери цель дороже вклада. При удаче цель попадёт в инвентарь, при неудаче вклад сгорит.</p>
+    <p class="upgrader-intro">Добавь до 5 предметов из инвентаря во вклад и выбери цель дороже ставки. При удаче цель попадёт в инвентарь, при неудаче вклад сгорит.</p>
 
     <div class="upgrade-mode" role="group" aria-label="Режим апгрейда">
         <button type="button" class="active" data-upgrade-mode="normal" onclick="setUpgradeMode('normal')">✦ Обычно</button>
@@ -1365,7 +1365,11 @@ body.streamer-mode .profile-page:hover {
 
         <div class="upgrade-wheel" id="upgradeWheel" aria-label="Колесо апгрейда">
             <div class="upgrade-wheel-disc" id="upgradeWheelDisc" aria-hidden="true"></div>
-            <span class="upgrade-wheel-pointer" aria-hidden="true">▼</span>
+            <span class="upgrade-wheel-label top">100</span>
+            <span class="upgrade-wheel-label right">50</span>
+            <span class="upgrade-wheel-label bottom">0</span>
+            <span class="upgrade-wheel-label left">50</span>
+            <div class="upgrade-wheel-arrow-orbit" id="upgradeWheelArrow"><span class="upgrade-wheel-pointer" aria-hidden="true">▼</span></div>
             <div class="upgrade-wheel-core"><strong id="upgradeWheelChance">—</strong><small>ШАНС</small></div>
         </div>
 
@@ -1383,11 +1387,6 @@ body.streamer-mode .profile-page:hover {
     </div>
 
     <div class="upgrade-controls">
-        <div class="upgrade-coin-box">
-            <div class="upgrade-coin-head"><span>Coin во вклад</span><output id="upgradeCoinsValue">0</output></div>
-            <input id="upgradeCoinsRange" type="range" min="0" max="0" step="1" value="0" aria-label="Coin во вклад">
-            <div class="upgrade-coin-head"><span>Доступно</span><span id="upgradeCoinsAvailable">0 Coin</span></div>
-        </div>
         <div class="upgrade-preset-box">
             <p class="upgrade-preset-title">Быстрый выбор цели по множителю ставки</p>
             <div class="upgrade-preset-row" id="upgradeMultiplierPresets">
@@ -1405,9 +1404,8 @@ body.streamer-mode .profile-page:hover {
             </div>
         </div>
     </div>
-
-    <div class="upgrade-count" id="upgradeStakeSummary">Вклад: 0 Coin</div>
-    <div class="upgrader-info" id="upgradeInfo" aria-live="polite">Добавь предметы или Coin, затем выбери цель.</div>
+    <div class="upgrade-count" id="upgradeStakeSummary">Стоимость ставки: 0 Coin</div>
+    <div class="upgrader-info" id="upgradeInfo" aria-live="polite">Добавь предметы из инвентаря, затем выбери цель.</div>
     <h3 class="upgrade-inventory-title">ТВОЙ ИНВЕНТАРЬ — выбери до 5 предметов</h3>
     <div class="upgrade-inventory-grid" id="upgradeInventoryGrid"><div class="inventory-empty">Загрузка инвентаря...</div></div>
     <div class="upgrade-result" id="upgradeResult" aria-live="polite"></div>
@@ -1557,10 +1555,7 @@ function updateBalance() {
     document.getElementById("headerBalance").textContent = formatted;
     document.getElementById("menuBalance").textContent = formatted;
     document.getElementById("profileBalance").textContent = formatted;
-    const coinSlider = document.getElementById("upgradeCoinsRange");
-    if (coinSlider && document.getElementById("upgraderPage")?.style.display === "block") {
-        updateUpgradeState();
-    }
+
 }
 
 async function loadBalance() {
@@ -1743,7 +1738,7 @@ function getUpgradeStakeTotal() {
         const catalogItem = getUpgradeCatalogItem(item.itemId);
         return sum + (catalogItem ? Number(catalogItem.price) : 0);
     }, 0);
-    return itemValue + Number(document.getElementById("upgradeCoinsRange")?.value || 0);
+    return itemValue;
 }
 
 function setUpgradeMode(mode) {
@@ -1761,7 +1756,6 @@ async function showUpgrader() {
     document.querySelectorAll(".desktop-nav button")[1]?.classList.add("active");
     selectedUpgradeInventoryIds.clear();
     selectedUpgradeTargetId = "";
-    document.getElementById("upgradeCoinsRange").value = "0";
     document.getElementById("upgradeResult").textContent = "";
     try { await loadInventory(); }
     catch (error) { console.error("Не удалось загрузить инвентарь для апгрейда:", error); }
@@ -1814,15 +1808,18 @@ function toggleUpgradeInventoryItem(id) {
     updateUpgradeState();
 }
 
-function updateUpgradeState() {
-    const coinRange = document.getElementById("upgradeCoinsRange");
-    if (!coinRange) return;
-    const available = Math.max(0, Math.floor(Number(playerBalance) || 0));
-    coinRange.max = String(available);
-    if (Number(coinRange.value) > available) coinRange.value = String(available);
-    document.getElementById("upgradeCoinsValue").textContent = `${Number(coinRange.value).toLocaleString("ru-RU")} Coin`;
-    document.getElementById("upgradeCoinsAvailable").textContent = `${available.toLocaleString("ru-RU")} Coin`;
+function setUpgradeWheelSector(chance) {
+    const disc = document.getElementById("upgradeWheelDisc");
+    if (!disc) return;
+    const percent = Math.max(0, Math.min(100, Number(chance) || 0));
+    const sweep = percent * 3.6;
+    const start = 360 - sweep / 2;
+    disc.style.background = percent > 0
+        ? `conic-gradient(from ${start}deg, #39df91 0deg ${sweep}deg, #303633 ${sweep}deg 360deg)`
+        : "#303633";
+}
 
+function updateUpgradeState() {
     const selectedItems = getSelectedUpgradeItems();
     const list = document.getElementById("upgradeSelectedItems");
     list.innerHTML = "";
@@ -1847,22 +1844,23 @@ function updateUpgradeState() {
     });
     document.getElementById("upgradeStakeEmpty").hidden = selectedItems.length > 0;
     const stake = getUpgradeStakeTotal();
-    document.getElementById("upgradeStakeSummary").textContent = `Вклад: ${stake.toLocaleString("ru-RU")} Coin · предметов ${selectedItems.length}/5`;
+    document.getElementById("upgradeStakeSummary").textContent = `Стоимость ставки: ${stake.toLocaleString("ru-RU")} Coin · предметов ${selectedItems.length}/5`;
 
     const target = getUpgradeCatalogItem(selectedUpgradeTargetId);
     if (target && Number(target.price) <= stake) selectedUpgradeTargetId = "";
     renderSelectedUpgradeTarget();
     renderUpgradeTargetGrid();
     const validTarget = getUpgradeCatalogItem(selectedUpgradeTargetId);
-    const chance = validTarget && stake > 0 ? Math.max(1, Math.min(90, Math.floor(90 * stake / Number(validTarget.price)))) : 0;
+    const chance = validTarget && stake > 0
+        ? Math.max(1, Math.min(90, Math.floor(90 * stake / Number(validTarget.price))))
+        : 0;
     document.getElementById("upgradeWheelChance").textContent = `${chance.toFixed(2)}%`;
-    document.getElementById("upgradeWheelDisc").style.setProperty("--success-angle", `${chance * 3.6}deg`);
+    setUpgradeWheelSector(chance);
     document.getElementById("upgradeButton").disabled = upgrading || !validTarget || stake <= 0 || Number(validTarget.price) <= stake;
     document.getElementById("upgradeInfo").textContent = validTarget
         ? `Предварительный шанс ${chance}%. Результат и расчёт выполняет сервер. При неудаче вклад сгорит.`
-        : stake > 0 ? "Выбери цель дороже общего вклада." : "Добавь предметы или Coin во вклад.";
+        : stake > 0 ? "Выбери цель дороже общего вклада." : "Добавь предметы из инвентаря во вклад.";
 }
-
 function renderSelectedUpgradeTarget() {
     const target = getUpgradeCatalogItem(selectedUpgradeTargetId);
     const pickButton = document.getElementById("upgradeChooseTarget");
@@ -1926,7 +1924,7 @@ function renderUpgradeTargetGrid() {
 function applyUpgradePreset(type, value) {
     const stake = getUpgradeStakeTotal();
     if (stake <= 0) {
-        document.getElementById("upgradeInfo").textContent = "Сначала добавь предметы или Coin во вклад.";
+        document.getElementById("upgradeInfo").textContent = "Сначала добавь предметы во вклад.";
         return;
     }
     const desiredPrice = type === "multiplier" ? stake * Number(value) : stake * 90 / Number(value);
@@ -1943,30 +1941,33 @@ function applyUpgradePreset(type, value) {
 
 function visualRollForResult(serverRoll, chance, success) {
     const limit = Math.max(1, Math.min(90, Number(chance))) * 100;
+    const half = limit / 2;
     const roll = Number(serverRoll);
-    if (Number.isInteger(roll) && roll >= 0 && roll < 10000 && (roll < limit) === Boolean(success)) return roll;
-    if (success) return Math.floor(Math.random() * limit);
-    return limit + Math.floor(Math.random() * (10000 - limit));
+    const isGreenRoll = Number.isInteger(roll) && roll >= 0 && roll < 10000 && (roll < half || roll >= 10000 - half);
+    if (isGreenRoll === Boolean(success) && Number.isInteger(roll) && roll >= 0 && roll < 10000) return roll;
+    if (success) {
+        const offset = Math.floor(Math.random() * limit);
+        return offset < half ? offset : 10000 - half + (offset - half);
+    }
+    return half + Math.floor(Math.random() * (10000 - limit));
 }
 
 async function animateUpgradeWheel(serverRoll, chance, success) {
     const wheel = document.getElementById("upgradeWheel");
-    const disc = document.getElementById("upgradeWheelDisc");
-    const safeChance = Math.max(1, Math.min(90, Number(chance) || 1));
-    disc.style.setProperty("--success-angle", `${safeChance * 3.6}deg`);
-    const roll = visualRollForResult(serverRoll, safeChance, success);
+    const arrow = document.getElementById("upgradeWheelArrow");
+    setUpgradeWheelSector(chance);
+    const roll = visualRollForResult(serverRoll, chance, success);
     const rollAngle = (roll + 0.5) * 360 / 10000;
-    const desiredRotation = (360 - rollAngle) % 360;
     const currentRotation = upgradeWheelRotation;
     const currentSector = ((currentRotation % 360) + 360) % 360;
-    const alignment = (desiredRotation - currentSector + 360) % 360;
+    const alignment = (rollAngle - currentSector + 360) % 360;
     const turns = upgradeMode === "fast" ? 3 : 7;
     const finalRotation = currentRotation + turns * 360 + alignment;
     const duration = upgradeMode === "fast" ? 1100 : 3200;
 
     wheel.classList.add("spinning");
-    if (typeof disc.animate === "function") {
-        const animation = disc.animate(
+    if (typeof arrow.animate === "function") {
+        const animation = arrow.animate(
             [
                 { transform: `rotate(${currentRotation}deg)` },
                 { transform: `rotate(${finalRotation}deg)` }
@@ -1974,12 +1975,12 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
             { duration, easing: "cubic-bezier(.08,.72,.12,1)", fill: "forwards" }
         );
         await animation.finished;
-        disc.style.transform = `rotate(${finalRotation}deg)`;
+        arrow.style.transform = `rotate(${finalRotation}deg)`;
         animation.cancel();
     } else {
-        disc.style.transition = `transform ${duration}ms cubic-bezier(.08,.72,.12,1)`;
-        void disc.offsetWidth;
-        disc.style.transform = `rotate(${finalRotation}deg)`;
+        arrow.style.transition = `transform ${duration}ms cubic-bezier(.08,.72,.12,1)`;
+        void arrow.offsetWidth;
+        arrow.style.transform = `rotate(${finalRotation}deg)`;
         await new Promise(resolve => setTimeout(resolve, duration));
     }
     upgradeWheelRotation = finalRotation;
@@ -1989,10 +1990,9 @@ async function performUpgrade() {
     if (upgrading) return;
     const selectedItems = getSelectedUpgradeItems();
     const target = getUpgradeCatalogItem(selectedUpgradeTargetId);
-    const coins = Number(document.getElementById("upgradeCoinsRange").value || 0);
     const stake = getUpgradeStakeTotal();
-    if ((!selectedItems.length && coins <= 0) || !target || Number(target.price) <= stake) {
-        document.getElementById("upgradeInfo").textContent = "Добавь вклад и выбери цель дороже него.";
+    if (!selectedItems.length || !target || Number(target.price) <= stake) {
+        document.getElementById("upgradeInfo").textContent = "Добавь предметы из инвентаря и выбери цель дороже ставки.";
         return;
     }
 
@@ -2010,11 +2010,10 @@ async function performUpgrade() {
         console.info("BrainRain: отправляю запрос /api/upgrade");
         const data = await apiPost("/api/upgrade", {
             inventoryIds:selectedItems.map(item => Number(item.id)),
-            coins:coins,
             targetItemId:target.id,
             mode:upgradeMode
         });
-        result.textContent = "Колесо крутится...";
+        result.textContent = "Стрелка крутится...";
         await animateUpgradeWheel(data.roll, data.chance, data.success);
         playerBalance = Number(data.balance ?? playerBalance);
         updateBalance();
@@ -2024,7 +2023,6 @@ async function performUpgrade() {
         vibrate(data.success ? "success" : "error");
         selectedUpgradeInventoryIds.clear();
         selectedUpgradeTargetId = "";
-        document.getElementById("upgradeCoinsRange").value = "0";
         await loadInventory();
     } catch (error) {
         console.error("BrainRain: ошибка апгрейда", error);
@@ -2048,10 +2046,6 @@ async function performUpgrade() {
         }
     }
 }
-document.getElementById("upgradeCoinsRange").addEventListener("input", () => {
-    document.getElementById("upgradeResult").textContent = "";
-    updateUpgradeState();
-});
 document.getElementById("upgradeTargetSearch").addEventListener("input", renderUpgradeTargetGrid);
 document.addEventListener("keydown", event => {
     if (event.key === "Escape") document.getElementById("upgradeTargetModal").classList.remove("active");
