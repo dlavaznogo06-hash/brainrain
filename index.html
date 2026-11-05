@@ -470,11 +470,11 @@ main { padding: 12px 0 40px; }
 .case-quantity-button.active{background:#70409b;border-color:#cf91ff;color:#fff;box-shadow:0 0 12px #a45bff55}
 .case-quantity-button:disabled{opacity:.5;cursor:not-allowed}
 .case-quantity-total{flex-basis:100%;text-align:center;color:#ffd45c;font-size:12px;font-weight:800}
-.roulette-batch{display:grid;gap:6px;margin:15px 0 18px}
+.roulette-batch{display:grid;gap:12px;margin:15px 0 18px}
 .roulette-batch .roulette-window{height:70px;margin:0}
 .roulette-batch .roulette-item{width:90px;height:56px;flex-basis:90px}
 .roulette-batch .roulette-item img{width:68px;height:50px}
-@media(max-width:420px){.roulette-batch{gap:4px;margin:10px 0 12px}.roulette-batch .roulette-window{height:62px}.roulette-batch .roulette-item{width:78px;height:50px;flex-basis:78px}.roulette-batch .roulette-item img{width:60px;height:44px}.case-quantity-row{gap:7px}.case-quantity-button{min-width:40px;height:34px}}
+@media(max-width:420px){.roulette-batch{gap:8px;margin:10px 0 12px}.roulette-batch .roulette-window{height:62px}.roulette-batch .roulette-item{width:78px;height:50px;flex-basis:78px}.roulette-batch .roulette-item img{width:60px;height:44px}.case-quantity-row{gap:7px}.case-quantity-button{min-width:40px;height:34px}}
 .roulette-track {
     display: flex;
     gap: 9px;
@@ -1244,15 +1244,15 @@ body.streamer-mode .profile-page:hover {
 
 .upgrade-count,.upgrade-inventory-title{display:none!important}
 .upgrader-info:empty{display:none!important}
-.upgrade-selected-list.compact{grid-template-columns:repeat(2,minmax(0,1fr))!important;align-content:start;gap:6px;max-height:420px;overflow-y:auto;scrollbar-width:thin}
-.upgrade-selected-list.compact .upgrade-selected-row{width:auto;min-height:155px!important;gap:3px}
-.upgrade-selected-list.compact .upgrade-selected-row img{height:118px!important;width:100%;object-fit:contain}
-.upgrade-selected-list.compact .upgrade-selected-row span{font-size:10px!important;padding:0 2px 3px}
+.upgrade-selected-list.compact{grid-template-columns:repeat(3,minmax(0,1fr))!important;align-content:start;gap:4px;max-height:205px;overflow-y:auto;scrollbar-width:thin}
+.upgrade-selected-list.compact .upgrade-selected-row{width:auto;min-height:88px!important;gap:2px;overflow:hidden}
+.upgrade-selected-list.compact .upgrade-selected-row img{height:58px!important;width:100%;object-fit:contain}
+.upgrade-selected-list.compact .upgrade-selected-row span{font-size:8px!important;line-height:1.15;padding:0 1px 2px}
 .upgrade-selected-list.compact .upgrade-selected-row button{font-size:15px;top:0;right:1px}
 .upgrade-wheel-core .upgrade-wheel-chance{flex:0 0 auto;color:#37dc98;font-size:21px;font-weight:900;line-height:1;text-shadow:0 0 10px #37dc9855}
 .upgrade-wheel-core img{height:105px}
 @media(max-width:700px){.upgrade-wheel-core .upgrade-wheel-chance{font-size:17px}.upgrade-wheel-core img{height:76px}}
-@media(max-width:420px){.upgrade-wheel-core .upgrade-wheel-chance{font-size:14px}.upgrade-wheel-core img{height:60px}.upgrade-selected-list.compact{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-height:360px}}
+@media(max-width:420px){.upgrade-wheel-core .upgrade-wheel-chance{font-size:14px}.upgrade-wheel-core img{height:60px}.upgrade-selected-list.compact{grid-template-columns:repeat(3,minmax(0,1fr))!important;max-height:190px}}
 </style>
 </head>
 
@@ -2702,6 +2702,7 @@ async function keepResult() {
 
     await loadInventory();
     vibrate("success");
+    if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 1000));
     await showNextCaseResult();
 
 }
@@ -2725,6 +2726,7 @@ async function sellResult() {
 
         await loadInventory();
         vibrate("success");
+        if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 1000));
         await showNextCaseResult();
 
 
