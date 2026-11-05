@@ -2702,7 +2702,7 @@ async function keepResult() {
 
     await loadInventory();
     vibrate("success");
-    if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 1000));
+    if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 250));
     await showNextCaseResult();
 
 }
@@ -2726,7 +2726,7 @@ async function sellResult() {
 
         await loadInventory();
         vibrate("success");
-        if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 1000));
+        if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 250));
         await showNextCaseResult();
 
 
