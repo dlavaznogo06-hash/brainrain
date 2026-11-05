@@ -465,6 +465,16 @@ main { padding: 12px 0 40px; }
     pointer-events: none;
 }
 
+.case-quantity-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:-3px auto 12px}
+.case-quantity-button{min-width:42px;height:36px;padding:0 12px;border:1px solid #76539a;border-radius:9px;background:#302044;color:#d7c5e9;font-weight:900;cursor:pointer;transition:transform .15s,background .15s,border-color .15s}
+.case-quantity-button.active{background:#70409b;border-color:#cf91ff;color:#fff;box-shadow:0 0 12px #a45bff55}
+.case-quantity-button:disabled{opacity:.5;cursor:not-allowed}
+.case-quantity-total{flex-basis:100%;text-align:center;color:#ffd45c;font-size:12px;font-weight:800}
+.roulette-batch{display:grid;gap:6px;margin:15px 0 18px}
+.roulette-batch .roulette-window{height:70px;margin:0}
+.roulette-batch .roulette-item{width:90px;height:56px;flex-basis:90px}
+.roulette-batch .roulette-item img{width:68px;height:50px}
+@media(max-width:420px){.roulette-batch{gap:4px;margin:10px 0 12px}.roulette-batch .roulette-window{height:62px}.roulette-batch .roulette-item{width:78px;height:50px;flex-basis:78px}.roulette-batch .roulette-item img{width:60px;height:44px}.case-quantity-row{gap:7px}.case-quantity-button{min-width:40px;height:34px}}
 .roulette-track {
     display: flex;
     gap: 9px;
@@ -1147,7 +1157,7 @@ body.streamer-mode .profile-page:hover {
 .upgrade-selected-row span{flex:1;min-width:0;font-size:12px;overflow-wrap:anywhere}
 .upgrade-selected-row button{border:0;background:transparent;color:#d7c5e9;font-size:18px;cursor:pointer}
 .upgrade-empty-slot,.upgrade-target-pick{display:grid;place-items:center;min-height:115px;color:#cbb9dc;font-size:13px;line-height:1.6}.upgrade-empty-slot{cursor:pointer}.upgrade-empty-slot[aria-disabled="true"]{opacity:.55;cursor:default}
-.upgrade-target-pick{width:100%;border:0;background:transparent;cursor:pointer}
+.upgrade-target-pick{position:relative;z-index:1;width:100%;border:0;background:transparent;cursor:pointer;pointer-events:auto}
 .upgrade-target-pick strong{font-size:16px;color:#fff}
 .upgrade-wheel{display:grid;place-items:center;width:300px;height:300px;aspect-ratio:1/1;margin:auto;border:0;border-radius:50%!important;background:transparent;box-shadow:none;position:relative;overflow:visible}
 .upgrade-wheel-disc{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:1/1;border:0;border-radius:50%!important;clip-path:circle(50% at 50% 50%);background:#303633;box-shadow:none}
@@ -1173,7 +1183,7 @@ body.streamer-mode .profile-page:hover {
 .upgrade-inventory-card span{display:block;margin-top:4px;color:#ffd45c;font-size:10px}
 .upgrade-count{margin-top:8px;color:#cbb9dc;font-size:12px;text-align:right}
 .upgrade-target-modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:16px;background:#05030ae8;backdrop-filter:blur(7px)}
-.upgrade-target-modal.active{display:flex}
+.upgrade-target-modal.active{display:flex;pointer-events:auto}.upgrade-target-dialog{position:relative;z-index:1;pointer-events:auto}
 .upgrade-target-dialog{display:flex;flex-direction:column;width:min(560px,100%);max-height:88vh;padding:16px;border:1px solid #80639e;border-radius:17px;background:linear-gradient(145deg,#302044,#160e24);box-shadow:0 18px 55px #000b}
 .upgrade-target-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .upgrade-target-header h2{margin:0;font-size:17px}
@@ -1215,8 +1225,8 @@ body.streamer-mode .profile-page:hover {
 @media(max-width:700px){.upgrade-wheel-core{padding:18px}.upgrade-wheel-core img{height:116px}.upgrade-wheel-core strong{font-size:12px}}
 @media(max-width:420px){.upgrade-wheel-core{padding:12px}.upgrade-wheel-core img{height:90px}.upgrade-wheel-core strong{font-size:10px}.upgrade-selected-list{grid-template-columns:1fr}.upgrade-selected-list .upgrade-selected-row{min-height:105px}.upgrade-selected-list .upgrade-selected-row img{height:64px}.upgrade-card>.upgrade-selected-row{min-height:120px}.upgrade-card>.upgrade-selected-row img{height:86px}}
 
-.upgrade-selected-list{grid-template-columns:1fr!important}.upgrade-selected-list .upgrade-selected-row{width:100%;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:160px}
-.upgrade-selected-list .upgrade-selected-row img{height:155px;max-width:100%;object-fit:contain}
+.upgrade-selected-list{grid-template-columns:1fr!important}.upgrade-selected-list .upgrade-selected-row{width:100%;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:230px}
+.upgrade-selected-list .upgrade-selected-row img{height:190px;max-width:100%;object-fit:contain}
 .upgrade-selected-list .upgrade-selected-row span{padding:0 3px 5px;font-size:11px}
 .upgrade-card>.upgrade-selected-row{width:100%;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:230px}
 .upgrade-card>.upgrade-selected-row img{height:190px;max-width:100%;object-fit:contain}
@@ -1225,8 +1235,8 @@ body.streamer-mode .profile-page:hover {
 .upgrade-chance-row{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;width:min(100%,360px);margin:0 auto 4px}
 .upgrade-chance-row .upgrade-preset{min-width:50px;min-height:34px;padding:5px 7px;border:0;border-radius:0;background:transparent;box-shadow:none;color:#d7c5e9;font-size:13px}
 .upgrade-chance-row .upgrade-preset:hover{color:#fff;text-shadow:0 0 10px #c49ce0}
-@media(max-width:700px){.upgrade-selected-list .upgrade-selected-row{min-height:130px}.upgrade-selected-list .upgrade-selected-row img{height:118px}.upgrade-card>.upgrade-selected-row{min-height:190px}.upgrade-card>.upgrade-selected-row img{height:150px}}
-@media(max-width:420px){.upgrade-selected-list .upgrade-selected-row{min-height:108px}.upgrade-selected-list .upgrade-selected-row img{height:90px}.upgrade-card>.upgrade-selected-row{min-height:150px}.upgrade-card>.upgrade-selected-row img{height:112px}.upgrade-multiplier-row,.upgrade-chance-row{gap:8px}}
+@media(max-width:700px){.upgrade-selected-list .upgrade-selected-row{min-height:190px}.upgrade-selected-list .upgrade-selected-row img{height:150px}.upgrade-card>.upgrade-selected-row{min-height:190px}.upgrade-card>.upgrade-selected-row img{height:150px}}
+@media(max-width:420px){.upgrade-selected-list .upgrade-selected-row{min-height:150px}.upgrade-selected-list .upgrade-selected-row img{height:112px}.upgrade-card>.upgrade-selected-row{min-height:150px}.upgrade-card>.upgrade-selected-row img{height:112px}.upgrade-multiplier-row,.upgrade-chance-row{gap:8px}}
 
 .roulette-skip-button{display:block;width:min(100%,240px);margin:-7px auto 12px;padding:9px 14px;border:1px solid #80639e88;border-radius:10px;background:#ffffff0d;color:#e2d5ed;font-size:13px;font-weight:800;cursor:pointer}.roulette-skip-button:hover{background:#ffffff18;color:#fff}.roulette-skip-button[hidden]{display:none!important}
 
@@ -1234,15 +1244,15 @@ body.streamer-mode .profile-page:hover {
 
 .upgrade-count,.upgrade-inventory-title{display:none!important}
 .upgrader-info:empty{display:none!important}
-.upgrade-selected-list.compact{grid-template-columns:repeat(auto-fill,minmax(68px,1fr))!important;align-content:start;gap:4px;max-height:210px;overflow-y:auto;scrollbar-width:thin}
-.upgrade-selected-list.compact .upgrade-selected-row{width:auto;min-height:96px!important;gap:2px}
-.upgrade-selected-list.compact .upgrade-selected-row img{height:68px!important;width:100%;object-fit:contain}
-.upgrade-selected-list.compact .upgrade-selected-row span{font-size:9px!important;padding:0 2px 3px}
+.upgrade-selected-list.compact{grid-template-columns:repeat(2,minmax(0,1fr))!important;align-content:start;gap:6px;max-height:420px;overflow-y:auto;scrollbar-width:thin}
+.upgrade-selected-list.compact .upgrade-selected-row{width:auto;min-height:155px!important;gap:3px}
+.upgrade-selected-list.compact .upgrade-selected-row img{height:118px!important;width:100%;object-fit:contain}
+.upgrade-selected-list.compact .upgrade-selected-row span{font-size:10px!important;padding:0 2px 3px}
 .upgrade-selected-list.compact .upgrade-selected-row button{font-size:15px;top:0;right:1px}
 .upgrade-wheel-core .upgrade-wheel-chance{flex:0 0 auto;color:#37dc98;font-size:21px;font-weight:900;line-height:1;text-shadow:0 0 10px #37dc9855}
 .upgrade-wheel-core img{height:105px}
 @media(max-width:700px){.upgrade-wheel-core .upgrade-wheel-chance{font-size:17px}.upgrade-wheel-core img{height:76px}}
-@media(max-width:420px){.upgrade-wheel-core .upgrade-wheel-chance{font-size:14px}.upgrade-wheel-core img{height:60px}.upgrade-selected-list.compact{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-height:190px}}
+@media(max-width:420px){.upgrade-wheel-core .upgrade-wheel-chance{font-size:14px}.upgrade-wheel-core img{height:60px}.upgrade-selected-list.compact{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-height:360px}}
 </style>
 </head>
 
@@ -1393,8 +1403,14 @@ body.streamer-mode .profile-page:hover {
             <div class="roulette-track hidden" id="allRoulette"></div>
         </div>
 
+        <div class="case-quantity-row" id="caseQuantityRow" role="group" aria-label="Количество кейсов">
+            <button type="button" class="case-quantity-button active" data-quantity="1" aria-pressed="true" onclick="selectCaseQuantity(1)">1</button>
+            <button type="button" class="case-quantity-button" data-quantity="3" aria-pressed="false" onclick="selectCaseQuantity(3)">3</button>
+            <button type="button" class="case-quantity-button" data-quantity="5" aria-pressed="false" onclick="selectCaseQuantity(5)">5</button>
+            <span class="case-quantity-total" id="caseQuantityTotal">Итого: 0 Coin</span>
+        </div>
         <button class="roulette-skip-button" id="skipRouletteButton" type="button" onclick="skipRouletteAnimation()" hidden>Пропустить</button>
-        <button class="open-button" id="openCaseButton" onclick="openCase()">ОТКРЫТЬ</button>
+        <button class="open-button" id="openCaseButton" onclick="openCase()" disabled>ОТКРЫТЬ</button>
 
         <h3 class="items-title">Содержимое кейса</h3>
         <div class="items-grid" id="itemsGrid"></div>
@@ -1533,11 +1549,14 @@ const API_URL = "https://brainrain-promo-2-433678.subhub.tr";
 
 let playerBalance = 0;
 let opening = false;
+let selectedCaseQuantity = 1;
+let caseResultQueue = [];
 let currentResult = null;
 let currentInventory = [];
 let vibrationEnabled = true;
 let streamerModeEnabled = false;
 let rouletteAnimation = null;
+const rouletteAnimationsByTrack = new Map();
 let rouletteSkipHandler = null;
 let upgrading = false;
 let upgradeAudioContext = null;
@@ -1717,6 +1736,7 @@ function updateBalance() {
     document.getElementById("headerBalance").textContent = formatted;
     document.getElementById("menuBalance").textContent = formatted;
     document.getElementById("profileBalance").textContent = formatted;
+    updateCasePurchaseUI();
 
 }
 
@@ -2042,6 +2062,8 @@ function renderSelectedUpgradeTarget() {
     const target = getUpgradeCatalogItem(selectedUpgradeTargetId);
     const pickButton = document.getElementById("upgradeChooseTarget");
     const selected = document.getElementById("upgradeSelectedTarget");
+    pickButton.disabled = Boolean(upgrading);
+    pickButton.setAttribute("aria-disabled", String(upgrading));
     if (!target) {
         pickButton.hidden = false;
         selected.hidden = true;
@@ -2049,7 +2071,6 @@ function renderSelectedUpgradeTarget() {
     }
     pickButton.hidden = true;
     selected.hidden = false;
-    pickButton.disabled = upgrading;
     const removeTargetButton = selected.querySelector("button");
     if (removeTargetButton) removeTargetButton.disabled = upgrading;
     document.getElementById("upgradeTargetImage").src = target.image;
@@ -2176,7 +2197,7 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
     const alignment = (rollAngle - currentSector + 360) % 360;
     const turns = upgradeMode === "fast" ? 5 : 10;
     const finalRotation = currentRotation + turns * 360 + alignment;
-    const duration = upgradeMode === "fast" ? 4300 : 7800;
+    const duration = upgradeMode === "fast" ? 4500 : 10000;
 
     wheel.classList.add("spinning");
     return new Promise(resolve => {
@@ -2299,11 +2320,11 @@ function rouletteItem(item) {
 function stopIdleRoulette(track) {
     track.classList.remove("idle");
 
-    if (rouletteAnimation) {
-        rouletteAnimation.cancel();
-        rouletteAnimation = null;
+        const activeAnimation = rouletteAnimationsByTrack.get(track);
+    if (activeAnimation) {
+        rouletteAnimationsByTrack.delete(track);
+        activeAnimation.cancel();
     }
-
     const computed = getComputedStyle(track).transform;
     if (computed && computed !== "none") {
         track.style.transform = computed;
@@ -2335,6 +2356,28 @@ function startIdleRoulette(track, pool) {
 
 /* ОТОБРАЖЕНИЕ КЕЙСА */
 
+function updateCasePurchaseUI() {
+    const data = cases[currentCase];
+    const button = document.getElementById("openCaseButton");
+    const total = document.getElementById("caseQuantityTotal");
+    if (!data || !button || !total) return;
+    const totalPrice = Number(data.price) * selectedCaseQuantity;
+    total.textContent = `Итого за ${selectedCaseQuantity}: ${totalPrice.toLocaleString("ru-RU")} Coin`;
+    button.textContent = opening ? "ОТКРЫВАЕМ..." : `ОТКРЫТЬ ×${selectedCaseQuantity} · ${totalPrice.toLocaleString("ru-RU")} Coin`;
+    button.disabled = opening || Number(playerBalance) < totalPrice;
+    document.querySelectorAll(".case-quantity-button").forEach(option => {
+        const active = Number(option.dataset.quantity) === selectedCaseQuantity;
+        option.classList.toggle("active", active);
+        option.setAttribute("aria-pressed", String(active));
+        option.disabled = opening;
+    });
+}
+
+function selectCaseQuantity(quantity) {
+    if (opening || ![1, 3, 5].includes(Number(quantity))) return;
+    selectedCaseQuantity = Number(quantity);
+    updateCasePurchaseUI();
+}
 function showCase(caseId) {
     if (!cases[caseId]) return;
 
@@ -2389,6 +2432,7 @@ function showCase(caseId) {
         card.append(img, name, itemPrice);
         grid.appendChild(card);
     });
+    updateCasePurchaseUI();
 }
 
 /* АНИМАЦИЯ РУЛЕТКИ */
@@ -2397,9 +2441,9 @@ function skipRouletteAnimation() {
     if (rouletteSkipHandler) rouletteSkipHandler();
 }
 
-function animateRoulette(winningItem) {
+function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers = null) {
     return new Promise((resolve, reject) => {
-        const track = document.getElementById(cases[currentCase].roulette);
+        const track = providedTrack || document.getElementById(cases[currentCase].roulette);
         const windowEl = track.parentElement;
         const pool = cases[currentCase].items;
 
@@ -2443,7 +2487,7 @@ function animateRoulette(winningItem) {
 
         void track.offsetWidth;
 
-        const spinDuration = 7600;
+        const spinDuration = 9000;
         const animation = track.animate(
             [
                 { transform: "translateX(0px)" },
@@ -2451,21 +2495,25 @@ function animateRoulette(winningItem) {
             ],
             {
                 duration: spinDuration,
-                easing: "cubic-bezier(.55,0,.25,1)",
+                easing: "cubic-bezier(.42,0,.58,1)",
                 fill: "forwards"
             }
         );
 
         rouletteAnimation = animation;
-        const skipButton = document.getElementById("skipRouletteButton");
+        rouletteAnimationsByTrack.set(track, animation);
+        const skipButton = sharedSkipHandlers ? null : document.getElementById("skipRouletteButton");
         let finished = false;
         const finishRoulette = () => {
             if (finished) return;
             finished = true;
             track.style.transform = "translateX(-" + targetOffset + "px)";
-            rouletteAnimation = null;
-            rouletteSkipHandler = null;
-            if (skipButton) skipButton.hidden = true;
+            if (rouletteAnimationsByTrack.get(track) === animation) rouletteAnimationsByTrack.delete(track);
+            rouletteAnimation = rouletteAnimationsByTrack.size ? Array.from(rouletteAnimationsByTrack.values()).at(-1) : null;
+            if (!sharedSkipHandlers) {
+                rouletteSkipHandler = null;
+                if (skipButton) skipButton.hidden = true;
+            }
             animation.cancel();
             resolve();
         };
@@ -2481,13 +2529,19 @@ function animateRoulette(winningItem) {
             if (typeof animation.updatePlaybackRate === "function") animation.updatePlaybackRate(rate);
             else animation.playbackRate = rate;
         };
-        rouletteSkipHandler = speedUpRoulette;
-        if (skipButton) skipButton.hidden = false;
+        if (sharedSkipHandlers) sharedSkipHandlers.push(speedUpRoulette);
+        else {
+            rouletteSkipHandler = speedUpRoulette;
+            if (skipButton) skipButton.hidden = false;
+        }
         animation.onfinish = finishRoulette;
         animation.oncancel = () => {
-            if (rouletteAnimation === animation) rouletteAnimation = null;
-            rouletteSkipHandler = null;
-            if (skipButton) skipButton.hidden = true;
+            if (rouletteAnimationsByTrack.get(track) === animation) rouletteAnimationsByTrack.delete(track);
+            if (rouletteAnimation === animation) rouletteAnimation = rouletteAnimationsByTrack.size ? Array.from(rouletteAnimationsByTrack.values()).at(-1) : null;
+            if (!sharedSkipHandlers) {
+                rouletteSkipHandler = null;
+                if (skipButton) skipButton.hidden = true;
+            }
             if (!finished) {
                 finished = true;
                 resolve();
@@ -2496,6 +2550,64 @@ function animateRoulette(winningItem) {
     });
 }
 
+function visualCaseItem(item) {
+    const itemId = item.id || item.itemId;
+    const catalogItem = cases[currentCase].items.find(candidate => candidate.id === itemId);
+    return {
+        ...item,
+        id:itemId,
+        image:item.image || catalogItem?.image || "coin.png",
+        name:item.name || catalogItem?.name || "Предмет",
+        rarity:catalogItem?.rarity || ""
+    };
+}
+
+async function animateMultipleRoulettes(rewards) {
+    const originalTrack = document.getElementById(cases[currentCase].roulette);
+    const originalWindow = originalTrack.parentElement;
+    const batch = document.createElement("div");
+    batch.className = "roulette-batch";
+    originalWindow.style.display = "none";
+    originalWindow.insertAdjacentElement("afterend", batch);
+
+    const skipButton = document.getElementById("skipRouletteButton");
+    const skipHandlers = [];
+    if (skipButton) {
+        skipButton.hidden = false;
+        skipButton.disabled = false;
+        skipButton.textContent = "Пропустить";
+    }
+    rouletteSkipHandler = () => {
+        if (skipButton) {
+            skipButton.disabled = true;
+            skipButton.textContent = "Ускоряем рулетки...";
+        }
+        skipHandlers.forEach(handler => handler());
+    };
+
+    try {
+        const lanes = rewards.map(reward => {
+            const lane = document.createElement("div");
+            lane.className = "roulette-window";
+            const track = document.createElement("div");
+            track.className = "roulette-track";
+            lane.appendChild(track);
+            batch.appendChild(lane);
+            return animateRoulette(visualCaseItem(reward.item), track, skipHandlers);
+        });
+        await Promise.all(lanes);
+    } finally {
+        rouletteSkipHandler = null;
+        if (skipButton) {
+            skipButton.hidden = true;
+            skipButton.disabled = false;
+            skipButton.textContent = "Пропустить";
+        }
+        batch.remove();
+        originalWindow.style.display = "";
+        showCase(currentCase);
+    }
+}
 /* ОТКРЫТИЕ КЕЙСА */
 
 function makeRequestId() {
@@ -2507,89 +2619,75 @@ function makeRequestId() {
     });
 }
 
+async function showNextCaseResult() {
+    if (!caseResultQueue.length) return;
+    const reward = caseResultQueue.shift();
+    const item = reward.item;
+    const isCoinReward = item.id === "coin" || item.itemId === "coin";
+    const visualItem = visualCaseItem(item);
+    currentResult = {inventoryId:isCoinReward ? null : reward.inventoryId, item, isCoinReward};
+
+    document.getElementById("resultImage").src = visualItem.image;
+    document.getElementById("resultName").textContent = visualItem.name;
+    const sellButton = document.querySelector(".sell-result");
+    const keepButton = document.querySelector(".result-actions button:first-child");
+    if (isCoinReward) {
+        document.getElementById("resultPrice").textContent = "";
+        if (sellButton) sellButton.style.display = "none";
+        if (keepButton) keepButton.textContent = "ОК";
+    } else {
+        document.getElementById("resultPrice").textContent =
+            "Стоимость продажи: " + (item.sell ?? item.price ?? 0) + " Coin";
+        if (sellButton) sellButton.style.display = "";
+        if (keepButton) keepButton.textContent = "Оставить";
+    }
+    await new Promise(resolve => setTimeout(resolve, 500));
+    document.getElementById("resultBackdrop").classList.add("active");
+    vibrate("success");
+}
+
 async function openCase() {
     if (opening) return;
-
     opening = true;
-
+    updateCasePurchaseUI();
     const button = document.getElementById("openCaseButton");
-    button.disabled = true;
-    button.textContent = "ОТКРЫВАЕМ...";
+    const caseId = currentCase;
+    const quantity = selectedCaseQuantity;
 
     try {
         const data = await apiPost("/api/open-case", {
-            caseId:currentCase,
+            caseId,
+            quantity,
             requestId:makeRequestId()
         });
+        const rewards = Array.isArray(data.items)
+            ? data.items
+            : [{item:data.item, inventoryId:data.inventoryId, coinReward:data.coinReward}];
+        if (!rewards.length || !rewards[0].item) throw new Error("Сервер не вернул результаты открытия кейса.");
 
-        const item = data.item;
-        const isCoinReward = item.id === "coin" || item.itemId === "coin";
-        if (!isCoinReward) {
-            playerBalance = data.balance;
-            updateBalance();
-        }
+        playerBalance = Number(data.balance ?? playerBalance);
+        updateBalance();
+        if (rewards.length > 1) await animateMultipleRoulettes(rewards);
+        else await animateRoulette(visualCaseItem(rewards[0].item));
 
-        const catalogItem = cases[currentCase].items.find(x =>
-            x.id === item.id || x.id === item.itemId
-        );
-
-        const visualItem = {
-            ...item,
-            id: item.id || item.itemId,
-            image: item.image || catalogItem?.image || "coin.png",
-            name: item.name || catalogItem?.name || "Предмет",
-            rarity: catalogItem?.rarity || ""
-        };
-
-        await animateRoulette(visualItem);
-
-        if (isCoinReward) {
-            if (data.inventoryId) {
-                const credited = await apiPost("/api/sell-item", {itemId:Number(data.inventoryId)});
-                playerBalance = Number(credited.balance ?? data.balance ?? playerBalance);
-            } else {
-                playerBalance = Number(data.balance ?? playerBalance);
-            }
-            updateBalance();
-        }
-        currentResult = {
-            inventoryId:isCoinReward ? null : data.inventoryId,
-            item:item,
-            isCoinReward
-        };
-
-        document.getElementById("resultImage").src = visualItem.image;
-        document.getElementById("resultName").textContent = visualItem.name;
-        const sellButton = document.querySelector(".sell-result");
-        const keepButton = document.querySelector(".result-actions button:first-child");
-        if (isCoinReward) {
-            document.getElementById("resultPrice").textContent = "";
-            if (sellButton) sellButton.style.display = "none";
-            if (keepButton) keepButton.textContent = "ОК";
-        } else {
-            document.getElementById("resultPrice").textContent =
-                "Стоимость продажи: " + (item.sell ?? item.price ?? 0) + " Coin";
-            if (sellButton) sellButton.style.display = "";
-            if (keepButton) keepButton.textContent = "Оставить";
-        }
-        await new Promise(resolve => setTimeout(resolve, 500));
-        document.getElementById("resultBackdrop").classList.add("active");
-        vibrate("success");
-
+        caseResultQueue = rewards.map(reward => ({
+            inventoryId:reward.inventoryId,
+            item:reward.item,
+            isCoinReward:reward.item.id === "coin" || reward.item.itemId === "coin"
+        }));
+        await showNextCaseResult();
     } catch (error) {
         alert(error.message);
         await loadBalance();
-
-        const track = document.getElementById(cases[currentCase].roulette);
-        startIdleRoulette(track, cases[currentCase].items);
-
+        const track = document.getElementById(cases[caseId].roulette);
+        if (track && !track.closest(".roulette-batch")) startIdleRoulette(track, cases[caseId].items);
     } finally {
         opening = false;
-        button.disabled = false;
-        button.textContent = "ОТКРЫТЬ";
-        document.getElementById("skipRouletteButton").hidden = true;
-        document.getElementById("skipRouletteButton").disabled = false;
-        document.getElementById("skipRouletteButton").textContent = "Пропустить";
+        if (button) updateCasePurchaseUI();
+        const skipButton = document.getElementById("skipRouletteButton");
+        skipButton.hidden = true;
+        skipButton.disabled = false;
+        skipButton.textContent = "Пропустить";
         rouletteSkipHandler = null;
     }
 }
@@ -2604,6 +2702,8 @@ async function keepResult() {
 
     await loadInventory();
     vibrate("success");
+    await showNextCaseResult();
+
 }
 
 async function sellResult() {
@@ -2625,6 +2725,8 @@ async function sellResult() {
 
         await loadInventory();
         vibrate("success");
+        await showNextCaseResult();
+
 
     } catch (error) {
         alert(error.message);
