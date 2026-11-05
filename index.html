@@ -2699,14 +2699,15 @@ async function keepResult() {
 
     document.getElementById("resultBackdrop").classList.remove("active");
     currentResult = null;
-
-    await loadInventory();
     vibrate("success");
-    if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 250));
-    await showNextCaseResult();
 
+    if (caseResultQueue.length) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        await showNextCaseResult();
+    } else {
+        await loadInventory();
+    }
 }
-
 async function sellResult() {
     if (!currentResult || currentResult.isCoinReward || !currentResult.inventoryId) return;
 
@@ -2724,10 +2725,13 @@ async function sellResult() {
         currentResult = null;
         document.getElementById("resultBackdrop").classList.remove("active");
 
-        await loadInventory();
         vibrate("success");
-        if (caseResultQueue.length) await new Promise(resolve => setTimeout(resolve, 250));
-        await showNextCaseResult();
+        if (caseResultQueue.length) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            await showNextCaseResult();
+        } else {
+            await loadInventory();
+        }
 
 
     } catch (error) {
