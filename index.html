@@ -1343,6 +1343,12 @@ body.streamer-mode .profile-page:hover {
                 <div class="price">5 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('pair_case')">
+                <img src="pair-case.png" alt="Парный кейс">
+                <h3>Парный кейс 💞</h3>
+                <div class="price">67 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('all')">
                 <img src="all-or-nothing.png" alt="Всё или ничего">
                 <h3>ВСЁ ИЛИ НИЧЕГО 🎲</h3>
@@ -1363,6 +1369,7 @@ body.streamer-mode .profile-page:hover {
             <div class="roulette-track hidden" id="impactRoulette"></div>
             <div class="roulette-track hidden" id="redCaseRoulette"></div>
             <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
+            <div class="roulette-track hidden" id="pairCaseRoulette"></div>
             <div class="roulette-track hidden" id="allRoulette"></div>
         </div>
 
@@ -1549,6 +1556,20 @@ const luckyBlocksItems = [
     {id:"egg-lucky-block", name:"Egg Lucky Block", image:"egg-lucky-block.png", price:33, rarity:"rarity-gold"}
 ];
 
+const pairItems = [
+    {id:"los-primos", name:"Los Primos", image:"los-primos.png", price:49, rarity:"rarity-blue"},
+    {id:"garama-and-madundung", name:"Garama and Madundung", image:"garama-and-madundung.png", price:55, rarity:"rarity-blue"},
+    {id:"pizza-and-ranch", name:"Pizza and Ranch", image:"pizza-and-ranch.png", price:75, rarity:"rarity-blue"},
+    {id:"popcuru-and-fizzuru", name:"Popcuru and Fizzuru", image:"popcuru-and-fizzuru.png", price:90, rarity:"rarity-blue"},
+    {id:"burguro-and-fryuro", name:"Burguro And Fryuro", image:"burguro-and-fryuro.png", price:105, rarity:"rarity-purple"},
+    {id:"cooki-and-milki", name:"Cooki and Milki", image:"cooki-and-milki.png", price:129, rarity:"rarity-purple"},
+    {id:"spooky-and-pumpky", name:"Spooky and Pumpky", image:"spooky-and-pumpky.png", price:145, rarity:"rarity-purple"},
+    {id:"chipso-and-queso", name:"Chipso and Queso", image:"chipso-and-queso.png", price:160, rarity:"rarity-purple"},
+    {id:"los-amigos", name:"Los Amigos", image:"los-amigos.png", price:180, rarity:"rarity-purple"},
+    {id:"gym-bros", name:"Gym Bros", image:"gym-bros.png", price:200, rarity:"rarity-purple"},
+    {id:"moby-bros", name:"Moby Bros", image:"moby-bros.png", price:1333, rarity:"rarity-red"}
+];
+
 const allItems = [
     {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
@@ -1582,6 +1603,13 @@ const cases = {
         price:5,
         items:luckyBlocksItems,
         roulette:"luckyBlocksRoulette"
+    },
+    pair_case: {
+        name:"Парный кейс 💞",
+        image:"pair-case.png",
+        price:67,
+        items:pairItems,
+        roulette:"pairCaseRoulette"
     },
     all: {
         name:"ВСЁ ИЛИ НИЧЕГО 🎲",
@@ -1806,7 +1834,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...luckyBlocksItems, ...allItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...luckyBlocksItems, ...pairItems, ...allItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
