@@ -1393,6 +1393,12 @@ body.streamer-mode .profile-page:hover {
                 <div class="price">12 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('basic_case')">
+                <img src="basic-case.png" alt="Базовый кейс">
+                <h3>БАЗОВЫЙ 🧱</h3>
+                <div class="price">9 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('los_case')">
                 <img src="los-case.png" alt="Кейс Лосы">
                 <h3>Кейс Лосы 🧑‍🤝‍🧑</h3>
@@ -1451,6 +1457,7 @@ body.streamer-mode .profile-page:hover {
             <div class="roulette-track hidden" id="impactRoulette"></div>
             <div class="roulette-track hidden" id="redCaseRoulette"></div>
             <div class="roulette-track hidden" id="blueCaseRoulette"></div>
+            <div class="roulette-track hidden" id="basicCaseRoulette"></div>
             <div class="roulette-track hidden" id="losCaseRoulette"></div>
             <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
             <div class="roulette-track hidden" id="pairCaseRoulette"></div>
@@ -1709,6 +1716,19 @@ const losCaseItems = [
     {id:"los-hackers", name:"Los Hackers", image:"los-hackers.png", price:367, rarity:"rarity-purple"}
 ];
 
+const basicCaseItems = [
+    {id:"summer-base", name:"Summer Base", image:"summer-base.png", price:4, rarity:"rarity-blue"},
+    {id:"christmas-base", name:"Christmas Base", image:"christmas-base.png", price:6, rarity:"rarity-blue"},
+    {id:"halloween-base", name:"Halloween Base", image:"halloween-base.png", price:9, rarity:"rarity-blue"},
+    {id:"taco-base", name:"Taco Base", image:"taco-base.png", price:10, rarity:"rarity-blue"},
+    {id:"bunny-basket-base", name:"Bunny Basket Base", image:"bunny-basket-base.png", price:13, rarity:"rarity-blue"},
+    {id:"pot-of-gold-base", name:"Pot of Gold Base", image:"pot-of-gold-base.png", price:15, rarity:"rarity-blue"},
+    {id:"octo-base", name:"Octo Base", image:"octo-base.png", price:20, rarity:"rarity-blue"},
+    {id:"rose-base", name:"Rose Base", image:"rose-base.png", price:24, rarity:"rarity-blue"},
+    {id:"gingerbread-base", name:"Gingerbread Base", image:"gingerbread-base.png", price:30, rarity:"rarity-blue"},
+    {id:"tralalero-base", name:"Tralalero Base", image:"tralalero-base.png", price:350, rarity:"rarity-purple"}
+];
+
 const allItems = [
     {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
@@ -1735,6 +1755,13 @@ const cases = {
         price:159,
         items:redCaseItems,
         roulette:"redCaseRoulette"
+    },
+    basic_case: {
+        name:"БАЗОВЫЙ 🧱",
+        image:"basic-case.png",
+        price:9,
+        items:basicCaseItems,
+        roulette:"basicCaseRoulette"
     },
     los_case: {
         name:"Кейс Лосы 🧑‍🤝‍🧑",
@@ -2075,7 +2102,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = item.id === "skibidi-toilet" ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
