@@ -1393,6 +1393,12 @@ body.streamer-mode .profile-page:hover {
                 <div class="price">12 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('craft_machine')">
+                <img src="craft-machine-case.png" alt="Крафт машина">
+                <h3>КРАФТ МАШИНА ⚙️</h3>
+                <div class="price">229 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('basic_case')">
                 <img src="basic-case.png" alt="Базовый кейс">
                 <h3>БАЗОВЫЙ 🧱</h3>
@@ -1457,6 +1463,7 @@ body.streamer-mode .profile-page:hover {
             <div class="roulette-track hidden" id="impactRoulette"></div>
             <div class="roulette-track hidden" id="redCaseRoulette"></div>
             <div class="roulette-track hidden" id="blueCaseRoulette"></div>
+            <div class="roulette-track hidden" id="craftMachineRoulette"></div>
             <div class="roulette-track hidden" id="basicCaseRoulette"></div>
             <div class="roulette-track hidden" id="losCaseRoulette"></div>
             <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
@@ -1729,6 +1736,18 @@ const basicCaseItems = [
     {id:"tralalero-base", name:"Tralalero Base", image:"tralalero-base.png", price:350, rarity:"rarity-purple"}
 ];
 
+const craftMachineItems = [
+    {id:"money-money-bros", name:"Money Money Bros", image:"money-money-bros.png", price:155, rarity:"rarity-purple"},
+    {id:"trenostruzo-turbo-4000", name:"Trenostruzo Turbo 4000", image:"trenostruzo-turbo-4000.png", price:180, rarity:"rarity-purple"},
+    {id:"fragola-la-la-la", name:"Fragola La La La", image:"fragola-la-la-la.png", price:210, rarity:"rarity-purple"},
+    {id:"los-chillis", name:"Los Chillis", image:"los-chillis.png", price:250, rarity:"rarity-purple"},
+    {id:"duggy-bros", name:"Duggy Bros", image:"duggy-bros.png", price:327, rarity:"rarity-purple"},
+    {id:"gold-and-diamond", name:"Gold and Diamond", image:"gold-and-diamond.png", price:350, rarity:"rarity-purple"},
+    {id:"los-hackers", name:"Los Hackers", image:"los-hackers.png", price:367, rarity:"rarity-purple"},
+    {id:"examen-bros", name:"Examen Bros", image:"examen-bros.png", price:380, rarity:"rarity-purple"},
+    {id:"rubiko-and-kubiko", name:"Rubiko and Kubiko", image:"rubiko-and-kubiko.png", price:400, rarity:"rarity-purple"}
+];
+
 const allItems = [
     {id:"coin", name:"1 Coin", image:"coin.png", price:1, rarity:"rarity-blue"},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950, rarity:"rarity-gold"}
@@ -1755,6 +1774,13 @@ const cases = {
         price:159,
         items:redCaseItems,
         roulette:"redCaseRoulette"
+    },
+    craft_machine: {
+        name:"КРАФТ МАШИНА ⚙️",
+        image:"craft-machine-case.png",
+        price:229,
+        items:craftMachineItems,
+        roulette:"craftMachineRoulette"
     },
     basic_case: {
         name:"БАЗОВЫЙ 🧱",
@@ -2102,7 +2128,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = item.id === "skibidi-toilet" ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
