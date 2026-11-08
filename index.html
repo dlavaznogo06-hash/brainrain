@@ -2201,6 +2201,13 @@ function blockNavigationDuringUpgrade() {
     return true;
 }
 
+function setUpgradeNavigationLock(locked) {
+    document.querySelectorAll(".desktop-nav button, #menu .menu-item, .header-avatar-button").forEach(button => {
+        button.disabled = locked;
+        button.setAttribute("aria-disabled", String(locked));
+    });
+}
+
 function showComingSoon(name) {
     alert(name + " скоро появится!");
 }
@@ -2550,6 +2557,7 @@ async function performUpgrade() {
 
     prepareUpgradeAudio();
     upgrading = true;
+    setUpgradeNavigationLock(true);
     const button = document.getElementById("upgradeButton");
     const wheel = document.getElementById("upgradeWheel");
     const result = document.getElementById("upgradeResult");
@@ -2592,6 +2600,7 @@ async function performUpgrade() {
     } finally {
         if (wheel) wheel.classList.remove("spinning", "fast");
         upgrading = false;
+        setUpgradeNavigationLock(false);
         if (button) {
             button.textContent = "НАЧАТЬ";
             button.disabled = true;
