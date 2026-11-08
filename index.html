@@ -1301,6 +1301,9 @@ body.streamer-mode .profile-page:hover {
         <button onclick="showUpgrader()">
             <img class="nav-icon nav-icon-up" src="up.png" alt=""> UPGRADER
         </button>
+        <button onclick="showProfile()">
+            <img class="nav-icon" src="profile.png" alt=""> PROFILE
+        </button>
     </nav>
 
     <div class="header-right">
@@ -1931,9 +1934,7 @@ function makeLiveDropCard(drop, entering = false, best = false) {
     avatar.src = drop.avatarUrl || "logo2.png";
     avatar.alt = "";
     avatar.onerror = () => { avatar.src = "logo2.png"; };
-    const nickname = document.createElement("span");
-    nickname.textContent = drop.nickname || drop.displayName || "Игрок";
-    user.append(avatar, nickname);
+    user.appendChild(avatar);
     card.appendChild(user);
     return card;
 }
@@ -2161,6 +2162,9 @@ function toggleMenu() {
 }
 
 function hideAllPages() {
+    upgradePageActive = false;
+    upgradePageVersion += 1;
+    cancelUpgradeWheelAnimation();
     document.getElementById("homePage").style.display = "none";
     document.getElementById("casePage").style.display = "none";
     document.getElementById("profilePage").style.display = "none";
@@ -2174,10 +2178,7 @@ function showHome() {
     document.getElementById("homePage").style.display = "block";
     closeMenu();
 
-    document.querySelectorAll(".desktop-nav button").forEach(button => {
-        button.classList.remove("active");
-    });
-    document.querySelector(".desktop-nav button")?.classList.add("active");
+    setDesktopNavActive(0);
 }
 
 function showProfile() {
@@ -2185,7 +2186,14 @@ function showProfile() {
     setMenuActive(2);
     document.getElementById("profilePage").style.display = "block";
     closeMenu();
+    setDesktopNavActive(2);
     loadInventory();
+}
+
+function setDesktopNavActive(index) {
+    document.querySelectorAll(".desktop-nav button").forEach((button, buttonIndex) => {
+        button.classList.toggle("active", buttonIndex === index);
+    });
 }
 
 function showComingSoon(name) {
@@ -2203,6 +2211,25 @@ const selectedUpgradeInventoryIds = new Set();
 let upgradeWheelRotation = 0;
 let selectedUpgradeTargetId = "";
 let upgradeMode = "normal";
+let upgradeAnimationFrameId = 0;
+let resolveUpgradeAnimation = null;
+let upgradeAnimationLastAngle = 0;
+let upgradePageActive = false;
+let upgradePageVersion = 0;
+
+function cancelUpgradeWheelAnimation() {
+    if (upgradeAnimationFrameId) cancelAnimationFrame(upgradeAnimationFrameId);
+    upgradeAnimationFrameId = 0;
+    const resolve = resolveUpgradeAnimation;
+    resolveUpgradeAnimation = null;
+    const wheel = document.getElementById("upgradeWheel");
+    const arrow = document.getElementById("upgradeWheelArrow");
+    if (wheel) wheel.classList.remove("spinning", "fast");
+    if (arrow) arrow.style.transform = "rotate(0deg)";
+    upgradeWheelRotation = 0;
+    upgradeAnimationLastAngle = 0;
+    if (resolve) resolve();
+}
 
 function getUpgradeCatalogItem(id) {
     return upgradeCatalog.find(item => item.id === id);
@@ -2229,11 +2256,12 @@ function setUpgradeMode(mode) {
 
 async function showUpgrader() {
     hideAllPages();
+    upgradePageActive = true;
+    upgradePageVersion += 1;
     setMenuActive(1);
     document.getElementById("upgraderPage").style.display = "block";
     closeMenu();
-    document.querySelectorAll(".desktop-nav button").forEach(button => button.classList.remove("active"));
-    document.querySelectorAll(".desktop-nav button")[1]?.classList.add("active");
+    setDesktopNavActive(1);
     selectedUpgradeInventoryIds.clear();
     selectedUpgradeTargetId = "";
     document.getElementById("upgradeResult").textContent = "";
@@ -2494,16 +2522,24 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
 
     wheel.classList.add("spinning");
     return new Promise(resolve => {
+        resolveUpgradeAnimation = resolve;
         let startedAt = null;
         let lastTickIndex = Math.floor(currentRotation / 90);
 
         const frame = timestamp => {
+            upgradeAnimationFrameId = 0;
+            if (!upgradePageActive) {
+                cancelUpgradeWheelAnimation();
+                return;
+            }
             if (startedAt === null) startedAt = timestamp;
             const progress = Math.min(1, (timestamp - startedAt) / duration);
             const eased = progress < 0.5
                 ? 4 * progress * progress * progress
                 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
             const angle = currentRotation + (finalRotation - currentRotation) * eased;
+            upgradeAnimationLastAngle = angle;
+            upgradeWheelRotation = angle;
             arrow.style.transform = `rotate(${angle}deg)`;
 
             const tickIndex = Math.floor(angle / 90);
@@ -2513,15 +2549,17 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
             }
 
             if (progress < 1) {
-                requestAnimationFrame(frame);
+                upgradeAnimationFrameId = requestAnimationFrame(frame);
             } else {
                 upgradeWheelRotation = finalRotation;
+                upgradeAnimationLastAngle = finalRotation;
                 wheel.classList.remove("spinning");
+                resolveUpgradeAnimation = null;
                 resolve();
             }
         };
 
-        requestAnimationFrame(frame);
+        upgradeAnimationFrameId = requestAnimationFrame(frame);
     });
 }
 
@@ -2540,6 +2578,7 @@ async function performUpgrade() {
     const button = document.getElementById("upgradeButton");
     const wheel = document.getElementById("upgradeWheel");
     const result = document.getElementById("upgradeResult");
+    const pageVersionAtStart = upgradePageVersion;
     try {
         if (!button || !wheel || !result) throw new Error("Не найдены элементы апгрейдера на странице. Обнови GitHub Pages.");
         button.disabled = true;
@@ -2553,9 +2592,12 @@ async function performUpgrade() {
             targetItemId:target.id,
             mode:upgradeMode
         });
-        result.textContent = "Стрелка крутится...";
-        await animateUpgradeWheel(data.roll, data.chance, data.success);
-        if (!data.success) {
+        const stillOnSameUpgradePage = upgradePageActive && pageVersionAtStart === upgradePageVersion;
+        if (stillOnSameUpgradePage) {
+            result.textContent = "Стрелка крутится...";
+            await animateUpgradeWheel(data.roll, data.chance, data.success);
+        }
+        if (!data.success && stillOnSameUpgradePage) {
             const wheelImage = document.getElementById("upgradeWheelItemImage");
             const wheelName = document.getElementById("upgradeWheelItemName");
             if (wheelImage) wheelImage.hidden = true;
@@ -2563,12 +2605,16 @@ async function performUpgrade() {
         }
         playerBalance = Number(data.balance ?? playerBalance);
         updateBalance();
-        result.textContent = data.success
-            ? `🎉 Успех! Получен ${data.item.name}. Шанс: ${Number(data.chance).toFixed(2)}%.`
-            : `😔 Неудача — вклад сгорел. Шанс был ${Number(data.chance).toFixed(2)}%.`;
+        if (stillOnSameUpgradePage) {
+            result.textContent = data.success
+                ? `🎉 Успех! Получен ${data.item.name}. Шанс: ${Number(data.chance).toFixed(2)}%.`
+                : `😔 Неудача — вклад сгорел. Шанс был ${Number(data.chance).toFixed(2)}%.`;
+        }
         vibrate(data.success ? "success" : "error");
-        selectedUpgradeInventoryIds.clear();
-        selectedUpgradeTargetId = "";
+        if (stillOnSameUpgradePage) {
+            selectedUpgradeInventoryIds.clear();
+            selectedUpgradeTargetId = "";
+        }
         await loadInventory();
     } catch (error) {
         console.error("BrainRain: ошибка апгрейда", error);
