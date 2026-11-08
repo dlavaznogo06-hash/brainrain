@@ -1526,7 +1526,6 @@ body.streamer-mode .profile-page:hover {
         <h3 class="topup-step-title">Выбери удобное время</h3>
         <div class="topup-periods">
             <button type="button" data-topup-period="early" onclick="selectTopupPeriod('early')">12:50–17:00</button>
-            <button type="button" data-topup-period="late" onclick="selectTopupPeriod('late')">17:00–21:00</button>
         </div>
         <button class="open-button" id="topupNextButton" type="button" onclick="submitTopupRequest()" disabled>ДАЛЕЕ</button>
         <div class="topup-result" id="topupResult" role="status" aria-live="polite"></div>
@@ -2304,7 +2303,7 @@ function renderTopupItems() {
 }
 
 function selectTopupPeriod(period) {
-    selectedTopupPeriod = period === "late" ? "late" : "early";
+    selectedTopupPeriod = period === "early" ? "early" : "";
     document.querySelectorAll("[data-topup-period]").forEach(button => {
         button.classList.toggle("selected", button.dataset.topupPeriod === selectedTopupPeriod);
     });
