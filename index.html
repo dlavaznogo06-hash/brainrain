@@ -1458,6 +1458,12 @@ body.streamer-mode .profile-page:hover {
                 <h3>СКИБИДИ ALL IN 🚽</h3>
                 <div class="price">14 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
+
+            <div class="case-card" onclick="showCase('john_pork_all_in')">
+                <img src="john-pork-case.png" alt="John Pork ALL IN">
+                <h3>JOHN PORK ALL IN 🐷</h3>
+                <div class="price">14 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
                 </div>
             </div>
         </div>
@@ -1484,6 +1490,7 @@ body.streamer-mode .profile-page:hover {
             <div class="roulette-track hidden" id="eliteCaseRoulette"></div>
             <div class="roulette-track hidden" id="allRoulette"></div>
             <div class="roulette-track hidden" id="skibidiAllInRoulette"></div>
+            <div class="roulette-track hidden" id="johnPorkAllInRoulette"></div>
         </div>
 
         <div class="case-quantity-row" id="caseQuantityRow" role="group" aria-label="Количество кейсов">
@@ -1785,6 +1792,11 @@ const skibidiAllInItems = [
     {id:"coin", name:"4 Coin", image:"coin.png", price:4, rarity:"rarity-blue"}
 ];
 
+const johnPorkAllInItems = [
+    {id:"john-pork", name:"John Pork", image:"john-pork.png", price:15000, rarity:"rarity-gold"},
+    {id:"coin", name:"4 Coin", image:"coin.png", price:4, rarity:"rarity-blue"}
+];
+
 const cases = {
     sea: {
         name:"Морской кейс 🌊",
@@ -1876,6 +1888,13 @@ const cases = {
         price:14,
         items:skibidiAllInItems,
         roulette:"skibidiAllInRoulette"
+    },
+    john_pork_all_in: {
+        name:"JOHN PORK ALL IN 🐷",
+        image:"john-pork-case.png",
+        price:14,
+        items:johnPorkAllInItems,
+        roulette:"johnPorkAllInRoulette"
     }
 };
 
@@ -2174,7 +2193,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = item.id === "skibidi-toilet" ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
