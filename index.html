@@ -2162,9 +2162,6 @@ function toggleMenu() {
 }
 
 function hideAllPages() {
-    upgradePageActive = false;
-    upgradePageVersion += 1;
-    cancelUpgradeWheelAnimation();
     document.getElementById("homePage").style.display = "none";
     document.getElementById("casePage").style.display = "none";
     document.getElementById("profilePage").style.display = "none";
@@ -2172,6 +2169,7 @@ function hideAllPages() {
 }
 
 function showHome() {
+    if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
     loadLiveDrops();
     setMenuActive(0);
@@ -2182,6 +2180,7 @@ function showHome() {
 }
 
 function showProfile() {
+    if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
     setMenuActive(2);
     document.getElementById("profilePage").style.display = "block";
@@ -2194,6 +2193,12 @@ function setDesktopNavActive(index) {
     document.querySelectorAll(".desktop-nav button").forEach((button, buttonIndex) => {
         button.classList.toggle("active", buttonIndex === index);
     });
+}
+
+function blockNavigationDuringUpgrade() {
+    if (!upgrading) return false;
+    alert("Апгрейд уже выполняется. Дождись результата, чтобы вклад не пропал во время анимации.");
+    return true;
 }
 
 function showComingSoon(name) {
@@ -2211,25 +2216,6 @@ const selectedUpgradeInventoryIds = new Set();
 let upgradeWheelRotation = 0;
 let selectedUpgradeTargetId = "";
 let upgradeMode = "normal";
-let upgradeAnimationFrameId = 0;
-let resolveUpgradeAnimation = null;
-let upgradeAnimationLastAngle = 0;
-let upgradePageActive = false;
-let upgradePageVersion = 0;
-
-function cancelUpgradeWheelAnimation() {
-    if (upgradeAnimationFrameId) cancelAnimationFrame(upgradeAnimationFrameId);
-    upgradeAnimationFrameId = 0;
-    const resolve = resolveUpgradeAnimation;
-    resolveUpgradeAnimation = null;
-    const wheel = document.getElementById("upgradeWheel");
-    const arrow = document.getElementById("upgradeWheelArrow");
-    if (wheel) wheel.classList.remove("spinning", "fast");
-    if (arrow) arrow.style.transform = "rotate(0deg)";
-    upgradeWheelRotation = 0;
-    upgradeAnimationLastAngle = 0;
-    if (resolve) resolve();
-}
 
 function getUpgradeCatalogItem(id) {
     return upgradeCatalog.find(item => item.id === id);
@@ -2255,9 +2241,8 @@ function setUpgradeMode(mode) {
 }
 
 async function showUpgrader() {
+    if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
-    upgradePageActive = true;
-    upgradePageVersion += 1;
     setMenuActive(1);
     document.getElementById("upgraderPage").style.display = "block";
     closeMenu();
@@ -2522,24 +2507,16 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
 
     wheel.classList.add("spinning");
     return new Promise(resolve => {
-        resolveUpgradeAnimation = resolve;
         let startedAt = null;
         let lastTickIndex = Math.floor(currentRotation / 90);
 
         const frame = timestamp => {
-            upgradeAnimationFrameId = 0;
-            if (!upgradePageActive) {
-                cancelUpgradeWheelAnimation();
-                return;
-            }
             if (startedAt === null) startedAt = timestamp;
             const progress = Math.min(1, (timestamp - startedAt) / duration);
             const eased = progress < 0.5
                 ? 4 * progress * progress * progress
                 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
             const angle = currentRotation + (finalRotation - currentRotation) * eased;
-            upgradeAnimationLastAngle = angle;
-            upgradeWheelRotation = angle;
             arrow.style.transform = `rotate(${angle}deg)`;
 
             const tickIndex = Math.floor(angle / 90);
@@ -2549,17 +2526,15 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
             }
 
             if (progress < 1) {
-                upgradeAnimationFrameId = requestAnimationFrame(frame);
+                requestAnimationFrame(frame);
             } else {
                 upgradeWheelRotation = finalRotation;
-                upgradeAnimationLastAngle = finalRotation;
                 wheel.classList.remove("spinning");
-                resolveUpgradeAnimation = null;
                 resolve();
             }
         };
 
-        upgradeAnimationFrameId = requestAnimationFrame(frame);
+        requestAnimationFrame(frame);
     });
 }
 
@@ -2578,7 +2553,6 @@ async function performUpgrade() {
     const button = document.getElementById("upgradeButton");
     const wheel = document.getElementById("upgradeWheel");
     const result = document.getElementById("upgradeResult");
-    const pageVersionAtStart = upgradePageVersion;
     try {
         if (!button || !wheel || !result) throw new Error("Не найдены элементы апгрейдера на странице. Обнови GitHub Pages.");
         button.disabled = true;
@@ -2592,12 +2566,9 @@ async function performUpgrade() {
             targetItemId:target.id,
             mode:upgradeMode
         });
-        const stillOnSameUpgradePage = upgradePageActive && pageVersionAtStart === upgradePageVersion;
-        if (stillOnSameUpgradePage) {
-            result.textContent = "Стрелка крутится...";
-            await animateUpgradeWheel(data.roll, data.chance, data.success);
-        }
-        if (!data.success && stillOnSameUpgradePage) {
+        result.textContent = "Стрелка крутится...";
+        await animateUpgradeWheel(data.roll, data.chance, data.success);
+        if (!data.success) {
             const wheelImage = document.getElementById("upgradeWheelItemImage");
             const wheelName = document.getElementById("upgradeWheelItemName");
             if (wheelImage) wheelImage.hidden = true;
@@ -2605,16 +2576,12 @@ async function performUpgrade() {
         }
         playerBalance = Number(data.balance ?? playerBalance);
         updateBalance();
-        if (stillOnSameUpgradePage) {
-            result.textContent = data.success
-                ? `🎉 Успех! Получен ${data.item.name}. Шанс: ${Number(data.chance).toFixed(2)}%.`
-                : `😔 Неудача — вклад сгорел. Шанс был ${Number(data.chance).toFixed(2)}%.`;
-        }
+        result.textContent = data.success
+            ? `🎉 Успех! Получен ${data.item.name}. Шанс: ${Number(data.chance).toFixed(2)}%.`
+            : `😔 Неудача — вклад сгорел. Шанс был ${Number(data.chance).toFixed(2)}%.`;
         vibrate(data.success ? "success" : "error");
-        if (stillOnSameUpgradePage) {
-            selectedUpgradeInventoryIds.clear();
-            selectedUpgradeTargetId = "";
-        }
+        selectedUpgradeInventoryIds.clear();
+        selectedUpgradeTargetId = "";
         await loadInventory();
     } catch (error) {
         console.error("BrainRain: ошибка апгрейда", error);
@@ -2718,6 +2685,7 @@ function selectCaseQuantity(quantity) {
     updateCasePurchaseUI();
 }
 function showCase(caseId) {
+    if (blockNavigationDuringUpgrade()) return;
     if (!cases[caseId]) return;
     setMenuActive(0);
 
