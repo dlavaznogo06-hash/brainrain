@@ -2440,7 +2440,7 @@ async function submitTopupRequest() {
         try { localStorage.setItem("brainrainTopupNick", nick); } catch (error) {}
         const sentQuantity = Number(data.quantity || selectedTopupQuantity || 1);
         const itemLabel = sentQuantity > 1 ? `${data.itemName} ×${sentQuantity}` : data.itemName;
-        result.textContent = `✅ Заявка №${data.requestId} принята.\nТвой ник: ${data.nick || nick}\nПредмет: ${itemLabel}\nВремя трейда: ${data.scheduledText}\nОтправь трейд игроку @${data.tradeUsername}.`;
+        result.textContent = `✅ Ваша заявка на вывод!\n\nПредмет: ${itemLabel}\nВремя: ${data.scheduledText}\n\nЗа 5 минут до вывода бот предупредит вас`;
         selectedTopupItemId = "";
         selectedTopupPeriod = "";
         selectedTopupQuantity = 1;
