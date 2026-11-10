@@ -1281,11 +1281,26 @@ body.streamer-mode .stream-reveal {
 .withdraw-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.withdraw-items .topup-item-card{min-height:150px}.withdraw-items .topup-item-card.disabled{opacity:.45;cursor:not-allowed}.withdraw-stepper{display:flex;align-items:center;justify-content:center;gap:10px}.withdraw-stepper button{min-width:46px;height:46px;border:1px solid #765894;border-radius:12px!important;background:#291b37;color:#f4ecfa;font-size:22px;font-weight:800;cursor:pointer}.withdraw-stepper button:hover:not(:disabled){border-color:#36db92}.withdraw-stepper button:disabled{opacity:.4;cursor:not-allowed}.withdraw-stepper .withdraw-max{min-width:58px;font-size:13px}.withdraw-qty{min-width:64px;text-align:center;color:#8df2bd;font-size:26px;font-weight:900}
 .withdraw-note{padding:22px 0;text-align:center;color:#cbb9dc}.withdraw-lock{margin:6px 0;text-align:center;font-size:46px}.withdraw-list{display:grid;gap:8px}.withdraw-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid #684b83;border-radius:12px!important;background:#281936}.withdraw-row img{flex:0 0 36px;width:36px;height:36px;object-fit:contain}.withdraw-row-info{min-width:0;flex:1}.withdraw-row-name{color:#f4ecfa;font-size:12px;overflow-wrap:anywhere}.withdraw-row-meta{margin-top:2px;color:#cbb9dc;font-size:11px}.withdraw-row-meta .active{color:#ffd45c}.withdraw-row-meta .done{color:#8df2bd}.withdraw-row-meta .cancelled{color:#ff9d9d}.withdraw-empty{padding:10px 0;text-align:center;color:#9183a0;font-size:12px}.withdraw-result{margin-bottom:14px;padding:16px 14px;border:1px solid #36db92;border-radius:14px!important;background:#153c31;color:#e9fff3;text-align:center;white-space:pre-line;line-height:1.6}
 .withdrawals-box{margin:14px 0;border:1px solid #684b83;border-radius:16px!important;background:#21142e;overflow:hidden}.withdrawals-toggle{display:flex;align-items:center;gap:10px;width:100%;padding:14px 16px;border:0;background:transparent;color:#f4ecfa;font-size:16px;font-weight:800;text-align:left;cursor:pointer}.withdrawals-toggle:hover{background:#ffffff0d}.withdrawals-title{flex:1}.withdrawals-count{min-width:24px;padding:3px 9px;border-radius:999px!important;background:#3a2c20;border:1px solid #f4bd3b;color:#ffd45c;font-size:12px;font-weight:900;text-align:center}.withdrawals-arrow{color:#cbb9dc;font-size:18px;transition:transform .2s ease}.withdrawals-toggle[aria-expanded="true"] .withdrawals-arrow{transform:rotate(180deg)}.withdrawals-body{padding:0 12px 12px}.withdrawals-scroll{max-height:280px;overflow-y:auto;padding-right:4px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#8a63b3 transparent}.withdrawals-scroll::-webkit-scrollbar{width:6px}.withdrawals-scroll::-webkit-scrollbar-thumb{background:#8a63b3;border-radius:6px!important}
+@media(max-width:520px){.profile-card{grid-template-columns:auto minmax(0,1fr);column-gap:12px;row-gap:8px}.profile-info{display:contents}.profile-avatar{grid-column:1;grid-row:2/span 3;align-self:center;width:75px;height:75px}.profile-label{grid-column:2;grid-row:2;align-self:end;min-width:0}.profile-nickname{grid-column:2;grid-row:3;min-width:0}.profile-username{grid-column:2;grid-row:4;align-self:start;min-width:0}.profile-actions{grid-column:1/-1;grid-row:5;flex-wrap:nowrap;margin:4px 0 0}.profile-actions button{flex:1 1 0;min-width:0;padding:10px 6px;font-size:12px;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-balance{grid-column:1/-1;grid-row:6;justify-self:start;margin-top:2px}}
+.toast-stack{position:fixed;top:calc(env(safe-area-inset-top,0px) + 92px);left:50%;z-index:300;display:flex;flex-direction:column;align-items:center;gap:8px;width:min(92vw,420px);transform:translateX(-50%);pointer-events:none}.toast{box-sizing:border-box;max-width:100%;padding:10px 16px;border:1px solid #ff6b6b;border-radius:14px!important;background:#3a1620ee;color:#ffe9e9;font-size:13px;font-weight:800;line-height:1.35;text-align:center;white-space:pre-line;box-shadow:0 8px 28px #000a;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;transform:translateY(-16px);transition:opacity .3s ease,transform .3s ease}.toast.show{opacity:1;transform:translateY(0)}.toast.hide{opacity:0;transform:translateY(-6px);transition:opacity 2s linear,transform 2s ease-out}.toast.success{border-color:#36db92;background:#12382cee;color:#e5fff1}.toast.info{border-color:#8a63b3;background:#2a1a3eee;color:#f4ecfa}
+.app-confirm-backdrop{display:none;position:fixed;inset:0;z-index:250;align-items:center;justify-content:center;padding:18px;background:#0a0410a8;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}.app-confirm-backdrop.active{display:flex}.app-confirm{box-sizing:border-box;width:min(100%,340px);padding:22px 18px 16px;border:1px solid #76539a;border-radius:22px!important;background:linear-gradient(145deg,#392653,#1c122b);box-shadow:0 20px 60px #000c;text-align:center}.app-confirm-text{margin-bottom:16px;color:#f4ecfa;font-size:16px;line-height:1.4;white-space:pre-line}.app-confirm-buttons{display:flex;gap:10px}.app-confirm-buttons button{flex:1;padding:12px 10px;border:1px solid #765894;border-radius:12px!important;background:#291b37;color:#d9c9e7;font-size:14px;font-weight:800;cursor:pointer}.app-confirm-buttons .app-confirm-ok{border-color:#a66bd6;background:linear-gradient(135deg,#7a46ad,#a259d6);color:#fff}
 .topup-quantity-total{min-height:20px;margin:8px auto 0;text-align:center;color:#ffd45c;font-size:13px;font-weight:800}
 </style>
 </head>
 
 <body>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<div class="app-confirm-backdrop" id="appConfirmBackdrop">
+    <div class="app-confirm" role="alertdialog" aria-modal="true" aria-labelledby="appConfirmText">
+        <div class="app-confirm-text" id="appConfirmText"></div>
+        <div class="app-confirm-buttons">
+            <button type="button" id="appConfirmCancel">Отмена</button>
+            <button type="button" class="app-confirm-ok" id="appConfirmOk">Подтвердить</button>
+        </div>
+    </div>
+</div>
 
 <header>
     <div class="header-left">
@@ -2071,6 +2086,69 @@ async function loadLiveDrops() {
 
 /* API */
 
+/* УВЕДОМЛЕНИЯ В ПРИЛОЖЕНИИ (вместо системных окон alert/confirm) */
+
+const TOAST_VISIBLE_MS = 2200;   // сколько висит надпись
+const TOAST_FADE_MS = 2000;      // за сколько медленно исчезает (плавно, равномерно)
+const TOAST_MAX = 3;
+
+function scheduleToastHide(toast) {
+    (toast._timers || []).forEach(clearTimeout);
+    toast.classList.remove("hide");
+    toast.classList.add("show");
+    toast._timers = [
+        setTimeout(() => { toast.classList.remove("show"); toast.classList.add("hide"); }, TOAST_VISIBLE_MS),
+        setTimeout(() => toast.remove(), TOAST_VISIBLE_MS + TOAST_FADE_MS + 150)
+    ];
+}
+
+function showToast(message, type = "error") {
+    const stack = document.getElementById("toastStack");
+    const text = String(message == null ? "" : message).trim();
+    if (!stack || !text) return;
+    for (const existing of stack.children) {
+        if (existing.dataset.text === text) { scheduleToastHide(existing); return; }
+    }
+    while (stack.children.length >= TOAST_MAX) stack.firstElementChild.remove();
+    const toast = document.createElement("div");
+    toast.className = "toast " + (["error", "success", "info"].includes(type) ? type : "error");
+    toast.setAttribute("role", type === "error" ? "alert" : "status");
+    toast.dataset.text = text;
+    toast.textContent = text;
+    stack.appendChild(toast);
+    requestAnimationFrame(() => requestAnimationFrame(() => scheduleToastHide(toast)));
+}
+
+let appConfirmPending = null;
+
+function appConfirm(message, okText = "Подтвердить", cancelText = "Отмена") {
+    return new Promise(resolve => {
+        const backdrop = document.getElementById("appConfirmBackdrop");
+        const okButton = document.getElementById("appConfirmOk");
+        const cancelButton = document.getElementById("appConfirmCancel");
+        if (!backdrop || !okButton || !cancelButton) { resolve(false); return; }
+        if (appConfirmPending) appConfirmPending(false);
+        document.getElementById("appConfirmText").textContent = message;
+        okButton.textContent = okText;
+        cancelButton.textContent = cancelText;
+        const finish = result => {
+            appConfirmPending = null;
+            backdrop.classList.remove("active");
+            okButton.onclick = cancelButton.onclick = backdrop.onclick = null;
+            document.removeEventListener("keydown", onKey);
+            resolve(result);
+        };
+        const onKey = event => { if (event.key === "Escape") finish(false); };
+        appConfirmPending = finish;
+        okButton.onclick = () => finish(true);
+        cancelButton.onclick = () => finish(false);
+        backdrop.onclick = event => { if (event.target === backdrop) finish(false); };
+        document.addEventListener("keydown", onKey);
+        backdrop.classList.add("active");
+        okButton.focus();
+    });
+}
+
 async function apiPost(route, extra = {}) {
     if (!tg.initData) {
         throw new Error("Открой игру через Telegram!");
@@ -2654,7 +2732,7 @@ function setDesktopNavActive(index) {
 
 function blockNavigationDuringUpgrade() {
     if (!upgrading) return false;
-    alert("Апгрейд уже выполняется. Дождись результата, чтобы вклад не пропал во время анимации.");
+    showToast("Апгрейд уже выполняется. Дождись результата, чтобы вклад не пропал.", "info");
     return true;
 }
 
@@ -2666,7 +2744,7 @@ function setUpgradeNavigationLock(locked) {
 }
 
 function showComingSoon(name) {
-    alert(name + " скоро появится!");
+    showToast(name + " скоро появится!", "info");
 }
 
 /* АПГРЕЙДЕР */
@@ -3632,7 +3710,7 @@ async function openCase() {
         }));
         await showNextCaseResult();
     } catch (error) {
-        alert(error.message);
+        showToast(error.message || "Что-то пошло не так. Попробуй ещё раз.");
         await loadBalance();
         const track = document.getElementById(cases[caseId].roulette);
         if (track && !track.closest(".roulette-batch")) startIdleRoulette(track, cases[caseId].items);
@@ -3690,7 +3768,7 @@ async function sellResult() {
 
 
     } catch (error) {
-        alert(error.message);
+        showToast(error.message || "Что-то пошло не так. Попробуй ещё раз.");
     } finally {
         button.disabled = false;
     }
@@ -3792,20 +3870,20 @@ async function sellInventoryItem(id, button) {
         vibrate("success");
 
     } catch (error) {
-        alert(error.message);
+        showToast(error.message || "Что-то пошло не так. Попробуй ещё раз.");
         button.disabled = false;
     }
 }
 
 async function sellAllItems() {
     if (!currentInventory.length) {
-        alert("Инвентарь пуст.");
+        showToast("Инвентарь пуст.", "info");
         return;
     }
 
     const button = document.getElementById("sellAllButton");
 
-    if (!confirm("Продать все предметы из инвентаря?")) return;
+    if (!(await appConfirm("Продать все предметы из инвентаря?", "Продать всё"))) return;
 
     button.disabled = true;
 
@@ -3817,11 +3895,11 @@ async function sellAllItems() {
 
         await loadInventory();
 
-        alert(`Продано предметов: ${data.count}\nПолучено: ${data.earned} Coin`);
+        showToast(`Продано предметов: ${data.count}\nПолучено: ${data.earned} Coin`, "success");
         vibrate("success");
 
     } catch (error) {
-        alert(error.message);
+        showToast(error.message || "Что-то пошло не так. Попробуй ещё раз.");
     } finally {
         button.disabled = false;
     }
