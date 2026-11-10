@@ -2557,11 +2557,12 @@ function renderWithdrawItems() {
 
 function renderWithdrawRows(list, rows) {
     if (!list) return;
+    rows = (rows || []).filter(row => row.status === "active");
     list.replaceChildren();
     if (!rows.length) {
         const empty = document.createElement("div");
         empty.className = "withdraw-empty";
-        empty.textContent = "Выводов пока нет.";
+        empty.textContent = "Активных выводов нет.";
         list.appendChild(empty);
         return;
     }
@@ -2714,7 +2715,7 @@ async function submitWithdrawRequest() {
         try { localStorage.setItem("brainrainTopupNick", nick); } catch (error) {}
         const result = document.getElementById("withdrawResultText");
         if (result) {
-            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\nВремя: ${data.scheduledText}\n\nЗаявка добавлена в «Мои выводы». Сообщение в бота не придёт, статус и время смотри там.`;
+            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\nВремя: ${data.scheduledText}\n\nЗаявка добавлена в «Мои выводы». Бот напишет тебе время и за 5 минут до вывода напомнит.`;
         }
         showWithdrawView("step3");
         if (typeof loadInventory === "function") loadInventory();
