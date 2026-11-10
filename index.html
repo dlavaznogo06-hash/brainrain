@@ -2178,6 +2178,9 @@ async function apiPost(route, extra = {}) {
             throw new Error(`Сервер вернул некорректный ответ (${response.status}).`);
         }
 
+        if (response.status === 404 && data && data.error === "Маршрут не найден") {
+            throw new Error("Сервер устарел: на Hokas нет адреса " + route + ". Загрузи свежий bot2.py и перезапусти бота.");
+        }
         if (!response.ok || !data.ok) {
             throw new Error(data.error || `Ошибка сервера (${response.status}).`);
         }
