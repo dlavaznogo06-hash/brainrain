@@ -1277,6 +1277,9 @@ body.streamer-mode .stream-reveal {
 @media(max-width:600px){.topup-page{padding:12px}.topup-item-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.topup-item-card{min-height:118px;padding:7px}.topup-item-card img{width:70px;height:70px}.topup-item-name,.topup-item-price{font-size:9px}}
 .topup-quantity{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.topup-quantity button{min-width:64px;padding:12px 16px;border:1px solid #765894;border-radius:10px;background:#291b37;color:#d9c9e7;font-size:16px;font-weight:800;cursor:pointer}.topup-quantity button.selected{border-color:#36db92;background:#153c31;color:#8df2bd;box-shadow:0 0 12px #36db9255}.topup-quantity button:disabled{opacity:.5;cursor:not-allowed}.topup-quantity-hint{max-width:520px;margin:10px auto 0;text-align:center;color:#cbb9dc;font-size:12px;line-height:1.5}.topup-summary{max-width:420px;margin:0 auto 12px;padding:10px 14px;border:1px solid #684b83;border-radius:12px;background:#281936;color:#f4ecfa;text-align:center;font-size:13px;font-weight:800;line-height:1.5;white-space:pre-line}.topup-nick-input{display:block;box-sizing:border-box;width:min(100%,360px);margin:0 auto;padding:13px 14px;border:1px solid #765894;border-radius:10px;background:#1d1129;color:#f4ecfa;font-size:16px;font-weight:700;text-align:center;outline:none}.topup-nick-input:focus{border-color:#36db92;box-shadow:0 0 12px #36db9255}.topup-back-link{display:block;margin:6px auto 0;padding:10px 14px;border:0;background:none;color:#cbb9dc;font-size:13px;font-weight:700;cursor:pointer;text-decoration:underline}.topup-back-link:disabled{opacity:.5;cursor:not-allowed}.topup-backdrop{display:none;position:fixed;inset:0;z-index:55;align-items:center;justify-content:center;padding:14px;background:#0a0410a8;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}.topup-backdrop.active{display:flex}.topup-page.topup-modal{position:relative;display:block;box-sizing:border-box;width:min(100%,460px);max-width:460px;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px);margin:0;padding:24px 18px 18px;overflow-y:auto;overscroll-behavior:contain;border:1px solid #76539a;border-radius:24px;background:linear-gradient(145deg,#392653,#1c122b);box-shadow:0 20px 60px #000c}.topup-modal h2{margin:2px 28px 8px}.topup-modal .topup-item-grid{max-height:32vh;border-radius:14px}.topup-close{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;border-radius:50%;background:#ffffff14;color:#f4ecfa;font-size:22px;line-height:1;cursor:pointer}.topup-close:hover{background:#ffffff26}body.modal-open{overflow:hidden}.profile-topup-button{display:inline-block;margin:8px 0 2px;padding:8px 14px;border:1px solid #36db92;border-radius:12px;background:#153c31;color:#8df2bd;font-size:12px;font-weight:800;letter-spacing:.4px;cursor:pointer;box-shadow:0 0 12px #36db9233}.profile-topup-button:hover{background:#1b4d3f}@media(max-width:600px){.topup-page.topup-modal{padding:22px 12px 14px;border-radius:22px}.topup-modal .topup-item-grid{max-height:30vh}}
 .topup-page.topup-modal{border-radius:24px!important}.topup-modal .topup-item-grid{border-radius:14px!important}.topup-modal .topup-item-card,.topup-modal .topup-summary{border-radius:14px!important}.topup-modal .topup-quantity button,.topup-modal .topup-periods button,.topup-modal .topup-nick-input,.topup-modal .open-button{border-radius:14px!important}.topup-modal .topup-close{border-radius:50%!important}.profile-topup-button{border-radius:12px!important}@media(max-width:600px){.topup-page.topup-modal{border-radius:22px!important}}
+.profile-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 2px}.profile-actions .profile-topup-button{margin:0}.profile-withdraw-button{display:inline-block;padding:8px 14px;border:1px solid #f4bd3b;border-radius:12px!important;background:#3a2c20;color:#ffd45c;font-size:12px;font-weight:800;letter-spacing:.4px;cursor:pointer;box-shadow:0 0 12px #f4bd3b33}.profile-withdraw-button:hover{background:#4a3926}
+.withdraw-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.withdraw-items .topup-item-card{min-height:150px}.withdraw-items .topup-item-card.disabled{opacity:.45;cursor:not-allowed}.withdraw-stepper{display:flex;align-items:center;justify-content:center;gap:10px}.withdraw-stepper button{min-width:46px;height:46px;border:1px solid #765894;border-radius:12px!important;background:#291b37;color:#f4ecfa;font-size:22px;font-weight:800;cursor:pointer}.withdraw-stepper button:hover:not(:disabled){border-color:#36db92}.withdraw-stepper button:disabled{opacity:.4;cursor:not-allowed}.withdraw-stepper .withdraw-max{min-width:58px;font-size:13px}.withdraw-qty{min-width:64px;text-align:center;color:#8df2bd;font-size:26px;font-weight:900}
+.withdraw-note{padding:22px 0;text-align:center;color:#cbb9dc}.withdraw-lock{margin:6px 0;text-align:center;font-size:46px}.withdraw-list{display:grid;gap:8px}.withdraw-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid #684b83;border-radius:12px!important;background:#281936}.withdraw-row img{flex:0 0 36px;width:36px;height:36px;object-fit:contain}.withdraw-row-info{min-width:0;flex:1}.withdraw-row-name{color:#f4ecfa;font-size:12px;overflow-wrap:anywhere}.withdraw-row-meta{margin-top:2px;color:#cbb9dc;font-size:11px}.withdraw-row-meta .active{color:#ffd45c}.withdraw-row-meta .done{color:#8df2bd}.withdraw-row-meta .cancelled{color:#ff9d9d}.withdraw-empty{padding:10px 0;text-align:center;color:#9183a0;font-size:12px}.withdraw-result{margin-bottom:14px;padding:16px 14px;border:1px solid #36db92;border-radius:14px!important;background:#153c31;color:#e9fff3;text-align:center;white-space:pre-line;line-height:1.6}
 .topup-quantity-total{min-height:20px;margin:8px auto 0;text-align:center;color:#ffd45c;font-size:13px;font-weight:800}
 </style>
 </head>
@@ -1538,6 +1541,53 @@ body.streamer-mode .stream-reveal {
     </section>
     </div>
 
+    <div class="topup-backdrop" id="withdrawBackdrop" onclick="backdropWithdrawClose(event)">
+    <section class="topup-page topup-modal" id="withdrawPage" role="dialog" aria-modal="true" aria-labelledby="withdrawTitle">
+        <button class="topup-close" id="withdrawCloseButton" type="button" onclick="closeWithdraw()" aria-label="Закрыть">×</button>
+        <h2 id="withdrawTitle">Вывод предметов</h2>
+
+        <div class="withdraw-note" id="withdrawLoading">Загружаем…</div>
+
+        <div id="withdrawLocked" style="display:none">
+            <div class="withdraw-lock">🔒</div>
+            <p class="topup-description">Вывод откроется после первого пополнения. Сделай хотя бы одно пополнение предметом, и вывод станет доступен.</p>
+            <button class="open-button" type="button" onclick="withdrawGoTopup()">ПОПОЛНИТЬ</button>
+        </div>
+
+        <div id="withdrawStep1" style="display:none">
+            <p class="topup-description">Выбери предмет из своего инвентаря и количество. Для вывода доступны только Garama and Madundung и Dragon Caneloni.</p>
+            <div class="withdraw-items" id="withdrawItems"></div>
+            <h3 class="topup-step-title">Количество</h3>
+            <div class="withdraw-stepper">
+                <button type="button" id="withdrawMinus" onclick="changeWithdrawQty(-1)" aria-label="Меньше">−</button>
+                <span class="withdraw-qty" id="withdrawQty">1</span>
+                <button type="button" id="withdrawPlus" onclick="changeWithdrawQty(1)" aria-label="Больше">＋</button>
+                <button type="button" class="withdraw-max" id="withdrawMax" onclick="changeWithdrawQty(9999)">MAX</button>
+            </div>
+            <div class="topup-quantity-total" id="withdrawQtyHint"></div>
+            <button class="open-button" id="withdrawNextButton" type="button" onclick="goWithdrawNickStep()" disabled>ДАЛЕЕ</button>
+            <h3 class="topup-step-title">Мои выводы</h3>
+            <div class="withdraw-list" id="withdrawList"></div>
+        </div>
+
+        <div id="withdrawStep2" style="display:none">
+            <h3 class="topup-step-title">Введи свой ник</h3>
+            <div class="topup-summary" id="withdrawSummary"></div>
+            <input class="topup-nick-input" id="withdrawNickInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="32" placeholder="Твой ник в игре" oninput="updateWithdrawButtons()" onkeydown="if(event.key==='Enter'){event.preventDefault();submitWithdrawRequest();}">
+            <p class="topup-quantity-hint">Ник, на который выдадут предметы: латинские буквы, цифры, _ . - (от 3 до 32 символов). Проверь его, чтобы не ошибиться.</p>
+            <button class="open-button" id="withdrawSubmitButton" type="button" onclick="submitWithdrawRequest()" disabled>ДАЛЕЕ</button>
+            <button class="topup-back-link" id="withdrawBackButton" type="button" onclick="backToWithdrawStep1()">← Изменить предмет или количество</button>
+        </div>
+
+        <div id="withdrawStep3" style="display:none">
+            <div class="withdraw-result" id="withdrawResultText"></div>
+            <button class="open-button" type="button" onclick="closeWithdraw()">ГОТОВО</button>
+        </div>
+
+        <div class="topup-result error" id="withdrawError" role="status" aria-live="polite"></div>
+    </section>
+    </div>
+
     <section class="profile-page" id="profilePage">
         <div class="profile-card">
             <div class="profile-best-drop" id="profileBestDrop" aria-live="polite">
@@ -1553,7 +1603,10 @@ body.streamer-mode .stream-reveal {
                 <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
                 <div class="profile-nickname" id="profileName">Игрок</div>
                 <div class="profile-username" id="profileUsername">@player</div>
-                <button class="profile-topup-button" type="button" onclick="openTopup()">＋ ПОПОЛНИТЬ</button>
+                <div class="profile-actions">
+                    <button class="profile-topup-button" type="button" onclick="openTopup()">＋ ПОПОЛНИТЬ</button>
+                    <button class="profile-withdraw-button" type="button" onclick="openWithdraw()">↗ ВЫВЕСТИ</button>
+                </div>
 
                 <div class="profile-balance">
                     <span class="balance-number pixel-number" id="profileBalance">0</span>
@@ -2286,6 +2339,253 @@ function closeTopup() {
     if (backdrop) backdrop.classList.remove("active");
     document.body.classList.remove("modal-open");
 }
+
+/* ВЫВОД ПРЕДМЕТОВ */
+
+let withdrawInfo = null;
+let selectedWithdrawItemId = "";
+let selectedWithdrawQty = 1;
+
+function showWithdrawView(view) {
+    const views = {loading: "withdrawLoading", locked: "withdrawLocked", step1: "withdrawStep1", step2: "withdrawStep2", step3: "withdrawStep3"};
+    for (const [name, id] of Object.entries(views)) {
+        const element = document.getElementById(id);
+        if (element) element.style.display = name === view ? "block" : "none";
+    }
+}
+
+function setWithdrawError(message) {
+    const error = document.getElementById("withdrawError");
+    if (error) error.textContent = message || "";
+}
+
+function getWithdrawItem(id) {
+    return withdrawInfo && Array.isArray(withdrawInfo.items)
+        ? withdrawInfo.items.find(item => item.id === id)
+        : null;
+}
+
+async function openWithdraw() {
+    if (blockNavigationDuringUpgrade()) return;
+    closeMenu();
+    const backdrop = document.getElementById("withdrawBackdrop");
+    if (!backdrop) return;
+    backdrop.classList.add("active");
+    document.body.classList.add("modal-open");
+    selectedWithdrawItemId = "";
+    selectedWithdrawQty = 1;
+    setWithdrawError("");
+    showWithdrawView("loading");
+    await loadWithdrawInfo();
+}
+
+function closeWithdraw() {
+    const submitButton = document.getElementById("withdrawSubmitButton");
+    if (submitButton && submitButton.dataset.sending === "true") return;
+    const backdrop = document.getElementById("withdrawBackdrop");
+    if (backdrop) backdrop.classList.remove("active");
+    document.body.classList.remove("modal-open");
+}
+
+function backdropWithdrawClose(event) {
+    if (event.target.id === "withdrawBackdrop") closeWithdraw();
+}
+
+function withdrawGoTopup() {
+    closeWithdraw();
+    openTopup();
+}
+
+async function loadWithdrawInfo() {
+    try {
+        withdrawInfo = await apiPost("/api/withdraw-info");
+    } catch (error) {
+        showWithdrawView("loading");
+        const loading = document.getElementById("withdrawLoading");
+        if (loading) loading.textContent = "Не удалось загрузить вывод.";
+        setWithdrawError(error.message || "Ошибка загрузки.");
+        return;
+    }
+    setWithdrawError("");
+    if (!withdrawInfo.canWithdraw) {
+        showWithdrawView("locked");
+        return;
+    }
+    renderWithdrawItems();
+    renderWithdrawList();
+    updateWithdrawButtons();
+    showWithdrawView("step1");
+}
+
+function renderWithdrawItems() {
+    const box = document.getElementById("withdrawItems");
+    if (!box) return;
+    box.replaceChildren();
+    for (const item of withdrawInfo.items || []) {
+        const card = document.createElement("button");
+        card.type = "button";
+        const empty = Number(item.owned) < 1;
+        card.className = "topup-item-card" + (selectedWithdrawItemId === item.id ? " selected" : "") + (empty ? " disabled" : "");
+        card.setAttribute("aria-pressed", String(selectedWithdrawItemId === item.id));
+        card.disabled = empty;
+        card.onclick = () => {
+            selectedWithdrawItemId = item.id;
+            selectedWithdrawQty = 1;
+            renderWithdrawItems();
+            updateWithdrawButtons();
+        };
+        const image = document.createElement("img");
+        image.src = item.image;
+        image.alt = item.name;
+        const name = document.createElement("span");
+        name.className = "topup-item-name";
+        name.textContent = item.name;
+        const owned = document.createElement("span");
+        owned.className = "topup-item-price";
+        owned.textContent = empty ? "Нет в инвентаре" : `В инвентаре: ${item.owned}`;
+        card.append(image, name, owned);
+        box.appendChild(card);
+    }
+}
+
+function renderWithdrawList() {
+    const list = document.getElementById("withdrawList");
+    if (!list) return;
+    list.replaceChildren();
+    const rows = Array.isArray(withdrawInfo.withdrawals) ? withdrawInfo.withdrawals : [];
+    if (!rows.length) {
+        const empty = document.createElement("div");
+        empty.className = "withdraw-empty";
+        empty.textContent = "Выводов пока нет.";
+        list.appendChild(empty);
+        return;
+    }
+    const labels = {active: "🕓 Активен", done: "✅ Выдан", cancelled: "↩️ Отменён, предметы вернулись"};
+    for (const row of rows) {
+        const item = document.createElement("div");
+        item.className = "withdraw-row";
+        const image = document.createElement("img");
+        image.src = row.image;
+        image.alt = "";
+        const info = document.createElement("div");
+        info.className = "withdraw-row-info";
+        const name = document.createElement("div");
+        name.className = "withdraw-row-name";
+        name.textContent = `${row.itemName} ×${row.quantity}`;
+        const meta = document.createElement("div");
+        meta.className = "withdraw-row-meta";
+        const status = document.createElement("span");
+        status.className = ["active", "done", "cancelled"].includes(row.status) ? row.status : "";
+        status.textContent = labels[row.status] || row.status;
+        const date = new Date(Number(row.createdAt) * 1000);
+        meta.append(status, document.createTextNode(" · " + date.toLocaleString("ru-RU", {day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit"})));
+        info.append(name, meta);
+        item.append(image, info);
+        list.appendChild(item);
+    }
+}
+
+function changeWithdrawQty(delta) {
+    const item = getWithdrawItem(selectedWithdrawItemId);
+    if (!item) return;
+    const max = Math.max(1, Number(item.max) || 1);
+    selectedWithdrawQty = Math.min(max, Math.max(1, selectedWithdrawQty + Number(delta)));
+    updateWithdrawButtons();
+}
+
+function updateWithdrawButtons() {
+    const item = getWithdrawItem(selectedWithdrawItemId);
+    const max = item ? Math.max(1, Number(item.max) || 1) : 1;
+    if (selectedWithdrawQty > max) selectedWithdrawQty = max;
+    const qty = document.getElementById("withdrawQty");
+    if (qty) qty.textContent = String(selectedWithdrawQty);
+    const minus = document.getElementById("withdrawMinus");
+    const plus = document.getElementById("withdrawPlus");
+    const maxButton = document.getElementById("withdrawMax");
+    if (minus) minus.disabled = !item || selectedWithdrawQty <= 1;
+    if (plus) plus.disabled = !item || selectedWithdrawQty >= max;
+    if (maxButton) maxButton.disabled = !item || selectedWithdrawQty >= max;
+    const hint = document.getElementById("withdrawQtyHint");
+    if (hint) hint.textContent = item ? `${item.name} ×${selectedWithdrawQty} (в инвентаре ${item.owned})` : "Сначала выбери предмет";
+    const next = document.getElementById("withdrawNextButton");
+    if (next) next.disabled = !item || Number(item.owned) < 1;
+    const submit = document.getElementById("withdrawSubmitButton");
+    const nickInput = document.getElementById("withdrawNickInput");
+    if (submit) {
+        submit.disabled = submit.dataset.sending === "true" || !item
+            || !isValidTopupNick(nickInput ? nickInput.value : "");
+    }
+}
+
+function goWithdrawNickStep() {
+    const item = getWithdrawItem(selectedWithdrawItemId);
+    if (!item || Number(item.owned) < 1) return;
+    const summary = document.getElementById("withdrawSummary");
+    if (summary) summary.textContent = `${item.name} ×${selectedWithdrawQty}`;
+    const nickInput = document.getElementById("withdrawNickInput");
+    if (nickInput && !nickInput.value) {
+        try { nickInput.value = localStorage.getItem("brainrainTopupNick") || ""; } catch (error) {}
+    }
+    setWithdrawError("");
+    showWithdrawView("step2");
+    updateWithdrawButtons();
+    if (nickInput) nickInput.focus();
+}
+
+function backToWithdrawStep1() {
+    setWithdrawError("");
+    showWithdrawView("step1");
+    updateWithdrawButtons();
+}
+
+async function submitWithdrawRequest() {
+    const button = document.getElementById("withdrawSubmitButton");
+    const nickInput = document.getElementById("withdrawNickInput");
+    const backButton = document.getElementById("withdrawBackButton");
+    const item = getWithdrawItem(selectedWithdrawItemId);
+    if (!button || !nickInput || !item) return;
+    if (button.dataset.sending === "true") return;
+    const nick = normalizeTopupNick(nickInput.value);
+    if (!isValidTopupNick(nick)) {
+        setWithdrawError("Введи ник: от 3 до 32 символов, латинские буквы, цифры, _ . -");
+        return;
+    }
+    button.dataset.sending = "true";
+    button.disabled = true;
+    nickInput.disabled = true;
+    if (backButton) backButton.disabled = true;
+    button.textContent = "СОЗДАЁМ ЗАЯВКУ...";
+    setWithdrawError("");
+    try {
+        const data = await apiPost("/api/withdraw-request", {
+            itemId: selectedWithdrawItemId,
+            quantity: selectedWithdrawQty,
+            nick
+        });
+        try { localStorage.setItem("brainrainTopupNick", nick); } catch (error) {}
+        const result = document.getElementById("withdrawResultText");
+        if (result) {
+            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\n\nЗаявка добавлена в «Мои выводы». Сообщение в бота не придёт, статус смотри здесь.`;
+        }
+        showWithdrawView("step3");
+        if (typeof loadInventory === "function") loadInventory();
+    } catch (error) {
+        setWithdrawError(error.message || "Не удалось создать вывод.");
+    } finally {
+        button.dataset.sending = "false";
+        button.textContent = "ДАЛЕЕ";
+        nickInput.disabled = false;
+        if (backButton) backButton.disabled = false;
+        updateWithdrawButtons();
+    }
+}
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        const backdrop = document.getElementById("withdrawBackdrop");
+        if (backdrop && backdrop.classList.contains("active")) closeWithdraw();
+    }
+});
 
 function backdropTopupClose(event) {
     if (event.target.id === "topupBackdrop") closeTopup();
