@@ -1581,6 +1581,11 @@ body.streamer-mode .stream-reveal {
                 <button type="button" class="withdraw-max" id="withdrawMax" onclick="changeWithdrawQty(9999)">MAX</button>
             </div>
             <div class="topup-quantity-total" id="withdrawQtyHint"></div>
+            <h3 class="topup-step-title">Выбери удобное время</h3>
+            <div class="topup-periods">
+                <button type="button" data-withdraw-period="early" onclick="selectWithdrawPeriod('early')">12:00–15:00</button>
+                <button type="button" data-withdraw-period="late" onclick="selectWithdrawPeriod('late')">21:00–23:20</button>
+            </div>
             <button class="open-button" id="withdrawNextButton" type="button" onclick="goWithdrawNickStep()" disabled>ДАЛЕЕ</button>
             <h3 class="topup-step-title">Мои выводы</h3>
             <div class="withdraw-list" id="withdrawList"></div>
@@ -1890,8 +1895,8 @@ const adminCaseItems = [
     {id:"elefanto-frigo", name:"Elefanto Frigo", image:"elefanto-frigo.png", price:9317, rarity:"rarity-red"},
     {id:"arcadragon", name:"Arcadragon", image:"arcadragon.png", price:11000, rarity:"rarity-red"},
     {id:"skibidi-toilet", name:"Skibidi Toilet", image:"skibidi-toilet.png", price:13131, rarity:"rarity-gold"},
-    {id:"john-pork", name:"John Pork", image:"john-pork.png", price:15000, rarity:"rarity-red"},
-    {id:"meowl", name:"Meowl", image:"meowl.png", price:17000, rarity:"rarity-red"},
+    {id:"john-pork", name:"John Pork", image:"john-pork.png", price:15000, rarity:"rarity-gold"},
+    {id:"meowl", name:"Meowl", image:"meowl.png", price:17000, rarity:"rarity-gold"},
     {id:"signore-carapace", name:"Signore Carapace", image:"signore-carapace.png", price:30000, rarity:"rarity-red"}
 ];
 
@@ -2436,6 +2441,15 @@ function closeTopup() {
 let withdrawInfo = null;
 let selectedWithdrawItemId = "";
 let selectedWithdrawQty = 1;
+let selectedWithdrawPeriod = "";
+
+function selectWithdrawPeriod(period) {
+    selectedWithdrawPeriod = ["early", "late"].includes(period) ? period : "";
+    document.querySelectorAll("[data-withdraw-period]").forEach(button => {
+        button.classList.toggle("selected", button.dataset.withdrawPeriod === selectedWithdrawPeriod);
+    });
+    updateWithdrawButtons();
+}
 
 function showWithdrawView(view) {
     const views = {loading: "withdrawLoading", locked: "withdrawLocked", step1: "withdrawStep1", step2: "withdrawStep2", step3: "withdrawStep3"};
@@ -2465,6 +2479,8 @@ async function openWithdraw() {
     document.body.classList.add("modal-open");
     selectedWithdrawItemId = "";
     selectedWithdrawQty = 1;
+    selectedWithdrawPeriod = "";
+    document.querySelectorAll("[data-withdraw-period]").forEach(button => button.classList.remove("selected"));
     setWithdrawError("");
     showWithdrawView("loading");
     await loadWithdrawInfo();
@@ -2569,6 +2585,12 @@ function renderWithdrawRows(list, rows) {
         const date = new Date(Number(row.createdAt) * 1000);
         meta.append(status, document.createTextNode(" · " + date.toLocaleString("ru-RU", {day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit"})));
         info.append(name, meta);
+        if (row.scheduledText) {
+            const when = document.createElement("div");
+            when.className = "withdraw-row-meta";
+            when.textContent = "🕒 Вывод: " + row.scheduledText;
+            info.appendChild(when);
+        }
         item.append(image, info);
         list.appendChild(item);
     }
@@ -2633,20 +2655,21 @@ function updateWithdrawButtons() {
     const hint = document.getElementById("withdrawQtyHint");
     if (hint) hint.textContent = item ? `${item.name} ×${selectedWithdrawQty} (в инвентаре ${item.owned})` : "Сначала выбери предмет";
     const next = document.getElementById("withdrawNextButton");
-    if (next) next.disabled = !item || Number(item.owned) < 1;
+    if (next) next.disabled = !item || Number(item.owned) < 1 || !selectedWithdrawPeriod;
     const submit = document.getElementById("withdrawSubmitButton");
     const nickInput = document.getElementById("withdrawNickInput");
     if (submit) {
-        submit.disabled = submit.dataset.sending === "true" || !item
+        submit.disabled = submit.dataset.sending === "true" || !item || !selectedWithdrawPeriod
             || !isValidTopupNick(nickInput ? nickInput.value : "");
     }
 }
 
 function goWithdrawNickStep() {
     const item = getWithdrawItem(selectedWithdrawItemId);
-    if (!item || Number(item.owned) < 1) return;
+    if (!item || Number(item.owned) < 1 || !selectedWithdrawPeriod) return;
     const summary = document.getElementById("withdrawSummary");
-    if (summary) summary.textContent = `${item.name} ×${selectedWithdrawQty}`;
+    const periodText = selectedWithdrawPeriod === "early" ? "12:00–15:00" : "21:00–23:20";
+    if (summary) summary.textContent = `${item.name} ×${selectedWithdrawQty} · ${periodText}`;
     const nickInput = document.getElementById("withdrawNickInput");
     if (nickInput && !nickInput.value) {
         try { nickInput.value = localStorage.getItem("brainrainTopupNick") || ""; } catch (error) {}
@@ -2685,12 +2708,13 @@ async function submitWithdrawRequest() {
         const data = await apiPost("/api/withdraw-request", {
             itemId: selectedWithdrawItemId,
             quantity: selectedWithdrawQty,
+            period: selectedWithdrawPeriod,
             nick
         });
         try { localStorage.setItem("brainrainTopupNick", nick); } catch (error) {}
         const result = document.getElementById("withdrawResultText");
         if (result) {
-            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\n\nЗаявка добавлена в «Мои выводы». Сообщение в бота не придёт, статус смотри здесь.`;
+            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\nВремя: ${data.scheduledText}\n\nЗаявка добавлена в «Мои выводы». Сообщение в бота не придёт, статус и время смотри там.`;
         }
         showWithdrawView("step3");
         if (typeof loadInventory === "function") loadInventory();
@@ -2751,7 +2775,7 @@ function showComingSoon(name) {
 const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
-    item.rarity = item.id === "skibidi-toilet" ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
+    item.rarity = ["skibidi-toilet", "john-pork", "meowl"].includes(item.id) ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
 });
 const upgradeCatalog = [...new Map(allCatalogItems.filter(item => item.id !== "coin").map(item => [item.id, item])).values()];
 const selectedUpgradeInventoryIds = new Set();
