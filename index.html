@@ -538,6 +538,7 @@ main { padding: 12px 0 40px; }
     border-radius: 9px !important;
 }
 
+.roulette-item{position:relative}.roulette-coin-amount{position:absolute;right:6px;bottom:4px;color:#fff;font-size:16px;font-weight:900;line-height:1;text-shadow:0 1px 3px #000,0 0 6px #000;pointer-events:none}.roulette-batch .roulette-coin-amount{font-size:13px;right:4px;bottom:2px}
 .roulette-item img {
     width: 85px;
     height: 75px;
@@ -3456,6 +3457,13 @@ function rouletteItem(item) {
     img.alt = item.name;
 
     el.appendChild(img);
+    // У монет на картинке не видно номинал: подписываем число (4, 10), чтобы не путать.
+    if ((item.id === "coin" || item.itemId === "coin") && /^\d+/.test(String(item.name || ""))) {
+        const amount = document.createElement("span");
+        amount.className = "roulette-coin-amount";
+        amount.textContent = String(item.name).match(/^\d+/)[0];
+        el.appendChild(amount);
+    }
     return el;
 }
 
