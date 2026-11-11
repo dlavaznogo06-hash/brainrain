@@ -175,6 +175,7 @@ header {
     border-radius: 11px !important;
 }
 
+.free-case-box{max-width:420px;margin:12px auto 0;text-align:center}.free-case-box[hidden]{display:none}.free-case-status{margin:0 0 8px;color:#ffb347;font-size:14px;font-weight:800;line-height:1.45;white-space:pre-line}.free-case-status.ok{color:#8df2bd}.free-case-link{display:block;margin:0 0 10px;color:#ff9f2e;font-size:14px;font-weight:800;line-height:1.4;word-break:break-all;text-decoration:underline}.free-case-link[hidden]{display:none}.free-case-action{display:block;box-sizing:border-box;width:100%;margin:0 0 10px;padding:12px 14px;border:1px solid #ff9f2e;border-radius:12px!important;background:#3a2410;color:#ffc477;font-size:14px;font-weight:800;cursor:pointer}.free-case-action[hidden]{display:none}.free-case-action.share{border-color:#36db92;background:#153c31;color:#8df2bd;box-shadow:0 0 12px #36db9244}.free-case-action:disabled{opacity:.55;cursor:default}.free-price{color:#8df2bd!important;font-weight:800;letter-spacing:.5px}
 .coin-inline,.inventory-item img.coin-inline{display:inline-block!important;width:1.25em!important;height:1.25em!important;margin:0 0 0 .25em!important;vertical-align:-.25em;object-fit:contain}
 .coin-icon {
     display: inline-block;
@@ -1399,6 +1400,12 @@ body.streamer-mode .stream-reveal {
             <div class="home-main">
                 <h1 class="page-title">Кейсы 💧</h1>
                 <div class="case-list">
+            <div class="case-card free-case-card" onclick="showCase('subscription_case')">
+                <img src="subscription-case.png" alt="Кейс за подписку">
+                <h3>За подписку 🎁</h3>
+                <div class="price free-price">БЕСПЛАТНО</div>
+            </div>
+
             <div class="case-card" onclick="showCase('sea')">
                 <img src="sea-case.png" alt="Морской кейс">
                 <h3>Морской кейс 🌊</h3>
@@ -1509,6 +1516,7 @@ body.streamer-mode .stream-reveal {
             <div class="roulette-track hidden" id="allRoulette"></div>
             <div class="roulette-track hidden" id="skibidiAllInRoulette"></div>
             <div class="roulette-track hidden" id="johnPorkAllInRoulette"></div>
+            <div class="roulette-track hidden" id="subscriptionCaseRoulette"></div>
         </div>
 
         <div class="case-quantity-row" id="caseQuantityRow" role="group" aria-label="Количество кейсов">
@@ -1518,6 +1526,12 @@ body.streamer-mode .stream-reveal {
             <span class="case-quantity-total" id="caseQuantityTotal">Итого: 0 <img class="coin-inline" src="coin.png" alt="Coin"></span>
         </div>
         <button class="roulette-skip-button" id="skipRouletteButton" type="button" onclick="skipRouletteAnimation()" hidden>Пропустить</button>
+        <div class="free-case-box" id="freeCaseBox" hidden>
+            <div class="free-case-status" id="freeCaseStatus"></div>
+            <a class="free-case-link" id="freeCaseLink" href="https://t.me/Brainrotrain" target="_blank" rel="noopener" onclick="openFreeCaseChannel(event)">подписаться на канал https://t.me/Brainrotrain</a>
+            <button class="free-case-action" id="freeCaseCheckButton" type="button" onclick="refreshFreeCase(true)">Я подписался, проверить</button>
+            <button class="free-case-action share" id="freeCaseShareButton" type="button" onclick="shareFreeCase()">ПОДЕЛИТЬСЯ</button>
+        </div>
         <button class="open-button" id="openCaseButton" onclick="openCase()" disabled>ОТКРЫТЬ</button>
 
         <h3 class="items-title">Содержимое кейса</h3>
@@ -1916,7 +1930,33 @@ const johnPorkAllInItems = [
     {id:"coin", name:"4 Coin", image:"coin.png", price:4, rarity:"rarity-blue"}
 ];
 
+const subscriptionCaseItems = [
+    {id:"coin", name:"4 Coin", image:"coin.png", price:4, rarity:"rarity-blue"},
+    {id:"quesadilla-crocodila", name:"Quesadilla Crocodila", image:"quesadilla-crocodila.png", price:5, rarity:"rarity-blue"},
+    {id:"chicken-zombie", name:"Chicken Zombie", image:"chicken-zombie.png", price:7, rarity:"rarity-blue"},
+    {id:"la-grande-combinasion", name:"La Grande Combinasion", image:"la-grande-combinasion.png", price:9, rarity:"rarity-blue"},
+    {id:"coin", name:"10 Coin", image:"coin.png", price:10, rarity:"rarity-blue"},
+    {id:"los-67", name:"Los 67", image:"los-67.png", price:12, rarity:"rarity-blue"},
+    {id:"money-money-cat", name:"Money Money Cat", image:"money-money-cat.png", price:15, rarity:"rarity-blue"},
+    {id:"los-mobilis", name:"Los Mobilis", image:"los-mobilis.png", price:18, rarity:"rarity-blue"},
+    {id:"los-mi-gatitos", name:"Los Mi Gatitos", image:"los-mi-gatitos.png", price:21, rarity:"rarity-blue"},
+    {id:"vulturino-skeletono", name:"Vulturino Skeletono", image:"vulturino-skeletono.png", price:25, rarity:"rarity-blue"},
+    {id:"mieteteira-bicicleteira", name:"Mieteteira Bicicleteira", image:"mieteteira-bicicleteira.png", price:28, rarity:"rarity-blue"},
+    {id:"abyssaloco", name:"Abyssaloco", image:"abyssaloco.png", price:32, rarity:"rarity-blue"},
+    {id:"orcaledon", name:"Orcaledon", image:"orcaledon.png", price:35, rarity:"rarity-blue"},
+    {id:"la-romantic-grande", name:"La Romantic Grande", image:"la-romantic-grande.png", price:39, rarity:"rarity-blue"},
+    {id:"garama-and-madundung", name:"Garama and Madundung", image:"garama-and-madundung.png", price:55, rarity:"rarity-blue"}
+];
+
 const cases = {
+    subscription_case: {
+        name:"За подписку 🎁",
+        image:"subscription-case.png",
+        price:0,
+        free:true,
+        items:subscriptionCaseItems,
+        roulette:"subscriptionCaseRoulette"
+    },
     sea: {
         name:"Морской кейс 🌊",
         image:"sea-case.png",
@@ -2819,7 +2859,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = ["skibidi-toilet", "john-pork", "meowl"].includes(item.id) ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
@@ -3463,6 +3503,17 @@ function updateCasePurchaseUI() {
     const button = document.getElementById("openCaseButton");
     const total = document.getElementById("caseQuantityTotal");
     if (!data || !button || !total) return;
+    const quantityRow = document.getElementById("caseQuantityRow");
+    const freeBox = document.getElementById("freeCaseBox");
+    if (data.free) {
+        if (quantityRow) quantityRow.style.display = "none";
+        if (freeBox) freeBox.hidden = false;
+        button.textContent = opening ? "ОТКРЫВАЕМ..." : "ОТКРЫТЬ";
+        button.disabled = opening || !freeCaseState.canOpen;
+        return;
+    }
+    if (quantityRow) quantityRow.style.display = "";
+    if (freeBox) freeBox.hidden = true;
     const totalPrice = Number(data.price) * selectedCaseQuantity;
     setCoinText(total, `Итого за ${selectedCaseQuantity}: ${totalPrice.toLocaleString("ru-RU")} Coin`);
     setCoinText(button, opening ? "ОТКРЫВАЕМ..." : `ОТКРЫТЬ ×${selectedCaseQuantity} · ${totalPrice.toLocaleString("ru-RU")} Coin`);
@@ -3494,9 +3545,13 @@ function showCase(caseId) {
     document.getElementById("detailImage").src = data.image;
     document.getElementById("detailName").textContent = data.name;
 
-    document.getElementById("detailPrice").innerHTML =
-        `<span class="pixel-number">${data.price.toLocaleString("ru-RU")}</span>
-        <img class="coin-icon" src="coin.png" alt="coin">`;
+    if (data.free) {
+        document.getElementById("detailPrice").innerHTML = `<span class="pixel-number">БЕСПЛАТНО</span>`;
+    } else {
+        document.getElementById("detailPrice").innerHTML =
+            `<span class="pixel-number">${data.price.toLocaleString("ru-RU")}</span>
+            <img class="coin-icon" src="coin.png" alt="coin">`;
+    }
 
     document.querySelectorAll(".roulette-track").forEach(track => {
         track.classList.add("hidden");
@@ -3537,6 +3592,8 @@ function showCase(caseId) {
         grid.appendChild(card);
     });
     updateCasePurchaseUI();
+    if (data.free) refreshFreeCase(false);
+    else stopFreeCaseTimer();
 }
 
 /* АНИМАЦИЯ РУЛЕТКИ */
@@ -3750,13 +3807,165 @@ async function showNextCaseResult() {
     vibrate("success");
 }
 
+/* БЕСПЛАТНЫЙ КЕЙС «ЗА ПОДПИСКУ» */
+
+let freeCaseState = {subscribed:false, shared:false, cooldownLeft:0, canOpen:false, loaded:false, channelUrl:"https://t.me/Brainrotrain"};
+let freeCaseTimer = null;
+let freeCaseBusy = false;
+
+function stopFreeCaseTimer() {
+    if (freeCaseTimer) clearInterval(freeCaseTimer);
+    freeCaseTimer = null;
+}
+
+function formatFreeCaseTime(seconds) {
+    seconds = Math.max(0, Math.floor(seconds));
+    const pad = value => String(value).padStart(2, "0");
+    return `${pad(Math.floor(seconds / 3600))}:${pad(Math.floor(seconds % 3600 / 60))}:${pad(seconds % 60)}`;
+}
+
+function renderFreeCase() {
+    const status = document.getElementById("freeCaseStatus");
+    const link = document.getElementById("freeCaseLink");
+    const check = document.getElementById("freeCaseCheckButton");
+    const share = document.getElementById("freeCaseShareButton");
+    if (!status || !link || !check || !share) return;
+    const state = freeCaseState;
+    state.canOpen = Boolean(state.loaded && state.subscribed && state.shared && state.cooldownLeft <= 0);
+    link.hidden = true;
+    check.hidden = true;
+    share.hidden = true;
+    status.classList.remove("ok");
+    if (!state.loaded) {
+        status.textContent = "Проверяем подписку...";
+    } else if (state.checkFailed) {
+        status.textContent = "Не удалось проверить подписку. Попробуй чуть позже.";
+        check.hidden = false;
+        check.textContent = "Проверить ещё раз";
+    } else if (!state.subscribed) {
+        status.textContent = "Чтобы открыть бесплатный кейс, подпишись на канал:";
+        link.hidden = false;
+        link.href = state.channelUrl;
+        check.hidden = false;
+        check.textContent = "Я подписался, проверить";
+    } else if (state.cooldownLeft > 0) {
+        status.classList.add("ok");
+        status.textContent = `Следующий бесплатный кейс через ${formatFreeCaseTime(state.cooldownLeft)}`;
+    } else if (!state.shared) {
+        status.textContent = "Подписка есть ✅\nПоделись сообщением, и кейс откроется.";
+        share.hidden = false;
+    } else {
+        status.classList.add("ok");
+        status.textContent = "Готово! Кейс можно открывать 🎁";
+    }
+    updateCasePurchaseUI();
+}
+
+function startFreeCaseTimer() {
+    stopFreeCaseTimer();
+    freeCaseTimer = setInterval(() => {
+        if (!cases[currentCase] || !cases[currentCase].free || document.getElementById("casePage").style.display === "none") {
+            stopFreeCaseTimer();
+            return;
+        }
+        if (freeCaseState.cooldownLeft > 0) {
+            freeCaseState.cooldownLeft -= 1;
+            if (freeCaseState.cooldownLeft <= 0) refreshFreeCase(false);
+            else renderFreeCase();
+        }
+    }, 1000);
+}
+
+async function refreshFreeCase(showMessage) {
+    if (freeCaseBusy) return;
+    freeCaseBusy = true;
+    const check = document.getElementById("freeCaseCheckButton");
+    if (check) check.disabled = true;
+    try {
+        const data = await apiPost("/api/free-case-info", {});
+        freeCaseState = {
+            subscribed:Boolean(data.subscribed),
+            checkFailed:Boolean(data.checkFailed),
+            shared:Boolean(data.shared),
+            cooldownLeft:Number(data.cooldownLeft || 0),
+            channelUrl:data.channelUrl || freeCaseState.channelUrl,
+            loaded:true,
+            canOpen:false
+        };
+        if (showMessage && !freeCaseState.subscribed && !freeCaseState.checkFailed) {
+            showToast("Подписка не найдена. Подпишись на канал и нажми ещё раз.", "info");
+        }
+    } catch (error) {
+        freeCaseState.loaded = true;
+        freeCaseState.checkFailed = true;
+        if (showMessage) showToast(error.message || "Не удалось проверить подписку.");
+    } finally {
+        freeCaseBusy = false;
+        if (check) check.disabled = false;
+        renderFreeCase();
+        startFreeCaseTimer();
+    }
+}
+
+function openFreeCaseChannel(event) {
+    const url = freeCaseState.channelUrl || "https://t.me/Brainrotrain";
+    if (tg && typeof tg.openTelegramLink === "function") {
+        event.preventDefault();
+        try { tg.openTelegramLink(url); } catch (error) { window.open(url, "_blank"); }
+    }
+}
+
+async function shareFreeCase() {
+    const button = document.getElementById("freeCaseShareButton");
+    if (!button || button.disabled) return;
+    button.disabled = true;
+    try {
+        const imageUrl = new URL("add.png", window.location.href).href;
+        const data = await apiPost("/api/free-case-share", {imageUrl});
+        let sent = false;
+        if (data.preparedId && tg && typeof tg.shareMessage === "function") {
+            sent = await new Promise(resolve => {
+                try {
+                    tg.shareMessage(data.preparedId, result => resolve(result === undefined ? true : Boolean(result)));
+                } catch (error) {
+                    resolve(null);
+                }
+            });
+        } else {
+            sent = null;
+        }
+        if (sent === null) {
+            // Запасной вариант: обычное окно «Поделиться» Telegram (без картинки внутри сообщения).
+            if (tg && typeof tg.openTelegramLink === "function") tg.openTelegramLink(data.fallbackUrl);
+            else window.open(data.fallbackUrl, "_blank");
+            sent = true;
+        }
+        if (!sent) {
+            showToast("Сообщение не отправлено. Нажми «Поделиться» ещё раз.", "info");
+        } else {
+            await apiPost("/api/free-case-shared", {});
+            showToast("Готово, теперь можно открыть кейс.", "success");
+        }
+        await refreshFreeCase(false);
+    } catch (error) {
+        showToast(error.message || "Не удалось поделиться.");
+    } finally {
+        button.disabled = false;
+    }
+}
+
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && cases[currentCase] && cases[currentCase].free
+        && document.getElementById("casePage").style.display !== "none") refreshFreeCase(false);
+});
+
 async function openCase() {
     if (opening) return;
     opening = true;
     updateCasePurchaseUI();
     const button = document.getElementById("openCaseButton");
     const caseId = currentCase;
-    const quantity = selectedCaseQuantity;
+    const quantity = cases[caseId] && cases[caseId].free ? 1 : selectedCaseQuantity;
 
     try {
         const data = await apiPost("/api/open-case", {
@@ -3787,6 +3996,7 @@ async function openCase() {
         if (track && !track.closest(".roulette-batch")) startIdleRoulette(track, cases[caseId].items);
     } finally {
         opening = false;
+        if (cases[caseId] && cases[caseId].free) refreshFreeCase(false);
         if (button) updateCasePurchaseUI();
         const skipButton = document.getElementById("skipRouletteButton");
         skipButton.hidden = true;
