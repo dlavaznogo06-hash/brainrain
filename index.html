@@ -175,6 +175,7 @@ header {
     border-radius: 11px !important;
 }
 
+.coin-inline{display:inline-block;width:1.15em;height:1.15em;margin:0 0 0 .2em;vertical-align:-.22em;object-fit:contain}
 .coin-icon {
     display: inline-block;
     width: 19px;
@@ -1514,7 +1515,7 @@ body.streamer-mode .stream-reveal {
             <button type="button" class="case-quantity-button active" data-quantity="1" aria-pressed="true" onclick="selectCaseQuantity(1)">1</button>
             <button type="button" class="case-quantity-button" data-quantity="3" aria-pressed="false" onclick="selectCaseQuantity(3)">3</button>
             <button type="button" class="case-quantity-button" data-quantity="5" aria-pressed="false" onclick="selectCaseQuantity(5)">5</button>
-            <span class="case-quantity-total" id="caseQuantityTotal">Итого: 0 Coin</span>
+            <span class="case-quantity-total" id="caseQuantityTotal">Итого: 0 <img class="coin-inline" src="coin.png" alt="Coin"></span>
         </div>
         <button class="roulette-skip-button" id="skipRouletteButton" type="button" onclick="skipRouletteAnimation()" hidden>Пропустить</button>
         <button class="open-button" id="openCaseButton" onclick="openCase()" disabled>ОТКРЫТЬ</button>
@@ -1659,7 +1660,7 @@ body.streamer-mode .stream-reveal {
 
         <div class="promo-card">
             <h2 class="items-title">ПРОМОКОД</h2>
-            <p class="promo-description">Введи промокод и получи Coin! 💧</p>
+            <p class="promo-description">Введи промокод и получи <img class="coin-inline" src="coin.png" alt="Coin">! 💧</p>
 
             <input id="promoInput" type="text" maxlength="10"
                 placeholder="ВВЕДИ ПРОМОКОД" autocomplete="off">
@@ -1714,7 +1715,7 @@ body.streamer-mode .stream-reveal {
         <div class="upgrade-multiplier-row" id="upgradeMultiplierPresets"><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',2)">×2</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',5)">×5</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',10)">×10</button></div>
         <div class="upgrade-chance-row" id="upgradeChancePresets"><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',75)">75%</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',60)">60%</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',40)">40%</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('chance',20)">20%</button></div>
     </div>
-    <div class="upgrade-count" id="upgradeStakeSummary">Стоимость ставки: 0 Coin</div>
+    <div class="upgrade-count" id="upgradeStakeSummary">Стоимость ставки: 0 <img class="coin-inline" src="coin.png" alt="Coin"></div>
     <div class="upgrader-info" id="upgradeInfo" aria-live="polite"></div>
     <h3 class="upgrade-inventory-title">ТВОЙ ИНВЕНТАРЬ — выбери до 5 предметов</h3>
     <div class="upgrade-inventory-grid" id="upgradeInventoryGrid"><div class="inventory-empty">Загрузка инвентаря...</div></div>
@@ -2038,7 +2039,7 @@ function makeLiveDropCard(drop, entering = false, best = false) {
     if (best && drop.price != null) {
         const value = document.createElement("div");
         value.className = "daily-drop-value";
-        value.textContent = `${Number(drop.price).toLocaleString("ru-RU")} Coin`;
+        setCoinText(value, `${Number(drop.price).toLocaleString("ru-RU")} Coin`);
         card.appendChild(value);
     }
 
@@ -2105,6 +2106,23 @@ function scheduleToastHide(toast) {
         setTimeout(() => { toast.classList.remove("show"); toast.classList.add("hide"); }, TOAST_VISIBLE_MS),
         setTimeout(() => toast.remove(), TOAST_VISIBLE_MS + TOAST_FADE_MS + 150)
     ];
+}
+
+// Слово «Coin» в подписях заменяется картинкой coin.png (в тостах и сообщениях бота остаётся текстом).
+function setCoinText(element, text) {
+    if (!element) return;
+    const parts = String(text == null ? "" : text).split(/\bCoin\b/);
+    element.textContent = "";
+    parts.forEach((part, index) => {
+        if (part) element.appendChild(document.createTextNode(part));
+        if (index < parts.length - 1) {
+            const icon = document.createElement("img");
+            icon.className = "coin-inline";
+            icon.src = "coin.png";
+            icon.alt = "Coin";
+            element.appendChild(icon);
+        }
+    });
 }
 
 function showToast(message, type = "error") {
@@ -2245,8 +2263,8 @@ async function redeemPromo() {
         playerBalance = data.balance;
         updateBalance();
 
-        message.textContent = "✅ " + data.message +
-            ". Баланс: " + data.balance + " Coin";
+        setCoinText(message, "✅ " + data.message +
+            ". Баланс: " + data.balance + " Coin");
 
         input.value = "";
         vibrate("success");
@@ -2853,7 +2871,7 @@ function renderTopupItems() {
         name.textContent = item.name;
         const price = document.createElement("span");
         price.className = "topup-item-price";
-        price.textContent = `${Number(item.price).toLocaleString("ru-RU")} Coin`;
+        setCoinText(price, `${Number(item.price).toLocaleString("ru-RU")} Coin`);
         card.append(image, name, price);
         grid.appendChild(card);
     }
@@ -2876,9 +2894,9 @@ function updateTopupQuantityUI() {
     const total = document.getElementById("topupQuantityTotal");
     if (!total) return;
     const item = getTopupCatalog().find(candidate => candidate.id === selectedTopupItemId);
-    total.textContent = item
+    setCoinText(total, item
         ? `${item.name} ×${selectedTopupQuantity} · ${(Number(item.price) * selectedTopupQuantity).toLocaleString("ru-RU")} Coin`
-        : "";
+        : "");
 }
 
 function selectTopupPeriod(period) {
@@ -3057,7 +3075,7 @@ function renderUpgradeInventory() {
         const name = document.createElement("strong");
         name.textContent = item.name || catalogItem.name;
         const value = document.createElement("span");
-        value.textContent = `${catalogItem.price} Coin${selected ? " · выбрано" : " · добавить"}`;
+        setCoinText(value, `${catalogItem.price} Coin${selected ? " · выбрано" : " · добавить"}`);
         card.append(image, name, value);
         grid.appendChild(card);
     });
@@ -3100,7 +3118,7 @@ function updateUpgradeState() {
         image.src = item.image || catalogItem.image;
         image.alt = item.name || catalogItem.name;
         const text = document.createElement("span");
-        text.textContent = `${item.name || catalogItem.name} · ${catalogItem.price} Coin`;
+        setCoinText(text, `${item.name || catalogItem.name} · ${catalogItem.price} Coin`);
         const remove = document.createElement("button");
         remove.type = "button";
         remove.textContent = "×";
@@ -3115,7 +3133,7 @@ function updateUpgradeState() {
     stakePicker.setAttribute("aria-disabled", String(selectedItems.length >= 5));
     stakePicker.innerHTML = selectedItems.length ? "" : "＋ Выбрать предмет из инвентаря";
     const stake = getUpgradeStakeTotal();
-    document.getElementById("upgradeStakeSummary").textContent = `Стоимость ставки: ${stake.toLocaleString("ru-RU")} Coin · предметов ${selectedItems.length}/5`;
+    setCoinText(document.getElementById("upgradeStakeSummary"), `Стоимость ставки: ${stake.toLocaleString("ru-RU")} Coin · предметов ${selectedItems.length}/5`);
 
     const target = getUpgradeCatalogItem(selectedUpgradeTargetId);
     if (target && Number(target.price) <= stake) selectedUpgradeTargetId = "";
@@ -3156,7 +3174,7 @@ function renderSelectedUpgradeTarget() {
     const removeTargetButton = selected.querySelector("button");
     if (removeTargetButton) removeTargetButton.disabled = upgrading;
     document.getElementById("upgradeTargetImage").src = target.image;
-    document.getElementById("upgradeTargetName").textContent = `${target.name} · ${target.price} Coin`;
+    setCoinText(document.getElementById("upgradeTargetName"), `${target.name} · ${target.price} Coin`);
 }
 
 function clearUpgradeTarget() {
@@ -3200,7 +3218,7 @@ function renderUpgradeTargetGrid() {
         const name = document.createElement("strong");
         name.textContent = item.name;
         const price = document.createElement("span");
-        price.textContent = `${item.price} Coin`;
+        setCoinText(price, `${item.price} Coin`);
         card.append(image, name, price);
         grid.appendChild(card);
     });
@@ -3446,8 +3464,8 @@ function updateCasePurchaseUI() {
     const total = document.getElementById("caseQuantityTotal");
     if (!data || !button || !total) return;
     const totalPrice = Number(data.price) * selectedCaseQuantity;
-    total.textContent = `Итого за ${selectedCaseQuantity}: ${totalPrice.toLocaleString("ru-RU")} Coin`;
-    button.textContent = opening ? "ОТКРЫВАЕМ..." : `ОТКРЫТЬ ×${selectedCaseQuantity} · ${totalPrice.toLocaleString("ru-RU")} Coin`;
+    setCoinText(total, `Итого за ${selectedCaseQuantity}: ${totalPrice.toLocaleString("ru-RU")} Coin`);
+    setCoinText(button, opening ? "ОТКРЫВАЕМ..." : `ОТКРЫТЬ ×${selectedCaseQuantity} · ${totalPrice.toLocaleString("ru-RU")} Coin`);
     button.disabled = opening || Number(playerBalance) < totalPrice;
     document.querySelectorAll(".case-quantity-button").forEach(option => {
         const active = Number(option.dataset.quantity) === selectedCaseQuantity;
@@ -3722,8 +3740,8 @@ async function showNextCaseResult() {
         if (sellButton) sellButton.style.display = "none";
         if (keepButton) keepButton.textContent = "ОК";
     } else {
-        document.getElementById("resultPrice").textContent =
-            "Стоимость продажи: " + (item.sell ?? item.price ?? 0) + " Coin";
+        setCoinText(document.getElementById("resultPrice"),
+            "Стоимость продажи: " + (item.sell ?? item.price ?? 0) + " Coin");
         if (sellButton) sellButton.style.display = "";
         if (keepButton) keepButton.textContent = "Оставить";
     }
@@ -3891,7 +3909,7 @@ async function loadInventory() {
 
             const price = document.createElement("div");
             price.className = "inventory-item-price";
-            price.textContent = item.sell + " Coin";
+            setCoinText(price, item.sell + " Coin");
 
             card.append(sellButton, img, name, price);
             box.appendChild(card);
