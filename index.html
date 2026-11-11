@@ -175,7 +175,7 @@ header {
     border-radius: 11px !important;
 }
 
-.free-case-box{max-width:420px;margin:12px auto 0;text-align:center}.free-case-box[hidden]{display:none}.free-case-status{margin:0 0 8px;color:#ffb347;font-size:14px;font-weight:800;line-height:1.45;white-space:pre-line}.free-case-status.ok{color:#8df2bd}.free-case-link{display:block;margin:0 0 10px;color:#ff9f2e;font-size:14px;font-weight:800;line-height:1.4;word-break:break-all;text-decoration:underline}.free-case-link[hidden]{display:none}.free-case-action{display:block;box-sizing:border-box;width:100%;margin:0 0 10px;padding:12px 14px;border:1px solid #ff9f2e;border-radius:12px!important;background:#3a2410;color:#ffc477;font-size:14px;font-weight:800;cursor:pointer}.free-case-action[hidden]{display:none}.free-case-action.share{border-color:#36db92;background:#153c31;color:#8df2bd;box-shadow:0 0 12px #36db9244}.free-case-action:disabled{opacity:.55;cursor:default}.free-price{color:#8df2bd!important;font-weight:800;letter-spacing:.5px}
+.free-case-box{max-width:420px;margin:12px auto 0;text-align:center}.free-case-box[hidden]{display:none}.free-case-status{margin:0 0 8px;color:#ffb347;font-size:14px;font-weight:800;line-height:1.45;white-space:pre-line}.free-case-status.ok{color:#8df2bd}.free-case-link{display:block;margin:0 0 10px;color:#ff9f2e;font-size:14px;font-weight:800;line-height:1.4;word-break:break-all;text-decoration:underline}.free-case-link[hidden]{display:none}.free-case-action{display:block;box-sizing:border-box;width:100%;margin:0 0 10px;padding:13px 14px;border:0;border-radius:12px!important;background:linear-gradient(180deg,#ff9f2e,#f27a0f);color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 0 14px #ff8a1f55}.free-case-action[hidden]{display:none}.free-case-action.share{letter-spacing:.5px}.free-case-action:disabled{opacity:.55;cursor:default}.free-price{font-size:12px!important;font-weight:700;opacity:.85}
 .coin-inline,.inventory-item img.coin-inline{display:inline-block!important;width:1.25em!important;height:1.25em!important;margin:0 0 0 .25em!important;vertical-align:-.25em;object-fit:contain}
 .coin-icon {
     display: inline-block;
@@ -1403,7 +1403,7 @@ body.streamer-mode .stream-reveal {
             <div class="case-card free-case-card" onclick="showCase('subscription_case')">
                 <img src="subscription-case.png" alt="Кейс за подписку">
                 <h3>За подписку 🎁</h3>
-                <div class="price free-price">БЕСПЛАТНО</div>
+                <div class="price free-price">Открыть</div>
             </div>
 
             <div class="case-card" onclick="showCase('sea')">
@@ -1528,8 +1528,8 @@ body.streamer-mode .stream-reveal {
         <button class="roulette-skip-button" id="skipRouletteButton" type="button" onclick="skipRouletteAnimation()" hidden>Пропустить</button>
         <div class="free-case-box" id="freeCaseBox" hidden>
             <div class="free-case-status" id="freeCaseStatus"></div>
-            <a class="free-case-link" id="freeCaseLink" href="https://t.me/Brainrotrain" target="_blank" rel="noopener" onclick="openFreeCaseChannel(event)">подписаться на канал https://t.me/Brainrotrain</a>
-            <button class="free-case-action" id="freeCaseCheckButton" type="button" onclick="refreshFreeCase(true)">Я подписался, проверить</button>
+            <a class="free-case-link" id="freeCaseLink" href="https://t.me/Brainrotrain" hidden></a>
+            <button class="free-case-action" id="freeCaseCheckButton" type="button" onclick="onFreeCaseMainButton()">Подписаться</button>
             <button class="free-case-action share" id="freeCaseShareButton" type="button" onclick="shareFreeCase()">ПОДЕЛИТЬСЯ</button>
         </div>
         <button class="open-button" id="openCaseButton" onclick="openCase()" disabled>ОТКРЫТЬ</button>
@@ -3546,7 +3546,7 @@ function showCase(caseId) {
     document.getElementById("detailName").textContent = data.name;
 
     if (data.free) {
-        document.getElementById("detailPrice").innerHTML = `<span class="pixel-number">БЕСПЛАТНО</span>`;
+        document.getElementById("detailPrice").innerHTML = "";
     } else {
         document.getElementById("detailPrice").innerHTML =
             `<span class="pixel-number">${data.price.toLocaleString("ru-RU")}</span>
@@ -3842,12 +3842,12 @@ function renderFreeCase() {
         status.textContent = "Не удалось проверить подписку. Попробуй чуть позже.";
         check.hidden = false;
         check.textContent = "Проверить ещё раз";
+        check.dataset.mode = "retry";
     } else if (!state.subscribed) {
-        status.textContent = "Чтобы открыть бесплатный кейс, подпишись на канал:";
-        link.hidden = false;
-        link.href = state.channelUrl;
+        status.textContent = "";
         check.hidden = false;
-        check.textContent = "Я подписался, проверить";
+        check.textContent = "Подписаться";
+        check.dataset.mode = "subscribe";
     } else if (state.cooldownLeft > 0) {
         status.classList.add("ok");
         status.textContent = `Следующий бесплатный кейс через ${formatFreeCaseTime(state.cooldownLeft)}`;
@@ -3907,11 +3907,36 @@ async function refreshFreeCase(showMessage) {
     }
 }
 
-function openFreeCaseChannel(event) {
+let freeCasePollTimer = null;
+
+function onFreeCaseMainButton() {
+    const check = document.getElementById("freeCaseCheckButton");
+    if (check && check.dataset.mode === "retry") {
+        refreshFreeCase(true);
+        return;
+    }
+    openFreeCaseChannel();
+    // После возврата из Telegram подписка проверяется сама.
+    if (freeCasePollTimer) clearInterval(freeCasePollTimer);
+    let attempts = 0;
+    freeCasePollTimer = setInterval(() => {
+        attempts += 1;
+        const onFreeCase = cases[currentCase] && cases[currentCase].free;
+        if (!onFreeCase || freeCaseState.subscribed || attempts > 40) {
+            clearInterval(freeCasePollTimer);
+            freeCasePollTimer = null;
+            return;
+        }
+        refreshFreeCase(false);
+    }, 3000);
+}
+
+function openFreeCaseChannel() {
     const url = freeCaseState.channelUrl || "https://t.me/Brainrotrain";
     if (tg && typeof tg.openTelegramLink === "function") {
-        event.preventDefault();
         try { tg.openTelegramLink(url); } catch (error) { window.open(url, "_blank"); }
+    } else {
+        window.open(url, "_blank");
     }
 }
 
@@ -3920,7 +3945,7 @@ async function shareFreeCase() {
     if (!button || button.disabled) return;
     button.disabled = true;
     try {
-        const imageUrl = new URL("add.png", window.location.href).href;
+        const imageUrl = new URL("Add.png", window.location.href).href;
         const data = await apiPost("/api/free-case-share", {imageUrl});
         let sent = false;
         if (data.preparedId && tg && typeof tg.shareMessage === "function") {
