@@ -3482,6 +3482,7 @@ function stopIdleRoulette(track) {
 }
 
 function startIdleRoulette(track, pool) {
+    rouletteAlignState.delete(track);
     stopIdleRoulette(track);
 
     track.style.transition = "none";
@@ -3610,6 +3611,47 @@ function skipRouletteAnimation() {
     if (rouletteSkipHandler) rouletteSkipHandler();
 }
 
+/* Выравнивание рулетки по текущей ширине экрана: при изменении размера окна выигрышный предмет
+   остаётся под маркером (и во время вращения, и после остановки). */
+const rouletteAlignState = new Map();
+
+function rouletteTargetOffset(track, state) {
+    const windowEl = state.windowEl;
+    const tileRect = state.tile.getBoundingClientRect();
+    const windowRect = windowEl.getBoundingClientRect();
+    const markerX = windowRect.left + windowEl.clientLeft + windowEl.clientWidth / 2;
+    const transform = getComputedStyle(track).transform;
+    const currentTx = transform && transform !== "none" ? new DOMMatrixReadOnly(transform).m41 : 0;
+    const tileCenter = tileRect.left + tileRect.width / 2 + state.fraction * tileRect.width;
+    return tileCenter - markerX - currentTx;
+}
+
+function realignRoulette(track) {
+    const state = rouletteAlignState.get(track);
+    if (!state) return;
+    if (!track.isConnected || !state.tile.isConnected) {
+        rouletteAlignState.delete(track);
+        return;
+    }
+    const offset = rouletteTargetOffset(track, state);
+    state.targetOffset = offset;
+    if (state.finished) {
+        track.style.transform = "translateX(-" + offset + "px)";
+    } else if (state.animation && state.animation.effect && typeof state.animation.effect.setKeyframes === "function") {
+        state.animation.effect.setKeyframes([
+            { transform: "translateX(0px)" },
+            { transform: `translateX(-${offset}px)` }
+        ]);
+    }
+}
+
+function realignAllRoulettes() {
+    rouletteAlignState.forEach((state, track) => realignRoulette(track));
+}
+
+window.addEventListener("resize", realignAllRoulettes);
+if (window.visualViewport) window.visualViewport.addEventListener("resize", realignAllRoulettes);
+
 function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers = null) {
     return new Promise((resolve, reject) => {
         const track = providedTrack || document.getElementById(cases[currentCase].roulette);
@@ -3617,6 +3659,7 @@ function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers =
         const pool = cases[currentCase].items;
 
         stopIdleRoulette(track);
+        rouletteAlignState.delete(track);
 
         track.classList.remove("idle");
         track.style.transition = "none";
@@ -3651,8 +3694,11 @@ function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers =
         const winningRect = winningTile.getBoundingClientRect();
         const windowRect = windowEl.getBoundingClientRect();
         const markerX = windowRect.left + windowEl.clientLeft + windowEl.clientWidth / 2;
-        const nearEdgeOffset = (Math.random() < 0.5 ? -1 : 1) * itemWidth * 0.28;
-        const targetOffset = winningRect.left + winningRect.width / 2 - markerX + nearEdgeOffset;
+        const edgeFraction = (Math.random() < 0.5 ? -1 : 1) * 0.28;
+        const nearEdgeOffset = edgeFraction * itemWidth;
+        let targetOffset = winningRect.left + winningRect.width / 2 - markerX + nearEdgeOffset;
+        const alignState = {tile:winningTile, fraction:edgeFraction, windowEl, animation:null, finished:false, targetOffset};
+        rouletteAlignState.set(track, alignState);
 
         void track.offsetWidth;
 
@@ -3670,12 +3716,15 @@ function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers =
         );
 
         rouletteAnimation = animation;
+        alignState.animation = animation;
         rouletteAnimationsByTrack.set(track, animation);
         const skipButton = sharedSkipHandlers ? null : document.getElementById("skipRouletteButton");
         let finished = false;
         const finishRoulette = () => {
             if (finished) return;
             finished = true;
+            alignState.finished = true;
+            try { targetOffset = rouletteTargetOffset(track, alignState); } catch (error) { targetOffset = alignState.targetOffset; }
             track.style.transform = "translateX(-" + targetOffset + "px)";
             if (rouletteAnimationsByTrack.get(track) === animation) rouletteAnimationsByTrack.delete(track);
             rouletteAnimation = rouletteAnimationsByTrack.size ? Array.from(rouletteAnimationsByTrack.values()).at(-1) : null;
