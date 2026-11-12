@@ -1465,6 +1465,12 @@ body.streamer-mode .stream-reveal {
                 <div class="price">5 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('money_case')">
+                <img src="money-case.png" alt="Денежный кейс">
+                <h3>Денежный кейс 💵</h3>
+                <div class="price">49 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('pair_case')">
                 <img src="pair-case.png" alt="Парный кейс">
                 <h3>Парный кейс 💞</h3>
@@ -1519,6 +1525,7 @@ body.streamer-mode .stream-reveal {
             <div class="roulette-track hidden" id="losCaseRoulette"></div>
             <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
             <div class="roulette-track hidden" id="pairCaseRoulette"></div>
+            <div class="roulette-track hidden" id="moneyCaseRoulette"></div>
             <div class="roulette-track hidden" id="eliteCaseRoulette"></div>
             <div class="roulette-track hidden" id="allRoulette"></div>
             <div class="roulette-track hidden" id="skibidiAllInRoulette"></div>
@@ -1937,6 +1944,16 @@ const johnPorkAllInItems = [
     {id:"coin", name:"4 Coin", image:"coin.png", price:4, rarity:"rarity-blue"}
 ];
 
+const moneyCaseItems = [
+    {id:"money-money-cat", name:"Money Money Cat", image:"money-money-cat.png", price:15, rarity:"rarity-blue"},
+    {id:"money-money-puggy", name:"Money Money Puggy", image:"money-money-puggy.png", price:25, rarity:"rarity-blue"},
+    {id:"cash-or-card", name:"Cash or Card", image:"cash-or-card.png", price:60, rarity:"rarity-blue"},
+    {id:"money-money-reindeer", name:"Money Money Reindeer", image:"money-money-reindeer.png", price:120, rarity:"rarity-purple"},
+    {id:"money-money-bros-180", name:"Money Money Bros", image:"money-money-bros.png", price:180, rarity:"rarity-purple"},
+    {id:"fortunu-and-cashuru", name:"Fortunu and Cashuru", image:"fortunu-and-cashuru.png", price:220, rarity:"rarity-red"},
+    {id:"cloverat-clapat", name:"Cloverat Clapat", image:"cloverat-clapat.png", price:250, rarity:"rarity-red"}
+];
+
 const subscriptionCaseItems = [
     {id:"coin", name:"4 Coin", image:"coin.png", price:4, rarity:"rarity-blue"},
     {id:"quesadilla-crocodila", name:"Quesadilla Crocodila", image:"quesadilla-crocodila.png", price:5, rarity:"rarity-blue"},
@@ -2026,6 +2043,13 @@ const cases = {
         price:5,
         items:luckyBlocksItems,
         roulette:"luckyBlocksRoulette"
+    },
+    money_case: {
+        name:"Денежный кейс 💵",
+        image:"money-case.png",
+        price:49,
+        items:moneyCaseItems,
+        roulette:"moneyCaseRoulette"
     },
     pair_case: {
         name:"Парный кейс 💞",
@@ -2866,7 +2890,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems, ...moneyCaseItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = ["skibidi-toilet", "john-pork", "meowl"].includes(item.id) ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
