@@ -177,6 +177,7 @@ header {
 
 .case-section-title{margin:18px 5px 10px;color:#e9dcff;font-size:19px;font-weight:800;letter-spacing:.3px}.home-main .case-list+.case-section-title{margin-top:8px}@media(max-width:700px){.case-section-title{font-size:17px;margin:14px 5px 8px}}
 .free-case-box{max-width:420px;margin:12px auto 0;text-align:center}.free-case-box[hidden]{display:none}.free-case-status{margin:0 0 8px;color:#ffb347;font-size:14px;font-weight:800;line-height:1.45;white-space:pre-line}.free-case-status.ok{color:#8df2bd}.free-case-link{display:block;margin:0 0 10px;color:#ff9f2e;font-size:14px;font-weight:800;line-height:1.4;word-break:break-all;text-decoration:underline}.free-case-link[hidden]{display:none}.free-case-action{display:block;box-sizing:border-box;width:100%;margin:0 0 10px;padding:13px 14px;border:0;border-radius:12px!important;background:linear-gradient(180deg,#ff9f2e,#f27a0f);color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 0 14px #ff8a1f55}.free-case-action[hidden]{display:none}.free-case-action.share{letter-spacing:.5px}.free-case-action:disabled{opacity:.55;cursor:default}.free-price{font-size:12px!important;font-weight:700;opacity:.85}
+.coin-nowrap{white-space:nowrap}
 .coin-inline,.inventory-item img.coin-inline{display:inline-block!important;width:1.25em!important;height:1.25em!important;margin:0 0 0 .25em!important;vertical-align:-.25em;object-fit:contain}
 .coin-icon {
     display: inline-block;
@@ -591,6 +592,7 @@ main { padding: 12px 0 40px; }
     object-fit: contain;
 }
 
+.item-card.coin-card{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1;padding:8px}.item-card.coin-card>img{width:60%;height:auto;aspect-ratio:1/1;object-fit:contain}.coin-card-amount{margin-top:8px;color:#ffd447;font-size:18px;font-weight:900;line-height:1}
 .case-item-price{display:flex;align-items:center;justify-content:center;gap:4px;margin:0 0 10px;color:#ffd447;font-size:12px;font-weight:800;text-align:center}
 .case-item-price .coin-icon{width:15px;height:15px;object-fit:contain}
 .item-card h4 {
@@ -998,32 +1000,7 @@ main { padding: 12px 0 40px; }
 
 .result-actions .sell-result { background: #a65320; }
 
-/* РЕЖИМ СТРИМЕРА: скрываются только личные данные (ник, аватар, баланс, промокод, ник в пополнении).
-   Нажми на скрытое, чтобы показать на несколько секунд.
-   Список селекторов дублируется в STREAMER_SELECTOR в скрипте. */
-
-body.streamer-mode .header-balance,
-body.streamer-mode .menu-balance,
-body.streamer-mode .profile-balance,
-body.streamer-mode .menu-name,
-body.streamer-mode .profile-nickname,
-body.streamer-mode .profile-username,
-body.streamer-mode .header-avatar,
-body.streamer-mode .profile-mini > img,
-body.streamer-mode .profile-avatar,
-body.streamer-mode .live-drop-avatar,
-body.streamer-mode #promoInput,
-body.streamer-mode #promoMessage,
-body.streamer-mode .topup-nick-input,
-body.streamer-mode .topup-summary {
-    filter: blur(8px);
-    cursor: pointer;
-    transition: filter .15s ease;
-}
-
-body.streamer-mode .stream-reveal {
-    filter: blur(0) !important;
-}
+/* РЕЖИМ СТРИМЕРА: правила размытия строятся скриптом из списка STREAMER_SELECTOR (одно место для CSS и кликов). */
 
 /* АДАПТИВ */
 
@@ -1233,6 +1210,7 @@ body.streamer-mode .stream-reveal {
 .upgrade-selected-list .upgrade-selected-row img{width:100%;height:86px;object-fit:contain}
 .upgrade-selected-list .upgrade-selected-row span{flex:0 0 auto;width:100%;font-size:10px}
 .upgrade-selected-list .upgrade-selected-row button{position:absolute;top:2px;right:4px;padding:0 4px}
+.upgrade-selected-row .up-name{display:block}.upgrade-selected-row .up-price{display:block;flex:none;margin-top:2px;color:#ffd45c;white-space:nowrap}
 .upgrade-selected-row[hidden],.upgrade-empty-slot[hidden],.upgrade-target-pick[hidden]{display:none!important}
 .upgrade-card>.upgrade-selected-row{display:flex;position:relative;flex-direction:column;justify-content:center;gap:5px;min-height:180px;padding:10px}
 .upgrade-card>.upgrade-selected-row img{width:100%;height:138px;object-fit:contain}
@@ -2185,13 +2163,25 @@ function setCoinText(element, text) {
     const parts = String(text == null ? "" : text).split(/\bCoin\b/);
     element.textContent = "";
     parts.forEach((part, index) => {
-        if (part) element.appendChild(document.createTextNode(part));
-        if (index < parts.length - 1) {
+        const hasIcon = index < parts.length - 1;
+        let tail = "";
+        let head = part;
+        if (hasIcon) {
+            // число и монетка не разрываются переносом строки: монетка всегда правее числа
+            const match = part.match(/^([\s\S]*?)(\S+\s*)$/);
+            if (match) { head = match[1]; tail = match[2]; }
+        }
+        if (head) element.appendChild(document.createTextNode(head));
+        if (hasIcon) {
             const icon = document.createElement("img");
             icon.className = "coin-inline";
             icon.src = "coin.png";
             icon.alt = "Coin";
-            element.appendChild(icon);
+            const group = document.createElement("span");
+            group.className = "coin-nowrap";
+            if (tail) group.appendChild(document.createTextNode(tail));
+            group.appendChild(icon);
+            element.appendChild(group);
         }
     });
 }
@@ -2389,13 +2379,34 @@ function toggleVibration() {
 
 const STREAMER_STORAGE_KEY = "brainrainStreamerMode";
 const STREAMER_REVEAL_MS = 4000;
-// Те же элементы, что в CSS «РЕЖИМ СТРИМЕРА».
+// Что размывается в режиме стримера. Нажать (или навести мышь) — показать.
 const STREAMER_SELECTOR = [
+    // личные данные
     ".header-balance", ".menu-balance", ".profile-balance", ".menu-name",
     ".profile-nickname", ".profile-username", ".header-avatar", ".profile-mini > img",
-    ".profile-avatar", ".live-drop-avatar", "#promoInput", "#promoMessage",
-    ".topup-nick-input", ".topup-summary"
+    ".profile-avatar", "#promoInput", "#promoMessage", ".topup-nick-input", ".topup-summary",
+    // цены кейсов и то, что из них выпало
+    ".case-card .price", "#detailPrice", "#caseQuantityTotal", ".case-item-price", ".item-card h4",
+    "#resultName", "#resultPrice", ".live-drop-name", ".daily-drop-value",
+    // апгрейдер: все надписи и кнопки
+    "#upgraderPage h2", "#upgraderPage h3", "#upgraderPage .upgrade-mode button",
+    "#upgraderPage .upgrade-selected-row > span", "#upgraderPage .upgrade-target-pick",
+    "#upgraderPage .upgrade-wheel-core", "#upgraderPage .upgrade-wheel-label",
+    "#upgraderPage .upgrade-coin-head", "#upgraderPage .upgrade-preset-title",
+    "#upgraderPage .upgrade-preset", "#upgraderPage .upgrade-inventory-title",
+    ".upgrade-inventory-card strong", ".upgrade-inventory-card span",
+    "#upgradeStakeSummary", "#upgradeInfo", "#upgradeResult", "#upgradeButton",
+    ".upgrade-target-card strong", ".upgrade-target-card span"
 ].join(",");
+(function installStreamerStyles() {
+    const style = document.createElement("style");
+    style.textContent =
+        `body.streamer-mode :is(${STREAMER_SELECTOR}){filter:blur(8px);cursor:pointer;transition:filter .15s ease}` +
+        `body.streamer-mode .live-drop-avatar{visibility:hidden}` +
+        `@media (hover:hover){body.streamer-mode :is(${STREAMER_SELECTOR}):hover{filter:blur(0)}}` +
+        `body.streamer-mode .stream-reveal{filter:blur(0)!important}`;
+    document.head.appendChild(style);
+})();
 const streamerTimers = new WeakMap();
 
 function applyStreamerMode(enabled) {
@@ -3189,7 +3200,13 @@ function updateUpgradeState() {
         image.src = item.image || catalogItem.image;
         image.alt = item.name || catalogItem.name;
         const text = document.createElement("span");
-        setCoinText(text, `${item.name || catalogItem.name} · ${catalogItem.price} Coin`);
+        const nameLine = document.createElement("span");
+        nameLine.className = "up-name";
+        nameLine.textContent = item.name || catalogItem.name;
+        const priceLine = document.createElement("span");
+        priceLine.className = "up-price";
+        setCoinText(priceLine, `${catalogItem.price} Coin`);
+        text.append(nameLine, priceLine);
         const remove = document.createElement("button");
         remove.type = "button";
         remove.textContent = "×";
@@ -3608,6 +3625,19 @@ function showCase(caseId) {
 
     data.items.forEach(item => {
         const card = document.createElement("div");
+        if (item.id === "coin") {
+            // Монеты: просто квадрат с иконкой и числом под ней.
+            card.className = "item-card coin-card";
+            const coinImage = document.createElement("img");
+            coinImage.src = "coin.png";
+            coinImage.alt = item.name;
+            const amount = document.createElement("div");
+            amount.className = "coin-card-amount";
+            amount.textContent = Number(item.price || 0).toLocaleString("ru-RU");
+            card.append(coinImage, amount);
+            grid.appendChild(card);
+            return;
+        }
         card.className = "item-card " + item.rarity;
 
         const img = document.createElement("img");
