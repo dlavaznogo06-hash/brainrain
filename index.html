@@ -175,6 +175,7 @@ header {
     border-radius: 11px !important;
 }
 
+.case-section-title{margin:18px 5px 10px;color:#e9dcff;font-size:19px;font-weight:800;letter-spacing:.3px}.home-main .case-list+.case-section-title{margin-top:8px}@media(max-width:700px){.case-section-title{font-size:17px;margin:14px 5px 8px}}
 .free-case-box{max-width:420px;margin:12px auto 0;text-align:center}.free-case-box[hidden]{display:none}.free-case-status{margin:0 0 8px;color:#ffb347;font-size:14px;font-weight:800;line-height:1.45;white-space:pre-line}.free-case-status.ok{color:#8df2bd}.free-case-link{display:block;margin:0 0 10px;color:#ff9f2e;font-size:14px;font-weight:800;line-height:1.4;word-break:break-all;text-decoration:underline}.free-case-link[hidden]{display:none}.free-case-action{display:block;box-sizing:border-box;width:100%;margin:0 0 10px;padding:13px 14px;border:0;border-radius:12px!important;background:linear-gradient(180deg,#ff9f2e,#f27a0f);color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 0 14px #ff8a1f55}.free-case-action[hidden]{display:none}.free-case-action.share{letter-spacing:.5px}.free-case-action:disabled{opacity:.55;cursor:default}.free-price{font-size:12px!important;font-weight:700;opacity:.85}
 .coin-inline,.inventory-item img.coin-inline{display:inline-block!important;width:1.25em!important;height:1.25em!important;margin:0 0 0 .25em!important;vertical-align:-.25em;object-fit:contain}
 .coin-icon {
@@ -1400,13 +1401,16 @@ body.streamer-mode .stream-reveal {
             </aside>
             <div class="home-main">
                 <h1 class="page-title">Кейсы 💧</h1>
+                <h2 class="case-section-title">Бесплатный кейс 🎁</h2>
                 <div class="case-list">
             <div class="case-card free-case-card" onclick="showCase('subscription_case')">
                 <img src="subscription-case.png" alt="Кейс за подписку">
                 <h3>За подписку 🎁</h3>
                 <div class="price free-price">Открыть</div>
             </div>
-
+                </div>
+                <h2 class="case-section-title">Обычные кейсы</h2>
+                <div class="case-list">
             <div class="case-card" onclick="showCase('sea')">
                 <img src="sea-case.png" alt="Морской кейс">
                 <h3>Морской кейс 🌊</h3>
@@ -1472,7 +1476,9 @@ body.streamer-mode .stream-reveal {
                 <h3>Элитный кейс 💎</h3>
                 <div class="price">2500 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
-
+                </div>
+                <h2 class="case-section-title">Алл-ин 🎲</h2>
+                <div class="case-list">
             <div class="case-card" onclick="showCase('all')">
                 <img src="all-or-nothing.png" alt="Всё или ничего">
                 <h3>ВСЁ ИЛИ НИЧЕГО 🎲</h3>
