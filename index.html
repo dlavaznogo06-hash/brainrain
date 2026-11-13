@@ -1182,7 +1182,7 @@ main { padding: 12px 0 40px; }
 .upgrade-wheel-label.top{top:10px!important}.upgrade-wheel-label.right{right:10px!important}.upgrade-wheel-label.bottom{bottom:10px!important}.upgrade-wheel-label.left{left:10px!important}
 .upgrade-wheel-arrow-orbit{position:absolute;z-index:4;inset:0;border-radius:50%;pointer-events:none;transform:rotate(0deg);will-change:transform}.upgrade-wheel-pointer{position:absolute;top:-9px;left:50%;transform:translateX(-50%);color:#fff;font-size:23px;line-height:1;text-shadow:0 0 8px #fff}.upgrade-wheel-core{z-index:2;display:grid;place-items:center;align-content:center;width:230px;height:230px;aspect-ratio:1/1;border:0;border-radius:50%!important;clip-path:circle(50% at 50% 50%);background:rgba(52,24,92,.55);text-align:center;box-shadow:0 0 18px #1b0b3a99,inset 0 0 22px #7d4cd144}
 .upgrade-wheel-core strong{color:#37dc98;font-size:38px;font-weight:800;letter-spacing:-1px}.upgrade-wheel-core small{margin-top:5px;color:#8e9c9b;font-size:11px;letter-spacing:.2px}
-.upgrade-wheel.spinning{filter:drop-shadow(0 0 16px #a066ff) drop-shadow(0 0 30px #7d3cff88);animation:upgradePurpleGlow 1s ease-in-out infinite alternate}@keyframes upgradePurpleGlow{from{filter:drop-shadow(0 0 10px #8a4dff)}to{filter:drop-shadow(0 0 22px #c59bff) drop-shadow(0 0 38px #8a4dff99)}}.upgrade-wheel-label{position:absolute;z-index:3;color:#d5ded9;font-size:10px;font-weight:900;line-height:1;text-shadow:0 1px 4px #000;pointer-events:none}.upgrade-wheel-label.top{top:8px;left:50%;transform:translateX(-50%)}.upgrade-wheel-label.right{right:8px;top:50%;transform:translateY(-50%)}.upgrade-wheel-label.bottom{bottom:8px;left:50%;transform:translateX(-50%)}.upgrade-wheel-label.left{left:8px;top:50%;transform:translateY(-50%)}
+.upgrade-wheel.spinning{filter:drop-shadow(0 0 6px #8a4dff88);animation:upgradePurpleGlow 1.2s ease-in-out infinite alternate}@keyframes upgradePurpleGlow{from{filter:drop-shadow(0 0 4px #8a4dff66)}to{filter:drop-shadow(0 0 9px #a066ff88)}}.upgrade-wheel-label{position:absolute;z-index:3;color:#d5ded9;font-size:10px;font-weight:900;line-height:1;text-shadow:0 1px 4px #000;pointer-events:none}.upgrade-wheel-label.top{top:8px;left:50%;transform:translateX(-50%)}.upgrade-wheel-label.right{right:8px;top:50%;transform:translateY(-50%)}.upgrade-wheel-label.bottom{bottom:8px;left:50%;transform:translateX(-50%)}.upgrade-wheel-label.left{left:8px;top:50%;transform:translateY(-50%)}
 .upgrade-controls{display:block;margin:16px 0}.upgrade-preset-box{width:100%}
 .upgrade-preset-box{padding:12px;border:1px solid #80639e77;border-radius:13px;background:#ffffff08}
 .upgrade-coin-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;color:#d7c5e9;font-weight:800}
@@ -1286,6 +1286,7 @@ main { padding: 12px 0 40px; }
 .app-confirm-backdrop{display:none;position:fixed;inset:0;z-index:250;align-items:center;justify-content:center;padding:18px;background:#0a0410a8;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}.app-confirm-backdrop.active{display:flex}.app-confirm{box-sizing:border-box;width:min(100%,340px);padding:22px 18px 16px;border:1px solid #76539a;border-radius:22px!important;background:linear-gradient(145deg,#392653,#1c122b);box-shadow:0 20px 60px #000c;text-align:center}.app-confirm-text{margin-bottom:16px;color:#f4ecfa;font-size:16px;line-height:1.4;white-space:pre-line}.app-confirm-buttons{display:flex;gap:10px}.app-confirm-buttons button{flex:1;padding:12px 10px;border:1px solid #765894;border-radius:12px!important;background:#291b37;color:#d9c9e7;font-size:14px;font-weight:800;cursor:pointer}.app-confirm-buttons .app-confirm-ok{border-color:#a66bd6;background:linear-gradient(135deg,#7a46ad,#a259d6);color:#fff}
 .topup-quantity-total{min-height:20px;margin:8px auto 0;text-align:center;color:#ffd45c;font-size:13px;font-weight:800}
 .upgrade-wheel-pointer{color:#b58cff!important;text-shadow:0 0 8px #a066ff,0 0 14px #7d3cff!important}
+#upgradeWheelItemName{display:none!important}
 .upgrade-card h3{display:none}
 .upgrade-empty-slot,.upgrade-target-pick{color:#e6d6ff;font-size:15px;font-weight:800;letter-spacing:.3px}
 </style>
@@ -1470,6 +1471,12 @@ main { padding: 12px 0 40px; }
                 <div class="price">49 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('new_year_case')">
+                <img src="new-year-case.png" alt="Новогодний кейс">
+                <h3>Новогодний кейс 🎄</h3>
+                <div class="price">190 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('pair_case')">
                 <img src="pair-case.png" alt="Парный кейс">
                 <h3>Парный кейс 💞</h3>
@@ -1523,6 +1530,7 @@ main { padding: 12px 0 40px; }
             <div class="roulette-track hidden" id="basicCaseRoulette"></div>
             <div class="roulette-track hidden" id="losCaseRoulette"></div>
             <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
+            <div class="roulette-track hidden" id="newYearCaseRoulette"></div>
             <div class="roulette-track hidden" id="pairCaseRoulette"></div>
             <div class="roulette-track hidden" id="moneyCaseRoulette"></div>
             <div class="roulette-track hidden" id="eliteCaseRoulette"></div>
@@ -1950,6 +1958,17 @@ const moneyCaseItems = [
     {id:"cloverat-clapat", name:"Cloverat Clapat", image:"cloverat-clapat.png", price:250, rarity:"rarity-red"}
 ];
 
+const newYearCaseItems = [
+    {id:"los-jolly-combinasionas", name:"Los Jolly Combinasionas", image:"los-jolly-combinasionas.png", price:85, rarity:"rarity-blue"},
+    {id:"money-money-reindeer", name:"Money Money Reindeer", image:"money-money-reindeer.png", price:120, rarity:"rarity-purple"},
+    {id:"cooki-and-milki", name:"Cooki and Milki", image:"cooki-and-milki.png", price:129, rarity:"rarity-purple"},
+    {id:"jolly-jolly-sahur", name:"Jolly Jolly Sahur", image:"jolly-jolly-sahur.png", price:161, rarity:"rarity-purple"},
+    {id:"la-ginger-sekolah", name:"La Ginger Sekolah", image:"la-ginger-sekolah.png", price:170, rarity:"rarity-purple"},
+    {id:"festive-67", name:"Festive 67", image:"festive-67.png", price:199, rarity:"rarity-red"},
+    {id:"reinito-sleighito", name:"Reinito Sleighito", image:"reinito-sleighito.png", price:239, rarity:"rarity-red"},
+    {id:"dragon-gingerini", name:"Dragon Gingerini", image:"dragon-gingerini.png", price:5000, rarity:"rarity-red"}
+];
+
 const subscriptionCaseItems = [
     {id:"coin", name:"4 Coin", image:"coin.png", price:4, rarity:"rarity-blue"},
     {id:"quesadilla-crocodila", name:"Quesadilla Crocodila", image:"quesadilla-crocodila.png", price:5, rarity:"rarity-blue"},
@@ -2046,6 +2065,13 @@ const cases = {
         price:49,
         items:moneyCaseItems,
         roulette:"moneyCaseRoulette"
+    },
+    new_year_case: {
+        name:"Новогодний кейс 🎄",
+        image:"new-year-case.png",
+        price:190,
+        items:newYearCaseItems,
+        roulette:"newYearCaseRoulette"
     },
     pair_case: {
         name:"Парный кейс 💞",
@@ -2919,7 +2945,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems, ...moneyCaseItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems, ...moneyCaseItems, ...newYearCaseItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = ["skibidi-toilet", "john-pork", "meowl"].includes(item.id) ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
@@ -3405,7 +3431,7 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
     const alignment = (rollAngle - currentSector + 360) % 360;
     const turns = upgradeMode === "fast" ? 5 : 10;
     const finalRotation = currentRotation + turns * 360 + alignment;
-    const duration = upgradeMode === "fast" ? 4500 : 10000;
+    const duration = upgradeMode === "fast" ? 7000 : 14000;
 
     wheel.classList.add("spinning");
     return new Promise(resolve => {
@@ -3415,9 +3441,8 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
         const frame = timestamp => {
             if (startedAt === null) startedAt = timestamp;
             const progress = Math.min(1, (timestamp - startedAt) / duration);
-            const eased = progress < 0.5
-                ? 4 * progress * progress * progress
-                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+            // быстрый разгон и долгое плавное торможение в конце
+            const eased = 1 - Math.pow(1 - progress, 4.5);
             const angle = currentRotation + (finalRotation - currentRotation) * eased;
             arrow.style.transform = `rotate(${angle}deg)`;
 
