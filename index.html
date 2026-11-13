@@ -1103,7 +1103,7 @@ main { padding: 12px 0 40px; }
 
 @media (min-width: 600px) {
     .case-list {
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
         gap: 18px;
         padding-left: 20px;
         padding-right: 20px;
@@ -1127,7 +1127,7 @@ main { padding: 12px 0 40px; }
 
 @media (min-width: 1000px) {
     .case-list {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 22px;
         padding-left: 28px;
         padding-right: 28px;
@@ -1287,6 +1287,21 @@ main { padding: 12px 0 40px; }
 .topup-quantity-total{min-height:20px;margin:8px auto 0;text-align:center;color:#ffd45c;font-size:13px;font-weight:800}
 .upgrade-wheel-pointer{color:#b58cff!important;text-shadow:0 0 8px #a066ff,0 0 14px #7d3cff!important}
 #upgradeWheelItemName{display:none!important}
+.result-panel.result-multi{width:min(94vw,520px);max-height:92vh;overflow-y:auto;padding:16px 12px}
+.result-multi h2{font-size:20px;margin:0 0 12px}
+.result-multi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.result-multi-card{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:8px 4px;background:#2a1b3f;border:1px solid #594078;min-width:0}
+.result-multi-card img{width:100%;max-width:84px;height:64px;object-fit:contain}
+.result-multi-card h4{margin:0;font-size:12px;line-height:1.15;text-align:center;overflow-wrap:anywhere;color:#fff}
+.result-multi-card .rm-price{color:#ffd45c;font-size:12px;font-weight:800;white-space:nowrap}
+.result-multi-card button{width:100%;padding:6px 2px;font-size:12px;font-weight:800;border:0;background:#70409b;color:#fff;cursor:pointer}
+.result-multi-card button:disabled{opacity:.6}
+.result-multi-card.sold{opacity:.55}
+.result-multi .result-actions{display:flex;gap:8px}.result-multi .result-actions button{flex:1}
+.roulette-batch{gap:6px!important;margin:8px 0 10px!important}
+.roulette-batch .roulette-window{height:54px!important}
+.roulette-batch .roulette-item{width:68px!important;height:44px!important;flex-basis:68px!important}
+.roulette-batch .roulette-item img{width:52px!important;height:38px!important}
 .upgrade-card h3{display:none}
 .upgrade-empty-slot,.upgrade-target-pick{color:#e6d6ff;font-size:15px;font-weight:800;letter-spacing:.3px}
 </style>
@@ -1401,111 +1416,111 @@ main { padding: 12px 0 40px; }
             </aside>
             <div class="home-main">
                 <h1 class="page-title">Кейсы 💧</h1>
-                <h2 class="case-section-title">Бесплатный кейс 🎁</h2>
+                <h2 class="case-section-title">Бесплатный кейс</h2>
                 <div class="case-list">
             <div class="case-card free-case-card" onclick="showCase('subscription_case')">
+                <h3>За подписку</h3>
                 <img src="subscription-case.png" alt="Кейс за подписку">
-                <h3>За подписку 🎁</h3>
                 <div class="price free-price">Открыть</div>
             </div>
                 </div>
                 <h2 class="case-section-title">Обычные кейсы</h2>
                 <div class="case-list">
             <div class="case-card" onclick="showCase('sea')">
+                <h3>Морской кейс</h3>
                 <img src="sea-case.png" alt="Морской кейс">
-                <h3>Морской кейс 🌊</h3>
                 <div class="price">99 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('impact')">
+                <h3>Ударный кейс</h3>
                 <img src="impact-case.png" alt="Ударный кейс">
-                <h3>Ударный кейс 👊</h3>
                 <div class="price">12 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('admin_case')">
+                <h3>АДМИН КЕЙС</h3>
                 <img src="admin-case.png" alt="Админ кейс">
-                <h3>АДМИН КЕЙС 👑</h3>
                 <div class="price">7 777 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('craft_machine')">
+                <h3>КРАФТ МАШИНА</h3>
                 <img src="craft-machine-case.png" alt="Крафт машина">
-                <h3>КРАФТ МАШИНА ⚙️</h3>
                 <div class="price">229 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('basic_case')">
+                <h3>БАЗОВЫЙ</h3>
                 <img src="basic-case.png" alt="Базовый кейс">
-                <h3>БАЗОВЫЙ 🧱</h3>
                 <div class="price">9 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('los_case')">
+                <h3>Кейс Лосы</h3>
                 <img src="los-case.png" alt="Кейс Лосы">
-                <h3>Кейс Лосы 🧑‍🤝‍🧑</h3>
                 <div class="price">79 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('blue_case')">
+                <h3>Синий кейс</h3>
                 <img src="blue-case.png" alt="Синий кейс">
-                <h3>Синий кейс 🔵</h3>
                 <div class="price">111 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('red_case')">
+                <h3>Красный кейс</h3>
                 <img src="red-case.png" alt="Красный кейс">
-                <h3>Красный кейс 🔴</h3>
                 <div class="price">159 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('lucky_blocks')">
+                <h3>LUCKY BLOCKS</h3>
                 <img src="lucky-blocks-case.png" alt="Lucky Blocks">
-                <h3>LUCKY BLOCKS 🍀</h3>
                 <div class="price">5 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('money_case')">
+                <h3>Денежный кейс</h3>
                 <img src="money-case.png" alt="Денежный кейс">
-                <h3>Денежный кейс 💵</h3>
                 <div class="price">49 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('new_year_case')">
+                <h3>Новогодний кейс</h3>
                 <img src="new-year-case.png" alt="Новогодний кейс">
-                <h3>Новогодний кейс 🎄</h3>
                 <div class="price">190 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('pair_case')">
+                <h3>Парный кейс</h3>
                 <img src="pair-case.png" alt="Парный кейс">
-                <h3>Парный кейс 💞</h3>
                 <div class="price">99 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('elite_case')">
+                <h3>Элитный кейс</h3>
                 <img src="elite-case.png" alt="Элитный кейс">
-                <h3>Элитный кейс 💎</h3>
                 <div class="price">2500 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
                 </div>
-                <h2 class="case-section-title">Алл-ин 🎲</h2>
+                <h2 class="case-section-title">Алл-ин</h2>
                 <div class="case-list">
             <div class="case-card" onclick="showCase('all')">
+                <h3>ВСЁ ИЛИ НИЧЕГО</h3>
                 <img src="all-or-nothing.png" alt="Всё или ничего">
-                <h3>ВСЁ ИЛИ НИЧЕГО 🎲</h3>
                 <div class="price">499 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('skibidi_all_in')">
+                <h3>СКИБИДИ ALL IN</h3>
                 <img src="skibidi-all-in-case.png" alt="Скибиди ALL IN">
-                <h3>СКИБИДИ ALL IN 🚽</h3>
                 <div class="price">14 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('john_pork_all_in')">
+                <h3>JOHN PORK ALL IN</h3>
                 <img src="john-pork-case.png" alt="John Pork ALL IN">
-                <h3>JOHN PORK ALL IN 🐷</h3>
                 <div class="price">14 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
                 </div>
@@ -1989,7 +2004,7 @@ const subscriptionCaseItems = [
 
 const cases = {
     subscription_case: {
-        name:"За подписку 🎁",
+        name:"За подписку",
         image:"subscription-case.png",
         price:0,
         free:true,
@@ -1997,112 +2012,112 @@ const cases = {
         roulette:"subscriptionCaseRoulette"
     },
     sea: {
-        name:"Морской кейс 🌊",
+        name:"Морской кейс",
         image:"sea-case.png",
         price:99,
         items:seaItems,
         roulette:"seaRoulette"
     },
     impact: {
-        name:"Ударный кейс 👊",
+        name:"Ударный кейс",
         image:"impact-case.png",
         price:12,
         items:impactItems,
         roulette:"impactRoulette"
     },
     red_case: {
-        name:"Красный кейс 🔴",
+        name:"Красный кейс",
         image:"red-case.png",
         price:159,
         items:redCaseItems,
         roulette:"redCaseRoulette"
     },
     admin_case: {
-        name:"АДМИН КЕЙС 👑",
+        name:"АДМИН КЕЙС",
         image:"admin-case.png",
         price:7777,
         items:adminCaseItems,
         roulette:"adminCaseRoulette"
     },
     craft_machine: {
-        name:"КРАФТ МАШИНА ⚙️",
+        name:"КРАФТ МАШИНА",
         image:"craft-machine-case.png",
         price:229,
         items:craftMachineItems,
         roulette:"craftMachineRoulette"
     },
     basic_case: {
-        name:"БАЗОВЫЙ 🧱",
+        name:"БАЗОВЫЙ",
         image:"basic-case.png",
         price:9,
         items:basicCaseItems,
         roulette:"basicCaseRoulette"
     },
     los_case: {
-        name:"Кейс Лосы 🧑‍🤝‍🧑",
+        name:"Кейс Лосы",
         image:"los-case.png",
         price:79,
         items:losCaseItems,
         roulette:"losCaseRoulette"
     },
     blue_case: {
-        name:"Синий кейс 🔵",
+        name:"Синий кейс",
         image:"blue-case.png",
         price:111,
         items:blueCaseItems,
         roulette:"blueCaseRoulette"
     },
     lucky_blocks: {
-        name:"LUCKY BLOCKS 🍀",
+        name:"LUCKY BLOCKS",
         image:"lucky-blocks-case.png",
         price:5,
         items:luckyBlocksItems,
         roulette:"luckyBlocksRoulette"
     },
     money_case: {
-        name:"Денежный кейс 💵",
+        name:"Денежный кейс",
         image:"money-case.png",
         price:49,
         items:moneyCaseItems,
         roulette:"moneyCaseRoulette"
     },
     new_year_case: {
-        name:"Новогодний кейс 🎄",
+        name:"Новогодний кейс",
         image:"new-year-case.png",
         price:190,
         items:newYearCaseItems,
         roulette:"newYearCaseRoulette"
     },
     pair_case: {
-        name:"Парный кейс 💞",
+        name:"Парный кейс",
         image:"pair-case.png",
         price:99,
         items:pairItems,
         roulette:"pairCaseRoulette"
     },
     elite_case: {
-        name:"Элитный кейс 💎",
+        name:"Элитный кейс",
         image:"elite-case.png",
         price:2500,
         items:eliteItems,
         roulette:"eliteCaseRoulette"
     },
     all: {
-        name:"ВСЁ ИЛИ НИЧЕГО 🎲",
+        name:"ВСЁ ИЛИ НИЧЕГО",
         image:"all-or-nothing.png",
         price:499,
         items:allItems,
         roulette:"allRoulette"
     },
     skibidi_all_in: {
-        name:"СКИБИДИ ALL IN 🚽",
+        name:"СКИБИДИ ALL IN",
         image:"skibidi-all-in-case.png",
         price:14,
         items:skibidiAllInItems,
         roulette:"skibidiAllInRoulette"
     },
     john_pork_all_in: {
-        name:"JOHN PORK ALL IN 🐷",
+        name:"JOHN PORK ALL IN",
         image:"john-pork-case.png",
         price:14,
         items:johnPorkAllInItems,
@@ -2431,7 +2446,7 @@ const STREAMER_SELECTOR = [
     ".profile-avatar", "#promoInput", "#promoMessage", ".topup-nick-input", ".topup-summary",
     // цены кейсов и то, что из них выпало
     ".case-card .price", ".case-card h3", "#detailName", "#detailPrice", "#caseQuantityTotal", ".case-item-price", ".item-card h4",
-    "#resultName", "#resultPrice", ".live-drop-name", ".daily-drop-value",
+    "#resultName", "#resultPrice", ".result-multi-card h4", ".result-multi-card .rm-price", ".live-drop-name", ".daily-drop-value",
     // апгрейдер: все надписи и кнопки
     "#upgraderPage h2", "#upgraderPage h3", "#upgraderPage .upgrade-mode button",
     "#upgraderPage .upgrade-selected-row > span", "#upgraderPage .upgrade-target-pick",
@@ -4170,12 +4185,17 @@ async function openCase() {
         if (rewards.length > 1) await animateMultipleRoulettes(rewards);
         else await animateRoulette(visualCaseItem(rewards[0].item));
 
-        caseResultQueue = rewards.map(reward => ({
-            inventoryId:reward.inventoryId,
-            item:reward.item,
-            isCoinReward:reward.item.id === "coin" || reward.item.itemId === "coin"
-        }));
-        await showNextCaseResult();
+        if (rewards.length > 1) {
+            caseResultQueue = [];
+            await showMultiCaseResults(rewards);
+        } else {
+            caseResultQueue = rewards.map(reward => ({
+                inventoryId:reward.inventoryId,
+                item:reward.item,
+                isCoinReward:reward.item.id === "coin" || reward.item.itemId === "coin"
+            }));
+            await showNextCaseResult();
+        }
     } catch (error) {
         showToast(error.message || "Что-то пошло не так. Попробуй ещё раз.");
         await loadBalance();
@@ -4240,6 +4260,98 @@ async function sellResult() {
     } finally {
         button.disabled = false;
     }
+}
+
+/* ВСЕ ВЫПАВШИЕ ПРЕДМЕТЫ НА ОДНОМ ЭКРАНЕ (кейсы ×3 и ×5) */
+
+async function showMultiCaseResults(rewards) {
+    await new Promise(resolve => setTimeout(resolve, 400));
+    const backdrop = document.createElement("div");
+    backdrop.className = "result-backdrop active";
+    const panel = document.createElement("div");
+    panel.className = "result-panel result-multi";
+    const title = document.createElement("h2");
+    title.textContent = "ТВОЙ ВЫИГРЫШ!";
+    const grid = document.createElement("div");
+    grid.className = "result-multi-grid";
+    const cards = [];
+
+    rewards.forEach(reward => {
+        const item = reward.item;
+        const isCoin = item.id === "coin" || item.itemId === "coin";
+        const visual = visualCaseItem(item);
+        const card = document.createElement("div");
+        card.className = "result-multi-card";
+        const image = document.createElement("img");
+        image.src = isCoin ? "coin.png" : visual.image;
+        image.alt = visual.name;
+        const name = document.createElement("h4");
+        name.textContent = isCoin ? Number(reward.coinReward ?? item.sell ?? item.price ?? 0).toLocaleString("ru-RU") : visual.name;
+        card.append(image, name);
+        const entry = {reward, card, sold:false, sellButton:null, canSell:false};
+        if (!isCoin && reward.inventoryId) {
+            const price = document.createElement("div");
+            price.className = "rm-price";
+            setCoinText(price, `${item.sell ?? item.price ?? 0} Coin`);
+            const sell = document.createElement("button");
+            sell.type = "button";
+            sell.textContent = "Продать";
+            sell.onclick = () => sellOne(entry);
+            card.append(price, sell);
+            entry.sellButton = sell;
+            entry.canSell = true;
+        }
+        cards.push(entry);
+        grid.appendChild(card);
+    });
+
+    async function sellOne(entry) {
+        if (entry.sold || !entry.canSell) return;
+        entry.sellButton.disabled = true;
+        try {
+            const data = await apiPost("/api/sell-item", {itemId:entry.reward.inventoryId});
+            playerBalance = data.balance;
+            updateBalance();
+            entry.sold = true;
+            entry.sellButton.textContent = "Продано";
+            entry.card.classList.add("sold");
+        } catch (error) {
+            entry.sellButton.disabled = false;
+            showToast(error.message || "Что-то пошло не так. Попробуй ещё раз.");
+        }
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "result-actions";
+    const keepAll = document.createElement("button");
+    keepAll.type = "button";
+    keepAll.textContent = "Оставить всё";
+    const sellAll = document.createElement("button");
+    sellAll.type = "button";
+    sellAll.className = "sell-result";
+    sellAll.textContent = "Продать всё";
+    actions.append(keepAll, sellAll);
+    panel.append(title, grid, actions);
+    backdrop.appendChild(panel);
+    document.body.appendChild(backdrop);
+    vibrate("success");
+
+    await new Promise(resolve => {
+        const close = async () => {
+            backdrop.remove();
+            await loadInventory();
+            resolve();
+        };
+        keepAll.onclick = close;
+        sellAll.onclick = async () => {
+            sellAll.disabled = true;
+            keepAll.disabled = true;
+            for (const entry of cards) await sellOne(entry);
+            keepAll.disabled = false;
+            if (cards.every(entry => entry.sold || !entry.canSell)) await close();
+            else sellAll.disabled = false;
+        };
+    });
 }
 
 /* ИНВЕНТАРЬ */
