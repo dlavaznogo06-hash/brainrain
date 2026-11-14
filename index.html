@@ -1307,6 +1307,12 @@ main { padding: 12px 0 40px; }
 .case-card > img{filter:drop-shadow(0 0 7px rgba(170,110,255,.5))}
 .case-card .price{justify-content:center;width:100%}
 .case-name,#detailName{text-transform:uppercase;text-align:center}
+.upgrade-mode{display:flex!important;justify-content:flex-end;border:0!important;background:none!important;padding:0!important;margin:10px 0 14px!important}
+.upgrade-mode .upgrade-speed-switch{display:flex;align-items:center;gap:10px;min-height:0;padding:4px 0;border:0!important;background:none!important;box-shadow:none!important;color:#d7c5e9;font-weight:800;font-size:14px;cursor:pointer;border-radius:0!important}
+.upgrade-speed-track{position:relative;width:46px;height:24px;background:#5a5a62;border-radius:0!important;transition:background .2s ease;flex:none}
+.upgrade-speed-knob{position:absolute;top:3px;left:3px;width:18px;height:18px;background:#e8e8ee;border-radius:0!important;transition:transform .2s ease}
+.upgrade-speed-switch.on .upgrade-speed-track{background:#8a4dff}
+.upgrade-speed-switch.on .upgrade-speed-knob{transform:translateX(22px)}
 .upgrade-card h3{display:none}
 .upgrade-empty-slot,.upgrade-target-pick{color:#e6d6ff;font-size:15px;font-weight:800;letter-spacing:.3px}
 </style>
@@ -1731,8 +1737,10 @@ main { padding: 12px 0 40px; }
     <section class="upgrader-page" id="upgraderPage">
 
     <div class="upgrade-mode" role="group" aria-label="Режим апгрейда">
-        <button type="button" class="active" data-upgrade-mode="normal" onclick="setUpgradeMode('normal')">✦ Обычно</button>
-        <button type="button" data-upgrade-mode="fast" onclick="setUpgradeMode('fast')">ϟ Быстро</button>
+        <button type="button" class="upgrade-speed-switch" id="upgradeSpeedSwitch" role="switch" aria-checked="false" onclick="setUpgradeMode(upgradeMode === 'fast' ? 'normal' : 'fast')">
+            <span class="upgrade-speed-label">Быстро</span>
+            <span class="upgrade-speed-track"><span class="upgrade-speed-knob"></span></span>
+        </button>
     </div>
 
     <div class="upgrade-layout">
@@ -3175,9 +3183,11 @@ function getUpgradeStakeTotal() {
 
 function setUpgradeMode(mode) {
     upgradeMode = mode === "fast" ? "fast" : "normal";
-    document.querySelectorAll("[data-upgrade-mode]").forEach(button => {
-        button.classList.toggle("active", button.dataset.upgradeMode === upgradeMode);
-    });
+    const speedSwitch = document.getElementById("upgradeSpeedSwitch");
+    if (speedSwitch) {
+        speedSwitch.classList.toggle("on", upgradeMode === "fast");
+        speedSwitch.setAttribute("aria-checked", upgradeMode === "fast" ? "true" : "false");
+    }
 }
 
 async function showUpgrader() {
@@ -3440,6 +3450,26 @@ function playUpgradeTick() {
         console.warn("Upgrade tick failed", error);
     }
 }
+function makeBezierEase(x1, y1, x2, y2) {
+    const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+    const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+    const sampleX = t => ((ax * t + bx) * t + cx) * t;
+    const sampleY = t => ((ay * t + by) * t + cy) * t;
+    return x => {
+        if (x <= 0) return 0;
+        if (x >= 1) return 1;
+        let lo = 0, hi = 1, t = x;
+        for (let i = 0; i < 40; i++) {
+            const value = sampleX(t);
+            if (Math.abs(value - x) < 1e-5) break;
+            if (value < x) lo = t; else hi = t;
+            t = (lo + hi) / 2;
+        }
+        return sampleY(t);
+    };
+}
+const upgradeEase = makeBezierEase(.5, 0, .2, 1);
+
 async function animateUpgradeWheel(serverRoll, chance, success) {
     const wheel = document.getElementById("upgradeWheel");
     const arrow = document.getElementById("upgradeWheelArrow");
@@ -3461,8 +3491,8 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
         const frame = timestamp => {
             if (startedAt === null) startedAt = timestamp;
             const progress = Math.min(1, (timestamp - startedAt) / duration);
-            // быстрый разгон и долгое плавное торможение в конце
-            const eased = 1 - Math.pow(1 - progress, 4.5);
+            // медленный старт, потом разгон и долгое плавное торможение
+            const eased = upgradeEase(progress);
             const angle = currentRotation + (finalRotation - currentRotation) * eased;
             arrow.style.transform = `rotate(${angle}deg)`;
 
@@ -3827,7 +3857,7 @@ function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers =
 
         void track.offsetWidth;
 
-        const spinDuration = 9000;
+        const spinDuration = 11000;
         const animation = track.animate(
             [
                 { transform: "translateX(0px)" },
@@ -3835,7 +3865,7 @@ function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers =
             ],
             {
                 duration: spinDuration,
-                easing: "cubic-bezier(.42,0,.58,1)",
+                easing: "cubic-bezier(.3,0,.12,1)",
                 fill: "forwards"
             }
         );
@@ -3864,7 +3894,7 @@ function animateRoulette(winningItem, providedTrack = null, sharedSkipHandlers =
             if (finished) return;
             const current = Number(animation.currentTime) || 0;
             const remaining = Math.max(1, spinDuration - current);
-            const rate = Math.max(1, remaining / 350);
+            const rate = Math.max(1, remaining / 1300);
             if (skipButton) {
                 skipButton.disabled = true;
                 skipButton.textContent = "Завершаем…";
