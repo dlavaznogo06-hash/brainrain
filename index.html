@@ -4524,6 +4524,8 @@ const EXCHANGE_TARGETS = [
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950}
 ];
 const EXCHANGE_MIN_PRICE = 20;
+const EXCHANGE_MAX_TOPUP = 300;
+const EXCHANGE_MAX_QUANTITY = 4;
 const WITHDRAWABLE_IDS = EXCHANGE_TARGETS.map(target => target.id);
 
 function openExchangeMenu(item) {
@@ -4563,8 +4565,23 @@ function openExchangeMenu(item) {
     hint.textContent = "Выводить можно только Гараму и Дракона. Обменяй предмет по разнице цен:";
     panel.append(closeButton, title, own, hint);
 
+    // Варианты обмена: Гарама ×1…×4 и Дракон, только если доплата не больше 300 Coin.
+    const options = [];
     EXCHANGE_TARGETS.forEach(target => {
-        const diff = price - target.price;
+        for (let quantity = 1; quantity <= EXCHANGE_MAX_QUANTITY; quantity++) {
+            const diff = price - target.price * quantity;
+            if (diff < -EXCHANGE_MAX_TOPUP) continue;
+            if (quantity > 1 && diff < 0) continue;
+            options.push({target, quantity, diff});
+        }
+    });
+    if (!options.length) {
+        const none = document.createElement("div");
+        none.className = "exchange-hint";
+        none.textContent = "Для этого предмета обмен недоступен.";
+        panel.appendChild(none);
+    }
+    options.forEach(({target, quantity, diff}) => {
         const row = document.createElement("button");
         row.type = "button";
         row.className = "exchange-option";
@@ -4573,7 +4590,7 @@ function openExchangeMenu(item) {
         image.alt = target.name;
         const text = document.createElement("span");
         const name = document.createElement("strong");
-        name.textContent = `Обменять на ${target.name}`;
+        name.textContent = `Обменять на ${quantity > 1 ? quantity + " × " : ""}${target.name}`;
         const note = document.createElement("span");
         note.className = "exchange-note";
         let blocked = "";
@@ -4589,11 +4606,11 @@ function openExchangeMenu(item) {
         row.onclick = async () => {
             row.disabled = true;
             try {
-                const data = await apiPost("/api/exchange-item", {itemId:item.id, target:target.id});
+                const data = await apiPost("/api/exchange-item", {itemId:item.id, target:target.id, quantity});
                 playerBalance = Number(data.balance ?? playerBalance);
                 updateBalance();
                 close();
-                showToast(`Обмен выполнен: ${target.name}. Теперь его можно вывести.`, "info");
+                showToast(`Обмен выполнен. Теперь можно вывести.`, "info");
                 vibrate("success");
                 await loadInventory();
             } catch (error) {
