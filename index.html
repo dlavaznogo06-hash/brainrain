@@ -4572,13 +4572,15 @@ function openExchangeMenu(item) {
             const diff = price - target.price * quantity;
             if (diff < -EXCHANGE_MAX_TOPUP) continue;
             if (quantity > 1 && diff < 0) continue;
+            if (price < EXCHANGE_MIN_PRICE) continue;
+            if (diff < 0 && Number(playerBalance) < -diff) continue;
             options.push({target, quantity, diff});
         }
     });
     if (!options.length) {
         const none = document.createElement("div");
         none.className = "exchange-hint";
-        none.textContent = "Для этого предмета обмен недоступен.";
+        none.textContent = "На данный момент вывод этого предмета недоступен.";
         panel.appendChild(none);
     }
     options.forEach(({target, quantity, diff}) => {
