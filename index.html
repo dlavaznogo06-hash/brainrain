@@ -1307,7 +1307,7 @@ main { padding: 12px 0 40px; }
 .case-card > img{filter:drop-shadow(0 0 7px rgba(170,110,255,.5))}
 .case-card .price{justify-content:center;width:100%}
 /* Стиль карточки кейса: тёмная карточка, крупная картинка, название, цена в плашке */
-.case-card{background:linear-gradient(180deg,#1b1230,#120b22)!important;border:1px solid #4a3568!important;border-radius:14px!important;padding:14px 12px 12px!important}
+.case-card{background:linear-gradient(180deg,rgba(27,18,48,.78),rgba(18,11,34,.78))!important;border:1px solid #4a3568!important;border-radius:14px!important;padding:14px 12px 12px!important}
 .case-card > img{order:1;height:clamp(110px,30vw,170px);margin:2px 0 4px}
 .case-card h3{order:2;min-height:0!important;margin:10px 0 12px!important;font-size:clamp(13px,3.6vw,17px)!important;letter-spacing:.3px}
 .case-card .price{order:3;width:100%;margin-top:auto;padding:10px 8px;background:#0c0716;border:1px solid #3d2c58;border-radius:12px!important;color:#ffd45c;font-size:16px;font-weight:900;gap:7px}
@@ -1332,12 +1332,15 @@ main { padding: 12px 0 40px; }
 .exchange-option img{width:48px;height:48px;object-fit:contain;flex:none}
 .exchange-option strong{display:block;font-size:14px}
 .exchange-note{display:block;color:#ffd45c;font-size:12px;margin-top:3px}
+.logo.logo-home{pointer-events:auto!important;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#fallingBackground{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
 .upgrade-card h3{display:none}
 .upgrade-empty-slot,.upgrade-target-pick{color:#e6d6ff;font-size:15px;font-weight:800;letter-spacing:.3px}
 </style>
 </head>
 
 <body>
+<canvas id="fallingBackground" aria-hidden="true"></canvas>
 
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 
@@ -1354,7 +1357,7 @@ main { padding: 12px 0 40px; }
 <header>
     <div class="header-left">
         <button class="menu-button" onclick="toggleMenu()" aria-label="Открыть меню">☰</button>
-        <img class="logo" src="logotipe.png" alt="BrainRain">
+        <img class="logo logo-home" src="logotipe.png" alt="BrainRain" onclick="showHome()" role="link" tabindex="0">
     </div>
 
     <nav class="desktop-nav">
@@ -4691,6 +4694,69 @@ updateBalance();
 showHome();
 setInterval(loadLiveDrops, 7000);
 loadBalance();
+
+/* Фон: маленькие серые снежинки и молнии падают за карточками */
+(function startFallingBackground() {
+    const canvas = document.getElementById("fallingBackground");
+    if (!canvas || !canvas.getContext) return;
+    try { if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return; } catch (error) {}
+    const context = canvas.getContext("2d");
+    const symbols = ["\u2744\uFE0E", "\u26A1\uFE0E"];
+    let width = 0, height = 0, particles = [], running = true;
+
+    function resize() {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.round(width * ratio);
+        canvas.height = Math.round(height * ratio);
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        const count = Math.max(22, Math.min(46, Math.round(width / 14)));
+        while (particles.length < count) particles.push(makeParticle(true));
+        particles.length = count;
+    }
+
+    function makeParticle(anywhere) {
+        return {
+            x: Math.random() * (width || 400),
+            y: anywhere ? Math.random() * (height || 800) : -20,
+            size: 12 + Math.random() * 10,
+            speed: 18 + Math.random() * 32,
+            drift: (Math.random() - 0.5) * 14,
+            phase: Math.random() * 6.28,
+            symbol: symbols[Math.random() < 0.6 ? 0 : 1],
+            alpha: 0.4 + Math.random() * 0.35
+        };
+    }
+
+    let last = performance.now();
+    function frame(now) {
+        if (!running) return;
+        const dt = Math.min(0.05, (now - last) / 1000);
+        last = now;
+        context.clearRect(0, 0, width, height);
+        for (const p of particles) {
+            p.y += p.speed * dt;
+            p.phase += dt;
+            p.x += (p.drift + Math.sin(p.phase) * 10) * dt;
+            if (p.y > height + 20) Object.assign(p, makeParticle(false), {x: Math.random() * width});
+            context.globalAlpha = p.alpha;
+            context.fillStyle = "#9a9aa6";
+            context.font = p.size + "px sans-serif";
+            context.fillText(p.symbol, p.x, p.y);
+        }
+        context.globalAlpha = 1;
+        requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    document.addEventListener("visibilitychange", () => {
+        running = !document.hidden;
+        if (running) { last = performance.now(); requestAnimationFrame(frame); }
+    });
+    requestAnimationFrame(frame);
+})();
 </script>
 
 </body>
