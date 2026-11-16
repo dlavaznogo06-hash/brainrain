@@ -1306,6 +1306,11 @@ main { padding: 12px 0 40px; }
 .case-card h3{text-transform:uppercase;text-align:center;width:100%;display:flex;align-items:center;justify-content:center}
 .case-card > img{filter:drop-shadow(0 0 7px rgba(170,110,255,.5))}
 .case-card .price{justify-content:center;width:100%}
+/* Стиль карточки кейса: тёмная карточка, крупная картинка, название, цена в плашке */
+.case-card{background:linear-gradient(180deg,#1b1230,#120b22)!important;border:1px solid #4a3568!important;border-radius:14px!important;padding:14px 12px 12px!important}
+.case-card > img{order:1;height:clamp(110px,30vw,170px);margin:2px 0 4px}
+.case-card h3{order:2;min-height:0!important;margin:10px 0 12px!important;font-size:clamp(13px,3.6vw,17px)!important;letter-spacing:.3px}
+.case-card .price{order:3;width:100%;margin-top:auto;padding:10px 8px;background:#0c0716;border:1px solid #3d2c58;border-radius:12px!important;color:#ffd45c;font-size:16px;font-weight:900;gap:7px}
 .case-name,#detailName{text-transform:uppercase;text-align:center}
 .upgrade-mode{display:flex!important;justify-content:flex-end;border:0!important;background:none!important;padding:0!important;margin:10px 0 14px!important}
 .upgrade-mode .upgrade-speed-switch{display:flex;align-items:center;gap:10px;min-height:0;padding:4px 0;border:0!important;background:none!important;box-shadow:none!important;color:#d7c5e9;font-weight:800;font-size:14px;cursor:pointer;border-radius:0!important}
@@ -4524,7 +4529,7 @@ const EXCHANGE_TARGETS = [
     {id:"garama-and-madundung", name:"Garama and Madundung", image:"garama-and-madundung.png", price:55},
     {id:"dragon-caneloni", name:"Dragon Caneloni", image:"dragon-caneloni.png", price:950}
 ];
-const EXCHANGE_MIN_PRICE = 20;
+const EXCHANGE_MIN_PRICE = 25;
 const EXCHANGE_MAX_TOPUP = 300;
 const EXCHANGE_MAX_QUANTITY = 4;
 const WITHDRAWABLE_IDS = EXCHANGE_TARGETS.map(target => target.id);
@@ -4571,7 +4576,6 @@ function openExchangeMenu(item) {
     EXCHANGE_TARGETS.forEach(target => {
         for (let quantity = 1; quantity <= EXCHANGE_MAX_QUANTITY; quantity++) {
             const diff = price - target.price * quantity;
-            if (diff < -EXCHANGE_MAX_TOPUP) continue;
             if (quantity > 1 && diff < 0) continue;
             if (price < EXCHANGE_MIN_PRICE) continue;
             if (diff < 0 && Number(playerBalance) < -diff) continue;
@@ -4614,9 +4618,9 @@ function openExchangeMenu(item) {
                 playerBalance = Number(data.balance ?? playerBalance);
                 updateBalance();
                 close();
-                showToast(`Обмен выполнен. Теперь можно вывести.`, "info");
                 vibrate("success");
                 await loadInventory();
+                openWithdraw();
             } catch (error) {
                 row.disabled = false;
                 showToast(error.message || "Не удалось обменять. Попробуй ещё раз.");
