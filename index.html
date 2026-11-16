@@ -20,7 +20,7 @@
 }
 
 body {
-    background: radial-gradient(circle at top, #392052 0%, #1b102b 48%, #0c0714 100%);
+    background: radial-gradient(circle at top, #2c1941 0%, #140b21 48%, #070410 100%);
     color: white;
     min-height: 100vh;
     overflow-x: hidden;
@@ -37,7 +37,7 @@ header {
     gap: 16px;
     position: relative;
     z-index: 5;
-    background: linear-gradient(90deg, #1b102b, #302044, #1b102b);
+    background: linear-gradient(90deg, #130a1f, #241633, #130a1f);
     border-bottom: 1px solid #65477e;
 }
 
@@ -4711,7 +4711,7 @@ loadBalance();
         canvas.width = Math.round(width * ratio);
         canvas.height = Math.round(height * ratio);
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        const count = Math.max(22, Math.min(46, Math.round(width / 14)));
+        const count = Math.max(9, Math.min(18, Math.round(width / 32)));
         while (particles.length < count) particles.push(makeParticle(true));
         particles.length = count;
     }
