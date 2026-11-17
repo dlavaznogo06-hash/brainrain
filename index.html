@@ -1343,7 +1343,7 @@ main { padding: 12px 0 40px; }
 .case-section-title.title-blue{background:linear-gradient(90deg,#1fa8ff,#1560d9);box-shadow:0 0 6px #1fa8ff44;text-shadow:none}
 .page-title{color:#b57cff!important;text-shadow:0 0 5px #8a4dff44}
 /* Баннер «Лучший дроп дня» вверху кейсов */
-.promo-banner{position:relative;display:block;margin:12px 16px 6px;padding:14px 14px 12px;min-height:170px;overflow:hidden;color:#fff;background:#0c1626 url("promobanner.png") right center/cover no-repeat;border:1px solid #1f3a5a;border-radius:0!important;box-shadow:inset 0 0 40px rgba(10,20,40,.55)}
+.promo-banner{position:relative;display:block;margin:10px 4px 8px;padding:14px 14px 12px;min-height:170px;overflow:hidden;color:#fff;background:#0c1626 url("promobanner.png") right center/cover no-repeat;border:1px solid #1f3a5a;border-radius:0!important;box-shadow:inset 0 0 40px rgba(10,20,40,.55)}
 .promo-banner[hidden]{display:none}
 .promo-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,14,26,.88) 0%,rgba(7,14,26,.55) 55%,rgba(7,14,26,.1) 100%);pointer-events:none}
 .promo-banner>*{position:relative;z-index:1}
@@ -1357,7 +1357,7 @@ main { padding: 12px 0 40px; }
 .promo-banner-copy{flex:none;width:48px;display:flex;align-items:center;justify-content:center;border:0;border-left:1px solid #2a4a70;background:#16304f;color:#fff;cursor:pointer;border-radius:0!important}
 .promo-banner-copy:active{background:#1e4a7a}
 @media (min-width:701px){
-.promo-banner{margin:12px 14px 12px 14px;min-height:270px;padding:34px 36px;background-position:center right}
+.promo-banner{margin:0 0 14px 0;min-height:270px;padding:34px 36px;background-position:center right}
 .promo-banner:before{background:linear-gradient(90deg,rgba(6,12,22,.92) 0%,rgba(6,12,22,.6) 38%,rgba(6,12,22,0) 70%)}
 .promo-banner-top{justify-content:flex-start;gap:14px;font-size:14px}
 .promo-banner-percent{margin-top:22px;font-size:54px}
@@ -1516,20 +1516,6 @@ main { padding: 12px 0 40px; }
             </div>
         </div>
         <div class="live-strip" id="liveStrip" aria-label="Последние выпадения"></div>
-        <section class="promo-banner" id="promoBanner" hidden aria-label="Промокод на депозит">
-            <div class="promo-banner-top">
-                <span class="promo-banner-title">Промокод на депозит</span>
-                <span class="promo-banner-timer" id="promoBannerTimer">--:--:--</span>
-            </div>
-            <div class="promo-banner-percent"><span id="promoBannerPercent">+0%</span> <small>к пополнению</small></div>
-            <div class="promo-banner-note" id="promoBannerNote"></div>
-            <div class="promo-banner-code">
-                <div class="promo-banner-code-text" id="promoBannerCode">------</div>
-                <button type="button" class="promo-banner-copy" id="promoBannerCopy" aria-label="Скопировать промокод" onclick="copyDepositPromo()">
-                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="8" y="8" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5h10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-                </button>
-            </div>
-        </section>
         <div class="home-layout">
             <aside class="live-drop-panel" aria-label="Последние выпадения">
                 <h2 class="live-drop-heading">LIVE DROP</h2>
@@ -1540,6 +1526,20 @@ main { padding: 12px 0 40px; }
                 <div class="live-drop-list" id="liveDropList"><div class="live-drop-empty">Ждём выпадений…</div></div>
             </aside>
             <div class="home-main">
+            <section class="promo-banner" id="promoBanner" hidden aria-label="Промокод на депозит">
+                <div class="promo-banner-top">
+                    <span class="promo-banner-title">Промокод на депозит</span>
+                    <span class="promo-banner-timer" id="promoBannerTimer">--:--:--</span>
+                </div>
+                <div class="promo-banner-percent"><span id="promoBannerPercent">+0%</span> <small>к пополнению</small></div>
+                <div class="promo-banner-note" id="promoBannerNote"></div>
+                <div class="promo-banner-code">
+                    <div class="promo-banner-code-text" id="promoBannerCode">------</div>
+                    <button type="button" class="promo-banner-copy" id="promoBannerCopy" aria-label="Скопировать промокод" onclick="copyDepositPromo()">
+                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="8" y="8" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5h10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                    </button>
+                </div>
+            </section>
                 <h1 class="page-title">Кейсы 💧</h1>
                 <h2 class="case-section-title title-orange">Бесплатный кейс</h2>
                 <div class="case-list">
