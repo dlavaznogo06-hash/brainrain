@@ -1335,6 +1335,13 @@ main { padding: 12px 0 40px; }
 .logo.logo-home{pointer-events:auto!important;cursor:pointer;-webkit-tap-highlight-color:transparent}
 #gradientBackground{position:fixed;inset:0;width:100vw;height:100vh;z-index:-2;pointer-events:none}
 #fallingBackground{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
+/* Кейсы: острые углы */
+.case-card,.case-card .price,.free-case-box .case-card button,.case-card .free-price,.case-card button{border-radius:0!important}
+/* Заголовки категорий: светящиеся плашки */
+.case-section-title{display:inline-block;width:fit-content;margin:18px 5px 12px!important;padding:9px 20px;border-radius:999px!important;font-size:15px!important;font-weight:900!important;letter-spacing:1px;text-transform:uppercase;color:#fff!important}
+.case-section-title.title-orange{background:linear-gradient(90deg,#ff8a1f,#d94a0e);box-shadow:0 0 14px #ff8a1f99,0 0 28px #ff6a0066;text-shadow:0 0 8px #fff6}
+.case-section-title.title-blue{background:linear-gradient(90deg,#1fa8ff,#1560d9);box-shadow:0 0 14px #1fa8ff99,0 0 28px #1a7dff66;text-shadow:0 0 8px #fff6}
+.page-title{color:#b57cff!important;text-shadow:0 0 14px #8a4dffaa,0 0 28px #6d2fe066}
 .upgrade-card h3{display:none}
 .upgrade-empty-slot,.upgrade-target-pick{color:#e6d6ff;font-size:15px;font-weight:800;letter-spacing:.3px}
 </style>
@@ -1451,7 +1458,7 @@ main { padding: 12px 0 40px; }
             </aside>
             <div class="home-main">
                 <h1 class="page-title">Кейсы 💧</h1>
-                <h2 class="case-section-title">Бесплатный кейс</h2>
+                <h2 class="case-section-title title-orange">Бесплатный кейс</h2>
                 <div class="case-list">
             <div class="case-card free-case-card" onclick="showCase('subscription_case')">
                 <h3>За подписку</h3>
@@ -1459,7 +1466,7 @@ main { padding: 12px 0 40px; }
                 <div class="price free-price">Открыть</div>
             </div>
                 </div>
-                <h2 class="case-section-title">Обычные кейсы</h2>
+                <h2 class="case-section-title title-blue">Обычные кейсы</h2>
                 <div class="case-list">
             <div class="case-card" onclick="showCase('sea')">
                 <h3>Морской кейс</h3>
@@ -1539,7 +1546,7 @@ main { padding: 12px 0 40px; }
                 <div class="price">2500 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
                 </div>
-                <h2 class="case-section-title">Алл-ин</h2>
+                <h2 class="case-section-title title-orange">Алл-ин</h2>
                 <div class="case-list">
             <div class="case-card" onclick="showCase('all')">
                 <h3>ВСЁ ИЛИ НИЧЕГО</h3>
