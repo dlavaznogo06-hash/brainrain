@@ -1342,6 +1342,25 @@ main { padding: 12px 0 40px; }
 .case-section-title.title-orange{background:linear-gradient(90deg,#ff8a1f,#d94a0e);box-shadow:0 0 14px #ff8a1f99,0 0 28px #ff6a0066;text-shadow:0 0 8px #fff6}
 .case-section-title.title-blue{background:linear-gradient(90deg,#1fa8ff,#1560d9);box-shadow:0 0 14px #1fa8ff99,0 0 28px #1a7dff66;text-shadow:0 0 8px #fff6}
 .page-title{color:#b57cff!important;text-shadow:0 0 14px #8a4dffaa,0 0 28px #6d2fe066}
+/* Баннер «Лучший дроп дня» вверху кейсов */
+.top-drop-banner{display:none}
+@media (max-width:700px){
+.top-drop-banner{position:relative;display:flex;align-items:center;justify-content:space-between;overflow:hidden;min-height:88px;margin:12px 16px 4px;padding:10px 12px;background:linear-gradient(100deg,rgba(26,14,38,.55),rgba(40,26,8,.45));border:1px solid rgba(244,189,59,.45);border-radius:0!important;cursor:pointer;box-shadow:0 0 18px rgba(244,189,59,.12),inset 0 0 22px rgba(244,189,59,.08);-webkit-tap-highlight-color:transparent}
+.top-drop-spark{position:absolute;color:#ffd45c;pointer-events:none;opacity:0;font-style:normal;text-shadow:0 0 6px #ffc340;animation:topDropTwinkle 3s ease-in-out infinite;border-radius:0!important}
+@keyframes topDropTwinkle{0%,100%{opacity:0;transform:scale(.5) rotate(0)}50%{opacity:.95;transform:scale(1.15) rotate(35deg)}}
+.top-drop-text,.top-drop-user{position:relative;z-index:2;min-width:0;max-width:58%;transition:opacity .25s ease,transform .25s ease}
+.top-drop-name{color:#fff;font-size:17px;font-weight:900;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-drop-label{margin-top:6px;color:#ffd45c;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;opacity:.9}
+.top-drop-user{position:absolute;left:12px;top:50%;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(-50%) translateX(-8px);pointer-events:none}
+.top-drop-avatar{width:44px;height:44px;border:2px solid #f4bd3b;border-radius:50%!important;object-fit:cover;box-shadow:0 0 10px #f4bd3b66;flex:none}
+.top-drop-user-name{color:#fff;font-size:16px;font-weight:900;white-space:nowrap}
+.top-drop-banner:hover .top-drop-text,.top-drop-banner.show-user .top-drop-text{opacity:0;transform:translateX(-8px)}
+.top-drop-banner:hover .top-drop-user,.top-drop-banner.show-user .top-drop-user{opacity:1;transform:translateY(-50%) translateX(0)}
+.top-drop-item{position:relative;z-index:1;flex:none;width:44%;height:76px;display:flex;align-items:center;justify-content:center}
+.top-drop-chevron{position:absolute;inset:-10px -12px -10px 0;background:linear-gradient(135deg,#f4bd3b,#b8860b);opacity:.85;clip-path:polygon(30% 0,100% 0,100% 100%,30% 100%,55% 50%)}
+.top-drop-image{position:relative;z-index:1;width:78px;height:78px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.top-drop-price{position:absolute;z-index:2;right:2px;top:-4px;color:#fff;font-size:15px;font-weight:900;text-shadow:0 1px 4px #000;white-space:nowrap}
+}
 .upgrade-card h3{display:none}
 .upgrade-empty-slot,.upgrade-target-pick{color:#e6d6ff;font-size:15px;font-weight:800;letter-spacing:.3px}
 </style>
@@ -1447,6 +1466,22 @@ main { padding: 12px 0 40px; }
 
 <main>
     <section id="homePage">
+        <div class="top-drop-banner" id="topDropBanner" role="button" tabindex="0" aria-label="Лучший дроп дня">
+            <i class="top-drop-spark" style="left:6%;top:20%;animation-delay:0.0s;font-size:10px">✦</i><i class="top-drop-spark" style="left:18%;top:70%;animation-delay:0.7s;font-size:8px">✦</i><i class="top-drop-spark" style="left:30%;top:25%;animation-delay:1.3s;font-size:12px">✦</i><i class="top-drop-spark" style="left:42%;top:75%;animation-delay:0.3s;font-size:9px">✦</i><i class="top-drop-spark" style="left:52%;top:18%;animation-delay:1.8s;font-size:8px">✦</i><i class="top-drop-spark" style="left:64%;top:60%;animation-delay:0.9s;font-size:11px">✦</i><i class="top-drop-spark" style="left:12%;top:45%;animation-delay:2.2s;font-size:7px">✦</i><i class="top-drop-spark" style="left:35%;top:50%;animation-delay:1.5s;font-size:8px">✦</i><i class="top-drop-spark" style="left:72%;top:30%;animation-delay:0.5s;font-size:9px">✦</i><i class="top-drop-spark" style="left:25%;top:10%;animation-delay:2.6s;font-size:7px">✦</i>
+            <div class="top-drop-text">
+                <div class="top-drop-name" id="topDropName">Пока нет дропов</div>
+                <div class="top-drop-label">Лучший дроп дня</div>
+            </div>
+            <div class="top-drop-user">
+                <img class="top-drop-avatar" id="topDropAvatar" src="logo2.png" alt="">
+                <div class="top-drop-user-name" id="topDropUserName"></div>
+            </div>
+            <div class="top-drop-item">
+                <div class="top-drop-chevron"></div>
+                <img class="top-drop-image" id="topDropImage" src="logo2.png" alt="" hidden>
+                <div class="top-drop-price" id="topDropPrice"></div>
+            </div>
+        </div>
         <div class="home-layout">
             <aside class="live-drop-panel" aria-label="Последние выпадения">
                 <h2 class="live-drop-heading">LIVE DROP</h2>
@@ -2207,7 +2242,45 @@ function makeLiveDropCard(drop, entering = false, best = false) {
     return card;
 }
 
+function maskNickname(value) {
+    const text = String(value || "Игрок").trim() || "Игрок";
+    if (text.length <= 2) return text[0] + "***";
+    return text[0] + "*".repeat(Math.min(7, Math.max(3, text.length - 2))) + text[text.length - 1];
+}
+
+async function loadTopDrop() {
+    const banner = document.getElementById("topDropBanner");
+    if (!banner || !tg.initData) return;
+    try {
+        const data = await apiPost("/api/live-drops");
+        const best = data.bestDrop;
+        if (!best) return;
+        document.getElementById("topDropName").textContent = best.itemName || "Предмет";
+        const image = document.getElementById("topDropImage");
+        image.src = best.image || "logo2.png";
+        image.hidden = false;
+        setCoinText(document.getElementById("topDropPrice"), `${Number(best.price || 0).toLocaleString("ru-RU")} Coin`);
+        const avatar = document.getElementById("topDropAvatar");
+        avatar.src = best.avatarUrl || "logo2.png";
+        avatar.onerror = () => { avatar.src = "logo2.png"; };
+        document.getElementById("topDropUserName").textContent = maskNickname(best.nickname || best.displayName);
+    } catch (error) {
+        /* баннер остаётся как был */
+    }
+}
+
+(function setupTopDropBanner() {
+    const banner = document.getElementById("topDropBanner");
+    if (!banner) return;
+    // На телефоне наведения нет: нажатие переключает показ игрока.
+    banner.addEventListener("click", () => banner.classList.toggle("show-user"));
+    banner.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); banner.classList.toggle("show-user"); }
+    });
+})();
+
 async function loadLiveDrops() {
+    if (window.matchMedia("(max-width: 700px)").matches) { loadTopDrop(); return; }
     const list = document.getElementById("liveDropList");
     const bestContent = document.getElementById("dailyDropContent");
     if (!list || !bestContent || !tg.initData || window.matchMedia("(max-width: 700px)").matches) return;
@@ -2490,7 +2563,7 @@ const STREAMER_SELECTOR = [
     ".profile-avatar", "#promoInput", "#promoMessage", ".topup-nick-input", ".topup-summary",
     // цены кейсов и то, что из них выпало
     ".case-card .price", ".case-card h3", "#detailName", "#detailPrice", "#caseQuantityTotal", ".case-item-price", ".item-card h4",
-    "#resultName", "#resultPrice", ".result-multi-card h4", ".result-multi-card .rm-price", ".live-drop-name", ".daily-drop-value",
+    "#topDropName", "#topDropUserName", "#topDropPrice", "#resultName", "#resultPrice", ".result-multi-card h4", ".result-multi-card .rm-price", ".live-drop-name", ".daily-drop-value",
     // апгрейдер: все надписи и кнопки
     "#upgraderPage h2", "#upgraderPage h3", "#upgraderPage .upgrade-mode button",
     "#upgraderPage .upgrade-selected-row > span", "#upgraderPage .upgrade-target-pick",
@@ -2505,7 +2578,7 @@ const STREAMER_SELECTOR = [
     const style = document.createElement("style");
     style.textContent =
         `body.streamer-mode :is(${STREAMER_SELECTOR}){filter:blur(8px);cursor:pointer;transition:filter .15s ease}` +
-        `body.streamer-mode .live-drop-avatar{visibility:hidden}` +
+        `body.streamer-mode .live-drop-avatar,body.streamer-mode .top-drop-avatar{visibility:hidden}` +
         `@media (hover:hover){body.streamer-mode :is(${STREAMER_SELECTOR}):hover{filter:blur(0)}}` +
         `body.streamer-mode .stream-reveal{filter:blur(0)!important}`;
     document.head.appendChild(style);
