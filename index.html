@@ -1312,6 +1312,14 @@ main { padding: 12px 0 40px; }
 .case-card h3{order:2;min-height:0!important;margin:10px 0 12px!important;font-size:clamp(13px,3.6vw,17px)!important;letter-spacing:.3px}
 .case-card .price{order:3;width:100%;margin-top:auto;padding:10px 8px;background:#0c0716;border:1px solid #3d2c58;border-radius:12px!important;color:#ffd45c;font-size:16px;font-weight:900;gap:7px}
 .case-name,#detailName{text-transform:uppercase;text-align:center}
+.upgrade-coins{margin:10px 0 12px;padding:10px 12px;border:1px solid #694b88;background:#100b18;border-radius:0!important}
+.upgrade-coins-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:800;font-size:14px;color:#d7c5e9}
+.upgrade-coins-head b{color:#ffd86b}
+.upgrade-coins input[type=range]{width:100%;height:22px;margin:0;background:transparent;-webkit-appearance:none;appearance:none;accent-color:#8a4dff}
+.upgrade-coins input[type=range]::-webkit-slider-runnable-track{height:8px;background:#5a5a62;border-radius:0!important}
+.upgrade-coins input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:22px;margin-top:-7px;background:#8a4dff;border:0;border-radius:0!important}
+.upgrade-coins input[type=range]::-moz-range-track{height:8px;background:#5a5a62;border-radius:0!important}
+.upgrade-coins input[type=range]::-moz-range-thumb{width:18px;height:22px;background:#8a4dff;border:0;border-radius:0!important}
 .upgrade-mode{display:flex!important;justify-content:flex-end;border:0!important;background:none!important;padding:0!important;margin:10px 0 14px!important}
 .upgrade-mode .upgrade-speed-switch{display:flex;align-items:center;gap:10px;min-height:0;padding:4px 0;border:0!important;background:none!important;box-shadow:none!important;color:#d7c5e9;font-weight:800;font-size:14px;cursor:pointer;border-radius:0!important}
 .upgrade-speed-track{position:relative;width:46px;height:24px;background:#5a5a62;border-radius:0!important;transition:background .2s ease;flex:none}
@@ -1885,6 +1893,10 @@ main { padding: 12px 0 40px; }
                 <button type="button" aria-label="Убрать цель" onclick="clearUpgradeTarget()">×</button>
             </div>
         </section>
+        </div>
+        <div class="upgrade-coins" id="upgradeCoinsBox">
+            <div class="upgrade-coins-head"><span>Добавить баланс</span><b id="upgradeCoinsValue">0</b></div>
+            <input type="range" id="upgradeCoinsSlider" min="0" max="0" step="1" value="0" oninput="setUpgradeCoins(this.value)">
         </div>
         <button class="open-button" id="upgradeButton" type="button" onclick="performUpgrade()" disabled>НАЧАТЬ</button>
         <div class="upgrade-multiplier-row" id="upgradeMultiplierPresets"><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',2)">×2</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',5)">×5</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',10)">×10</button></div>
@@ -3389,8 +3401,26 @@ function getSelectedUpgradeItems() {
     return currentInventory.filter(item => selectedUpgradeInventoryIds.has(String(item.id)));
 }
 
+let upgradeCoins = 0;
+function getUpgradeItemsValue() {
+    return getSelectedUpgradeItems().reduce((sum, item) => {
+        const catalogItem = getUpgradeCatalogItem(item.itemId);
+        return sum + (catalogItem ? Number(catalogItem.price) : 0);
+    }, 0);
+}
+function getUpgradeCoinsMax() {
+    const target = getUpgradeCatalogItem(selectedUpgradeTargetId);
+    let max = Math.max(0, Math.floor(Number(playerBalance) || 0));
+    if (target) max = Math.min(max, Math.max(0, Number(target.price) - getUpgradeItemsValue() - 1));
+    return max;
+}
+function setUpgradeCoins(value) {
+    if (upgrading) return;
+    upgradeCoins = Math.max(0, Math.min(getUpgradeCoinsMax(), Math.floor(Number(value) || 0)));
+    updateUpgradeState();
+}
 function getUpgradeStakeTotal() {
-    const itemValue = getSelectedUpgradeItems().reduce((sum, item) => {
+    const itemValue = upgradeCoins + getSelectedUpgradeItems().reduce((sum, item) => {
         const catalogItem = getUpgradeCatalogItem(item.itemId);
         return sum + (catalogItem ? Number(catalogItem.price) : 0);
     }, 0);
@@ -3510,6 +3540,15 @@ function updateUpgradeState() {
     stakePicker.hidden = selectedItems.length > 0;
     stakePicker.setAttribute("aria-disabled", String(selectedItems.length >= 5));
     stakePicker.innerHTML = selectedItems.length ? "" : "Предмет";
+    upgradeCoins = Math.max(0, Math.min(getUpgradeCoinsMax(), upgradeCoins));
+    const coinsMax = getUpgradeCoinsMax();
+    const coinsSlider = document.getElementById("upgradeCoinsSlider");
+    if (coinsSlider) {
+        coinsSlider.max = String(coinsMax);
+        coinsSlider.value = String(upgradeCoins);
+        coinsSlider.disabled = upgrading || coinsMax <= 0;
+        document.getElementById("upgradeCoinsValue").textContent = upgradeCoins.toLocaleString("ru-RU");
+    }
     const stake = getUpgradeStakeTotal();
     setCoinText(document.getElementById("upgradeStakeSummary"), `Стоимость ставки: ${stake.toLocaleString("ru-RU")} Coin · предметов ${selectedItems.length}/5`);
 
@@ -3607,7 +3646,7 @@ function renderUpgradeTargetGrid() {
 function applyUpgradePreset(type, value) {
     const stake = getUpgradeStakeTotal();
     if (stake <= 0) {
-        document.getElementById("upgradeInfo").textContent = "Сначала добавь предметы во вклад.";
+        document.getElementById("upgradeInfo").textContent = "Сначала добавь предметы или монеты во вклад.";
         return;
     }
     const desiredPrice = type === "multiplier" ? stake * Number(value) : stake * 90 / Number(value);
@@ -3697,7 +3736,7 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
     const alignment = (rollAngle - currentSector + 360) % 360;
     const turns = upgradeMode === "fast" ? 5 : 10;
     const finalRotation = currentRotation + turns * 360 + alignment;
-    const duration = upgradeMode === "fast" ? 7000 : 14000;
+    const duration = upgradeMode === "fast" ? 5000 : 10500;
 
     wheel.classList.add("spinning");
     return new Promise(resolve => {
@@ -3736,8 +3775,8 @@ async function performUpgrade() {
     const selectedItems = getSelectedUpgradeItems();
     const target = getUpgradeCatalogItem(selectedUpgradeTargetId);
     const stake = getUpgradeStakeTotal();
-    if (!selectedItems.length || !target || Number(target.price) <= stake) {
-        document.getElementById("upgradeInfo").textContent = "Добавь предметы из инвентаря и выбери цель дороже ставки.";
+    if ((!selectedItems.length && upgradeCoins <= 0) || !target || Number(target.price) <= stake) {
+        document.getElementById("upgradeInfo").textContent = "Добавь предметы или монеты и выбери цель дороже ставки.";
         return;
     }
 
@@ -3758,6 +3797,7 @@ async function performUpgrade() {
         const data = await apiPost("/api/upgrade", {
             inventoryIds:selectedItems.map(item => Number(item.id)),
             targetItemId:target.id,
+            coins:upgradeCoins,
             mode:upgradeMode
         });
         result.textContent = "Стрелка крутится...";
@@ -3776,6 +3816,7 @@ async function performUpgrade() {
         vibrate(data.success ? "success" : "error");
         selectedUpgradeInventoryIds.clear();
         selectedUpgradeTargetId = "";
+        upgradeCoins = 0;
         await loadInventory();
     } catch (error) {
         console.error("BrainRain: ошибка апгрейда", error);
