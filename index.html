@@ -1343,6 +1343,19 @@ main { padding: 12px 0 40px; }
 .case-section-title.title-blue{background:linear-gradient(90deg,#1fa8ff,#1560d9);box-shadow:0 0 6px #1fa8ff44;text-shadow:none}
 .page-title{color:#b57cff!important;text-shadow:0 0 5px #8a4dff44}
 /* Баннер «Лучший дроп дня» вверху кейсов */
+.promo-banner{position:relative;display:block;margin:12px 16px 6px;padding:14px 14px 12px;min-height:170px;max-width:720px;overflow:hidden;color:#fff;background:#0c1626 url("promobanner.png") right center/cover no-repeat;border:1px solid #1f3a5a;border-radius:0!important;box-shadow:inset 0 0 40px rgba(10,20,40,.55)}
+.promo-banner[hidden]{display:none}
+.promo-banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,14,26,.88) 0%,rgba(7,14,26,.55) 55%,rgba(7,14,26,.1) 100%);pointer-events:none}
+.promo-banner>*{position:relative;z-index:1}
+.promo-banner-top{display:flex;align-items:center;justify-content:space-between;gap:8px;white-space:nowrap;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#cfe4ff}
+.promo-banner-timer{color:#ffcf4a;font-variant-numeric:tabular-nums}
+.promo-banner-percent{margin-top:8px;font-size:30px;font-weight:900;line-height:1.1;color:#ffc933}
+.promo-banner-percent small{display:block;margin-top:2px;font-size:22px;color:#fff;font-weight:900}
+.promo-banner-note{min-height:16px;margin-top:6px;font-size:12px;font-weight:700;color:#9ff0c4}
+.promo-banner-code{display:flex;align-items:stretch;margin-top:10px;background:rgba(8,16,30,.78);border:1px solid #2a4a70}
+.promo-banner-code-text{flex:1;min-width:0;padding:12px 14px;font-size:18px;font-weight:900;letter-spacing:2px;color:#fff;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis}
+.promo-banner-copy{flex:none;width:48px;display:flex;align-items:center;justify-content:center;border:0;border-left:1px solid #2a4a70;background:#16304f;color:#cfe4ff;cursor:pointer;border-radius:0!important}
+.promo-banner-copy:active{background:#1e4a7a}
 .top-drop-banner{display:none}
 .live-strip{display:none}
 @media (max-width:700px){
@@ -1492,6 +1505,20 @@ main { padding: 12px 0 40px; }
             </div>
         </div>
         <div class="live-strip" id="liveStrip" aria-label="Последние выпадения"></div>
+        <section class="promo-banner" id="promoBanner" hidden aria-label="Промокод на депозит">
+            <div class="promo-banner-top">
+                <span class="promo-banner-title">Промокод на депозит</span>
+                <span class="promo-banner-timer" id="promoBannerTimer">--:--:--</span>
+            </div>
+            <div class="promo-banner-percent"><span id="promoBannerPercent">+0%</span> <small>к пополнению</small></div>
+            <div class="promo-banner-note" id="promoBannerNote"></div>
+            <div class="promo-banner-code">
+                <div class="promo-banner-code-text" id="promoBannerCode">------</div>
+                <button type="button" class="promo-banner-copy" id="promoBannerCopy" aria-label="Скопировать промокод" onclick="copyDepositPromo()">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="8" y="8" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5h10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                </button>
+            </div>
+        </section>
         <div class="home-layout">
             <aside class="live-drop-panel" aria-label="Последние выпадения">
                 <h2 class="live-drop-heading">LIVE DROP</h2>
@@ -2546,6 +2573,7 @@ async function redeemPromo() {
 
         input.value = "";
         vibrate("success");
+        loadDepositPromo();
 
     } catch (error) {
         message.textContent = "❌ " + error.message;
@@ -4975,6 +5003,74 @@ loadBalance();
     });
     requestAnimationFrame(frame);
 })();
+
+/* Промокод на депозит: код и процент обновляются каждый день в 12:00 (Киев) */
+let depositPromoState = null;
+let depositPromoOffset = 0;
+let depositPromoTimerId = null;
+
+function formatPromoCountdown(totalSeconds) {
+    const value = Math.max(0, Math.floor(totalSeconds));
+    const pad = number => String(number).padStart(2, "0");
+    return `${pad(Math.floor(value / 3600))}:${pad(Math.floor(value % 3600 / 60))}:${pad(value % 60)}`;
+}
+
+function tickDepositPromo() {
+    if (!depositPromoState) return;
+    const left = depositPromoState.endsAt - (Date.now() / 1000 + depositPromoOffset);
+    const timer = document.getElementById("promoBannerTimer");
+    if (timer) timer.textContent = "обновление: " + formatPromoCountdown(left);
+    if (left <= 0) {
+        depositPromoState = null;
+        setTimeout(loadDepositPromo, 1500);
+    }
+}
+
+async function loadDepositPromo() {
+    const banner = document.getElementById("promoBanner");
+    if (!banner || !tg.initData) return;
+    try {
+        const data = await apiPost("/api/deposit-promo");
+        depositPromoState = {code:data.code, percent:data.percent, endsAt:data.endsAt};
+        depositPromoOffset = Number(data.serverNow) - Date.now() / 1000;
+        document.getElementById("promoBannerCode").textContent = data.code;
+        document.getElementById("promoBannerPercent").textContent = "+" + data.percent + "%";
+        const note = document.getElementById("promoBannerNote");
+        if (data.pendingPercent) note.textContent = `Активирован: +${data.pendingPercent}% к следующему пополнению`;
+        else if (data.used) note.textContent = "Промокод на депозит уже использован";
+        else note.textContent = "Введи промокод в профиле, чтобы получить бонус";
+        banner.hidden = false;
+        tickDepositPromo();
+        if (!depositPromoTimerId) depositPromoTimerId = setInterval(tickDepositPromo, 1000);
+    } catch (error) {
+        /* баннер просто не показываем */
+    }
+}
+
+async function copyDepositPromo() {
+    if (!depositPromoState) return;
+    const code = depositPromoState.code;
+    let copied = false;
+    try {
+        await navigator.clipboard.writeText(code);
+        copied = true;
+    } catch (error) {
+        try {
+            const area = document.createElement("textarea");
+            area.value = code;
+            area.style.position = "fixed";
+            area.style.opacity = "0";
+            document.body.appendChild(area);
+            area.select();
+            copied = document.execCommand("copy");
+            area.remove();
+        } catch (fallbackError) {}
+    }
+    showToast(copied ? "Промокод скопирован" : "Не удалось скопировать: " + code, copied ? "info" : "error");
+}
+
+loadDepositPromo();
+setInterval(loadDepositPromo, 5 * 60 * 1000);
 </script>
 
 </body>
