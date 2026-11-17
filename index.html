@@ -1312,14 +1312,18 @@ main { padding: 12px 0 40px; }
 .case-card h3{order:2;min-height:0!important;margin:10px 0 12px!important;font-size:clamp(13px,3.6vw,17px)!important;letter-spacing:.3px}
 .case-card .price{order:3;width:100%;margin-top:auto;padding:10px 8px;background:#0c0716;border:1px solid #3d2c58;border-radius:12px!important;color:#ffd45c;font-size:16px;font-weight:900;gap:7px}
 .case-name,#detailName{text-transform:uppercase;text-align:center}
-.upgrade-coins{margin:10px 0 12px;padding:10px 12px;border:1px solid #694b88;background:#100b18;border-radius:0!important}
-.upgrade-coins-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:800;font-size:14px;color:#d7c5e9}
-.upgrade-coins-head b{color:#ffd86b}
-.upgrade-coins input[type=range]{width:100%;height:22px;margin:0;background:transparent;-webkit-appearance:none;appearance:none;accent-color:#8a4dff}
-.upgrade-coins input[type=range]::-webkit-slider-runnable-track{height:8px;background:#5a5a62;border-radius:0!important}
-.upgrade-coins input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:22px;margin-top:-7px;background:#8a4dff;border:0;border-radius:0!important}
-.upgrade-coins input[type=range]::-moz-range-track{height:8px;background:#5a5a62;border-radius:0!important}
-.upgrade-coins input[type=range]::-moz-range-thumb{width:18px;height:22px;background:#8a4dff;border:0;border-radius:0!important}
+.upgrade-coins{margin:12px 0 14px;padding:14px 16px 16px;border:1px solid #2a2434;background:#0c0912;border-radius:14px!important;width:100%;box-sizing:border-box}
+.upgrade-coins-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-weight:800;font-size:15px;letter-spacing:.5px;color:#a59bb5}
+.upgrade-coins-title{display:flex;align-items:center;gap:9px}
+.upgrade-coins-title i{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1.5px solid #a59bb5;border-radius:50%!important;font-style:normal;font-size:10px;line-height:1}
+.upgrade-coins-val{display:flex;align-items:center;gap:8px;color:#fff;font-size:17px}
+.upgrade-coins-val img{width:18px;height:18px;object-fit:contain}
+.upgrade-coins input[type=range]{display:block;width:100%;height:22px;margin:0;background:transparent;-webkit-appearance:none;appearance:none}
+.upgrade-coins input[type=range]::-webkit-slider-runnable-track{height:8px;background:#1f1a29;border-radius:8px!important}
+.upgrade-coins input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;margin-top:-6px;background:#8b8796;border:0;border-radius:50%!important}
+.upgrade-coins input[type=range]::-moz-range-track{height:8px;background:#1f1a29;border-radius:8px!important}
+.upgrade-coins input[type=range]::-moz-range-thumb{width:20px;height:20px;background:#8b8796;border:0;border-radius:50%!important}
+.upgrade-coins input[type=range]:disabled{opacity:.6}
 .upgrade-mode{display:flex!important;justify-content:flex-end;border:0!important;background:none!important;padding:0!important;margin:10px 0 14px!important}
 .upgrade-mode .upgrade-speed-switch{display:flex;align-items:center;gap:10px;min-height:0;padding:4px 0;border:0!important;background:none!important;box-shadow:none!important;color:#d7c5e9;font-weight:800;font-size:14px;cursor:pointer;border-radius:0!important}
 .upgrade-speed-track{position:relative;width:46px;height:24px;background:#5a5a62;border-radius:0!important;transition:background .2s ease;flex:none}
@@ -1895,7 +1899,7 @@ main { padding: 12px 0 40px; }
         </section>
         </div>
         <div class="upgrade-coins" id="upgradeCoinsBox">
-            <div class="upgrade-coins-head"><span>Добавить баланс</span><b id="upgradeCoinsValue">0</b></div>
+            <div class="upgrade-coins-head"><span class="upgrade-coins-title"><i>$</i>МОНЕТЫ</span><span class="upgrade-coins-val"><img src="coin.png" alt=""><b id="upgradeCoinsValue">0</b></span></div>
             <input type="range" id="upgradeCoinsSlider" min="0" max="0" step="1" value="0" oninput="setUpgradeCoins(this.value)">
         </div>
         <button class="open-button" id="upgradeButton" type="button" onclick="performUpgrade()" disabled>НАЧАТЬ</button>
