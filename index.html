@@ -4586,11 +4586,10 @@ function openExchangeMenu(item) {
     // Варианты обмена: Гарама ×1…×4 и Дракон, только если доплата не больше 300 Coin.
     const options = [];
     EXCHANGE_TARGETS.forEach(target => {
-        // Количество без лимита: показываем ×1…×6 и максимально возможное.
+        // Предлагаем только максимальное количество, которое покрывает предмет (меньше не даём).
+        // Если предмет дешевле цели — один предмет с доплатой монетами.
         const maxQuantity = Math.max(1, Math.min(EXCHANGE_MAX_QUANTITY, Math.floor(price / target.price)));
-        const quantities = new Set();
-        for (let n = 1; n <= Math.min(6, maxQuantity); n++) quantities.add(n);
-        quantities.add(maxQuantity);
+        const quantities = [maxQuantity];
         for (const quantity of quantities) {
             const diff = price - target.price * quantity;
             if (quantity > 1 && diff < 0) continue;
