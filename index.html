@@ -1339,11 +1339,20 @@ main { padding: 12px 0 40px; }
 .case-card,.case-card .price,.free-case-box .case-card button,.case-card .free-price,.case-card button{border-radius:0!important}
 /* Заголовки категорий: светящиеся плашки */
 .case-section-title{display:inline-block;width:fit-content;margin:18px 5px 12px!important;padding:9px 20px;border-radius:999px!important;font-size:15px!important;font-weight:900!important;letter-spacing:1px;text-transform:uppercase;color:#fff!important}
-.case-section-title.title-orange{background:linear-gradient(90deg,#ff8a1f,#d94a0e);box-shadow:0 0 14px #ff8a1f99,0 0 28px #ff6a0066;text-shadow:0 0 8px #fff6}
-.case-section-title.title-blue{background:linear-gradient(90deg,#1fa8ff,#1560d9);box-shadow:0 0 14px #1fa8ff99,0 0 28px #1a7dff66;text-shadow:0 0 8px #fff6}
-.page-title{color:#b57cff!important;text-shadow:0 0 14px #8a4dffaa,0 0 28px #6d2fe066}
+.case-section-title.title-orange{background:linear-gradient(90deg,#ff8a1f,#d94a0e);box-shadow:0 0 6px #ff8a1f44;text-shadow:none}
+.case-section-title.title-blue{background:linear-gradient(90deg,#1fa8ff,#1560d9);box-shadow:0 0 6px #1fa8ff44;text-shadow:none}
+.page-title{color:#b57cff!important;text-shadow:0 0 5px #8a4dff44}
 /* Баннер «Лучший дроп дня» вверху кейсов */
 .top-drop-banner{display:none}
+.live-strip{display:none}
+@media (max-width:700px){
+.live-strip.has-drops{display:flex;gap:10px;margin:10px 0 4px;padding:4px 16px 6px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-left:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.live-strip::-webkit-scrollbar{display:none}
+.live-strip-card{flex:none;width:92px;padding:8px 6px 9px;scroll-snap-align:start;text-align:center;background:linear-gradient(180deg,rgba(40,28,58,.65),rgba(18,11,30,.65));border:1px solid rgba(255,255,255,.08);border-radius:14px!important}
+.live-strip-card img{display:block;width:100%;height:62px;object-fit:contain;margin-bottom:8px;border-radius:0!important;filter:drop-shadow(0 3px 6px rgba(0,0,0,.45))}
+.live-strip-name{color:#fff;font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.live-strip-card.entering{animation:liveDropFly .7s cubic-bezier(.2,.8,.2,1) both}
+}
 @media (max-width:700px){
 .top-drop-banner{position:relative;display:flex;align-items:center;justify-content:space-between;overflow:hidden;min-height:88px;margin:12px 16px 4px;padding:10px 12px;background:linear-gradient(100deg,rgba(26,14,38,.55),rgba(40,26,8,.45));border:1px solid rgba(244,189,59,.45);border-radius:0!important;cursor:pointer;box-shadow:0 0 18px rgba(244,189,59,.12),inset 0 0 22px rgba(244,189,59,.08);-webkit-tap-highlight-color:transparent}
 .top-drop-spark{position:absolute;color:#ffd45c;pointer-events:none;opacity:0;font-style:normal;text-shadow:0 0 6px #ffc340;animation:topDropTwinkle 3s ease-in-out infinite;border-radius:0!important}
@@ -1482,6 +1491,7 @@ main { padding: 12px 0 40px; }
                 <div class="top-drop-price" id="topDropPrice"></div>
             </div>
         </div>
+        <div class="live-strip" id="liveStrip" aria-label="Последние выпадения"></div>
         <div class="home-layout">
             <aside class="live-drop-panel" aria-label="Последние выпадения">
                 <h2 class="live-drop-heading">LIVE DROP</h2>
@@ -2248,11 +2258,42 @@ function maskNickname(value) {
     return text[0] + "*".repeat(Math.min(7, Math.max(3, text.length - 2))) + text[text.length - 1];
 }
 
+let liveStripLatestId = 0;
+let liveStripFirst = true;
+
+function renderLiveStrip(recent) {
+    const strip = document.getElementById("liveStrip");
+    if (!strip) return;
+    if (!recent.length) { strip.replaceChildren(); strip.classList.remove("has-drops"); return; }
+    const newestId = Math.max(...recent.map(drop => Number(drop.id) || 0));
+    if (newestId === liveStripLatestId && strip.children.length) return;
+    const fresh = new Set(liveStripFirst ? [] : recent.filter(drop => Number(drop.id) > liveStripLatestId).map(drop => Number(drop.id)));
+    strip.replaceChildren();
+    recent.slice(0, 20).forEach(drop => {
+        const card = document.createElement("div");
+        card.className = "live-strip-card";
+        if (fresh.has(Number(drop.id))) card.classList.add("entering");
+        const image = document.createElement("img");
+        image.src = drop.image || "logo2.png";
+        image.alt = "";
+        const name = document.createElement("div");
+        name.className = "live-strip-name";
+        name.textContent = drop.itemName || "Предмет";
+        card.append(image, name);
+        strip.appendChild(card);
+    });
+    strip.classList.add("has-drops");
+    strip.scrollLeft = 0;
+    liveStripLatestId = newestId;
+    liveStripFirst = false;
+}
+
 async function loadTopDrop() {
     const banner = document.getElementById("topDropBanner");
     if (!banner || !tg.initData) return;
     try {
         const data = await apiPost("/api/live-drops");
+        renderLiveStrip(Array.isArray(data.recent) ? data.recent : []);
         const best = data.bestDrop;
         if (!best) return;
         document.getElementById("topDropName").textContent = best.itemName || "Предмет";
@@ -2563,7 +2604,7 @@ const STREAMER_SELECTOR = [
     ".profile-avatar", "#promoInput", "#promoMessage", ".topup-nick-input", ".topup-summary",
     // цены кейсов и то, что из них выпало
     ".case-card .price", ".case-card h3", "#detailName", "#detailPrice", "#caseQuantityTotal", ".case-item-price", ".item-card h4",
-    "#topDropName", "#topDropUserName", "#topDropPrice", "#resultName", "#resultPrice", ".result-multi-card h4", ".result-multi-card .rm-price", ".live-drop-name", ".daily-drop-value",
+    ".live-strip-name", "#topDropName", "#topDropUserName", "#topDropPrice", "#resultName", "#resultPrice", ".result-multi-card h4", ".result-multi-card .rm-price", ".live-drop-name", ".daily-drop-value",
     // апгрейдер: все надписи и кнопки
     "#upgraderPage h2", "#upgraderPage h3", "#upgraderPage .upgrade-mode button",
     "#upgraderPage .upgrade-selected-row > span", "#upgraderPage .upgrade-target-pick",
