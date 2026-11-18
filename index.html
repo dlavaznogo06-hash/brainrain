@@ -1138,27 +1138,34 @@ main { padding: 12px 0 40px; }
 
 /* АПГРЕЙДЕР */
 
-.dice-page{display:none;max-width:520px;margin:0 auto;padding:0 16px 40px}
-.dice-page h2{margin:18px 0 14px;text-align:center;color:#8fb6ff;letter-spacing:1px}
-.dice-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
-.dice-slot{aspect-ratio:1;border:1px solid #2a3a63;background:#0a1020;display:flex;align-items:center;justify-content:center;border-radius:0!important}
-.dice-slot i{display:block;width:62%;height:62%;border-radius:50%!important;background:#2a3040;box-shadow:inset 0 0 0 4px #ffffff30}
-.dice-slot.hit{border-color:#ffd45c;box-shadow:0 0 14px #ffd45c66}
+.dice-page{display:none;max-width:520px;margin:0 auto;padding:0 16px 40px;text-align:center}
+body.dice-mode #gradientBackground{opacity:0}
+body.dice-mode #fallingBackground{opacity:.35}
+body.dice-mode{background:#04060b!important}
+.dice-page h2{margin:22px 0 4px;font-size:34px;color:#f2f6ff;letter-spacing:.5px}
+.dice-sub{margin:0 0 18px;color:#6f7d9c;font-size:14px;font-weight:700}
+.dice-stake-row{display:flex;justify-content:center;margin-bottom:12px}
+.dice-stake{display:flex;align-items:center;gap:10px;min-width:220px;max-width:100%;padding:12px 18px;border:1px solid #1f2a44;background:#0b101c;color:#e8eefc;font-weight:800;font-size:14px;letter-spacing:.5px;cursor:pointer;border-radius:12px!important}
+.dice-stake img{width:30px;height:30px;object-fit:contain}
+.dice-stake .dice-stake-name{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dice-stake em{font-style:normal;color:#6f7d9c}
+.dice-hint{margin:0 0 18px;color:#5e6b88;font-size:13px;font-weight:700}
+.dice-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:360px;margin:0 auto 20px}
+.dice-slot{aspect-ratio:1;border:3px solid #2a4a9a;background:#080c16;display:flex;align-items:center;justify-content:center;border-radius:16px!important;transition:border-color .2s,box-shadow .2s}
+.dice-slot i{display:block;width:34%;height:34%;border-radius:50%!important;background:#3d6fd6;box-shadow:inset 0 0 0 3px #ffffff30;transition:width .25s,height .25s}
+.dice-slot.shown i{width:62%;height:62%}
+.dice-slot.hit{border-color:#ffd45c;box-shadow:0 0 16px #ffd45c66}
 .dice-slot.roll i{animation:diceShake .12s linear infinite}
-@keyframes diceShake{50%{transform:scale(.9) rotate(8deg)}}
-.dice-picker{display:flex;justify-content:center;gap:12px;margin:6px 0 16px}
-.dice-pick{width:40px;height:40px;border:3px solid transparent;border-radius:50%!important;padding:0;cursor:pointer;box-shadow:inset 0 0 0 3px #ffffff35}
-.dice-pick.active{border-color:#fff;transform:scale(1.12)}
-.dice-bet{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.dice-bet-box{flex:1;display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #3b5a96;background:#0a1020;border-radius:0!important}
-.dice-bet-box img{width:18px;height:18px}
-.dice-bet-box input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#fff;font:inherit;font-weight:800;font-size:17px;border-radius:0!important}
-.dice-quick{display:flex;gap:6px;margin-bottom:14px}
-.dice-quick button{flex:1;padding:9px 4px;border:1px solid #3b5a96;background:#101a33;color:#cfe0ff;font-weight:800;cursor:pointer;border-radius:0!important}
-.dice-result{min-height:26px;margin:12px 0 18px;text-align:center;font-weight:800;color:#cfe0ff}
-.dice-rules{border:1px solid #2a3a63;background:#0a1020;border-radius:0!important}
+@keyframes diceShake{50%{transform:scale(.88) rotate(8deg)}}
+.dice-picker{display:flex;justify-content:center;gap:12px;margin:0 0 24px}
+.dice-pick{width:38px;height:38px;border:3px solid transparent;border-radius:50%!important;padding:0;cursor:pointer;box-shadow:inset 0 0 0 3px #ffffff35;transition:transform .15s}
+.dice-pick.active{border-color:#fff;transform:scale(1.15)}
+#diceButton{max-width:340px;margin:0 auto;background:linear-gradient(#3f64b8,#2c4a94);border:2px solid #0a1228;box-shadow:inset 0 2px 0 #ffffff30,0 4px 0 #0a1228;color:#fff}
+#diceButton:disabled{opacity:.55}
+.dice-result{min-height:26px;margin:16px 0 18px;font-weight:800;color:#cfe0ff}
+.dice-rules{text-align:left;border:1px solid #141c30;background:#070b14;border-radius:12px!important;overflow:hidden}
 .dice-rules h3{margin:0;padding:12px 14px;color:#cfe0ff;font-size:16px}
-.dice-rules div{display:flex;justify-content:space-between;padding:10px 14px;border-top:1px solid #1d2a4a;color:#9fb4dd;font-weight:700}
+.dice-rules div{display:flex;justify-content:space-between;padding:10px 14px;border-top:1px solid #121a2c;color:#8493b3;font-weight:700}
 .dice-rules .win{color:#3ddc84}.dice-rules .lose{color:#ff5b6e}
 .upgrader-page{display:none;max-width:760px;margin:0 auto;padding:0 16px 40px}
 .upgrader-panel{padding:18px;background:linear-gradient(145deg,#262d53,#151a32);border:1px solid #4b5088;border-radius:15px;box-shadow:0 8px 25px #0003}
@@ -1888,12 +1895,13 @@ main { padding: 12px 0 40px; }
     </section>
 
     <section class="dice-page" id="dicePage">
-        <h2>COLOR DICE</h2>
+        <h2>Дайсы</h2>
+        <p class="dice-sub">4 кубика, угадай цвет</p>
+        <div class="dice-stake-row"><button class="dice-stake" id="diceStakeButton" type="button" onclick="openDiceStakePicker()"><span class="dice-stake-name">ВЫБРАТЬ СТАВКУ</span><em>⌄</em></button></div>
+        <p class="dice-hint" id="diceHint">Выбери цвет и предмет для ставки</p>
         <div class="dice-slots" id="diceSlots"><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div></div>
         <div class="dice-picker" id="dicePicker"></div>
-        <div class="dice-bet"><label class="dice-bet-box"><img src="coin.png" alt=""><input type="text" id="diceBet" inputmode="numeric" autocomplete="off" value="10" aria-label="Ставка" onfocus="this.select()" oninput="this.value=this.value.replace(/\D/g,'')"></label></div>
-        <div class="dice-quick"><button type="button" onclick="setDiceBet(10)">10</button><button type="button" onclick="setDiceBet(100)">100</button><button type="button" onclick="setDiceBet(500)">500</button><button type="button" onclick="setDiceBet(Math.floor(diceBetValue()/2))">1/2</button><button type="button" onclick="setDiceBet(diceBetValue()*2)">x2</button><button type="button" onclick="setDiceBet(5000)">MAX</button></div>
-        <button class="open-button" id="diceButton" type="button" onclick="playDice()">ИГРАТЬ</button>
+        <button class="open-button" id="diceButton" type="button" onclick="playDice()">БРОСИТЬ</button>
         <div class="dice-result" id="diceResult" aria-live="polite"></div>
         <div class="dice-rules"><h3>Правила</h3>
             <div><span>0 из 4</span><span class="lose">проигрыш</span></div>
@@ -1903,6 +1911,15 @@ main { padding: 12px 0 40px; }
             <div><span>4 из 4</span><span class="win">x3</span></div>
         </div>
     </section>
+    <div class="upgrade-target-modal" id="diceStakeModal" onclick="closeDiceStakePicker(event)">
+        <section class="upgrade-target-dialog" role="dialog" aria-modal="true" aria-labelledby="diceStakeTitle">
+            <div class="upgrade-target-header">
+                <h2 id="diceStakeTitle">ВЫБРАТЬ СТАВКУ</h2>
+                <button class="upgrade-target-close" type="button" onclick="closeDiceStakePicker()" aria-label="Закрыть">×</button>
+            </div>
+            <div class="upgrade-target-grid" id="diceStakeGrid"></div>
+        </section>
+    </div>
 
     <section class="upgrader-page" id="upgraderPage">
 
@@ -2812,6 +2829,7 @@ function hideAllPages() {
     document.getElementById("upgraderPage").style.display = "none";
     const dicePage = document.getElementById("dicePage");
     if (dicePage) dicePage.style.display = "none";
+    document.body.classList.remove("dice-mode");
 }
 
 function showHome() {
@@ -3487,13 +3505,11 @@ function setUpgradeMode(mode) {
 
 
 const DICE_COLORS = {red:"#ff5b6e", orange:"#ffa13d", yellow:"#ffd84a", green:"#3ddc84", blue:"#3d6fd6", purple:"#a56bff"};
-const DICE_MIN_BET = 10, DICE_MAX_BET = 5000;
 let diceColor = "red";
+let diceStakeId = "";
 let dicePlaying = false;
-function diceBetValue() { return parseInt(document.getElementById("diceBet").value, 10) || 0; }
-function setDiceBet(value) {
-    if (dicePlaying) return;
-    document.getElementById("diceBet").value = String(Math.max(DICE_MIN_BET, Math.min(DICE_MAX_BET, Math.floor(value) || DICE_MIN_BET)));
+function getDiceStakeItem() {
+    return currentInventory.find(item => String(item.id) === String(diceStakeId) && getUpgradeCatalogItem(item.itemId));
 }
 function renderDicePicker() {
     const box = document.getElementById("dicePicker");
@@ -3508,32 +3524,83 @@ function renderDicePicker() {
         box.appendChild(b);
     });
 }
-function showDice() {
+function renderDiceStake() {
+    const item = getDiceStakeItem();
+    if (!item) diceStakeId = "";
+    const button = document.getElementById("diceStakeButton");
+    button.innerHTML = "";
+    if (item) {
+        const catalogItem = getUpgradeCatalogItem(item.itemId);
+        const img = document.createElement("img");
+        img.src = item.image || catalogItem.image;
+        img.alt = "";
+        const name = document.createElement("span");
+        name.className = "dice-stake-name";
+        name.textContent = item.name || catalogItem.name;
+        const arrow = document.createElement("em");
+        arrow.textContent = "⌄";
+        button.append(img, name, arrow);
+    } else {
+        button.innerHTML = '<span class="dice-stake-name">ВЫБРАТЬ СТАВКУ</span><em>⌄</em>';
+    }
+    document.getElementById("diceHint").textContent = item ? "Выиграешь — получишь предмет x2 или x3" : "Выбери цвет и предмет для ставки";
+}
+async function showDice() {
     if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
     setMenuActive(3);
     document.getElementById("dicePage").style.display = "block";
+    document.body.classList.add("dice-mode");
     closeMenu();
     setDesktopNavActive(3);
     renderDicePicker();
+    try { await loadInventory(); } catch (error) { console.error("Дайсы: инвентарь не загрузился", error); }
+    renderDiceStake();
+}
+function openDiceStakePicker() {
+    if (dicePlaying) return;
+    const grid = document.getElementById("diceStakeGrid");
+    grid.innerHTML = "";
+    const eligible = currentInventory.filter(item => getUpgradeCatalogItem(item.itemId));
+    if (!eligible.length) {
+        grid.innerHTML = '<div class="inventory-empty">В инвентаре нет подходящих предметов.</div>';
+    }
+    eligible.forEach(item => {
+        const catalogItem = getUpgradeCatalogItem(item.itemId);
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "upgrade-target-card " + (catalogItem.rarity || "");
+        card.onclick = () => { diceStakeId = String(item.id); closeDiceStakePicker(); renderDiceStake(); };
+        const image = document.createElement("img");
+        image.src = item.image || catalogItem.image;
+        image.alt = item.name || catalogItem.name;
+        const name = document.createElement("strong");
+        name.textContent = item.name || catalogItem.name;
+        const price = document.createElement("span");
+        setCoinText(price, `${catalogItem.price} Coin`);
+        card.append(image, name, price);
+        grid.appendChild(card);
+    });
+    document.getElementById("diceStakeModal").classList.add("active");
+}
+function closeDiceStakePicker(event) {
+    if (!event || event.target.id === "diceStakeModal") document.getElementById("diceStakeModal").classList.remove("active");
 }
 async function playDice() {
     if (dicePlaying) return;
-    const bet = diceBetValue();
     const result = document.getElementById("diceResult");
-    if (bet < DICE_MIN_BET || bet > DICE_MAX_BET) { result.textContent = `Ставка от ${DICE_MIN_BET} до ${DICE_MAX_BET}.`; return; }
-    if (bet > playerBalance) { result.textContent = "Не хватает монет на балансе."; return; }
+    const stake = getDiceStakeItem();
+    if (!stake) { result.textContent = "Сначала выбери предмет для ставки."; return; }
     dicePlaying = true;
     const button = document.getElementById("diceButton");
     button.disabled = true;
     const slots = [...document.querySelectorAll("#diceSlots .dice-slot")];
-    slots.forEach(slot => slot.classList.remove("hit"));
-    slots.forEach(slot => slot.classList.add("roll"));
+    slots.forEach(slot => { slot.classList.remove("hit"); slot.classList.add("roll", "shown"); });
     result.textContent = "";
     const names = Object.keys(DICE_COLORS);
     const shuffle = setInterval(() => slots.forEach(slot => { slot.firstElementChild.style.background = DICE_COLORS[names[Math.floor(Math.random()*names.length)]]; }), 90);
     try {
-        const [data] = await Promise.all([apiPost("/api/color-dice", {bet, color:diceColor}), new Promise(r => setTimeout(r, 1100))]);
+        const [data] = await Promise.all([apiPost("/api/color-dice", {inventoryId:Number(stake.id), color:diceColor}), new Promise(r => setTimeout(r, 1100))]);
         clearInterval(shuffle);
         for (let i = 0; i < slots.length; i++) {
             await new Promise(r => setTimeout(r, 260));
@@ -3541,15 +3608,17 @@ async function playDice() {
             slots[i].firstElementChild.style.background = DICE_COLORS[data.dice[i]];
             if (data.dice[i] === diceColor) slots[i].classList.add("hit");
         }
-        playerBalance = Number(data.balance ?? playerBalance);
-        updateBalance();
-        result.textContent = data.payout > 0 ? `Выиграл ${data.payout.toLocaleString("ru-RU")} Coin (${data.matches} из 4)` : `Проигрыш (${data.matches} из 4)`;
-        vibrate(data.payout > 0 ? "success" : "error");
+        const itemName = data.item?.name || stake.name || "предмет";
+        result.textContent = data.copies > 0 ? `Победа! Получено: ${itemName} x${data.copies} (${data.matches} из 4)` : `Проигрыш (${data.matches} из 4). ${itemName} сгорел.`;
+        vibrate(data.copies > 0 ? "success" : "error");
+        diceStakeId = "";
+        await loadInventory();
+        renderDiceStake();
     } catch (error) {
         clearInterval(shuffle);
         slots.forEach(slot => slot.classList.remove("roll"));
         result.textContent = error.message || "Не удалось сыграть.";
-        loadBalance();
+        loadInventory().then(renderDiceStake).catch(() => {});
     } finally {
         dicePlaying = false;
         button.disabled = false;
