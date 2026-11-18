@@ -1137,6 +1137,29 @@ main { padding: 12px 0 40px; }
 }
 
 /* АПГРЕЙДЕР */
+
+.dice-page{display:none;max-width:520px;margin:0 auto;padding:0 16px 40px}
+.dice-page h2{margin:18px 0 14px;text-align:center;color:#8fb6ff;letter-spacing:1px}
+.dice-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.dice-slot{aspect-ratio:1;border:1px solid #2a3a63;background:#0a1020;display:flex;align-items:center;justify-content:center;border-radius:0!important}
+.dice-slot i{display:block;width:62%;height:62%;border-radius:50%!important;background:#2a3040;box-shadow:inset 0 0 0 4px #ffffff30}
+.dice-slot.hit{border-color:#ffd45c;box-shadow:0 0 14px #ffd45c66}
+.dice-slot.roll i{animation:diceShake .12s linear infinite}
+@keyframes diceShake{50%{transform:scale(.9) rotate(8deg)}}
+.dice-picker{display:flex;justify-content:center;gap:12px;margin:6px 0 16px}
+.dice-pick{width:40px;height:40px;border:3px solid transparent;border-radius:50%!important;padding:0;cursor:pointer;box-shadow:inset 0 0 0 3px #ffffff35}
+.dice-pick.active{border-color:#fff;transform:scale(1.12)}
+.dice-bet{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.dice-bet-box{flex:1;display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #3b5a96;background:#0a1020;border-radius:0!important}
+.dice-bet-box img{width:18px;height:18px}
+.dice-bet-box input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#fff;font:inherit;font-weight:800;font-size:17px;border-radius:0!important}
+.dice-quick{display:flex;gap:6px;margin-bottom:14px}
+.dice-quick button{flex:1;padding:9px 4px;border:1px solid #3b5a96;background:#101a33;color:#cfe0ff;font-weight:800;cursor:pointer;border-radius:0!important}
+.dice-result{min-height:26px;margin:12px 0 18px;text-align:center;font-weight:800;color:#cfe0ff}
+.dice-rules{border:1px solid #2a3a63;background:#0a1020;border-radius:0!important}
+.dice-rules h3{margin:0;padding:12px 14px;color:#cfe0ff;font-size:16px}
+.dice-rules div{display:flex;justify-content:space-between;padding:10px 14px;border-top:1px solid #1d2a4a;color:#9fb4dd;font-weight:700}
+.dice-rules .win{color:#3ddc84}.dice-rules .lose{color:#ff5b6e}
 .upgrader-page{display:none;max-width:760px;margin:0 auto;padding:0 16px 40px}
 .upgrader-panel{padding:18px;background:linear-gradient(145deg,#262d53,#151a32);border:1px solid #4b5088;border-radius:15px;box-shadow:0 8px 25px #0003}
 .upgrader-label{display:block;margin:8px 0;color:#c5c7e9;font-size:14px;font-weight:700}
@@ -1445,6 +1468,7 @@ main { padding: 12px 0 40px; }
         <button onclick="showProfile()">
             <img class="nav-icon" src="profile.png" alt=""> PROFILE
         </button>
+        <button onclick="showDice()">COLOR DICE</button>
     </nav>
 
     <div class="header-right">
@@ -1509,6 +1533,7 @@ main { padding: 12px 0 40px; }
     <button class="menu-item" onclick="showProfile()">
         <img class="menu-icon" src="profile.png" alt=""> Profile
     </button>
+    <button class="menu-item" onclick="showDice()">Color Dice</button>
 </nav>
 
 <main>
@@ -1859,6 +1884,23 @@ main { padding: 12px 0 40px; }
             </button>
 
             <p id="promoMessage"></p>
+        </div>
+    </section>
+
+    <section class="dice-page" id="dicePage">
+        <h2>COLOR DICE</h2>
+        <div class="dice-slots" id="diceSlots"><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div></div>
+        <div class="dice-picker" id="dicePicker"></div>
+        <div class="dice-bet"><label class="dice-bet-box"><img src="coin.png" alt=""><input type="text" id="diceBet" inputmode="numeric" autocomplete="off" value="10" aria-label="Ставка" onfocus="this.select()" oninput="this.value=this.value.replace(/\D/g,'')"></label></div>
+        <div class="dice-quick"><button type="button" onclick="setDiceBet(10)">10</button><button type="button" onclick="setDiceBet(100)">100</button><button type="button" onclick="setDiceBet(500)">500</button><button type="button" onclick="setDiceBet(Math.floor(diceBetValue()/2))">1/2</button><button type="button" onclick="setDiceBet(diceBetValue()*2)">x2</button><button type="button" onclick="setDiceBet(5000)">MAX</button></div>
+        <button class="open-button" id="diceButton" type="button" onclick="playDice()">ИГРАТЬ</button>
+        <div class="dice-result" id="diceResult" aria-live="polite"></div>
+        <div class="dice-rules"><h3>Правила</h3>
+            <div><span>0 из 4</span><span class="lose">проигрыш</span></div>
+            <div><span>1 из 4</span><span class="win">x2</span></div>
+            <div><span>2 из 4</span><span class="lose">проигрыш</span></div>
+            <div><span>3 из 4</span><span class="lose">проигрыш</span></div>
+            <div><span>4 из 4</span><span class="win">x3</span></div>
         </div>
     </section>
 
@@ -2768,6 +2810,8 @@ function hideAllPages() {
     document.getElementById("casePage").style.display = "none";
     document.getElementById("profilePage").style.display = "none";
     document.getElementById("upgraderPage").style.display = "none";
+    const dicePage = document.getElementById("dicePage");
+    if (dicePage) dicePage.style.display = "none";
 }
 
 function showHome() {
@@ -3441,6 +3485,76 @@ function setUpgradeMode(mode) {
     }
 }
 
+
+const DICE_COLORS = {red:"#ff5b6e", orange:"#ffa13d", yellow:"#ffd84a", green:"#3ddc84", blue:"#3d6fd6", purple:"#a56bff"};
+const DICE_MIN_BET = 10, DICE_MAX_BET = 5000;
+let diceColor = "red";
+let dicePlaying = false;
+function diceBetValue() { return parseInt(document.getElementById("diceBet").value, 10) || 0; }
+function setDiceBet(value) {
+    if (dicePlaying) return;
+    document.getElementById("diceBet").value = String(Math.max(DICE_MIN_BET, Math.min(DICE_MAX_BET, Math.floor(value) || DICE_MIN_BET)));
+}
+function renderDicePicker() {
+    const box = document.getElementById("dicePicker");
+    box.innerHTML = "";
+    Object.keys(DICE_COLORS).forEach(name => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "dice-pick" + (name === diceColor ? " active" : "");
+        b.style.background = DICE_COLORS[name];
+        b.setAttribute("aria-label", name);
+        b.onclick = () => { if (dicePlaying) return; diceColor = name; renderDicePicker(); };
+        box.appendChild(b);
+    });
+}
+function showDice() {
+    if (blockNavigationDuringUpgrade()) return;
+    hideAllPages();
+    setMenuActive(3);
+    document.getElementById("dicePage").style.display = "block";
+    closeMenu();
+    setDesktopNavActive(3);
+    renderDicePicker();
+}
+async function playDice() {
+    if (dicePlaying) return;
+    const bet = diceBetValue();
+    const result = document.getElementById("diceResult");
+    if (bet < DICE_MIN_BET || bet > DICE_MAX_BET) { result.textContent = `Ставка от ${DICE_MIN_BET} до ${DICE_MAX_BET}.`; return; }
+    if (bet > playerBalance) { result.textContent = "Не хватает монет на балансе."; return; }
+    dicePlaying = true;
+    const button = document.getElementById("diceButton");
+    button.disabled = true;
+    const slots = [...document.querySelectorAll("#diceSlots .dice-slot")];
+    slots.forEach(slot => slot.classList.remove("hit"));
+    slots.forEach(slot => slot.classList.add("roll"));
+    result.textContent = "";
+    const names = Object.keys(DICE_COLORS);
+    const shuffle = setInterval(() => slots.forEach(slot => { slot.firstElementChild.style.background = DICE_COLORS[names[Math.floor(Math.random()*names.length)]]; }), 90);
+    try {
+        const [data] = await Promise.all([apiPost("/api/color-dice", {bet, color:diceColor}), new Promise(r => setTimeout(r, 1100))]);
+        clearInterval(shuffle);
+        for (let i = 0; i < slots.length; i++) {
+            await new Promise(r => setTimeout(r, 260));
+            slots[i].classList.remove("roll");
+            slots[i].firstElementChild.style.background = DICE_COLORS[data.dice[i]];
+            if (data.dice[i] === diceColor) slots[i].classList.add("hit");
+        }
+        playerBalance = Number(data.balance ?? playerBalance);
+        updateBalance();
+        result.textContent = data.payout > 0 ? `Выиграл ${data.payout.toLocaleString("ru-RU")} Coin (${data.matches} из 4)` : `Проигрыш (${data.matches} из 4)`;
+        vibrate(data.payout > 0 ? "success" : "error");
+    } catch (error) {
+        clearInterval(shuffle);
+        slots.forEach(slot => slot.classList.remove("roll"));
+        result.textContent = error.message || "Не удалось сыграть.";
+        loadBalance();
+    } finally {
+        dicePlaying = false;
+        button.disabled = false;
+    }
+}
 async function showUpgrader() {
     if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
