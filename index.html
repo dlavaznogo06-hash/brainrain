@@ -1138,31 +1138,45 @@ main { padding: 12px 0 40px; }
 
 /* АПГРЕЙДЕР */
 
-.dice-page{display:none;max-width:520px;margin:0 auto;padding:0 16px 40px;text-align:center}
+.dice-page{display:none;max-width:480px;margin:0 auto;padding:0 16px 40px;text-align:center;--dc:#ff5b6e}
 body.dice-mode #gradientBackground{opacity:0}
-body.dice-mode #fallingBackground{opacity:.35}
+body.dice-mode #fallingBackground{opacity:.25}
 body.dice-mode{background:#04060b!important}
-.dice-page h2{margin:22px 0 4px;font-size:34px;color:#f2f6ff;letter-spacing:.5px}
-.dice-sub{margin:0 0 18px;color:#6f7d9c;font-size:14px;font-weight:700}
-.dice-stake-row{display:flex;justify-content:center;margin-bottom:12px}
-.dice-stake{display:flex;align-items:center;gap:10px;min-width:220px;max-width:100%;padding:12px 18px;border:1px solid #1f2a44;background:#0b101c;color:#e8eefc;font-weight:800;font-size:14px;letter-spacing:.5px;cursor:pointer;border-radius:12px!important}
-.dice-stake img{width:30px;height:30px;object-fit:contain}
-.dice-stake .dice-stake-name{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dice-stake em{font-style:normal;color:#6f7d9c}
-.dice-hint{margin:0 0 18px;color:#5e6b88;font-size:13px;font-weight:700}
-.dice-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:360px;margin:0 auto 20px}
-.dice-slot{aspect-ratio:1;border:3px solid #2a4a9a;background:#080c16;display:flex;align-items:center;justify-content:center;border-radius:16px!important;transition:border-color .2s,box-shadow .2s}
-.dice-slot i{display:block;width:34%;height:34%;border-radius:50%!important;background:#3d6fd6;box-shadow:inset 0 0 0 3px #ffffff30;transition:width .25s,height .25s}
-.dice-slot.shown i{width:62%;height:62%}
-.dice-slot.hit{border-color:#ffd45c;box-shadow:0 0 16px #ffd45c66}
-.dice-slot.roll i{animation:diceShake .12s linear infinite}
-@keyframes diceShake{50%{transform:scale(.88) rotate(8deg)}}
-.dice-picker{display:flex;justify-content:center;gap:12px;margin:0 0 24px}
-.dice-pick{width:38px;height:38px;border:3px solid transparent;border-radius:50%!important;padding:0;cursor:pointer;box-shadow:inset 0 0 0 3px #ffffff35;transition:transform .15s}
-.dice-pick.active{border-color:#fff;transform:scale(1.15)}
-#diceButton{max-width:340px;margin:0 auto;background:linear-gradient(#3f64b8,#2c4a94);border:2px solid #0a1228;box-shadow:inset 0 2px 0 #ffffff30,0 4px 0 #0a1228;color:#fff}
+.dice-page h2{margin:20px 0 2px;font-size:30px;font-weight:900;letter-spacing:6px;text-transform:uppercase;color:#f2f6ff}
+.dice-sub{margin:0 0 18px;color:#5e6b88;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
+.dice-stage{position:relative;padding:22px 14px 20px;margin-bottom:16px;border:1px solid #131b2e;background:radial-gradient(120% 90% at 50% 0%,color-mix(in srgb,var(--dc) 22%,transparent),transparent 62%),#070b14;border-radius:18px!important;transition:background .35s}
+.dice-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;perspective:700px}
+.dice-slot{position:relative;aspect-ratio:1;border-radius:18px!important;background:linear-gradient(145deg,#1a2238,#0c1120);box-shadow:inset 0 0 0 2px #26324f,0 10px 18px #0008;transition:box-shadow .25s,transform .25s}
+.dice-slot i{position:absolute;inset:9px;display:block;border-radius:12px!important;background:#2a3350;box-shadow:inset 0 3px 0 #ffffff55,inset 0 -6px 10px #0006,0 0 0 1px #0004;transition:background .2s}
+.dice-slot i::after{content:"";position:absolute;left:14%;top:10%;width:38%;height:22%;border-radius:50%!important;background:#ffffff40;filter:blur(2px)}
+.dice-slot.roll{animation:diceTumble .55s cubic-bezier(.4,.1,.3,1) infinite}
+@keyframes diceTumble{0%{transform:rotateX(0) rotateY(0) translateY(0)}50%{transform:rotateX(180deg) rotateY(90deg) translateY(-14px)}100%{transform:rotateX(360deg) rotateY(180deg) translateY(0)}}
+.dice-slot.land{animation:diceLand .35s ease-out}
+@keyframes diceLand{0%{transform:translateY(-12px) scale(1.06)}60%{transform:translateY(2px) scale(.97)}100%{transform:none}}
+.dice-slot.hit{box-shadow:inset 0 0 0 3px #ffd45c,0 0 22px #ffd45c88,0 10px 18px #0008}
+.dice-slot.dim{opacity:.55}
+.dice-stake-row{display:flex;justify-content:center;margin-top:18px}
+.dice-stake{position:relative;display:flex;align-items:center;gap:12px;width:100%;max-width:300px;padding:10px 16px 10px 10px;border:1px dashed #2a3a63;background:#0a1020;color:#e8eefc;font-weight:900;font-size:13px;letter-spacing:1.5px;cursor:pointer;border-radius:14px!important;transition:border-color .2s}
+.dice-stake:hover{border-color:var(--dc)}
+.dice-stake.filled{border-style:solid;border-color:#33466f}
+.dice-stake-art{flex:none;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:#121a30;border-radius:10px!important;color:#5e6b88;font-size:26px;font-weight:400}
+.dice-stake-art img{width:40px;height:40px;object-fit:contain}
+.dice-stake-text{flex:1;text-align:left;min-width:0}
+.dice-stake-text small{display:block;margin-bottom:2px;color:#5e6b88;font-size:10px;letter-spacing:2px}
+.dice-stake-name{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dice-hint{margin:12px 0 0;color:#5e6b88;font-size:12px;font-weight:700}
+.dice-picker{display:flex;justify-content:center;gap:10px;margin:0 0 18px}
+.dice-pick{position:relative;width:42px;height:42px;border:0;border-radius:12px!important;padding:0;cursor:pointer;box-shadow:inset 0 3px 0 #ffffff55,inset 0 -5px 8px #0005,0 6px 10px #0006;transition:transform .15s}
+.dice-pick.active{transform:translateY(-5px) scale(1.08);box-shadow:inset 0 3px 0 #ffffff66,inset 0 -5px 8px #0005,0 0 0 3px #fff,0 10px 16px #0008}
+#diceButton{max-width:340px;margin:0 auto;font-weight:900;letter-spacing:3px;background:linear-gradient(#4a74d8,#2d4fa3);border:0;box-shadow:inset 0 2px 0 #ffffff40,0 5px 0 #14265a,0 10px 20px #0007;color:#fff;border-radius:14px!important}
+#diceButton:active:not(:disabled){transform:translateY(3px);box-shadow:inset 0 2px 0 #ffffff40,0 2px 0 #14265a}
 #diceButton:disabled{opacity:.55}
-.dice-result{min-height:26px;margin:16px 0 18px;font-weight:800;color:#cfe0ff}
+.dice-result{min-height:44px;margin:18px 0 8px;padding:12px 14px;font-weight:800;color:#cfe0ff;border-radius:12px!important}
+.dice-result.win{background:#0e2a1d;border:1px solid #1f6b46;color:#6dffb0}
+.dice-result.lose{background:#2a0f16;border:1px solid #6b1f2e;color:#ff8d9d}
+.dice-result:empty{border:0;background:none;padding:0}
+.dice-help{display:block;width:40px;height:40px;margin:6px auto 14px;border:1px solid #2a4a9a;background:#0b101c;color:#8fb6ff;font-weight:900;font-size:20px;cursor:pointer;border-radius:50%!important}
+.dice-rules[hidden]{display:none}
 .dice-rules{text-align:left;border:1px solid #141c30;background:#070b14;border-radius:12px!important;overflow:hidden}
 .dice-rules h3{margin:0;padding:12px 14px;color:#cfe0ff;font-size:16px}
 .dice-rules div{display:flex;justify-content:space-between;padding:10px 14px;border-top:1px solid #121a2c;color:#8493b3;font-weight:700}
@@ -1896,14 +1910,17 @@ body.dice-mode{background:#04060b!important}
 
     <section class="dice-page" id="dicePage">
         <h2>Дайсы</h2>
-        <p class="dice-sub">4 кубика, угадай цвет</p>
-        <div class="dice-stake-row"><button class="dice-stake" id="diceStakeButton" type="button" onclick="openDiceStakePicker()"><span class="dice-stake-name">ВЫБРАТЬ СТАВКУ</span><em>⌄</em></button></div>
-        <p class="dice-hint" id="diceHint">Выбери цвет и предмет для ставки</p>
-        <div class="dice-slots" id="diceSlots"><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div></div>
+        <p class="dice-sub">4 кубика · угадай цвет</p>
+        <div class="dice-stage">
+            <div class="dice-slots" id="diceSlots"><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div><div class="dice-slot"><i></i></div></div>
+            <div class="dice-stake-row"><button class="dice-stake" id="diceStakeButton" type="button" onclick="openDiceStakePicker()"></button></div>
+            <p class="dice-hint" id="diceHint"></p>
+        </div>
         <div class="dice-picker" id="dicePicker"></div>
         <button class="open-button" id="diceButton" type="button" onclick="playDice()">БРОСИТЬ</button>
         <div class="dice-result" id="diceResult" aria-live="polite"></div>
-        <div class="dice-rules"><h3>Правила</h3>
+        <button class="dice-help" id="diceHelp" type="button" aria-expanded="false" aria-label="Правила" onclick="toggleDiceRules()">?</button>
+        <div class="dice-rules" id="diceRules" hidden><h3>Правила</h3>
             <div><span>0 из 4</span><span class="lose">проигрыш</span></div>
             <div><span>1 из 4</span><span class="win">x2</span></div>
             <div><span>2 из 4</span><span class="lose">проигрыш</span></div>
@@ -3511,6 +3528,12 @@ let dicePlaying = false;
 function getDiceStakeItem() {
     return currentInventory.find(item => String(item.id) === String(diceStakeId) && getUpgradeCatalogItem(item.itemId));
 }
+function toggleDiceRules() {
+    const rules = document.getElementById("diceRules");
+    rules.hidden = !rules.hidden;
+    document.getElementById("diceHelp").setAttribute("aria-expanded", String(!rules.hidden));
+    if (!rules.hidden) rules.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
 function renderDicePicker() {
     const box = document.getElementById("dicePicker");
     box.innerHTML = "";
@@ -3523,27 +3546,36 @@ function renderDicePicker() {
         b.onclick = () => { if (dicePlaying) return; diceColor = name; renderDicePicker(); };
         box.appendChild(b);
     });
+    document.getElementById("dicePage").style.setProperty("--dc", DICE_COLORS[diceColor]);
 }
 function renderDiceStake() {
     const item = getDiceStakeItem();
     if (!item) diceStakeId = "";
     const button = document.getElementById("diceStakeButton");
     button.innerHTML = "";
+    button.classList.toggle("filled", Boolean(item));
+    const art = document.createElement("span");
+    art.className = "dice-stake-art";
+    const text = document.createElement("span");
+    text.className = "dice-stake-text";
+    const label = document.createElement("small");
+    label.textContent = "СТАВКА";
+    const name = document.createElement("span");
+    name.className = "dice-stake-name";
     if (item) {
         const catalogItem = getUpgradeCatalogItem(item.itemId);
         const img = document.createElement("img");
         img.src = item.image || catalogItem.image;
         img.alt = "";
-        const name = document.createElement("span");
-        name.className = "dice-stake-name";
+        art.appendChild(img);
         name.textContent = item.name || catalogItem.name;
-        const arrow = document.createElement("em");
-        arrow.textContent = "⌄";
-        button.append(img, name, arrow);
     } else {
-        button.innerHTML = '<span class="dice-stake-name">ВЫБРАТЬ СТАВКУ</span><em>⌄</em>';
+        art.textContent = "+";
+        name.textContent = "ВЫБРАТЬ ПРЕДМЕТ";
     }
-    document.getElementById("diceHint").textContent = item ? "Выиграешь — получишь предмет x2 или x3" : "Выбери цвет и предмет для ставки";
+    text.append(label, name);
+    button.append(art, text);
+    document.getElementById("diceHint").textContent = item ? "Угадаешь цвет — получишь предмет x2 или x3" : "Выбери цвет и предмет для ставки";
 }
 async function showDice() {
     if (blockNavigationDuringUpgrade()) return;
@@ -3595,7 +3627,8 @@ async function playDice() {
     const button = document.getElementById("diceButton");
     button.disabled = true;
     const slots = [...document.querySelectorAll("#diceSlots .dice-slot")];
-    slots.forEach(slot => { slot.classList.remove("hit"); slot.classList.add("roll", "shown"); });
+    slots.forEach(slot => { slot.classList.remove("hit", "dim", "land"); slot.classList.add("roll"); });
+    result.className = "dice-result";
     result.textContent = "";
     const names = Object.keys(DICE_COLORS);
     const shuffle = setInterval(() => slots.forEach(slot => { slot.firstElementChild.style.background = DICE_COLORS[names[Math.floor(Math.random()*names.length)]]; }), 90);
@@ -3605,11 +3638,13 @@ async function playDice() {
         for (let i = 0; i < slots.length; i++) {
             await new Promise(r => setTimeout(r, 260));
             slots[i].classList.remove("roll");
+            slots[i].classList.add("land");
             slots[i].firstElementChild.style.background = DICE_COLORS[data.dice[i]];
-            if (data.dice[i] === diceColor) slots[i].classList.add("hit");
+            if (data.dice[i] === diceColor) slots[i].classList.add("hit"); else slots[i].classList.add("dim");
         }
         const itemName = data.item?.name || stake.name || "предмет";
         result.textContent = data.copies > 0 ? `Победа! Получено: ${itemName} x${data.copies} (${data.matches} из 4)` : `Проигрыш (${data.matches} из 4). ${itemName} сгорел.`;
+        result.className = "dice-result " + (data.copies > 0 ? "win" : "lose");
         vibrate(data.copies > 0 ? "success" : "error");
         diceStakeId = "";
         await loadInventory();
@@ -3618,6 +3653,7 @@ async function playDice() {
         clearInterval(shuffle);
         slots.forEach(slot => slot.classList.remove("roll"));
         result.textContent = error.message || "Не удалось сыграть.";
+        showToast(error.message || "Не удалось сыграть.", "error");
         loadInventory().then(renderDiceStake).catch(() => {});
     } finally {
         dicePlaying = false;
