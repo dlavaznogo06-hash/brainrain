@@ -1581,6 +1581,12 @@ body.upg-mode #gradientBackground{opacity:.18!important}
 #upgraderPage .upgrade-wheel-core{width:65%!important;height:65%!important}
 #upgraderPage .upgrade-wheel-pointer{top:2.5%!important;width:9%!important;height:9.5%!important}
 #upgraderPage .upgrade-wheel-bloom{top:0!important}
+
+/* v4: без свечения сверху, тёмная середина, зелёная полоса от колец до центрального круга */
+#upgraderPage .upgrade-wheel-bloom{display:none!important}
+#upgraderPage .upgrade-wheel-pointer{filter:drop-shadow(0 0 4px #c9b2ff99)!important}
+#upgraderPage .upgrade-wheel-disc{inset:7%!important;width:86%!important;height:86%!important;-webkit-mask:radial-gradient(farthest-side,transparent 74%,#000 75%,#000 100%)!important;mask:radial-gradient(farthest-side,transparent 74%,#000 75%,#000 100%)!important;filter:none!important;opacity:.92}
+#upgraderPage .upgrade-wheel-core{background:radial-gradient(circle at 50% 30%,#0e1838 0,#0a1230 60%,#070d24 100%)!important;box-shadow:0 0 0 1.5px #2a4283,inset 0 0 30px #04081a!important}
 </style>
 </head>
 
