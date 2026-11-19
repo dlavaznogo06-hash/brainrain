@@ -1571,6 +1571,16 @@ body.upg-mode #gradientBackground{opacity:.18!important}
 #upgraderPage .upgrade-wheel-core{width:62%!important;height:62%!important}
 #upgraderPage .upgrade-wheel-pointer{top:7%!important;width:22px!important;height:22px!important}
 #upgraderPage .upgrade-wheel-bloom{top:5%;width:80px;height:50px}
+
+/* v3: размеры по макету — ЦЕЛЬ, зелёный сектор между серединой и кольцами, два кольца у делений */
+#upgraderPage .upgrade-card h3{display:block!important;margin:10px 0 29px!important}
+#upgraderPage .upgrade-wheel::before{-webkit-mask:radial-gradient(farthest-side,transparent 93%,#000 93.5%,#000 99%,transparent 99.5%)!important;mask:radial-gradient(farthest-side,transparent 93%,#000 93.5%,#000 99%,transparent 99.5%)!important}
+#upgraderPage .upgrade-wheel::after{-webkit-mask:radial-gradient(farthest-side,transparent 91%,#000 91.5%,#000 99%,transparent 99.5%)!important;mask:radial-gradient(farthest-side,transparent 91%,#000 91.5%,#000 99%,transparent 99.5%)!important}
+#upgraderPage .upgrade-wheel-kolco{inset:5.25%!important;border:1.5px solid #8fa6e0cc!important;background:radial-gradient(closest-side,transparent 95.6%,#8fa6e0b0 95.6% 97.4%,transparent 97.4%)!important;box-shadow:0 0 8px #5b7fe033!important}
+#upgraderPage .upgrade-wheel-disc{inset:12%!important;width:76%!important;height:76%!important;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px))!important;mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px))!important;filter:drop-shadow(0 0 5px #39df91aa)!important}
+#upgraderPage .upgrade-wheel-core{width:65%!important;height:65%!important}
+#upgraderPage .upgrade-wheel-pointer{top:2.5%!important;width:9%!important;height:9.5%!important}
+#upgraderPage .upgrade-wheel-bloom{top:0!important}
 </style>
 </head>
 
@@ -3869,8 +3879,8 @@ function setUpgradeWheelSector(chance) {
     const sweep = percent * 3.6;
     const start = 180 - sweep / 2;
     disc.style.background = percent > 0
-        ? `conic-gradient(from ${start}deg, #39df91 0deg ${sweep}deg, #8fa8e8 ${sweep}deg 360deg)`
-        : "#8fa8e8";
+        ? `conic-gradient(from ${start}deg, #39df91 0deg ${sweep}deg, transparent ${sweep}deg 360deg)`
+        : "transparent";
 }
 
 function updateUpgradeState() {
