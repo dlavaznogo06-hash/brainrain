@@ -1456,6 +1456,121 @@ body.dice-mode{background:#04060b!important}
 }
 .upgrade-card h3{display:none}
 .upgrade-empty-slot,.upgrade-target-pick{color:#d6ddff;font-size:15px;font-weight:800;letter-spacing:.3px}
+
+/* ---- Рулетка апгрейдера: циферблат с делениями ---- */
+#upgraderPage .upgrade-wheel{--wr:#3f6fe0;filter:none!important;border-radius:50%!important;background:radial-gradient(circle,#0b1224 0 62%,#0a1530 100%)!important;box-shadow:0 0 0 1px #1b3573,0 0 26px #1b3b8a55,inset 0 0 30px #00000088!important}
+#upgraderPage .upgrade-wheel::before{content:"";position:absolute;inset:3px;border-radius:50%!important;pointer-events:none;z-index:1;
+ background:repeating-conic-gradient(from -.6deg,#4d7fe8 0 1.2deg,transparent 1.2deg 6deg);
+ -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 9px),#000 calc(100% - 2px),transparent calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 9px),#000 calc(100% - 2px),transparent calc(100% - 2px));opacity:.85}
+#upgraderPage .upgrade-wheel::after{content:"";position:absolute;inset:3px;border-radius:50%!important;pointer-events:none;z-index:1;
+ background:conic-gradient(#cfe0ff 0 1.5deg,transparent 1.5deg 88.5deg,#cfe0ff 88.5deg 91.5deg,transparent 91.5deg 178.5deg,#cfe0ff 178.5deg 181.5deg,transparent 181.5deg 268.5deg,#cfe0ff 268.5deg 271.5deg,transparent 271.5deg 358.5deg,#cfe0ff 358.5deg);
+ -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 14px),#000 calc(100% - 14px),#000 calc(100% - 2px),transparent calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 14px),#000 calc(100% - 14px),#000 calc(100% - 2px),transparent calc(100% - 2px))}
+#upgraderPage .upgrade-wheel-kolco{display:none!important}
+#upgraderPage .upgrade-wheel-disc{inset:20px!important;width:calc(100% - 40px)!important;height:calc(100% - 40px)!important;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px))!important;mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 7px))!important}
+#upgraderPage .upgrade-wheel-core{width:78%!important;height:78%!important;background:radial-gradient(circle at 50% 35%,#101a33,#0a1022 70%)!important;box-shadow:0 0 0 1px #24407f,inset 0 0 26px #000a!important}
+#upgraderPage .upgrade-wheel-line{width:22%!important;height:5px!important;border-radius:0!important;background:#3a4668!important;box-shadow:none!important}
+#upgraderPage .upgrade-wheel-chance-title{color:#7285ad!important;font-size:12px!important;letter-spacing:1.5px}
+#upgraderPage .upgrade-wheel-pointer{top:-11px!important;color:#fff!important;font-size:26px!important;text-shadow:0 0 10px #fff,0 0 18px #6fa0ff!important;z-index:5}
+
+/* уточнение рулетки: тонкое светлое кольцо, тёмная середина, двухцветная стрелка */
+#upgraderPage .upgrade-wheel{background:radial-gradient(circle,#0a1020 0 60%,#0b1630 100%)!important}
+#upgraderPage .upgrade-wheel-disc{inset:22px!important;width:calc(100% - 44px)!important;height:calc(100% - 44px)!important;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px))!important;mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px))!important;filter:drop-shadow(0 0 4px #4a7fd899)}
+#upgraderPage .upgrade-wheel::before{opacity:.55;background:repeating-conic-gradient(from -.4deg,#cfe0ff 0 .8deg,transparent .8deg 6deg)}
+#upgraderPage .upgrade-wheel-core{width:72%!important;height:72%!important;background:radial-gradient(circle at 50% 30%,#151f3d,#0c1326 75%)!important;box-shadow:0 0 0 7px #080c16,0 0 0 8px #1b2438,inset 0 0 24px #000b!important}
+#upgraderPage .upgrade-wheel-pointer{font-size:0!important;width:22px;height:26px;top:-4px!important;color:transparent!important;text-shadow:none!important;background:linear-gradient(90deg,#fff 0 50%,#6fa6f0 50% 100%);clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 0 5px #8fb6ff)}
+
+/* рулетка v3: тонкие деления по краю, светлое кольцо ближе к краю, крупная тёмная середина */
+#upgraderPage .upgrade-wheel{background:radial-gradient(circle,#0b1224 0 55%,#070b16 100%)!important;box-shadow:0 0 0 1px #16264a,0 0 22px #0b1a4044,inset 0 0 26px #000c!important}
+#upgraderPage .upgrade-wheel::before{inset:4px;opacity:.7;background:repeating-conic-gradient(from -.35deg,#d6e4ff 0 .7deg,transparent .7deg 5deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 8px),#000 calc(100% - 2px),transparent calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 8px),#000 calc(100% - 8px),#000 calc(100% - 2px),transparent calc(100% - 2px))}
+#upgraderPage .upgrade-wheel::after{inset:4px;background:conic-gradient(#cfe0ff 0 .6deg,transparent .6deg 89.7deg,#cfe0ff 89.7deg 90.3deg,transparent 90.3deg 179.7deg,#cfe0ff 179.7deg 180.3deg,transparent 180.3deg 269.7deg,#cfe0ff 269.7deg 270.3deg,transparent 270.3deg 359.4deg,#cfe0ff 359.4deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 15px),#000 calc(100% - 15px),#000 calc(100% - 2px),transparent calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 15px),#000 calc(100% - 15px),#000 calc(100% - 2px),transparent calc(100% - 2px))}
+#upgraderPage .upgrade-wheel-disc{inset:14px!important;width:calc(100% - 28px)!important;height:calc(100% - 28px)!important;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px))!important;mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px))!important;filter:drop-shadow(0 0 3px #4a7fd8aa)}
+#upgraderPage .upgrade-wheel-core{width:66%!important;height:66%!important;background:radial-gradient(circle at 50% 30%,#162243,#0b1224 78%)!important;box-shadow:0 0 0 9px #0a0f1c,0 0 0 10px #1c2a4a,inset 0 0 22px #000c!important}
+#upgraderPage .upgrade-wheel-line{width:26%!important;height:6px!important;background:#56638a!important}
+#upgraderPage .upgrade-wheel-chance-title{color:#8693b8!important;font-size:11px!important;letter-spacing:2px}
+#upgraderPage .upgrade-wheel-pointer{width:26px!important;height:30px!important;top:-6px!important;clip-path:polygon(0 0,50% 24%,100% 0,50% 100%)!important}
+
+/* ===== Апгрейдер: новый стиль ===== */
+body.upg-mode{background:#050914!important}
+body.upg-mode #gradientBackground{opacity:.4}
+#upgraderPage .upgrade-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 6px}
+#upgraderPage .upgrade-head-left{display:flex;align-items:center;gap:12px;min-width:0}
+#upgraderPage .upgrade-title{margin:0;font-size:30px;font-weight:900;color:#fff;letter-spacing:.2px}
+#upgraderPage .upgrade-help{flex:none;width:30px;height:30px;padding:0;border:1px solid #2e4a86;background:#0f1b3a;color:#8fb0f0;font-weight:900;font-size:16px;cursor:pointer;border-radius:50%!important}
+#upgraderPage .upgrade-help-panel{margin:0 0 10px;padding:12px 14px;border:1px solid #1d2f5c;background:#0a1330;color:#9db1de;font-size:13px;line-height:1.5;border-radius:12px!important}
+#upgraderPage .upgrade-help-panel[hidden]{display:none}
+#upgraderPage .upgrade-mode{margin:0!important;flex:none}
+#upgraderPage .upgrade-speed-label{color:#9aa6c4;font-size:15px;font-weight:700}
+#upgraderPage .upgrade-speed-track{width:50px!important;height:26px!important;background:#2b3140!important;border-radius:13px!important;box-shadow:inset 0 0 0 1px #3a4358}
+#upgraderPage .upgrade-speed-knob{top:3px!important;left:3px!important;width:20px!important;height:20px!important;background:#8a93a8!important;border-radius:50%!important}
+#upgraderPage .upgrade-speed-switch.on .upgrade-speed-track{background:#2b3a4a!important}
+#upgraderPage .upgrade-speed-switch.on .upgrade-speed-knob{background:#7dffb0!important;box-shadow:0 0 12px #5dffa0!important;transform:translateX(24px)!important}
+/* рулетка */
+#upgraderPage .upgrade-wheel{background:none!important;box-shadow:none!important}
+#upgraderPage .upgrade-wheel::before{inset:2px;opacity:.75;background:repeating-conic-gradient(from -.3deg,#9fb4ee 0 .6deg,transparent .6deg 3deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 12px),#000 calc(100% - 3px),transparent calc(100% - 3px));mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 12px),#000 calc(100% - 3px),transparent calc(100% - 3px))}
+#upgraderPage .upgrade-wheel::after{inset:2px;background:repeating-conic-gradient(from -.9deg,#c9d6ff 0 1.8deg,transparent 1.8deg 30deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 15px),#000 calc(100% - 15px),#000 calc(100% - 3px),transparent calc(100% - 3px));mask:radial-gradient(farthest-side,transparent calc(100% - 15px),#000 calc(100% - 15px),#000 calc(100% - 3px),transparent calc(100% - 3px))}
+#upgraderPage .upgrade-wheel-disc{inset:18px!important;width:calc(100% - 36px)!important;height:calc(100% - 36px)!important;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px))!important;mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px))!important;filter:none}
+#upgraderPage .upgrade-wheel-core{width:66%!important;height:66%!important;background:radial-gradient(circle at 50% 30%,#15234f,#0d1838 80%)!important;box-shadow:0 0 0 1.5px #2c4a8f,0 0 24px #1b3b8a44!important}
+#upgraderPage .upgrade-wheel-line{width:42%!important;height:2px!important;background:#aab9e6!important;border-radius:1px!important}
+#upgraderPage .upgrade-wheel-chance-title{color:#fff!important;font-size:20px!important;font-weight:900!important;letter-spacing:.5px}
+#upgraderPage .upgrade-wheel-pointer{width:26px!important;height:28px!important;top:-4px!important;background:linear-gradient(#fff,#cdbbff)!important;clip-path:polygon(0 0,100% 0,50% 100%)!important;filter:drop-shadow(0 0 8px #b79bff)!important}
+/* карточки */
+#upgraderPage .upgrade-card{border:1px solid #1d2f5c!important;border-radius:20px!important;background:linear-gradient(160deg,#0e1838,#0a1128)!important;box-shadow:0 0 0 1px #ffffff06,0 12px 30px #0006!important;min-height:230px}
+#upgraderPage .upgrade-card h3{margin:2px 0 14px;color:#dbe4ff;font-size:17px;font-weight:900;letter-spacing:1px}
+#upgraderPage .upgrade-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:0 0 14px;border:1px solid #1d2f5c;background:#0a1128;border-radius:14px!important}
+#upgraderPage .upgrade-tabs button{padding:9px 4px;border:1px solid transparent;background:none;color:#7f8db3;font-weight:800;font-size:14px;cursor:pointer;border-radius:10px!important}
+#upgraderPage .upgrade-tabs button.active{background:linear-gradient(#1c2c5a,#142248);border-color:#2f4a8a;color:#fff;box-shadow:inset 0 -6px 12px #3b6fe033}
+#upgraderPage .upgrade-tab-panel[hidden]{display:none}
+#upgraderPage .upgrade-empty-slot,#upgraderPage .upgrade-target-pick{position:relative;font-size:0!important;color:transparent}
+#upgraderPage .upgrade-empty-slot::before,#upgraderPage .upgrade-target-pick::before{content:"+";display:grid;place-items:center;width:62px;height:62px;border:1.5px solid #3d78f0;background:linear-gradient(#10224f,#0b1738);color:#8db6ff;font-size:44px;font-weight:300;line-height:1;border-radius:14px!important;box-shadow:0 0 18px #2f6cf055,inset 0 0 14px #2f6cf033}
+#upgraderPage .upgrade-coins{max-width:none;margin:0;border:0;background:none;padding:6px 0 0}
+#upgraderPage .upgrade-preset{min-height:38px;padding:8px 14px;border:1px solid #243a73!important;background:#0c1634!important;color:#b9c8f0!important;font-weight:800;border-radius:12px!important;box-shadow:none!important}
+#upgraderPage .upgrade-preset.active{background:#1a2c5c!important;border-color:#4a7be8!important;color:#fff!important}
+#upgraderPage .upgrade-multiplier-row,#upgraderPage .upgrade-chance-row{display:flex;justify-content:center;gap:8px;margin-top:10px}
+#upgraderPage .upgrade-card .upgrade-coins-head{flex-direction:column;align-items:stretch;gap:10px;margin-bottom:14px;font-size:13px}
+#upgraderPage .upgrade-card .upgrade-coins-title{justify-content:center}
+#upgraderPage .upgrade-card .upgrade-coins-val{width:100%;box-sizing:border-box;justify-content:center;border:1.5px solid #3d78f0;background:#0b1738;border-radius:12px!important;padding:8px 10px}
+#upgraderPage .upgrade-card .upgrade-coins-val input{width:100%;min-width:0;text-align:center;font-size:18px}
+
+/* ===== Апгрейдер v2: точная подгонка под макет ===== */
+body.upg-mode{background:radial-gradient(120% 70% at 85% 105%,#0f2a7a66 0,transparent 60%),radial-gradient(90% 60% at 50% 28%,#0b1a4a 0,#060c22 70%),#050a1c!important}
+body.upg-mode #gradientBackground{opacity:.18!important}
+#upgraderPage{position:relative}
+#upgraderPage>*{position:relative;z-index:1}
+#upgraderPage>.upg-sparks{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.upg-sparks i{position:absolute;display:block}
+.upg-sparks .d{width:4px;height:4px;border-radius:50%!important;background:#8fb8ff;box-shadow:0 0 6px 1px #5b8dff}
+.upg-sparks .d.s{width:3px;height:3px;background:#9a7bff;box-shadow:0 0 5px #7a5bff}
+.upg-sparks .k{width:26px;height:2px;border-radius:2px!important;transform:rotate(var(--r));background:linear-gradient(90deg,transparent,#6f9bff 55%,#cfe0ff);opacity:.75;box-shadow:0 0 6px #4d7dff}
+#upgraderPage .upgrade-title{font-size:34px;letter-spacing:0}
+#upgraderPage .upgrade-speed-track{background:#252d3d!important;box-shadow:inset 0 0 0 1.5px #3a4560,0 0 0 0 transparent!important}
+#upgraderPage .upgrade-speed-switch.on .upgrade-speed-track{background:#263447!important}
+#upgraderPage .upgrade-speed-switch.on .upgrade-speed-knob{background:radial-gradient(circle at 40% 35%,#d4ffe6,#6dffae 60%)!important;box-shadow:0 0 14px 3px #4dff9a88,0 0 26px 6px #4dff9a44!important}
+/* колесо */
+#upgraderPage .upgrade-wheel::before{inset:0;opacity:.95;background:repeating-conic-gradient(from -.35deg,#7f9ad8 0 .7deg,transparent .7deg 2.4deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 17px),#000 calc(100% - 17px),#000 calc(100% - 2px),transparent calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 17px),#000 calc(100% - 17px),#000 calc(100% - 2px),transparent calc(100% - 2px))}
+#upgraderPage .upgrade-wheel::after{inset:0;background:repeating-conic-gradient(from -1deg,#a9bdf2 0 2deg,transparent 2deg 15deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 19px),#000 calc(100% - 19px),#000 calc(100% - 2px),transparent calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 19px),#000 calc(100% - 19px),#000 calc(100% - 2px),transparent calc(100% - 2px))}
+#upgraderPage .upgrade-wheel-kolco{display:block!important;position:absolute;z-index:1;inset:27px!important;width:auto!important;height:auto!important;border:1.5px solid #8fa6e0aa;border-radius:50%!important;clip-path:none!important;box-shadow:0 0 10px #5b7fe033}
+#upgraderPage .upgrade-wheel-disc{inset:22px!important;width:calc(100% - 44px)!important;height:calc(100% - 44px)!important;-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 1.5px))!important;mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 1.5px))!important}
+#upgraderPage .upgrade-wheel-bloom{position:absolute;z-index:1;left:50%;top:14px;width:90px;height:28px;transform:translateX(-50%);background:radial-gradient(closest-side,#c9b2ff99,transparent);pointer-events:none}
+#upgraderPage .upgrade-wheel-core{width:64%!important;height:64%!important;background:radial-gradient(circle at 50% 25%,#17285f 0,#101e4c 55%,#0d1940 100%)!important;box-shadow:0 0 0 1.5px #34509c,0 0 30px #2a50b855,inset 0 0 30px #0a122e88!important}
+#upgraderPage .upgrade-wheel-line{width:40%!important;height:2.5px!important;background:linear-gradient(90deg,#8fa4e0,#c3d0f5,#8fa4e0)!important;box-shadow:0 0 6px #7f9ae066!important}
+#upgraderPage .upgrade-wheel-chance-title{font-size:21px!important;letter-spacing:.3px;margin-top:6px}
+#upgraderPage .upgrade-wheel-pointer{top:6px!important;width:28px!important;height:28px!important;background:linear-gradient(#fff,#d6c4ff 60%,#b79bff)!important;filter:drop-shadow(0 0 7px #c9b2ff) drop-shadow(0 0 14px #9a7bff88)!important}
+/* карточки и плитки */
+#upgraderPage .upgrade-card{border:1px solid #243c78!important;background:linear-gradient(165deg,#13204a 0,#0c1636 55%,#0a1230 100%)!important;border-radius:18px!important;box-shadow:inset 0 1px 0 #ffffff0d,0 14px 34px #0007!important}
+#upgraderPage .upgrade-card h3{color:#c9d3f0;font-size:18px;font-weight:800;letter-spacing:.5px}
+#upgraderPage .upgrade-tabs{background:#0b1433;border-color:#223a74}
+#upgraderPage .upgrade-tabs button{color:#7b89ad;font-weight:700}
+#upgraderPage .upgrade-tabs button.active{background:linear-gradient(#1d2d5d,#16254f);border-color:#34508f;color:#e8eeff;box-shadow:inset 0 -8px 14px #4f7cf02b,0 0 10px #4f7cf022}
+#upgraderPage .upgrade-empty-slot::before,#upgraderPage .upgrade-target-pick::before{width:64px;height:64px;border:1.5px solid #4c86ff;background:linear-gradient(160deg,#21428f,#14306e);color:#a8d4ff;font-size:46px;font-weight:200;border-radius:15px!important;box-shadow:0 0 22px 4px #2f6cf077,0 0 46px 10px #2f6cf033,inset 0 0 16px #5b95ff44}
+
+/* v2.1: тонкие редкие деления, кольца в процентах */
+#upgraderPage .upgrade-wheel::before{background:repeating-conic-gradient(from -.25deg,#6f89cc 0 .5deg,transparent .5deg 3deg)!important;opacity:.8!important;-webkit-mask:radial-gradient(farthest-side,transparent 91%,#000 91.5%,#000 98.5%,transparent 99%)!important;mask:radial-gradient(farthest-side,transparent 91%,#000 91.5%,#000 98.5%,transparent 99%)!important}
+#upgraderPage .upgrade-wheel::after{background:repeating-conic-gradient(from -.6deg,#b3c4f5 0 1.2deg,transparent 1.2deg 15deg)!important;-webkit-mask:radial-gradient(farthest-side,transparent 89%,#000 89.5%,#000 98.5%,transparent 99%)!important;mask:radial-gradient(farthest-side,transparent 89%,#000 89.5%,#000 98.5%,transparent 99%)!important}
+#upgraderPage .upgrade-wheel-disc{inset:12%!important;width:76%!important;height:76%!important}
+#upgraderPage .upgrade-wheel-kolco{inset:14.5%!important}
+#upgraderPage .upgrade-wheel-core{width:62%!important;height:62%!important}
+#upgraderPage .upgrade-wheel-pointer{top:7%!important;width:22px!important;height:22px!important}
+#upgraderPage .upgrade-wheel-bloom{top:5%;width:80px;height:50px}
 </style>
 </head>
 
@@ -1945,34 +2060,47 @@ body.dice-mode{background:#04060b!important}
     </div>
 
     <section class="upgrader-page" id="upgraderPage">
+    <div class="upg-sparks" aria-hidden="true"><i class="d" style="left:79%;top:19%"></i><i class="d" style="left:90%;top:28%"></i><i class="d" style="left:12%;top:43%"></i><i class="d" style="left:94%;top:57%"></i><i class="d s" style="left:11%;top:50%"></i><i class="k" style="left:86%;top:14%;--r:-55deg"></i><i class="k" style="left:11%;top:41%;--r:-15deg"></i><i class="k" style="left:83%;top:55%;--r:70deg"></i><i class="k" style="left:25%;top:68%;--r:-70deg"></i><i class="k" style="left:49%;top:76%;--r:-60deg"></i></div>
 
+    <div class="upgrade-head">
+        <div class="upgrade-head-left"><h2 class="upgrade-title">Апгрейдер</h2><button class="upgrade-help" id="upgradeHelpButton" type="button" aria-expanded="false" aria-label="Как работает апгрейд" onclick="toggleUpgradeHelp()">?</button></div>
     <div class="upgrade-mode" role="group" aria-label="Режим апгрейда">
         <button type="button" class="upgrade-speed-switch" id="upgradeSpeedSwitch" role="switch" aria-checked="false" onclick="setUpgradeMode(upgradeMode === 'fast' ? 'normal' : 'fast')">
             <span class="upgrade-speed-label">Быстро</span>
             <span class="upgrade-speed-track"><span class="upgrade-speed-knob"></span></span>
         </button>
     </div>
+    </div>
+    <div class="upgrade-help-panel" id="upgradeHelpPanel" hidden>Выбери предметы из инвентаря и (или) добавь монеты с баланса, затем выбери цель дороже ставки. Шанс = 90% × ставка ÷ цена цели, максимум 90%. Удалось — получаешь цель, нет — ставка сгорает.</div>
 
     <div class="upgrade-layout">
         <div class="upgrade-center">
             <div class="upgrade-wheel-brand"><img src="logotipe.png" alt="BrainRain"></div>
             <div class="upgrade-wheel" id="upgradeWheel" aria-label="Колесо апгрейда">
                 <div class="upgrade-wheel-disc" id="upgradeWheelDisc" aria-hidden="true"></div>
-                <img class="upgrade-wheel-kolco" src="kolco.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
+                <div class="upgrade-wheel-kolco" aria-hidden="true"></div><div class="upgrade-wheel-bloom" aria-hidden="true"></div>
                 <div class="upgrade-wheel-arrow-orbit" id="upgradeWheelArrow"><span class="upgrade-wheel-pointer" aria-hidden="true">▼</span></div>
                 <div class="upgrade-wheel-core" id="upgradeWheelCore"><i class="upgrade-wheel-line" id="upgradeWheelLine"></i><span class="upgrade-wheel-chance-title" id="upgradeWheelChanceTitle">Шанс</span><span class="upgrade-wheel-chance" id="upgradeWheelChance" hidden>0.00%</span><img id="upgradeWheelItemImage" alt="" hidden><strong id="upgradeWheelItemName"></strong></div>
             </div>
         </div>
         <div class="upgrade-choice-row">
             <section class="upgrade-card">
-            <h3>Предмет</h3>
+            <div class="upgrade-tabs" role="tablist"><button type="button" class="active" id="upgradeTabInv" role="tab" onclick="setUpgradeTab('inv')">Инвентарь</button><button type="button" id="upgradeTabBal" role="tab" onclick="setUpgradeTab('bal')">Баланс</button></div>
+            <div class="upgrade-tab-panel" id="upgradePanelInv">
             <div class="upgrade-selected-list" id="upgradeSelectedItems"></div>
             <div class="upgrade-empty-slot" id="upgradeStakeEmpty" role="button" tabindex="0" onclick="scrollToUpgradeInventory()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();scrollToUpgradeInventory()}" title="Выбрать предмет из инвентаря">Выбери предметы ниже<br>Можно добавить до 5</div>
+            </div>
+            <div class="upgrade-tab-panel" id="upgradePanelBal" hidden>
+        <div class="upgrade-coins" id="upgradeCoinsBox">
+            <div class="upgrade-coins-head"><span class="upgrade-coins-title"><i>$</i>МОНЕТЫ</span><label class="upgrade-coins-val"><img src="coin.png" alt=""><input type="text" id="upgradeCoinsValue" inputmode="numeric" autocomplete="off" value="0" aria-label="Сумма монет" onfocus="this.select()" onchange="setUpgradeCoins(this.value.replace(/\D/g,''))" onkeydown="if(event.key==='Enter'){this.blur();}"></label></div>
+            <input type="range" id="upgradeCoinsSlider" min="0" max="0" step="1" value="0" oninput="setUpgradeCoins(this.value)">
+        </div>
+            </div>
         </section>
             <section class="upgrade-card">
-            <h3>Желаемый предмет</h3>
+            <h3>ЦЕЛЬ</h3>
             <button class="upgrade-target-pick" id="upgradeChooseTarget" type="button" onclick="openUpgradeTargetPicker()">
-                <span>Желаемый предмет</span>
+                <span class="upgrade-plus-caption">Выбрать цель</span>
             </button>
             <div class="upgrade-selected-row" id="upgradeSelectedTarget" hidden>
                 <img id="upgradeTargetImage" src="logo2.png" alt="">
@@ -1980,10 +2108,6 @@ body.dice-mode{background:#04060b!important}
                 <button type="button" aria-label="Убрать цель" onclick="clearUpgradeTarget()">×</button>
             </div>
         </section>
-        </div>
-        <div class="upgrade-coins" id="upgradeCoinsBox">
-            <div class="upgrade-coins-head"><span class="upgrade-coins-title"><i>$</i>МОНЕТЫ</span><label class="upgrade-coins-val"><img src="coin.png" alt=""><input type="text" id="upgradeCoinsValue" inputmode="numeric" autocomplete="off" value="0" aria-label="Сумма монет" onfocus="this.select()" onchange="setUpgradeCoins(this.value.replace(/\D/g,''))" onkeydown="if(event.key==='Enter'){this.blur();}"></label></div>
-            <input type="range" id="upgradeCoinsSlider" min="0" max="0" step="1" value="0" oninput="setUpgradeCoins(this.value)">
         </div>
         <button class="open-button" id="upgradeButton" type="button" onclick="performUpgrade()" disabled>НАЧАТЬ</button>
         <div class="upgrade-multiplier-row" id="upgradeMultiplierPresets"><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',2)">×2</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',5)">×5</button><button class="upgrade-preset" type="button" onclick="applyUpgradePreset('multiplier',10)">×10</button></div>
@@ -2852,7 +2976,7 @@ function hideAllPages() {
     document.getElementById("upgraderPage").style.display = "none";
     const dicePage = document.getElementById("dicePage");
     if (dicePage) dicePage.style.display = "none";
-    document.body.classList.remove("dice-mode");
+    document.body.classList.remove("dice-mode", "upg-mode");
 }
 
 function showHome() {
@@ -3527,7 +3651,7 @@ function setUpgradeMode(mode) {
 }
 
 
-const DICE_COLORS = {red:"#ff5b6e", orange:"#ffa13d", yellow:"#ffd84a", green:"#3ddc84", blue:"#3d6fd6", purple:"#a56bff"};
+const DICE_COLORS = {red:"#ff5b6e", orange:"#ff7a2a", yellow:"#f6ee3a", green:"#3ddc84", blue:"#3d6fd6", purple:"#a56bff"};
 let diceColor = "red";
 let diceStakeId = "";
 let dicePlaying = false;
@@ -3665,11 +3789,25 @@ async function playDice() {
         button.disabled = false;
     }
 }
+function toggleUpgradeHelp() {
+    const panel = document.getElementById("upgradeHelpPanel");
+    panel.hidden = !panel.hidden;
+    document.getElementById("upgradeHelpButton").setAttribute("aria-expanded", String(!panel.hidden));
+}
+function setUpgradeTab(tab) {
+    const bal = tab === "bal";
+    document.getElementById("upgradePanelInv").hidden = bal;
+    document.getElementById("upgradePanelBal").hidden = !bal;
+    document.getElementById("upgradeTabInv").classList.toggle("active", !bal);
+    document.getElementById("upgradeTabBal").classList.toggle("active", bal);
+}
 async function showUpgrader() {
     if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
     setMenuActive(1);
     document.getElementById("upgraderPage").style.display = "block";
+    document.body.classList.add("upg-mode");
+    setUpgradeTab("inv");
     closeMenu();
     setDesktopNavActive(1);
     selectedUpgradeInventoryIds.clear();
@@ -3731,8 +3869,8 @@ function setUpgradeWheelSector(chance) {
     const sweep = percent * 3.6;
     const start = 180 - sweep / 2;
     disc.style.background = percent > 0
-        ? `conic-gradient(from ${start}deg, #39df91 0deg ${sweep}deg, #2f4db0 ${sweep}deg 360deg)`
-        : "#2f4db0";
+        ? `conic-gradient(from ${start}deg, #39df91 0deg ${sweep}deg, #8fa8e8 ${sweep}deg 360deg)`
+        : "#8fa8e8";
 }
 
 function updateUpgradeState() {
