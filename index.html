@@ -1587,6 +1587,16 @@ body.upg-mode #gradientBackground{opacity:.18!important}
 #upgraderPage .upgrade-wheel-pointer{filter:drop-shadow(0 0 4px #c9b2ff99)!important}
 #upgraderPage .upgrade-wheel-disc{inset:7%!important;width:86%!important;height:86%!important;-webkit-mask:radial-gradient(farthest-side,transparent 74%,#000 75%,#000 100%)!important;mask:radial-gradient(farthest-side,transparent 74%,#000 75%,#000 100%)!important;filter:none!important;opacity:.92}
 #upgraderPage .upgrade-wheel-core{background:radial-gradient(circle at 50% 30%,#0e1838 0,#0a1230 60%,#070d24 100%)!important;box-shadow:0 0 0 1.5px #2a4283,inset 0 0 30px #04081a!important}
+
+/* v5: на время вращения прячем «ШАНС»; шапка не наезжает на «Быстро» на узких телефонах */
+#upgraderPage .upgrade-wheel.spinning .upgrade-wheel-chance-title,#upgraderPage .upgrade-wheel.spinning .upgrade-wheel-line{opacity:0!important;visibility:hidden!important}
+#upgraderPage .upgrade-head{flex-wrap:nowrap}
+#upgraderPage .upgrade-head-left{flex:1 1 auto;min-width:0;gap:8px}
+#upgraderPage .upgrade-title{font-size:clamp(22px,7.6vw,34px)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+#upgraderPage .upgrade-mode{flex:0 0 auto}
+#upgraderPage .upgrade-speed-switch{gap:8px!important}
+@media(max-width:360px){#upgraderPage .upgrade-speed-label{font-size:13px!important}#upgraderPage .upgrade-speed-track{width:42px!important;height:22px!important}#upgraderPage .upgrade-speed-knob{width:16px!important;height:16px!important}#upgraderPage .upgrade-speed-switch.on .upgrade-speed-knob{transform:translateX(20px)!important}#upgraderPage .upgrade-help{width:26px;height:26px}}
+@media(max-width:380px){#upgraderPage .upgrade-tabs button{font-size:12px;padding:9px 2px}#upgraderPage .upgrade-tabs{padding:3px;gap:3px}}
 </style>
 </head>
 
@@ -4117,9 +4127,9 @@ async function animateUpgradeWheel(serverRoll, chance, success) {
     const currentRotation = upgradeWheelRotation;
     const currentSector = ((currentRotation % 360) + 360) % 360;
     const alignment = (rollAngle - currentSector + 360) % 360;
-    const turns = upgradeMode === "fast" ? 5 : 10;
+    const turns = upgradeMode === "fast" ? 2 : 10;
     const finalRotation = currentRotation + turns * 360 + alignment;
-    const duration = upgradeMode === "fast" ? 5000 : 10500;
+    const duration = upgradeMode === "fast" ? 1100 : 10500;
 
     wheel.classList.add("spinning");
     return new Promise(resolve => {
