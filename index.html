@@ -1535,8 +1535,9 @@ body.upg-mode #gradientBackground{opacity:.4}
 body.upg-mode{background:radial-gradient(120% 70% at 85% 105%,#0f2a7a66 0,transparent 60%),radial-gradient(90% 60% at 50% 28%,#0b1a4a 0,#060c22 70%),#050a1c!important}
 body.upg-mode #gradientBackground{opacity:.18!important}
 #upgraderPage{position:relative}
-#upgraderPage>*{position:relative;z-index:1}
+#upgraderPage>*:not(.upgrade-target-modal):not(.upg-sparks){position:relative;z-index:1}
 #upgraderPage>.upg-sparks{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#upgraderPage>.upgrade-target-modal{position:fixed;z-index:80}
 .upg-sparks i{position:absolute;display:block}
 .upg-sparks .d{width:4px;height:4px;border-radius:50%!important;background:#8fb8ff;box-shadow:0 0 6px 1px #5b8dff}
 .upg-sparks .d.s{width:3px;height:3px;background:#9a7bff;box-shadow:0 0 5px #7a5bff}
@@ -2089,7 +2090,7 @@ body.upg-mode #gradientBackground{opacity:.18!important}
     <div class="upg-sparks" aria-hidden="true"><i class="d" style="left:79%;top:19%"></i><i class="d" style="left:90%;top:28%"></i><i class="d" style="left:12%;top:43%"></i><i class="d" style="left:94%;top:57%"></i><i class="d s" style="left:11%;top:50%"></i><i class="k" style="left:86%;top:14%;--r:-55deg"></i><i class="k" style="left:11%;top:41%;--r:-15deg"></i><i class="k" style="left:83%;top:55%;--r:70deg"></i><i class="k" style="left:25%;top:68%;--r:-70deg"></i><i class="k" style="left:49%;top:76%;--r:-60deg"></i></div>
 
     <div class="upgrade-head">
-        <div class="upgrade-head-left"><h2 class="upgrade-title">Апгрейдер</h2><button class="upgrade-help" id="upgradeHelpButton" type="button" aria-expanded="false" aria-label="Как работает апгрейд" onclick="toggleUpgradeHelp()">?</button></div>
+        <div class="upgrade-head-left"><h2 class="upgrade-title">Апгрейдер</h2></div>
     <div class="upgrade-mode" role="group" aria-label="Режим апгрейда">
         <button type="button" class="upgrade-speed-switch" id="upgradeSpeedSwitch" role="switch" aria-checked="false" onclick="setUpgradeMode(upgradeMode === 'fast' ? 'normal' : 'fast')">
             <span class="upgrade-speed-label">Быстро</span>
@@ -2097,8 +2098,6 @@ body.upg-mode #gradientBackground{opacity:.18!important}
         </button>
     </div>
     </div>
-    <div class="upgrade-help-panel" id="upgradeHelpPanel" hidden>Выбери предметы из инвентаря и (или) добавь монеты с баланса, затем выбери цель дороже ставки. Шанс = 90% × ставка ÷ цена цели, максимум 90%. Удалось — получаешь цель, нет — ставка сгорает.</div>
-
     <div class="upgrade-layout">
         <div class="upgrade-center">
             <div class="upgrade-wheel-brand"><img src="logotipe.png" alt="BrainRain"></div>
