@@ -7,7 +7,7 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -1141,7 +1141,7 @@ main { padding: 12px 0 40px; }
 
 .dice-page{display:none;max-width:480px;margin:0 auto;padding:0 16px 40px;text-align:center;--dc:#ff5b6e}
 body.dice-mode #gradientBackground{opacity:0}
-body.dice-mode #fallingBackground{opacity:.25}
+body.dice-mode #fallingBackground{opacity:.55}
 body.dice-mode{background:#04060b!important}
 .dice-page h2{margin:20px 0 2px;font-size:30px;font-weight:900;letter-spacing:6px;text-transform:uppercase;color:#f2f6ff}
 .dice-sub{margin:0 0 18px;color:#5e6b88;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
@@ -1598,6 +1598,109 @@ body.upg-mode #gradientBackground{opacity:.18!important}
 #upgraderPage .upgrade-speed-switch{gap:8px!important}
 @media(max-width:360px){#upgraderPage .upgrade-speed-label{font-size:13px!important}#upgraderPage .upgrade-speed-track{width:42px!important;height:22px!important}#upgraderPage .upgrade-speed-knob{width:16px!important;height:16px!important}#upgraderPage .upgrade-speed-switch.on .upgrade-speed-knob{transform:translateX(20px)!important}#upgraderPage .upgrade-help{width:26px;height:26px}}
 @media(max-width:380px){#upgraderPage .upgrade-tabs button{font-size:12px;padding:9px 2px}#upgraderPage .upgrade-tabs{padding:3px;gap:3px}}
+
+/* ================= AURORA: новый визуал (главная, шапка, кейсы) ================= */
+:root{--au-bg:#060b18;--au-glass:rgba(16,34,72,.42);--au-glass2:rgba(10,22,50,.62);--au-line:#1d3a72;--au-line2:#2c5aa8;--au-accent:#46a8ff;--au-cyan:#5fe3ff;--au-text:#dbe8ff;--au-muted:#7f97c4}
+body:not(.dice-mode):not(.upg-mode){background:radial-gradient(90% 55% at 12% -5%,#123a7a55 0,transparent 60%),radial-gradient(70% 50% at 100% 20%,#0e5a9c33 0,transparent 60%),#060b18!important}
+/* шапка */
+header{background:linear-gradient(180deg,rgba(9,19,42,.92),rgba(7,14,32,.78))!important;backdrop-filter:blur(14px);border-bottom:1px solid transparent!important;border-image:linear-gradient(90deg,transparent,#2c5aa8,#5fe3ff88,#2c5aa8,transparent) 1;box-shadow:0 10px 30px #02061488}
+.desktop-nav{gap:4px!important}
+.desktop-nav button{background:none!important;border:0!important;box-shadow:none!important;color:var(--au-muted)!important;font-weight:800;letter-spacing:1.2px;padding:12px 16px!important;position:relative;border-radius:12px!important;transition:color .2s,background .2s}
+.desktop-nav button:hover{color:#fff!important;background:#1a3a7a33!important}
+.desktop-nav button.active{color:#fff!important;background:linear-gradient(180deg,#1c4a9a33,#12306a22)!important}
+.desktop-nav button.active::after{content:"";position:absolute;left:18%;right:18%;bottom:2px;height:3px;border-radius:3px!important;background:linear-gradient(90deg,#46a8ff,#5fe3ff);box-shadow:0 0 12px #46a8ff}
+.desktop-nav button.active .nav-icon{filter:none!important}
+.header-balance{background:linear-gradient(180deg,#14306a,#0e2252)!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;box-shadow:inset 0 1px 0 #ffffff14,0 0 18px #2b6bd633}
+.settings-button,.header-avatar-button{border:1px solid var(--au-line2)!important;background:#0e2252!important;border-radius:12px!important}
+.header-avatar-button{border-radius:50%!important}
+.header-avatar{border-radius:50%!important}
+.menu-button{border-radius:12px!important;background:#0e2252!important;border:1px solid var(--au-line2)!important}
+/* LIVE-панель */
+#homePage .live-drop-panel{background:linear-gradient(180deg,var(--au-glass),var(--au-glass2))!important;border:1px solid var(--au-line)!important;border-radius:22px!important;box-shadow:inset 0 1px 0 #ffffff0d,0 16px 40px #0007}
+#homePage .live-drop-heading{color:var(--au-text)!important;font-size:13px;letter-spacing:.2em;display:flex;align-items:center;justify-content:center;gap:8px}
+#homePage .live-drop-heading::before{content:"";width:8px;height:8px;border-radius:50%!important;background:#ff5a6a;box-shadow:0 0 10px #ff5a6a;animation:auPulse 1.6s infinite}
+@keyframes auPulse{50%{opacity:.35}}
+#homePage .live-drop-card{background:linear-gradient(160deg,#14295a99,#0b1735cc)!important;border:1px solid #1d3a72!important;border-radius:16px!important;transition:transform .2s,border-color .2s}
+#homePage .live-drop-card:hover{transform:translateY(-2px);border-color:var(--au-accent)!important}
+#homePage .live-drop-name{color:var(--au-text)}
+#homePage .daily-best-drop{background:linear-gradient(160deg,#1a3f86aa,#0d1f4acc)!important;border:1px solid #3a78d0!important;border-radius:18px!important;box-shadow:0 0 24px #2b6bd633}
+#homePage .daily-best-title{color:var(--au-cyan)!important}
+#homePage .live-drop-empty,#homePage .daily-best-empty{color:var(--au-muted)}
+/* промо */
+#homePage .promo-banner{position:relative;overflow:hidden;background:linear-gradient(120deg,#12306a 0,#0c1d44 55%,#0a1736 100%)!important;border:1px solid var(--au-line2)!important;border-radius:22px!important;padding:18px 20px!important;box-shadow:0 0 34px #2b6bd633,inset 0 1px 0 #ffffff12}
+#homePage .promo-banner::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%!important;background:radial-gradient(closest-side,#46a8ff44,transparent);pointer-events:none}
+#homePage .promo-banner-title,#homePage .promo-banner-timer{color:var(--au-muted)!important;letter-spacing:.12em}
+#homePage .promo-banner-percent span{background:linear-gradient(90deg,#fff,#7fd6ff);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+#homePage .promo-banner-code-text{border-radius:12px 0 0 12px!important;border:1px solid var(--au-line2)!important;background:#081430!important;color:#fff}
+#homePage .promo-banner-copy{border-radius:0 12px 12px 0!important;border:1px solid var(--au-line2)!important;background:#14306a!important;color:var(--au-cyan)}
+/* заголовки секций */
+#homePage .case-section-title{display:flex!important;align-items:center;gap:16px;margin:26px 4px 14px!important;padding:0!important;background:none!important;box-shadow:none!important;border:0!important;color:#fff!important;font-size:clamp(18px,5vw,22px)!important;font-weight:900;letter-spacing:.5px;text-transform:none!important;text-shadow:none!important;border-radius:0!important}
+#homePage .case-section-title::before,#homePage .case-section-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--au-line2))}
+#homePage .case-section-title::after{background:linear-gradient(270deg,transparent,var(--au-line2))}
+/* карточки кейсов */
+#homePage .case-card{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--au-glass),var(--au-glass2))!important;border:1px solid var(--au-line)!important;border-radius:22px!important;padding:14px 12px 12px!important;box-shadow:inset 0 1px 0 #ffffff0d,0 12px 28px #0006;transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+#homePage .case-card::before{content:"";position:absolute;left:50%;top:34%;width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%!important;background:radial-gradient(closest-side,#2f7de633,transparent);pointer-events:none;transition:opacity .25s;opacity:.7}
+#homePage .case-card:hover{transform:translateY(-5px);border-color:#4aa3ff99!important;box-shadow:0 0 30px #2f7de64d,0 18px 36px #0008,inset 0 1px 0 #ffffff14}
+#homePage .case-card:hover::before{opacity:1}
+#homePage .case-card:active{transform:scale(.98)}
+#homePage .case-card h3{color:#fff;font-weight:800;letter-spacing:.4px;position:relative}
+#homePage .case-card .price{position:relative;background:linear-gradient(180deg,#0b1b42,#081230)!important;border:1px solid var(--au-line)!important;border-radius:14px!important;color:#fff!important;font-weight:900;box-shadow:inset 0 1px 0 #ffffff0a}
+#homePage .case-card .free-price{background:linear-gradient(180deg,#27d7a0,#13a577)!important;border-color:#2de3ac!important;color:#032a1e!important;box-shadow:0 0 18px #22d9a055}
+#homePage .free-case-card{border-color:#2de3ac88!important}
+#homePage .live-strip{border-radius:16px!important}
+.top-drop-banner{border-radius:20px!important;border:1px solid var(--au-line2)!important;background:linear-gradient(110deg,#12306a,#0b1a3e 60%,#0a1530)!important;box-shadow:0 0 28px #2b6bd633}
+#homePage .case-section-title{width:100%!important;justify-content:center}
+.top-drop-chevron{background:linear-gradient(135deg,#46a8ff,#1c5fc4)!important;opacity:.9!important}
+.top-drop-label{color:var(--au-cyan)!important}
+
+/* ================= AURORA v2: нейтральная тёмная основа, голубой бренд, янтарный акцент ================= */
+:root{--au-amber:#ffb23d;--au-amber2:#ff8a1f;--au-font:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif}
+*{font-family:var(--au-font)!important}
+.pixel-number,.balance-number{font-family:"Courier New",Courier,monospace!important}
+body:not(.dice-mode):not(.upg-mode){background:radial-gradient(70% 40% at 15% -8%,#0f2f6633 0,transparent 65%),#05080f!important}
+body:not(.dice-mode):not(.upg-mode) #gradientBackground{opacity:.22}
+body:not(.dice-mode):not(.upg-mode) #fallingBackground{opacity:1}
+header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!important}
+.desktop-nav button{font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.header-topup{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:12px!important;background:linear-gradient(180deg,#ffc24d,#ff9a1f);color:#2a1700;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 0 18px #ff9a1f55,inset 0 1px 0 #ffffff66;transition:transform .15s,box-shadow .15s}
+.header-topup:hover{transform:translateY(-1px);box-shadow:0 0 26px #ff9a1f88,inset 0 1px 0 #ffffff66}
+.header-topup-plus{font-size:20px;line-height:1;font-weight:900}
+@media(max-width:700px){.header-topup{width:36px;height:36px;padding:0;justify-content:center;border-radius:11px!important}.header-topup-text{display:none}}
+/* hero */
+.au-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:8px;min-height:230px;margin:0 0 16px;padding:26px 28px;border:1px solid var(--au-line2);border-radius:26px!important;background:radial-gradient(60% 120% at 88% 50%,#2a7ce655,transparent 70%),linear-gradient(120deg,#0f2a5e 0,#0a1a3c 55%,#070f24 100%);box-shadow:0 0 40px #2b6bd633,inset 0 1px 0 #ffffff14}
+.au-hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,#ffffff06 0 2px,transparent 2px 14px);pointer-events:none;mask:linear-gradient(90deg,#000,transparent 70%);-webkit-mask:linear-gradient(90deg,#000,transparent 70%)}
+.au-hero-text{position:relative;z-index:1;min-width:0}
+.au-eyebrow{display:inline-block;margin-bottom:10px;padding:5px 12px;border:1px solid #2c5aa8;border-radius:999px!important;background:#0a1a3c99;color:var(--au-cyan);font-size:11px;font-weight:900;letter-spacing:.2em}
+.au-hero h1{margin:0 0 8px;color:#fff;font-size:clamp(24px,6.4vw,40px);font-weight:900;line-height:1.1;letter-spacing:-.5px;text-shadow:0 2px 24px #1b4fb866}
+.au-hero p{margin:0 0 18px;color:var(--au-muted);font-size:clamp(13px,3.6vw,16px);font-weight:600}
+.au-cta{height:46px;padding:0 28px;border:0;border-radius:14px!important;background:linear-gradient(180deg,#ffc24d,#ff9a1f);color:#2a1700;font-weight:900;font-size:15px;letter-spacing:.8px;cursor:pointer;box-shadow:0 0 22px #ff9a1f66,inset 0 1px 0 #ffffff77;transition:transform .15s,box-shadow .15s}
+.au-cta:hover{transform:translateY(-2px);box-shadow:0 0 32px #ff9a1f99,inset 0 1px 0 #ffffff77}
+.au-cta:active{transform:scale(.97)}
+.au-hero-art{position:relative;z-index:1;justify-self:center;width:min(100%,260px);max-height:210px;object-fit:contain;filter:drop-shadow(0 0 28px #3f9bff99) drop-shadow(0 14px 18px #0009);animation:auFloat 4.5s ease-in-out infinite}
+@keyframes auFloat{50%{transform:translateY(-8px) rotate(1.5deg)}}
+@media(max-width:700px){.au-hero{min-height:0;padding:20px 18px;grid-template-columns:minmax(0,1fr) 38%;border-radius:22px!important}.au-hero p{margin-bottom:14px}.au-cta{height:42px;padding:0 20px}}
+/* карточки: цвет кейса, крупная картинка, янтарная цена */
+#homePage .case-card{--cc:#3a8bff}
+#homePage .case-card::before{background:radial-gradient(closest-side,color-mix(in srgb,var(--cc) 38%,transparent),transparent)!important;opacity:.85}
+#homePage .case-card:hover{border-color:color-mix(in srgb,var(--cc) 65%,#fff 0)!important;box-shadow:0 0 34px color-mix(in srgb,var(--cc) 35%,transparent),0 18px 36px #0008,inset 0 1px 0 #ffffff14}
+#homePage .case-card > img{position:relative;height:clamp(125px,34vw,190px)!important;margin:-4px 0 2px!important;filter:drop-shadow(0 8px 14px #0009) drop-shadow(0 0 16px color-mix(in srgb,var(--cc) 55%,transparent))!important;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+#homePage .case-card:hover > img{transform:scale(1.08) translateY(-4px)}
+#homePage .case-card .price{color:var(--au-amber)!important;border-color:#33466f!important;background:#070d1c!important;font-size:16px}
+#homePage .case-card .price .coin-icon{filter:none}
+#homePage .case-card .free-price{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border-color:#ffc24d!important;box-shadow:0 0 18px #ff9a1f55!important}
+#homePage .free-case-card{border-color:#ffb23d88!important;--cc:#ffb23d}
+#homePage .case-card h3{font-size:clamp(13px,3.6vw,16px)!important;font-weight:800}
+/* промо-полоса: компактнее, под героем */
+#homePage .promo-banner{padding:14px 18px!important;border-radius:20px!important}
+#homePage .promo-banner-percent{font-size:clamp(22px,6vw,32px)}
+/* лента дропов */
+#homePage .live-drop-heading{font-family:var(--au-font)!important;color:#fff!important}
+#homePage .live-drop-card{padding:8px!important}
+#homePage .live-drop-card img.drop-item-image{height:78px!important;filter:drop-shadow(0 4px 8px #0008)}
+#homePage .promo-banner-note:empty{display:none}
+#homePage .promo-banner{min-height:0!important;height:auto!important}
+.au-hero h1{font-size:clamp(22px,5.6vw,40px)}
+@media(max-width:700px){.au-hero-art{width:100%;max-height:150px}}
 </style>
 </head>
 
@@ -1606,6 +1709,15 @@ body.upg-mode #gradientBackground{opacity:.18!important}
 <canvas id="fallingBackground" aria-hidden="true"></canvas>
 
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<div class="app-confirm-backdrop" id="payNoticeBackdrop" onclick="if(event.target===this)closePayNotice()">
+    <div class="app-confirm" role="alertdialog" aria-modal="true" aria-labelledby="payNoticeText">
+        <div class="app-confirm-text" id="payNoticeText"></div>
+        <div class="app-confirm-buttons">
+            <button type="button" class="app-confirm-ok" onclick="closePayNotice()">Понятно</button>
+        </div>
+    </div>
+</div>
 
 <div class="app-confirm-backdrop" id="appConfirmBackdrop">
     <div class="app-confirm" role="alertdialog" aria-modal="true" aria-labelledby="appConfirmText">
@@ -1643,6 +1755,7 @@ body.upg-mode #gradientBackground{opacity:.18!important}
             <span class="balance-number pixel-number" id="headerBalance">0</span>
             <img class="coin-icon" src="coin.png" alt="Coin">
         </div>
+        <button class="header-topup" type="button" onclick="openTopup()" aria-label="Пополнить"><span class="header-topup-plus">+</span><span class="header-topup-text">Пополнить</span></button>
 
         <button class="settings-button" onclick="openSettings()" aria-label="Настройки">
             <img src="settings.png" alt="">
@@ -1734,6 +1847,15 @@ body.upg-mode #gradientBackground{opacity:.18!important}
                 <div class="live-drop-list" id="liveDropList"><div class="live-drop-empty">Ждём выпадений…</div></div>
             </aside>
             <div class="home-main">
+        <section class="au-hero" aria-label="Главный баннер">
+            <div class="au-hero-text">
+                <span class="au-eyebrow">BRAINRAIN</span>
+                <h1>Открывай кейсы,<br>улучшай брейнротов</h1>
+                <p>Дропы каждую минуту, апгрейды и бонусы</p>
+                <button class="au-cta" type="button" onclick="auScrollToCases()">ОТКРЫТЬ КЕЙС</button>
+            </div>
+            <img class="au-hero-art" src="admin-case.png" alt="" aria-hidden="true">
+        </section>
             <section class="promo-banner" id="promoBanner" hidden aria-label="Промокод на депозит">
                 <div class="promo-banner-top">
                     <span class="promo-banner-title">Промокод на депозит</span>
@@ -3026,8 +3148,19 @@ function showProfile() {
     loadProfileWithdrawals();
 }
 
+// Временно: пополнение и вывод на паузе. Поставь false, чтобы вернуть как было.
+const PAYMENTS_PAUSED = false;
+function showPayNotice(text) {
+    closeMenu();
+    document.getElementById("payNoticeText").textContent = text;
+    document.getElementById("payNoticeBackdrop").classList.add("active");
+}
+function closePayNotice() {
+    document.getElementById("payNoticeBackdrop").classList.remove("active");
+}
 function openTopup() {
     if (blockNavigationDuringUpgrade()) return;
+    if (PAYMENTS_PAUSED) { showPayNotice("Для пополнения пишите @fraidme. Боты временно не работают."); return; }
     closeMenu();
     const backdrop = document.getElementById("topupBackdrop");
     if (!backdrop) return;
@@ -3084,6 +3217,7 @@ function getWithdrawItem(id) {
 
 async function openWithdraw() {
     if (blockNavigationDuringUpgrade()) return;
+    if (PAYMENTS_PAUSED) { showPayNotice("Вывод временно недоступен."); return; }
     closeMenu();
     const backdrop = document.getElementById("withdrawBackdrop");
     if (!backdrop) return;
@@ -5295,14 +5429,27 @@ showHome();
 setInterval(loadLiveDrops, 7000);
 loadBalance();
 
-/* Фон: маленькие серые снежинки и молнии падают за карточками */
+/* Фон: редкий синий пепел медленно летит снизу вверх, изредка пролетает светящаяся искра-комета */
 (function startFallingBackground() {
     const canvas = document.getElementById("fallingBackground");
     if (!canvas || !canvas.getContext) return;
     try { if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return; } catch (error) {}
     const context = canvas.getContext("2d");
-    const symbols = ["\u2744\uFE0E", "\u26A1\uFE0E"];
-    let width = 0, height = 0, particles = [], running = true;
+    const TINTS = ["110,180,255", "150,205,255", "70,140,255", "190,225,255", "120,150,255"];
+    const sprites = TINTS.map(rgb => {
+        const sprite = document.createElement("canvas");
+        sprite.width = sprite.height = 48;
+        const sc = sprite.getContext("2d");
+        const g = sc.createRadialGradient(24, 24, 0, 24, 24, 24);
+        g.addColorStop(0, `rgba(${rgb},1)`);
+        g.addColorStop(0.18, `rgba(${rgb},.85)`);
+        g.addColorStop(0.45, `rgba(${rgb},.22)`);
+        g.addColorStop(1, `rgba(${rgb},0)`);
+        sc.fillStyle = g;
+        sc.fillRect(0, 0, 48, 48);
+        return sprite;
+    });
+    let width = 0, height = 0, particles = [], running = true, comet = null, nextComet = 3 + Math.random() * 4;
 
     function resize() {
         const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -5311,39 +5458,79 @@ loadBalance();
         canvas.width = Math.round(width * ratio);
         canvas.height = Math.round(height * ratio);
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        const count = Math.max(9, Math.min(18, Math.round(width / 32)));
+        const count = Math.max(12, Math.min(26, Math.round(width / 26)));
         while (particles.length < count) particles.push(makeParticle(true));
         particles.length = count;
     }
 
     function makeParticle(anywhere) {
+        const big = Math.random() < 0.18;
         return {
             x: Math.random() * (width || 400),
-            y: anywhere ? Math.random() * (height || 800) : -20,
-            size: 12 + Math.random() * 10,
-            speed: 18 + Math.random() * 32,
-            drift: (Math.random() - 0.5) * 14,
+            y: anywhere ? Math.random() * (height || 800) : (height || 800) + 20,
+            r: big ? 11 + Math.random() * 8 : 5 + Math.random() * 5,
+            vy: -(10 + Math.random() * 22),
+            vx: 4 + Math.random() * 10,
             phase: Math.random() * 6.28,
-            symbol: symbols[Math.random() < 0.6 ? 0 : 1],
-            alpha: 0.4 + Math.random() * 0.35
+            wobble: 6 + Math.random() * 14,
+            twinkle: 0.6 + Math.random() * 1.6,
+            alpha: big ? 0.4 + Math.random() * 0.3 : 0.6 + Math.random() * 0.4,
+            sprite: sprites[Math.floor(Math.random() * sprites.length)]
         };
     }
 
-    let last = performance.now();
+    function makeComet() {
+        const fromLeft = Math.random() < 0.5;
+        const angle = (fromLeft ? 1 : -1) * (0.35 + Math.random() * 0.4);
+        const speed = 260 + Math.random() * 160;
+        return {
+            x: fromLeft ? -40 : width + 40,
+            y: height * (0.05 + Math.random() * 0.55),
+            vx: (fromLeft ? 1 : -1) * Math.cos(angle) * speed,
+            vy: Math.sin(Math.abs(angle)) * speed * 0.7,
+            life: 0, max: 1.6 + Math.random() * 0.8
+        };
+    }
+
+    let last = performance.now(), clock = 0;
     function frame(now) {
         if (!running) return;
         const dt = Math.min(0.05, (now - last) / 1000);
         last = now;
+        clock += dt;
         context.clearRect(0, 0, width, height);
         for (const p of particles) {
-            p.y += p.speed * dt;
+            p.y += p.vy * dt;
             p.phase += dt;
-            p.x += (p.drift + Math.sin(p.phase) * 10) * dt;
-            if (p.y > height + 20) Object.assign(p, makeParticle(false), {x: Math.random() * width});
-            context.globalAlpha = p.alpha;
-            context.fillStyle = "#9a9aa6";
-            context.font = p.size + "px sans-serif";
-            context.fillText(p.symbol, p.x, p.y);
+            p.x += (p.vx + Math.sin(p.phase) * p.wobble) * dt;
+            if (p.y < -30 || p.x > width + 30) Object.assign(p, makeParticle(false), {x: Math.random() * width});
+            const flicker = 0.65 + 0.35 * Math.sin(clock * p.twinkle + p.phase * 2);
+            context.globalAlpha = p.alpha * flicker;
+            context.drawImage(p.sprite, p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+        }
+        nextComet -= dt;
+        if (!comet && nextComet <= 0) { comet = makeComet(); nextComet = 5 + Math.random() * 7; }
+        if (comet) {
+            comet.life += dt;
+            comet.x += comet.vx * dt;
+            comet.y += comet.vy * dt;
+            const fade = Math.sin(Math.min(1, comet.life / comet.max) * Math.PI);
+            const len = 70;
+            const mag = Math.hypot(comet.vx, comet.vy) || 1;
+            const tx = comet.x - comet.vx / mag * len, ty = comet.y - comet.vy / mag * len;
+            const grad = context.createLinearGradient(tx, ty, comet.x, comet.y);
+            grad.addColorStop(0, "rgba(111,180,255,0)");
+            grad.addColorStop(1, "rgba(200,230,255,.95)");
+            context.globalAlpha = 0.85 * fade;
+            context.strokeStyle = grad;
+            context.lineWidth = 2;
+            context.lineCap = "round";
+            context.beginPath();
+            context.moveTo(tx, ty);
+            context.lineTo(comet.x, comet.y);
+            context.stroke();
+            context.drawImage(sprites[3], comet.x - 9, comet.y - 9, 18, 18);
+            if (comet.life > comet.max || comet.x < -120 || comet.x > width + 120 || comet.y > height + 60) comet = null;
         }
         context.globalAlpha = 1;
         requestAnimationFrame(frame);
@@ -5516,6 +5703,45 @@ async function copyDepositPromo() {
 
 loadDepositPromo();
 setInterval(loadDepositPromo, 5 * 60 * 1000);
+
+function auScrollToCases() {
+    const title = document.querySelector("#homePage .case-section-title.title-blue");
+    if (title) title.scrollIntoView({behavior:"smooth", block:"start"});
+}
+function auColorizeCaseCards() {
+    document.querySelectorAll("#homePage .case-card > img").forEach(img => {
+        const apply = () => {
+            try {
+                const size = 24, canvas = document.createElement("canvas");
+                canvas.width = canvas.height = size;
+                const ctx = canvas.getContext("2d", {willReadFrequently:true});
+                ctx.drawImage(img, 0, 0, size, size);
+                const data = ctx.getImageData(0, 0, size, size).data;
+                let sx = 0, sy = 0, weight = 0;
+                for (let i = 0; i < data.length; i += 4) {
+                    const a = data[i + 3] / 255;
+                    if (a < .5) continue;
+                    const r = data[i] / 255, g = data[i + 1] / 255, b = data[i + 2] / 255;
+                    const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2;
+                    const d = max - min;
+                    if (d < .15 || l < .2 || l > .85) continue;
+                    const sat = d / (1 - Math.abs(2 * l - 1));
+                    let h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+                    h = (h * 60 + 360) % 360;
+                    const w = sat * a;
+                    sx += Math.cos(h * Math.PI / 180) * w;
+                    sy += Math.sin(h * Math.PI / 180) * w;
+                    weight += w;
+                }
+                if (weight < 1) return;
+                const hue = (Math.atan2(sy, sx) * 180 / Math.PI + 360) % 360;
+                img.parentElement.style.setProperty("--cc", `hsl(${Math.round(hue)} 90% 58%)`);
+            } catch (error) { /* картинка с другого домена или не загрузилась: остаётся цвет по умолчанию */ }
+        };
+        if (img.complete && img.naturalWidth) apply(); else img.addEventListener("load", apply, {once:true});
+    });
+}
+window.addEventListener("load", auColorizeCaseCards);
 </script>
 
 </body>
