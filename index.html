@@ -1701,6 +1701,42 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 #homePage .promo-banner{min-height:0!important;height:auto!important}
 .au-hero h1{font-size:clamp(22px,5.6vw,40px)}
 @media(max-width:700px){.au-hero-art{width:100%;max-height:150px}}
+#homePage .promo-banner-code{border:0!important;background:none!important;border-radius:12px!important;overflow:hidden;box-shadow:0 0 0 1px var(--au-line2)}
+#homePage .promo-banner-code-text,#homePage .promo-banner-copy{border:0!important}
+#homePage .promo-banner-copy{border-left:1px solid var(--au-line2)!important}
+
+/* ===== Профиль: Aurora ===== */
+#profilePage .profile-card{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(20,44,96,.55),rgba(8,16,38,.82))!important;border:1px solid var(--au-line2)!important;border-radius:26px!important;padding:16px!important;box-shadow:0 0 36px #2b6bd62e,inset 0 1px 0 #ffffff14}
+#profilePage .profile-card::after{content:"";position:absolute;right:-70px;bottom:-70px;width:240px;height:240px;border-radius:50%!important;background:radial-gradient(closest-side,#46a8ff30,transparent);pointer-events:none}
+#profilePage .profile-best-drop{background:linear-gradient(120deg,#16346f,#0b1a3f)!important;border:1px solid #2f66c4!important;border-radius:18px!important;box-shadow:inset 0 1px 0 #ffffff12}
+#profilePage .profile-best-drop-title{color:var(--au-cyan)!important;letter-spacing:.14em}
+#profilePage .profile-best-drop-price{color:var(--au-amber)!important}
+#profilePage .profile-avatar{border-radius:50%!important;border:2px solid #4aa3ff!important;box-shadow:0 0 0 4px #0a1a3c,0 0 24px #3f8cff77!important;object-fit:cover}
+#profilePage .profile-label{color:var(--au-cyan)!important;letter-spacing:.2em;font-size:11px!important}
+#profilePage .profile-nickname{color:#fff!important;font-weight:900!important;letter-spacing:-.3px}
+#profilePage .profile-username{color:var(--au-muted)!important}
+#profilePage .profile-actions{gap:10px}
+#profilePage .profile-topup-button{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border:0!important;border-radius:14px!important;font-weight:900!important;box-shadow:0 0 20px #ff9a1f55,inset 0 1px 0 #ffffff77!important}
+#profilePage .profile-withdraw-button{background:#0b1a40!important;color:#cfe3ff!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;font-weight:900!important;box-shadow:inset 0 1px 0 #ffffff10}
+#profilePage .profile-balance{background:linear-gradient(180deg,#14306a,#0d2150)!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;box-shadow:inset 0 1px 0 #ffffff14,0 0 18px #2b6bd633}
+#profilePage .inventory-heading h2{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.2px}
+#profilePage .sell-all-button{background:#0b1a40!important;border:1px solid var(--au-line2)!important;color:#cfe3ff!important;border-radius:12px!important;font-weight:800}
+#profilePage .inventory-box{background:linear-gradient(180deg,rgba(14,30,66,.45),rgba(7,14,32,.7))!important;border:1px solid var(--au-line)!important;border-radius:22px!important;box-shadow:inset 0 1px 0 #ffffff0d}
+#profilePage .inventory-item{position:relative;overflow:hidden;background:linear-gradient(170deg,#142a5acc,#0a1634e6)!important;border:1px solid #21408a!important;border-radius:16px!important;box-shadow:inset 0 1px 0 #ffffff10;transition:transform .2s,border-color .2s,box-shadow .2s}
+#profilePage .inventory-item::before{content:"";position:absolute;left:50%;top:42%;width:90%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%!important;background:radial-gradient(closest-side,#3f8cff38,transparent);pointer-events:none}
+#profilePage .inventory-item:hover{transform:translateY(-3px);border-color:#4aa3ff99!important;box-shadow:0 0 24px #2f7de640}
+#profilePage .inventory-item>*{position:relative}
+#profilePage .inventory-item-name{color:#fff;font-weight:800}
+#profilePage .inventory-item-price{color:var(--au-amber)!important;font-weight:900}
+#profilePage .inventory-sell{background:#0b1a3ecc!important;border:1px solid var(--au-line2)!important;color:#bcd6ff!important;border-radius:10px!important}
+#profilePage .inventory-withdraw{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border-radius:10px!important;font-weight:900}
+#profilePage .withdrawals-box{background:linear-gradient(180deg,rgba(14,30,66,.45),rgba(7,14,32,.7))!important;border:1px solid var(--au-line)!important;border-radius:20px!important}
+#profilePage .withdrawals-title{font-weight:800;color:#fff}
+#profilePage .promo-card{background:linear-gradient(160deg,rgba(20,44,96,.5),rgba(8,16,38,.8))!important;border:1px solid var(--au-line2)!important;border-radius:22px!important;padding:18px!important;box-shadow:0 0 30px #2b6bd626,inset 0 1px 0 #ffffff12}
+#profilePage .promo-card .items-title{font-size:20px;font-weight:900;color:#fff}
+#profilePage .promo-card #promoInput{background:#070f26!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;color:#fff;letter-spacing:2px;font-weight:800}
+#profilePage .promo-card #promoInput:focus{outline:0;border-color:var(--au-accent)!important;box-shadow:0 0 0 3px #46a8ff33}
+#profilePage .promo-card #promoButton{background:linear-gradient(180deg,#4aa3ff,#2b6bd6)!important;border:0!important;border-radius:14px!important;color:#fff;font-weight:900;box-shadow:0 0 20px #2f7de655,inset 0 1px 0 #ffffff44}
 </style>
 </head>
 
@@ -2209,7 +2245,6 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
     </div>
 
     <section class="upgrader-page" id="upgraderPage">
-    <div class="upg-sparks" aria-hidden="true"><i class="d" style="left:79%;top:19%"></i><i class="d" style="left:90%;top:28%"></i><i class="d" style="left:12%;top:43%"></i><i class="d" style="left:94%;top:57%"></i><i class="d s" style="left:11%;top:50%"></i><i class="k" style="left:86%;top:14%;--r:-55deg"></i><i class="k" style="left:11%;top:41%;--r:-15deg"></i><i class="k" style="left:83%;top:55%;--r:70deg"></i><i class="k" style="left:25%;top:68%;--r:-70deg"></i><i class="k" style="left:49%;top:76%;--r:-60deg"></i></div>
 
     <div class="upgrade-head">
         <div class="upgrade-head-left"><h2 class="upgrade-title">Апгрейдер</h2></div>
