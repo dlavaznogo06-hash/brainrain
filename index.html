@@ -1140,9 +1140,6 @@ main { padding: 12px 0 40px; }
 /* АПГРЕЙДЕР */
 
 .dice-page{display:none;max-width:480px;margin:0 auto;padding:0 16px 40px;text-align:center;--dc:#ff5b6e}
-body.dice-mode #gradientBackground{opacity:0}
-body.dice-mode #fallingBackground{opacity:.55}
-body.dice-mode{background:#04060b!important}
 .dice-page h2{margin:20px 0 2px;font-size:30px;font-weight:900;letter-spacing:6px;text-transform:uppercase;color:#f2f6ff}
 .dice-sub{margin:0 0 18px;color:#5e6b88;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
 .dice-stage{position:relative;padding:22px 14px 20px;margin-bottom:16px;border:1px solid #131b2e;background:radial-gradient(120% 90% at 50% 0%,color-mix(in srgb,var(--dc) 22%,transparent),transparent 62%),#070b14;border-radius:18px!important;transition:background .35s}
@@ -1771,6 +1768,64 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 @media(max-width:420px){#profilePage .pf-stats{grid-template-columns:1fr 1fr}#profilePage .pf-stat-main{grid-column:1/-1}#profilePage .pf-head{padding:0 16px}#profilePage .pf-stats,#profilePage .pf-actions{padding-left:16px;padding-right:16px}#profilePage .pf-hero .profile-best-drop{margin-left:16px;margin-right:16px}}
 #profilePage .pf-hero .profile-best-drop-title{white-space:nowrap}
 #profilePage .promo-card{width:100%!important;max-width:none!important;box-sizing:border-box}
+
+/* ===== Дайсы v2: общий фон, насыщенные цвета, больше содержания ===== */
+#dicePage.dice-page{max-width:560px}
+#dicePage .dice-stage{padding:26px 18px 22px;border:1px solid var(--au-line2);border-radius:26px!important;background:radial-gradient(110% 80% at 50% 0%,color-mix(in srgb,var(--dc) 30%,transparent),transparent 65%),linear-gradient(180deg,rgba(14,30,66,.7),rgba(6,12,28,.92));box-shadow:0 0 40px color-mix(in srgb,var(--dc) 22%,transparent),inset 0 1px 0 #ffffff14}
+#dicePage .dice-slots{gap:14px}
+#dicePage .dice-slot{background:#0a1430;box-shadow:inset 0 0 0 2px #223a72,0 0 22px var(--sc,transparent)}
+#dicePage .dice-slot i{inset:10px;border-radius:14px!important;box-shadow:inset 0 -10px 16px #0005,inset 0 0 0 2px #ffffff22}
+#dicePage .dice-slot.hit{box-shadow:inset 0 0 0 3px #fff,0 0 28px var(--sc,#ffd45c)}
+#dicePage .dice-slot.dim{opacity:.72}
+#dicePage .dice-stake{background:#0a1534;border:1px dashed #36579e}
+#dicePage .dice-stake.filled{border:1px solid color-mix(in srgb,var(--dc) 70%,#fff 0);box-shadow:0 0 22px color-mix(in srgb,var(--dc) 30%,transparent)}
+.dice-odds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 18px}
+.dice-odd{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 8px;border:1px solid var(--au-line);border-radius:16px;background:linear-gradient(180deg,#0f2150aa,#08122ecc)}
+.dice-odd span{color:var(--au-muted);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.dice-odd b{color:#fff;font-size:26px;font-weight:900;line-height:1.1}
+.dice-odd em{font-style:normal;color:var(--au-muted);font-size:12px;font-weight:700}
+.dice-odd-top{border-color:#ffb23d66;box-shadow:0 0 22px #ffb23d1c}
+.dice-odd-top b{color:var(--au-amber)}
+.dice-picker-title,.dice-history-title{margin:4px 0 12px;color:var(--au-muted);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.dice-picker{gap:12px;margin:0 0 22px}
+.dice-pick{width:46px;height:46px;border-radius:14px!important;box-shadow:inset 0 -6px 10px #0004,inset 0 0 0 2px #ffffff30,0 0 16px color-mix(in srgb,currentColor 0%,transparent)}
+.dice-pick.active{box-shadow:0 0 0 3px #fff,0 0 24px #ffffff55;transform:translateY(-5px) scale(1.1)}
+#diceButton{height:54px;font-size:17px;background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;box-shadow:0 0 24px #ff9a1f66,inset 0 1px 0 #ffffff77!important}
+.dice-history{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
+.dice-history-empty{padding:16px;border:1px dashed var(--au-line);border-radius:14px;color:var(--au-muted);font-size:13px;font-weight:600}
+.dice-history-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--au-line);border-radius:14px;background:#0a1534b3}
+.dice-history-row i{width:22px;height:22px;border-radius:7px!important;box-shadow:inset 0 -4px 6px #0004}
+.dice-history-pick{width:12px;height:12px;border-radius:50%!important;margin-right:6px;box-shadow:0 0 0 2px #0a1534,0 0 0 3px #ffffff55}
+.dice-history-row b{margin-left:auto;font-size:13px}
+.dice-history-row.win b{color:#4dffa0}.dice-history-row.lose b{color:#ff7d8e}
+
+/* ===== Дайсы: анимация выигрыша ===== */
+.dice-fx{display:none;position:fixed;inset:0;z-index:140;pointer-events:none;overflow:hidden}
+.dice-fx.active{display:block}
+.dice-fx canvas{position:absolute;inset:0;width:100%;height:100%}
+.dice-fx-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#fff 0,#ffe28a 18%,#ffb23d55 45%,transparent 70%);opacity:0}
+.dice-fx.active .dice-fx-flash{animation:diceFlash .9s ease-out}
+.dice-fx.big.active .dice-fx-flash{animation-duration:1.3s}
+@keyframes diceFlash{0%{opacity:.95}100%{opacity:0}}
+.dice-fx-ring{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border:4px solid #fff;border-radius:50%!important;opacity:0;animation:diceRing .9s cubic-bezier(.1,.7,.2,1) forwards;box-shadow:0 0 22px #ffd21f}
+@keyframes diceRing{0%{transform:scale(.3);opacity:1}100%{transform:scale(9);opacity:0}}
+.dice-fx-banner{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(.2);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;opacity:0;width:min(92vw,520px)}
+.dice-fx.active .dice-fx-banner{animation:diceBanner 2.7s cubic-bezier(.2,1.4,.3,1) forwards}
+.dice-fx.big.active .dice-fx-banner{animation-duration:3.5s}
+@keyframes diceBanner{0%{transform:translate(-50%,-50%) scale(.2) rotate(-8deg);opacity:0}14%{transform:translate(-50%,-50%) scale(1.18) rotate(2deg);opacity:1}24%{transform:translate(-50%,-50%) scale(1) rotate(0)}82%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-62%) scale(1.1);opacity:0}}
+.dice-fx-banner img{width:clamp(90px,26vw,140px);height:clamp(90px,26vw,140px);object-fit:contain;filter:drop-shadow(0 0 26px #ffd21f) drop-shadow(0 10px 18px #000a);animation:diceItemSpin 1.4s ease-out}
+@keyframes diceItemSpin{0%{transform:scale(.2) rotate(-200deg)}60%{transform:scale(1.25) rotate(12deg)}100%{transform:scale(1) rotate(0)}}
+.dice-fx-banner b{font-size:clamp(38px,12vw,66px);font-weight:900;letter-spacing:2px;line-height:1;background:linear-gradient(180deg,#fff 0,#ffe27a 45%,#ffa31f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #8a4a00) drop-shadow(0 0 22px #ffb23dcc)}
+.dice-fx.big .dice-fx-banner b{font-size:clamp(44px,14vw,78px)}
+.dice-fx-banner span{padding:6px 16px;border-radius:999px!important;background:#06122ccc;border:1px solid #ffd21f88;color:#fff;font-weight:800;font-size:15px;letter-spacing:.5px}
+#dicePage.dice-shake{animation:diceShakePage .55s cubic-bezier(.36,.07,.19,.97)}
+@keyframes diceShakePage{10%,90%{transform:translate3d(-2px,0,0)}20%,80%{transform:translate3d(5px,2px,0)}30%,50%,70%{transform:translate3d(-8px,-2px,0)}40%,60%{transform:translate3d(8px,2px,0)}}
+#dicePage .dice-slot.hit{animation:diceHitPulse .55s ease-in-out 4;z-index:1}
+@keyframes diceHitPulse{50%{transform:scale(1.16)}}
+
+/* профиль: Пополнить и Вывод на одном уровне */
+#profilePage .pf-actions{display:flex!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:10px}
+#profilePage .pf-actions>button{flex:1 1 0;display:flex!important;align-items:center;justify-content:center;margin:0!important;padding:10px 14px!important;box-sizing:border-box!important;min-height:42px;line-height:1.1!important;font-size:12px!important;vertical-align:top;position:static!important;top:auto!important;transform:none!important}
 </style>
 </head>
 
@@ -2255,6 +2310,11 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
         </div>
     </section>
 
+    <div class="dice-fx" id="diceFx" aria-hidden="true">
+        <div class="dice-fx-flash"></div>
+        <canvas id="diceFxCanvas"></canvas>
+        <div class="dice-fx-banner" id="diceFxBanner"><img id="diceFxImg" alt=""><b id="diceFxTitle">ПОБЕДА</b><span id="diceFxSub"></span></div>
+    </div>
     <section class="dice-page" id="dicePage">
         <h2>Дайсы</h2>
         <p class="dice-sub">4 кубика · угадай цвет</p>
@@ -2263,9 +2323,16 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
             <div class="dice-stake-row"><button class="dice-stake" id="diceStakeButton" type="button" onclick="openDiceStakePicker()"></button></div>
             <p class="dice-hint" id="diceHint"></p>
         </div>
+        <div class="dice-odds">
+            <div class="dice-odd"><span>1 из 4</span><b>x2</b><em>шанс 38,6%</em></div>
+            <div class="dice-odd dice-odd-top"><span>4 из 4</span><b>x3</b><em>шанс 0,08%</em></div>
+        </div>
+        <div class="dice-picker-title">Выбери цвет</div>
         <div class="dice-picker" id="dicePicker"></div>
         <button class="open-button" id="diceButton" type="button" onclick="playDice()">БРОСИТЬ</button>
         <div class="dice-result" id="diceResult" aria-live="polite"></div>
+        <div class="dice-history-title">Последние броски</div>
+        <div class="dice-history" id="diceHistory"><span class="dice-history-empty">Пока пусто — сделай первый бросок</span></div>
         <button class="dice-help" id="diceHelp" type="button" aria-expanded="false" aria-label="Правила" onclick="toggleDiceRules()">?</button>
         <div class="dice-rules" id="diceRules" hidden><h3>Правила</h3>
             <div><span>0 из 4</span><span class="lose">проигрыш</span></div>
@@ -3886,7 +3953,8 @@ function setUpgradeMode(mode) {
 }
 
 
-const DICE_COLORS = {red:"#ff5b6e", orange:"#ff7a2a", yellow:"#f6ee3a", green:"#3ddc84", blue:"#3d6fd6", purple:"#a56bff"};
+const DICE_COLORS = {red:"#ff3b57", orange:"#ff8a1f", yellow:"#ffd21f", green:"#17e07c", blue:"#2f8cff", purple:"#a259ff"};
+const DICE_HISTORY = [];
 let diceColor = "red";
 let diceStakeId = "";
 let dicePlaying = false;
@@ -3898,6 +3966,110 @@ function toggleDiceRules() {
     rules.hidden = !rules.hidden;
     document.getElementById("diceHelp").setAttribute("aria-expanded", String(!rules.hidden));
     if (!rules.hidden) rules.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+let diceFxTimer = null;
+function diceWinFx(copies, itemName, itemImage) {
+    const fx = document.getElementById("diceFx");
+    const canvas = document.getElementById("diceFxCanvas");
+    const page = document.getElementById("dicePage");
+    if (!fx || !canvas) return;
+    let reduced = false;
+    try { reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (error) {}
+    const big = copies >= 3;
+    // баннер
+    document.getElementById("diceFxTitle").textContent = big ? "ДЖЕКПОТ x" + copies : "ПОБЕДА x" + copies;
+    document.getElementById("diceFxSub").textContent = itemName || "";
+    const img = document.getElementById("diceFxImg");
+    if (itemImage) { img.src = itemImage; img.style.display = ""; } else { img.style.display = "none"; }
+    fx.className = "dice-fx active" + (big ? " big" : "");
+    fx.querySelectorAll(".dice-fx-ring").forEach(el => el.remove());
+    const hits = [...document.querySelectorAll("#diceSlots .dice-slot.hit")];
+    hits.forEach((slot, index) => {
+        const rect = slot.getBoundingClientRect();
+        for (let r = 0; r < (big ? 3 : 2); r++) {
+            const ring = document.createElement("i");
+            ring.className = "dice-fx-ring";
+            ring.style.left = rect.left + rect.width / 2 + "px";
+            ring.style.top = rect.top + rect.height / 2 + "px";
+            ring.style.animationDelay = (index * 0.05 + r * 0.22) + "s";
+            ring.style.borderColor = r % 2 ? "#ffd21f" : "#ffffff";
+            fx.appendChild(ring);
+        }
+    });
+    if (!reduced) {
+        page.classList.remove("dice-shake");
+        void page.offsetWidth;
+        page.classList.add("dice-shake");
+        // конфетти
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth, h = window.innerHeight;
+        canvas.width = Math.round(w * ratio);
+        canvas.height = Math.round(h * ratio);
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        const palette = Object.values(DICE_COLORS).concat(["#ffffff", "#ffd21f"]);
+        const pieces = [];
+        const sources = hits.length ? hits.map(slot => { const r = slot.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }) : [[w / 2, h / 2]];
+        const perSource = Math.round((big ? 260 : 150) / sources.length);
+        sources.forEach(([sx, sy]) => {
+            for (let i = 0; i < perSource; i++) {
+                const angle = -Math.PI / 2 + (Math.random() - 0.5) * (big ? 3.4 : 2.4);
+                const speed = (big ? 380 : 300) + Math.random() * 520;
+                pieces.push({x: sx, y: sy, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, size: 5 + Math.random() * 7, rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 16, color: palette[Math.floor(Math.random() * palette.length)], round: Math.random() < 0.3, life: 0, max: 1.8 + Math.random() * 1.3});
+            }
+        });
+        let last = performance.now(), total = 0;
+        const step = now => {
+            const dt = Math.min(0.04, (now - last) / 1000);
+            last = now; total += dt;
+            ctx.clearRect(0, 0, w, h);
+            let alive = 0;
+            for (const c of pieces) {
+                c.life += dt;
+                if (c.life > c.max) continue;
+                alive++;
+                c.vy += 900 * dt;
+                c.vx *= 0.992;
+                c.x += c.vx * dt; c.y += c.vy * dt; c.rot += c.vr * dt;
+                ctx.globalAlpha = Math.min(1, (c.max - c.life) * 2);
+                ctx.fillStyle = c.color;
+                ctx.save();
+                ctx.translate(c.x, c.y); ctx.rotate(c.rot);
+                if (c.round) { ctx.beginPath(); ctx.arc(0, 0, c.size / 2, 0, 6.28); ctx.fill(); }
+                else ctx.fillRect(-c.size / 2, -c.size / 4, c.size, c.size / 2);
+                ctx.restore();
+            }
+            ctx.globalAlpha = 1;
+            if (alive && total < 4) requestAnimationFrame(step); else ctx.clearRect(0, 0, w, h);
+        };
+        requestAnimationFrame(step);
+    }
+    clearTimeout(diceFxTimer);
+    diceFxTimer = setTimeout(() => { fx.className = "dice-fx"; fx.querySelectorAll(".dice-fx-ring").forEach(el => el.remove()); }, big ? 3600 : 2800);
+}
+function pushDiceHistory(dice, won, picked) {
+    DICE_HISTORY.unshift({dice, won, picked});
+    DICE_HISTORY.length = Math.min(DICE_HISTORY.length, 6);
+    const box = document.getElementById("diceHistory");
+    box.innerHTML = "";
+    DICE_HISTORY.forEach(entry => {
+        const row = document.createElement("div");
+        row.className = "dice-history-row " + (entry.won ? "win" : "lose");
+        const mark = document.createElement("span");
+        mark.className = "dice-history-pick";
+        mark.style.background = DICE_COLORS[entry.picked];
+        row.appendChild(mark);
+        entry.dice.forEach(name => {
+            const dot = document.createElement("i");
+            dot.style.background = DICE_COLORS[name];
+            row.appendChild(dot);
+        });
+        const label = document.createElement("b");
+        label.textContent = entry.won ? "Победа" : "Проигрыш";
+        row.appendChild(label);
+        box.appendChild(row);
+    });
 }
 function renderDicePicker() {
     const box = document.getElementById("dicePicker");
@@ -3992,7 +4164,7 @@ async function playDice() {
     const button = document.getElementById("diceButton");
     button.disabled = true;
     const slots = [...document.querySelectorAll("#diceSlots .dice-slot")];
-    slots.forEach(slot => { slot.classList.remove("hit", "dim", "land"); slot.classList.add("roll"); slot.firstElementChild.style.background = "#2a3350"; });
+    slots.forEach(slot => { slot.classList.remove("hit", "dim", "land"); slot.classList.add("roll"); slot.firstElementChild.style.background = "#2a3350"; slot.style.setProperty("--sc", "transparent"); });
     result.className = "dice-result";
     result.textContent = "";
     const shuffle = null;
@@ -4005,11 +4177,14 @@ async function playDice() {
             slots[i].classList.remove("knock");
             slots[i].classList.add("land");
             slots[i].firstElementChild.style.background = DICE_COLORS[data.dice[i]];
+            slots[i].style.setProperty("--sc", DICE_COLORS[data.dice[i]] + "99");
             if (data.dice[i] === diceColor) slots[i].classList.add("hit"); else slots[i].classList.add("dim");
         }
         const itemName = data.item?.name || stake.name || "предмет";
         result.textContent = data.copies > 0 ? `Победа! Получено: ${itemName} x${data.copies}` : "Проигрыш";
         result.className = "dice-result " + (data.copies > 0 ? "win" : "lose");
+        pushDiceHistory(data.dice, data.copies > 0, diceColor);
+        if (data.copies > 0) diceWinFx(data.copies, itemName, data.item?.image || stake.image || "");
         vibrate(data.copies > 0 ? "success" : "error");
         diceStakeId = "";
         await loadInventory();
