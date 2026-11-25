@@ -1826,6 +1826,9 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 /* профиль: Пополнить и Вывод на одном уровне */
 #profilePage .pf-actions{display:flex!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:10px}
 #profilePage .pf-actions>button{flex:1 1 0;display:flex!important;align-items:center;justify-content:center;margin:0!important;padding:10px 14px!important;box-sizing:border-box!important;min-height:42px;line-height:1.1!important;font-size:12px!important;vertical-align:top;position:static!important;top:auto!important;transform:none!important}
+
+#dicePage .dice-slots{gap:10px}
+#dicePage .dice-slot i{inset:5px}
 </style>
 </head>
 
@@ -4186,8 +4189,11 @@ async function playDice() {
         pushDiceHistory(data.dice, data.copies > 0, diceColor);
         if (data.copies > 0) diceWinFx(data.copies, itemName, data.item?.image || stake.image || "");
         vibrate(data.copies > 0 ? "success" : "error");
+        const prevItemId = stake.itemId;
         diceStakeId = "";
         await loadInventory();
+        const nextStake = currentInventory.find(item => item.itemId === prevItemId && getUpgradeCatalogItem(item.itemId));
+        if (nextStake) diceStakeId = String(nextStake.id);
         renderDiceStake();
     } catch (error) {
         slots.forEach(slot => slot.classList.remove("roll", "knock"));
