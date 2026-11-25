@@ -1829,6 +1829,11 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 
 #dicePage .dice-slots{gap:10px}
 #dicePage .dice-slot i{inset:5px}
+
+/* белая обводка на выпавшем выбранном цвете (сразу при остановке кубика) */
+#dicePage .dice-slot::after{content:"";position:absolute;inset:-3px;border:4px solid #fff;border-radius:22px!important;opacity:0;pointer-events:none;box-shadow:0 0 18px #fff9,inset 0 0 12px #fff6}
+#dicePage .dice-slot.hit::after{opacity:1;animation:diceRingIn .25s ease-out}
+@keyframes diceRingIn{0%{transform:scale(1.35);opacity:0}100%{transform:scale(1);opacity:1}}
 </style>
 </head>
 
