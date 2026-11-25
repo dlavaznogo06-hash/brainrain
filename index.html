@@ -1737,6 +1737,40 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 #profilePage .promo-card #promoInput{background:#070f26!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;color:#fff;letter-spacing:2px;font-weight:800}
 #profilePage .promo-card #promoInput:focus{outline:0;border-color:var(--au-accent)!important;box-shadow:0 0 0 3px #46a8ff33}
 #profilePage .promo-card #promoButton{background:linear-gradient(180deg,#4aa3ff,#2b6bd6)!important;border:0!important;border-radius:14px!important;color:#fff;font-weight:900;box-shadow:0 0 20px #2f7de655,inset 0 1px 0 #ffffff44}
+
+/* ===== Профиль v2: обложка, аватар поверх неё, плитки статистики ===== */
+#profilePage .pf-hero{position:relative;overflow:hidden;border:1px solid var(--au-line2);border-radius:28px!important;background:linear-gradient(180deg,rgba(14,32,72,.7),rgba(6,12,28,.92));box-shadow:0 0 44px #2b6bd62e,inset 0 1px 0 #ffffff14;padding:0 0 18px}
+#profilePage .pf-cover{position:relative;height:104px;overflow:hidden;background:linear-gradient(115deg,#1a4fb0 0,#0f2f78 45%,#0a1c4a 100%)}
+#profilePage .pf-cover::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,#ffffff0d 0 2px,transparent 2px 16px)}
+#profilePage .pf-cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,rgba(8,16,38,.95))}
+#profilePage .pf-cover i{position:absolute;border-radius:50%!important;background:radial-gradient(closest-side,#5fe3ffaa,transparent);animation:pfDrift 9s ease-in-out infinite}
+#profilePage .pf-cover i:nth-child(1){width:150px;height:150px;left:-30px;top:-50px}
+#profilePage .pf-cover i:nth-child(2){width:120px;height:120px;right:10%;top:-30px;animation-delay:-3s;background:radial-gradient(closest-side,#7aa6ff99,transparent)}
+#profilePage .pf-cover i:nth-child(3){width:90px;height:90px;right:-20px;bottom:-30px;animation-delay:-6s}
+@keyframes pfDrift{50%{transform:translate(18px,10px) scale(1.12)}}
+#profilePage .pf-head{position:relative;display:flex;align-items:flex-end;gap:14px;padding:0 20px;margin-top:-48px}
+#profilePage .pf-head .profile-avatar{flex:none;width:96px!important;height:96px!important;border-radius:50%!important;border:3px solid #0a1634!important;background:#14306a;box-shadow:0 0 0 3px #4aa3ff,0 0 28px #3f8cffaa!important}
+#profilePage .pf-who{min-width:0;display:flex;flex-direction:column;gap:2px;padding-bottom:4px}
+#profilePage .pf-who .profile-label{font-size:10px!important;letter-spacing:.22em;color:var(--au-cyan)!important}
+#profilePage .pf-who .profile-nickname{font-size:clamp(22px,6vw,30px)!important;font-weight:900!important;line-height:1.1;color:#fff!important}
+#profilePage .pf-who .profile-username{font-size:14px!important;color:var(--au-muted)!important}
+#profilePage .pf-stats{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;padding:16px 20px 0}
+#profilePage .pf-stat{display:flex;flex-direction:column;gap:6px;min-width:0;padding:12px 14px;border:1px solid var(--au-line);border-radius:16px!important;background:linear-gradient(180deg,#0f2150aa,#08122ecc)}
+#profilePage .pf-stat-label{color:var(--au-muted);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+#profilePage .pf-stat b{color:#fff;font-size:clamp(18px,5vw,24px);font-weight:900;line-height:1;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis}
+#profilePage .pf-stat .profile-balance{margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;font-size:clamp(20px,5.4vw,26px)!important;gap:8px}
+#profilePage .pf-stat-main{border-color:#ffb23d66;background:linear-gradient(160deg,#2a2a40aa,#0b142fcc);box-shadow:0 0 22px #ffb23d1c}
+#profilePage .pf-actions{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;padding:14px 20px 0}
+#profilePage .pf-actions button{height:48px;font-size:14px;letter-spacing:.6px;cursor:pointer}
+#profilePage .pf-hero .profile-best-drop{margin:14px 20px 0;display:grid!important;grid-template-columns:72px 1fr auto;grid-template-areas:"img title price" "img name price";align-items:center;column-gap:14px;row-gap:2px;min-height:92px!important;padding:10px 16px 10px 10px!important;text-align:left!important;flex-direction:initial}
+#profilePage .pf-hero .profile-best-drop-title{grid-area:title;align-self:end}
+#profilePage .pf-hero .profile-best-drop-image{grid-area:img;width:72px;height:72px;filter:drop-shadow(0 6px 12px #000a) drop-shadow(0 0 14px #5fe3ff66)}
+#profilePage .pf-hero .profile-best-drop-name{grid-area:name;align-self:start;font-size:15px;font-weight:800;color:#fff}
+#profilePage .pf-hero .profile-best-drop-price{grid-area:price;font-size:17px;font-weight:900;color:var(--au-amber)!important}
+#profilePage .pf-hero .profile-best-drop-empty{grid-column:1/-1;grid-row:1/-1;text-align:center;font-size:13px;color:var(--au-muted)}
+@media(max-width:420px){#profilePage .pf-stats{grid-template-columns:1fr 1fr}#profilePage .pf-stat-main{grid-column:1/-1}#profilePage .pf-head{padding:0 16px}#profilePage .pf-stats,#profilePage .pf-actions{padding-left:16px;padding-right:16px}#profilePage .pf-hero .profile-best-drop{margin-left:16px;margin-right:16px}}
+#profilePage .pf-hero .profile-best-drop-title{white-space:nowrap}
+#profilePage .promo-card{width:100%!important;max-width:none!important;box-sizing:border-box}
 </style>
 </head>
 
@@ -2152,30 +2186,37 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
     </div>
 
     <section class="profile-page" id="profilePage">
-        <div class="profile-card">
+        <div class="pf-hero">
+            <div class="pf-cover" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="pf-head">
+                <img class="profile-avatar" id="profilePhoto" src="logo2.png" alt="Аватар игрока">
+                <div class="pf-who">
+                    <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
+                    <div class="profile-nickname" id="profileName">Игрок</div>
+                    <div class="profile-username" id="profileUsername">@player</div>
+                </div>
+            </div>
+            <div class="pf-stats">
+                <div class="pf-stat pf-stat-main">
+                    <span class="pf-stat-label">Баланс</span>
+                    <div class="profile-balance">
+                        <span class="balance-number pixel-number" id="profileBalance">0</span>
+                        <img class="coin-icon" src="coin.png" alt="Coin">
+                    </div>
+                </div>
+                <div class="pf-stat"><span class="pf-stat-label">Предметов</span><b id="pfItemsCount">0</b></div>
+                <div class="pf-stat"><span class="pf-stat-label">Стоимость</span><b id="pfItemsValue">0</b></div>
+            </div>
+            <div class="pf-actions">
+                <button class="profile-topup-button" type="button" onclick="openTopup()">＋ ПОПОЛНИТЬ</button>
+                <button class="profile-withdraw-button" type="button" onclick="openWithdraw()">↗ ВЫВЕСТИ</button>
+            </div>
             <div class="profile-best-drop" id="profileBestDrop" aria-live="polite">
                 <div class="profile-best-drop-title">ЛУЧШИЙ ДРОП</div>
                 <img class="profile-best-drop-image" id="profileBestDropImage" src="" alt="" hidden>
                 <div class="profile-best-drop-empty" id="profileBestDropEmpty">Пока нет предметов</div>
                 <div class="profile-best-drop-name" id="profileBestDropName" hidden></div>
                 <div class="profile-best-drop-price" id="profileBestDropPrice" hidden><span></span><img src="coin.png" alt="Coin"></div>
-            </div>
-            <img class="profile-avatar" id="profilePhoto" src="logo2.png" alt="Аватар игрока">
-
-            <div class="profile-info">
-                <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
-                <div class="profile-nickname" id="profileName">Игрок</div>
-                <div class="profile-username" id="profileUsername">@player</div>
-                <div class="profile-actions">
-                    <button class="profile-topup-button" type="button" onclick="openTopup()">＋ ПОПОЛНИТЬ</button>
-                    <button class="profile-withdraw-button" type="button" onclick="openWithdraw()">↗ ВЫВЕСТИ</button>
-                </div>
-
-                <div class="profile-balance">
-                    <span class="balance-number pixel-number" id="profileBalance">0</span>
-                    <img class="coin-icon" src="coin.png" alt="Coin">
-
-                </div>
             </div>
         </div>
 
@@ -5777,6 +5818,27 @@ function auColorizeCaseCards() {
     });
 }
 window.addEventListener("load", auColorizeCaseCards);
+
+function auUpdateProfileStats() {
+    const box = document.getElementById("inventoryBox");
+    if (!box) return;
+    const items = box.querySelectorAll(".inventory-item");
+    let total = 0;
+    items.forEach(item => {
+        const price = item.querySelector(".inventory-item-price");
+        total += parseInt((price ? price.textContent : "").replace(/\D/g, ""), 10) || 0;
+    });
+    const count = document.getElementById("pfItemsCount");
+    const value = document.getElementById("pfItemsValue");
+    if (count) count.textContent = items.length.toLocaleString("ru-RU");
+    if (value) value.textContent = total.toLocaleString("ru-RU");
+}
+(function watchInventoryStats() {
+    const box = document.getElementById("inventoryBox");
+    if (!box || !window.MutationObserver) return;
+    new MutationObserver(auUpdateProfileStats).observe(box, {childList:true, subtree:true});
+    auUpdateProfileStats();
+})();
 </script>
 
 </body>
