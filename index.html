@@ -1875,6 +1875,35 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 #menu .menu-support{padding:12px 14px;border:1px solid var(--au-line);border-radius:14px!important;background:#0a1634;color:var(--au-muted);font-family:var(--au-font);font-size:12px;font-weight:700;text-align:center}
 #menu .menu-support b{color:#cfe3ff}
 #menu .menu-ver{text-align:center;color:#41567f;font-family:var(--au-font);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+
+/* ===== Aurora: окна пополнения и вывода ===== */
+.topup-backdrop{background:#02061499!important;-webkit-backdrop-filter:blur(8px)!important;backdrop-filter:blur(8px)!important}
+.topup-page.topup-modal{border:1px solid var(--au-line2)!important;border-radius:26px!important;background:radial-gradient(120% 45% at 50% 0%,#16397a66 0,transparent 70%),linear-gradient(180deg,#0b1838,#060d22)!important;box-shadow:0 24px 70px #000d,inset 0 1px 0 #ffffff14!important;font-family:var(--au-font)}
+.topup-modal h2{font-family:var(--au-font);font-weight:900;font-size:22px;color:#fff;letter-spacing:.2px}
+.topup-modal .topup-description{color:var(--au-muted);font-size:13px;font-weight:500}
+.topup-modal .topup-close{top:14px;right:14px;width:36px;height:36px;border-radius:12px!important;background:#0e2252;border:1px solid var(--au-line2);color:#cfe3ff}
+.topup-modal .topup-step-title{font-family:var(--au-font);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--au-muted);margin:20px 0 10px}
+.topup-modal .topup-item-grid{background:#050d24;border:1px solid var(--au-line);padding:8px;gap:8px}
+.topup-modal .topup-item-card{border:1px solid var(--au-line);background:linear-gradient(180deg,rgba(20,44,96,.55),rgba(8,17,40,.8));transition:.15s}
+.topup-modal .topup-item-card:active{transform:scale(.97)}
+.topup-modal .topup-item-card.selected{border-color:var(--au-accent);background:linear-gradient(180deg,#1d4a9a,#0f2a66);box-shadow:0 0 18px #46a8ff66,inset 0 1px 0 #ffffff22}
+.topup-modal .topup-item-name{color:#fff}
+.topup-modal .topup-item-price{color:var(--au-amber)}
+.topup-modal .topup-quantity button,.topup-modal .topup-periods button,.withdraw-stepper button{background:#0a1a40!important;border:1px solid var(--au-line2)!important;color:#cfe3ff!important;font-family:var(--au-font);font-weight:800}
+.topup-modal .topup-quantity button.selected,.topup-modal .topup-periods button.selected{background:linear-gradient(180deg,#2a6bd6,#173f95)!important;border-color:#5aa6ff!important;color:#fff!important;box-shadow:0 6px 18px #1d5cd355!important}
+.withdraw-stepper button:hover:not(:disabled){border-color:var(--au-accent)!important}
+.withdraw-qty{color:#fff;font-weight:900}
+.topup-modal .topup-quantity-hint{color:var(--au-muted)}
+.topup-modal .topup-summary{background:#0a1634;border:1px solid var(--au-line);color:#fff}
+.topup-modal .topup-nick-input{background:#050d24;border:1px solid var(--au-line2);color:#fff;font-family:var(--au-font)}
+.topup-modal .topup-nick-input:focus{border-color:var(--au-accent);box-shadow:0 0 16px #46a8ff55}
+.topup-modal .open-button{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border:0!important;font-family:var(--au-font);font-weight:900;letter-spacing:.6px;box-shadow:0 0 22px #ff9a1f44,inset 0 1px 0 #ffffff77}
+.topup-modal .open-button:disabled{opacity:.45;box-shadow:none}
+.topup-modal .topup-back-link{color:var(--au-muted)}
+.topup-modal .topup-result{color:#7fe3b0}
+.withdraw-row{background:linear-gradient(180deg,rgba(20,44,96,.5),rgba(8,17,40,.8))!important;border:1px solid var(--au-line)!important}
+.withdraw-result{background:#0d2f2a!important;border-color:#36db92!important}
+.withdraw-cancel{background:#2a1530!important}
 </style>
 </head>
 
