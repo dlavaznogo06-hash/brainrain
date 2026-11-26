@@ -2146,6 +2146,12 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
                 <div class="price">49 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('halloween_case')">
+                <h3>Хэллоуинский кейс</h3>
+                <img src="halloween-case.png" alt="Хэллоуинский кейс">
+                <div class="price">339 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('new_year_case')">
                 <h3>Новогодний кейс</h3>
                 <img src="new-year-case.png" alt="Новогодний кейс">
@@ -2205,6 +2211,7 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
             <div class="roulette-track hidden" id="basicCaseRoulette"></div>
             <div class="roulette-track hidden" id="losCaseRoulette"></div>
             <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
+            <div class="roulette-track hidden" id="halloweenCaseRoulette"></div>
             <div class="roulette-track hidden" id="newYearCaseRoulette"></div>
             <div class="roulette-track hidden" id="pairCaseRoulette"></div>
             <div class="roulette-track hidden" id="moneyCaseRoulette"></div>
@@ -2694,6 +2701,22 @@ const moneyCaseItems = [
     {id:"cloverat-clapat", name:"Cloverat Clapat", image:"cloverat-clapat.png", price:250, rarity:"rarity-red"}
 ];
 
+const halloweenCaseItems = [
+    {id:"scorpi-inferni", name:"Scorpi Inferni", image:"scorpi-inferni.png", price:180, rarity:"rarity-blue"},
+    {id:"spooketti-tualetti", name:"Spooketti Tualetti", image:"spooketti-tualetti.png", price:240, rarity:"rarity-blue"},
+    {id:"dug-dug-dug", name:"Dug dug dug", image:"dug-dug-dug.png", price:300, rarity:"rarity-blue"},
+    {id:"medusini-and-demonini", name:"Medusini and Demonini", image:"medusini-and-demonini.png", price:400, rarity:"rarity-purple"},
+    {id:"sammyni-spookyni", name:"Sammyni Spookyni", image:"sammyni-spookyni.png", price:540, rarity:"rarity-purple"},
+    {id:"skelly-and-coffy", name:"Skelly and Coffy", image:"skelly-and-coffy.png", price:570, rarity:"rarity-purple"},
+    {id:"la-casa-boo", name:"La Casa Boo", image:"la-casa-boo.png", price:600, rarity:"rarity-purple"},
+    {id:"puppetmaster", name:"Puppetmaster", image:"puppetmaster.png", price:670, rarity:"rarity-purple"},
+    {id:"flying-dutchman", name:"Flying Dutchman", image:"flying-dutchman.png", price:800, rarity:"rarity-red"},
+    {id:"skelly-and-coffy-2", name:"Skelly and Coffy", image:"skelly-and-coffy-2.png", price:970, rarity:"rarity-red"},
+    {id:"draculino", name:"Draculino", image:"draculino.png", price:1200, rarity:"rarity-red"},
+    {id:"scarino-crowino", name:"Scarino Crowino", image:"scarino-crowino.png", price:1899, rarity:"rarity-red"},
+    {id:"dragon-skeletonini", name:"Dragon Skeletonini", image:"dragon-skeletonini.png", price:3500, rarity:"rarity-red"}
+];
+
 const newYearCaseItems = [
     {id:"los-jolly-combinasionas", name:"Los Jolly Combinasionas", image:"los-jolly-combinasionas.png", price:85, rarity:"rarity-blue"},
     {id:"money-money-reindeer", name:"Money Money Reindeer", image:"money-money-reindeer.png", price:120, rarity:"rarity-purple"},
@@ -2801,6 +2824,13 @@ const cases = {
         price:49,
         items:moneyCaseItems,
         roulette:"moneyCaseRoulette"
+    },
+    halloween_case: {
+        name:"Хэллоуинский кейс",
+        image:"halloween-case.png",
+        price:339,
+        items:halloweenCaseItems,
+        roulette:"halloweenCaseRoulette"
     },
     new_year_case: {
         name:"Новогодний кейс",
@@ -3797,7 +3827,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems, ...moneyCaseItems, ...newYearCaseItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems, ...moneyCaseItems, ...newYearCaseItems, ...halloweenCaseItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = ["skibidi-toilet", "john-pork", "meowl"].includes(item.id) ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
