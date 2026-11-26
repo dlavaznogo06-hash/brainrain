@@ -1842,6 +1842,39 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 #dicePage .dice-slot.hit{animation:diceHitPulse .6s ease-in-out 2}
 @keyframes diceHitPulse{50%{transform:scale(1.06)}}
 @keyframes diceShakePage{10%,90%{transform:translate3d(-1px,0,0)}20%,80%{transform:translate3d(2px,1px,0)}30%,50%,70%{transform:translate3d(-3px,-1px,0)}40%,60%{transform:translate3d(3px,1px,0)}}
+
+#dicePage .dice-slot.hit{animation:none}
+#dicePage .dice-slot.hit.pulse{animation:diceHitPulse .6s ease-in-out 2}
+.item-card.coin-card{aspect-ratio:auto!important;min-height:168px}
+.item-card.coin-card>img{width:auto!important;height:105px!important;max-width:100%}
+
+/* ===== Aurora: выезжающее меню ===== */
+#menu.menu{left:-330px;width:292px;padding:18px 16px 24px;background:radial-gradient(120% 60% at 0% 0%,#14336f55 0,transparent 60%),linear-gradient(180deg,#0b1838 0,#060d22 100%);border-right:1px solid var(--au-line2);box-shadow:14px 0 50px #000b,inset -1px 0 0 #ffffff0d;overflow-y:auto}
+#menu.menu.active{left:0}
+#menu .menu-close{float:none;position:absolute;top:14px;right:14px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px!important;background:#0e2252;border:1px solid var(--au-line2);color:#cfe3ff;font-size:22px;line-height:1;padding:0}
+#menu .profile-mini{margin:4px 0 20px;padding:14px;gap:12px;border:1px solid var(--au-line);border-radius:18px!important;background:linear-gradient(180deg,rgba(20,44,96,.6),rgba(8,17,40,.8));box-shadow:inset 0 1px 0 #ffffff12;margin-top:50px}
+#menu .profile-mini>img:not(.coin-icon){width:52px;height:52px;border:2px solid var(--au-accent);box-shadow:0 0 16px #46a8ff55}
+#menu .menu-name{font-family:var(--au-font);font-weight:800;font-size:16px;color:#fff}
+#menu .menu-balance{font-family:var(--au-font);font-weight:800;background:#0a1a40;border:1px solid var(--au-amber);border-radius:11px!important;color:#ffd98a;box-shadow:0 0 14px #ffb23d26}
+#menu::before{content:"МЕНЮ";display:block;position:absolute;top:24px;left:18px;font-family:var(--au-font);font-weight:900;font-size:12px;letter-spacing:3px;color:var(--au-muted)}
+#menu .menu-item{width:100%;min-width:0;margin:6px 0;padding:14px 16px;gap:14px;border:1px solid transparent;border-radius:16px!important;background:transparent;color:#a9c0ec;font-family:var(--au-font);font-size:15px;font-weight:800;letter-spacing:.4px;position:relative}
+#menu .menu-item:hover:not(.active){background:#0f2455;border-color:var(--au-line);color:#fff}
+#menu .menu-item .menu-icon{width:26px;height:26px;flex-basis:26px;filter:brightness(0) invert(.75) sepia(.3) hue-rotate(180deg)}
+#menu .menu-item.active{color:#fff;text-shadow:none;background:linear-gradient(180deg,#2a6bd6,#173f95);border-color:#5aa6ff;box-shadow:0 8px 22px #1d5cd355,inset 0 1px 0 #ffffff33}
+#menu .menu-item.active .menu-icon{filter:brightness(0) invert(1)}
+#menu .menu-item.active::after{content:"";position:absolute;right:14px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%!important;background:var(--au-cyan);box-shadow:0 0 10px var(--au-cyan)}
+.overlay{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);background:#02061499}
+
+#menu.menu{display:flex;flex-direction:column}
+#menu .menu-text{display:flex;flex-direction:column;gap:2px;text-align:left}
+#menu .menu-text b{font-size:15px;font-weight:800}
+#menu .menu-text small{font-size:11px;font-weight:600;color:var(--au-muted);letter-spacing:.2px}
+#menu .menu-item.active .menu-text small{color:#cfe3ffcc}
+#menu .menu-bottom{margin-top:auto;padding-top:18px;display:flex;flex-direction:column;gap:10px}
+#menu .menu-topup{width:100%;padding:15px;border:0;border-radius:16px!important;background:linear-gradient(180deg,#ffc24d,#ff9a1f);color:#2a1700;font-family:var(--au-font);font-size:14px;font-weight:900;letter-spacing:.5px;cursor:pointer;box-shadow:0 0 22px #ff9a1f44,inset 0 1px 0 #ffffff77}
+#menu .menu-support{padding:12px 14px;border:1px solid var(--au-line);border-radius:14px!important;background:#0a1634;color:var(--au-muted);font-family:var(--au-font);font-size:12px;font-weight:700;text-align:center}
+#menu .menu-support b{color:#cfe3ff}
+#menu .menu-ver{text-align:center;color:#41567f;font-family:var(--au-font);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
 </style>
 </head>
 
@@ -1946,17 +1979,19 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
     </div>
 
     <button class="menu-item" onclick="showHome()">
-        <img class="menu-icon" src="house.png" alt=""> Home
-    </button>
+        <img class="menu-icon" src="house.png" alt=""><span class="menu-text"><b>Home</b><small>Кейсы и бонусы</small></span></button>
     <button class="menu-item" onclick="showUpgrader()">
-        <img class="menu-icon" src="upgrade.png" alt=""> Upgrade
-    </button>
+        <img class="menu-icon" src="upgrade.png" alt=""><span class="menu-text"><b>Upgrade</b><small>Прокачай предмет</small></span></button>
     <button class="menu-item" onclick="showProfile()">
-        <img class="menu-icon" src="profile.png" alt=""> Profile
-    </button>
+        <img class="menu-icon" src="profile.png" alt=""><span class="menu-text"><b>Profile</b><small>Инвентарь и вывод</small></span></button>
     <button class="menu-item" onclick="showDice()">
-        <img class="menu-icon menu-icon-dice" src="dice.png" alt=""> Color Dice
-    </button>
+        <img class="menu-icon menu-icon-dice" src="dice.png" alt=""><span class="menu-text"><b>Color Dice</b><small>Угадай цвет кубиков</small></span></button>
+
+    <div class="menu-bottom">
+        <button class="menu-topup" type="button" onclick="closeMenu();openTopup()">＋ Пополнить баланс</button>
+        <div class="menu-support">Поддержка: <b>@fraidme</b></div>
+        <div class="menu-ver">BrainRain · играй честно</div>
+    </div>
 </nav>
 
 <main>
@@ -3993,14 +4028,15 @@ function diceWinFx(copies, itemName, itemImage) {
     let reduced = false;
     try { reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (error) {}
     const big = copies >= 3;
+    const hits = [...document.querySelectorAll("#diceSlots .dice-slot.hit")];
     // баннер
     document.getElementById("diceFxTitle").textContent = big ? "ДЖЕКПОТ x" + copies : "ПОБЕДА x" + copies;
     document.getElementById("diceFxSub").textContent = itemName || "";
     const img = document.getElementById("diceFxImg");
     if (itemImage) { img.src = itemImage; img.style.display = ""; } else { img.style.display = "none"; }
     fx.className = "dice-fx active" + (big ? " big" : "");
+    hits.forEach(slot => { slot.classList.add("pulse"); setTimeout(() => slot.classList.remove("pulse"), 1300); });
     fx.querySelectorAll(".dice-fx-ring").forEach(el => el.remove());
-    const hits = [...document.querySelectorAll("#diceSlots .dice-slot.hit")];
     hits.forEach((slot, index) => {
         const rect = slot.getBoundingClientRect();
         for (let r = 0; r < (big ? 3 : 2); r++) {
@@ -4017,6 +4053,7 @@ function diceWinFx(copies, itemName, itemImage) {
         page.classList.remove("dice-shake");
         void page.offsetWidth;
         page.classList.add("dice-shake");
+        setTimeout(() => page.classList.remove("dice-shake"), 700);
         // конфетти
         const ratio = Math.min(window.devicePixelRatio || 1, 2);
         const w = window.innerWidth, h = window.innerHeight;
@@ -4134,6 +4171,10 @@ async function showDice() {
     if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
     setMenuActive(3);
+    clearTimeout(diceFxTimer);
+    const oldFx = document.getElementById("diceFx");
+    if (oldFx) { oldFx.className = "dice-fx"; oldFx.querySelectorAll(".dice-fx-ring").forEach(el => el.remove()); }
+    document.getElementById("dicePage").classList.remove("dice-shake");
     document.getElementById("dicePage").style.display = "block";
     document.body.classList.add("dice-mode");
     closeMenu();
