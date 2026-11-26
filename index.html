@@ -1904,6 +1904,9 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 .withdraw-row{background:linear-gradient(180deg,rgba(20,44,96,.5),rgba(8,17,40,.8))!important;border:1px solid var(--au-line)!important}
 .withdraw-result{background:#0d2f2a!important;border-color:#36db92!important}
 .withdraw-cancel{background:#2a1530!important}
+
+.withdraw-locked-card.exchangeable{cursor:pointer}
+.withdraw-locked-card.exchangeable .topup-item-price{color:var(--au-cyan)}
 </style>
 </head>
 
@@ -2289,7 +2292,7 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
         </div>
 
         <div id="withdrawStep1" style="display:none">
-            <p class="topup-description">Выбери предмет из своего инвентаря и количество. Для вывода доступны только Garama and Madundung и Dragon Caneloni.</p>
+            <p class="topup-description">Выбери предмет из своего инвентаря и количество. Для вывода доступны Garama and Madundung и Dragon Caneloni. Dragon Caneloni можно получить обменом: отдай предмет от 850 монет и доплати разницу.</p>
             <div class="withdraw-items" id="withdrawItems"></div>
             <h3 class="topup-step-title">Количество</h3>
             <div class="withdraw-stepper">
@@ -3440,6 +3443,7 @@ let withdrawLockedItems = [];
 let selectedWithdrawItemId = "";
 let selectedWithdrawQty = 1;
 let selectedWithdrawPeriod = "";
+let selectedWithdrawExchange = null;
 
 function selectWithdrawPeriod(period) {
     selectedWithdrawPeriod = ["early", "late"].includes(period) ? period : "";
@@ -3463,6 +3467,10 @@ function setWithdrawError(message) {
 }
 
 function getWithdrawItem(id) {
+    if (selectedWithdrawExchange && selectedWithdrawExchange.targetId === id) {
+        const base = withdrawInfo && Array.isArray(withdrawInfo.items) ? withdrawInfo.items.find(item => item.id === id) : null;
+        if (base) return {...base, owned: 1, max: 1};
+    }
     return withdrawInfo && Array.isArray(withdrawInfo.items)
         ? withdrawInfo.items.find(item => item.id === id)
         : null;
@@ -3477,6 +3485,7 @@ async function openWithdraw() {
     backdrop.classList.add("active");
     document.body.classList.add("modal-open");
     selectedWithdrawItemId = "";
+    selectedWithdrawExchange = null;
     selectedWithdrawQty = 1;
     selectedWithdrawPeriod = "";
     document.querySelectorAll("[data-withdraw-period]").forEach(button => button.classList.remove("selected"));
@@ -3525,7 +3534,7 @@ async function loadWithdrawInfo() {
             if (entry.itemId === "coin" || withdrawIds.has(entry.itemId)) continue;
             const known = lockedMap.get(entry.itemId);
             if (known) known.count += 1;
-            else lockedMap.set(entry.itemId, {id:entry.itemId, name:entry.name, image:entry.image, count:1});
+            else lockedMap.set(entry.itemId, {id:entry.itemId, name:entry.name, image:entry.image, count:1, inventoryId:entry.id});
         }
         withdrawLockedItems = Array.from(lockedMap.values());
     } catch (error) {
@@ -3535,6 +3544,21 @@ async function loadWithdrawInfo() {
     renderWithdrawList();
     updateWithdrawButtons();
     showWithdrawView("step1");
+}
+
+function getWithdrawExchangePlan(entry) {
+    if (!withdrawInfo || !Array.isArray(withdrawInfo.exchangeTargets)) return null;
+    const catalog = getUpgradeCatalogItem(entry.id);
+    if (!catalog) return null;
+    const price = Number(catalog.price) || 0;
+    const maxGap = Number(withdrawInfo.exchangeMaxSurcharge) || 0;
+    for (const targetId of withdrawInfo.exchangeTargets) {
+        const target = (withdrawInfo.items || []).find(item => item.id === targetId);
+        if (!target) continue;
+        const gap = Number(target.sell) - price;
+        if (gap <= maxGap) return {target, price, surcharge: Math.max(0, gap)};
+    }
+    return null;
 }
 
 function renderWithdrawItems() {
@@ -3550,6 +3574,7 @@ function renderWithdrawItems() {
         card.disabled = empty;
         card.onclick = () => {
             selectedWithdrawItemId = item.id;
+            selectedWithdrawExchange = null;
             selectedWithdrawQty = 1;
             renderWithdrawItems();
             updateWithdrawButtons();
@@ -3568,8 +3593,18 @@ function renderWithdrawItems() {
     }
     // Остальные предметы из инвентаря видны, но вывести их нельзя (только через обмен).
     for (const item of withdrawLockedItems) {
-        const card = document.createElement("div");
-        card.className = "topup-item-card disabled withdraw-locked-card";
+        const plan = getWithdrawExchangePlan(item);
+        const card = document.createElement(plan ? "button" : "div");
+        if (plan) card.type = "button";
+        const chosen = plan && selectedWithdrawExchange && selectedWithdrawExchange.itemId === item.id;
+        card.className = "topup-item-card withdraw-locked-card" + (plan ? " exchangeable" : " disabled") + (chosen ? " selected" : "");
+        if (plan) card.onclick = () => {
+            selectedWithdrawExchange = {itemId: item.id, inventoryId: item.inventoryId, targetId: plan.target.id, surcharge: plan.surcharge, price: plan.price, name: item.name};
+            selectedWithdrawItemId = plan.target.id;
+            selectedWithdrawQty = 1;
+            renderWithdrawItems();
+            updateWithdrawButtons();
+        };
         const image = document.createElement("img");
         image.src = item.image;
         image.alt = item.name;
@@ -3578,7 +3613,7 @@ function renderWithdrawItems() {
         name.textContent = item.name;
         const note = document.createElement("span");
         note.className = "topup-item-price";
-        note.textContent = `Нельзя вывести · ×${item.count}`;
+        note.textContent = plan ? `Обмен на ${plan.target.name}${plan.surcharge ? " · +" + plan.surcharge + " монет" : ""} · ×${item.count}` : `Нельзя вывести · ×${item.count}`;
         card.append(image, name, note);
         box.appendChild(card);
     }
@@ -3724,7 +3759,9 @@ function goWithdrawNickStep() {
     if (!item || Number(item.owned) < 1 || !selectedWithdrawPeriod) return;
     const summary = document.getElementById("withdrawSummary");
     const periodText = selectedWithdrawPeriod === "early" ? "12:00–15:00" : "21:00–23:20";
-    if (summary) summary.textContent = `${item.name} ×${selectedWithdrawQty} · ${periodText}`;
+    if (summary) summary.textContent = selectedWithdrawExchange
+        ? `Обмен: ${selectedWithdrawExchange.name} → ${item.name} · ${periodText}${selectedWithdrawExchange.surcharge ? "\nДоплата: " + selectedWithdrawExchange.surcharge + " монет" : ""}`
+        : `${item.name} ×${selectedWithdrawQty} · ${periodText}`;
     const nickInput = document.getElementById("withdrawNickInput");
     if (nickInput && !nickInput.value) {
         try { nickInput.value = localStorage.getItem("brainrainTopupNick") || ""; } catch (error) {}
@@ -3753,6 +3790,13 @@ async function submitWithdrawRequest() {
         setWithdrawError("Введи ник: от 3 до 32 символов, латинские буквы, цифры, _ . -");
         return;
     }
+    if (selectedWithdrawExchange) {
+        const ex = selectedWithdrawExchange;
+        const lines = [`Обменять ${ex.name} на ${item.name}?`];
+        if (ex.surcharge) lines.push(`Доплата: ${ex.surcharge} монет.`);
+        if (ex.price > Number(item.sell)) lines.push(`Внимание: ${ex.name} дороже (${ex.price}), разницу ты не получишь.`);
+        if (!(await appConfirm(lines.join("\n"), "Обмен", "Назад"))) return;
+    }
     button.dataset.sending = "true";
     button.disabled = true;
     nickInput.disabled = true;
@@ -3764,15 +3808,18 @@ async function submitWithdrawRequest() {
             itemId: selectedWithdrawItemId,
             quantity: selectedWithdrawQty,
             period: selectedWithdrawPeriod,
-            nick
+            nick,
+            exchangeInventoryId: selectedWithdrawExchange ? selectedWithdrawExchange.inventoryId : undefined
         });
         try { localStorage.setItem("brainrainTopupNick", nick); } catch (error) {}
         const result = document.getElementById("withdrawResultText");
         if (result) {
-            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\n${data.scheduledText ? "Время: " + data.scheduledText + "\n" : ""}\nЗаявка добавлена в «Мои выводы».${data.scheduledText ? " Бот напишет тебе время и за 5 минут до вывода напомнит." : " Сервер не прислал время: обнови bot2.py на Hokas и перезапусти бота."}`;
+            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\n${data.exchange ? "Обмен выполнен" + (data.surcharge ? ", доплата " + data.surcharge + " монет" : "") + "\n" : ""}${data.scheduledText ? "Время: " + data.scheduledText + "\n" : ""}\nЗаявка добавлена в «Мои выводы».${data.scheduledText ? " Бот напишет тебе время и за 5 минут до вывода напомнит." : " Сервер не прислал время: обнови bot2.py на Hokas и перезапусти бота."}`;
         }
         showWithdrawView("step3");
         if (typeof loadInventory === "function") loadInventory();
+        if (typeof loadBalance === "function") loadBalance();
+        selectedWithdrawExchange = null;
         loadProfileWithdrawals();
     } catch (error) {
         setWithdrawError(error.message || "Не удалось создать вывод.");
