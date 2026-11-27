@@ -1945,7 +1945,7 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 
 /* ===== Золотые предметы: John Pork, Skibidi Toilet, Meowl ===== */
 .item-card.rarity-gold,.roulette-item.rarity-gold,.upgrade-target-card.rarity-gold{position:relative;overflow:hidden;border-color:#ffd45c!important;background:radial-gradient(70% 60% at 50% 40%,#ffd45c99 0,#ff9a1f44 45%,transparent 78%),linear-gradient(180deg,#4a3408,#1c1304)!important;box-shadow:0 0 20px #ffc83d66,inset 0 0 18px #ffd45c55!important}
-.item-card.rarity-gold::before,.roulette-item.rarity-gold::before,.upgrade-target-card.rarity-gold::before{content:""!important;position:absolute!important;left:50%!important;top:42%!important;right:auto!important;bottom:auto!important;width:190%!important;height:190%!important;margin:-95% 0 0 -95%!important;background:repeating-conic-gradient(from 0deg,#fff1a899 0 9deg,transparent 9deg 24deg)!important;-webkit-mask:radial-gradient(closest-side,#000 0,transparent 72%);mask:radial-gradient(closest-side,#000 0,transparent 72%);opacity:.6!important;pointer-events:none;z-index:0;animation:goldRays 9s linear infinite}
+.item-card.rarity-gold::before,.roulette-item.rarity-gold::before,.upgrade-target-card.rarity-gold::before{content:""!important;position:absolute!important;left:50%!important;top:42%!important;right:auto!important;bottom:auto!important;width:190%!important;height:190%!important;margin:-95% 0 0 -95%!important;background:repeating-conic-gradient(from 0deg,#fff1a899 0 9deg,transparent 9deg 24deg)!important;-webkit-mask:radial-gradient(closest-side,#000 0,transparent 72%);mask:radial-gradient(closest-side,#000 0,transparent 72%);opacity:.6!important;pointer-events:none;z-index:0;animation:goldRays 24s linear infinite}
 @keyframes goldRays{to{transform:rotate(360deg)}}
 .item-card.rarity-gold::after,.roulette-item.rarity-gold::after,.upgrade-target-card.rarity-gold::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,#fff7c4aa,transparent);transform:skewX(-20deg);pointer-events:none;z-index:2;animation:goldShine 3.4s ease-in-out infinite}
 @keyframes goldShine{0%,50%{left:-70%}100%{left:140%}}
@@ -2000,6 +2000,16 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 @media(prefers-reduced-motion:no-preference){
 #homePage .case-card:hover>img,#homePage .case-card:active>img{animation:auCardFloat 1.6s ease-in-out infinite!important}
 }
+
+/* золотые лучи за топ-дропом и золотыми дропами в лайве */
+.daily-drop-result.gold-drop,.live-drop-card.gold-drop,.top-drop-item{position:relative;overflow:hidden}
+.top-drop-item{overflow:visible}
+.daily-drop-result.gold-drop::before,.live-drop-card.gold-drop::before,.top-drop-item::before{content:"";position:absolute;left:50%;top:44%;width:190%;aspect-ratio:1;margin:-95% 0 0 -95%;background:repeating-conic-gradient(from 0deg,#fff1a899 0 9deg,transparent 9deg 24deg);-webkit-mask:radial-gradient(closest-side,#000 0,transparent 70%);mask:radial-gradient(closest-side,#000 0,transparent 70%);opacity:.6;pointer-events:none;z-index:0;animation:goldRays 24s linear infinite}
+.top-drop-item::before{width:150%;margin:-75% 0 0 -75%;top:50%}
+.daily-drop-result.gold-drop>*,.live-drop-card.gold-drop>*{position:relative;z-index:1}
+.live-drop-card.gold-drop{border-color:#ffd45c!important;background:radial-gradient(70% 60% at 50% 35%,#ffd45c66,transparent 75%),linear-gradient(180deg,#3a2a08,#150f04)!important;box-shadow:0 0 14px #ffc83d44}
+.daily-drop-result.gold-drop img,.live-drop-card.gold-drop img,.top-drop-image{filter:drop-shadow(0 0 8px #ffd45ccc) drop-shadow(0 3px 6px #000a)}
+@media(prefers-reduced-motion:reduce){.daily-drop-result.gold-drop::before,.live-drop-card.gold-drop::before,.top-drop-item::before{animation:none}}
 </style>
 </head>
 
@@ -2978,6 +2988,7 @@ function makeLiveDropCard(drop, entering = false, best = false) {
     card.className = best ? "daily-drop-result" : "live-drop-card";
     if (entering) card.classList.add("entering");
     if (!best) card.dataset.dropId = String(drop.id);
+    if (best || ["skibidi toilet", "john pork", "meowl"].includes(String(drop.itemName || "").trim().toLowerCase())) card.classList.add("gold-drop");
 
     const image = document.createElement("img");
     image.className = "drop-item-image";
