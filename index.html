@@ -1942,6 +1942,54 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 #casePage .item-card:active{transform:scale(.97)}
 #casePage .item-card h4{color:#fff;font-weight:800}
 #casePage .item-card .price,#casePage .item-card p{color:var(--au-amber);font-weight:900}
+
+/* ===== Золотые предметы: John Pork, Skibidi Toilet, Meowl ===== */
+.item-card.rarity-gold,.roulette-item.rarity-gold,.upgrade-target-card.rarity-gold{position:relative;overflow:hidden;border-color:#ffd45c!important;background:radial-gradient(70% 60% at 50% 40%,#ffd45c99 0,#ff9a1f44 45%,transparent 78%),linear-gradient(180deg,#4a3408,#1c1304)!important;box-shadow:0 0 20px #ffc83d66,inset 0 0 18px #ffd45c55!important}
+.item-card.rarity-gold::before,.roulette-item.rarity-gold::before,.upgrade-target-card.rarity-gold::before{content:""!important;position:absolute!important;left:50%!important;top:42%!important;right:auto!important;bottom:auto!important;width:190%!important;height:190%!important;margin:-95% 0 0 -95%!important;background:repeating-conic-gradient(from 0deg,#fff1a899 0 9deg,transparent 9deg 24deg)!important;-webkit-mask:radial-gradient(closest-side,#000 0,transparent 72%);mask:radial-gradient(closest-side,#000 0,transparent 72%);opacity:.6!important;pointer-events:none;z-index:0;animation:goldRays 9s linear infinite}
+@keyframes goldRays{to{transform:rotate(360deg)}}
+.item-card.rarity-gold::after,.roulette-item.rarity-gold::after,.upgrade-target-card.rarity-gold::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,#fff7c4aa,transparent);transform:skewX(-20deg);pointer-events:none;z-index:2;animation:goldShine 3.4s ease-in-out infinite}
+@keyframes goldShine{0%,50%{left:-70%}100%{left:140%}}
+.item-card.rarity-gold>*,.roulette-item.rarity-gold>*,.upgrade-target-card.rarity-gold>*{position:relative;z-index:1}
+.item-card.rarity-gold img,.roulette-item.rarity-gold img,.upgrade-target-card.rarity-gold img{filter:drop-shadow(0 0 10px #ffd45cdd) drop-shadow(0 4px 8px #000a)}
+.item-card.rarity-gold h4{color:#ffe9a0!important;text-shadow:0 1px 3px #000}
+.item-card.rarity-gold .price,.item-card.rarity-gold p{color:#fff2b8!important;text-shadow:0 1px 4px #000}
+@media(prefers-reduced-motion:reduce){.item-card.rarity-gold::before,.roulette-item.rarity-gold::before,.upgrade-target-card.rarity-gold::before,.item-card.rarity-gold::after,.roulette-item.rarity-gold::after,.upgrade-target-card.rarity-gold::after{animation:none}}
+
+#casePage::before{width:300px!important;height:300px!important;top:50px}
+#casePage .open-button{max-width:420px!important;margin:6px auto 22px!important}
+#casePage .case-cover{max-height:230px;width:auto;object-fit:contain}
+@media(max-width:700px){#casePage .open-button{max-width:none!important}}
+
+/* ===== Aurora: оживление главной ===== */
+@media(prefers-reduced-motion:no-preference){
+.au-hero{background-size:220% 220%!important;animation:auHeroShift 14s ease-in-out infinite}
+@keyframes auHeroShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.au-hero-art{animation:auArtFloat 5s ease-in-out infinite;filter:drop-shadow(0 14px 22px #000a) drop-shadow(0 0 24px #46a8ff66)}
+@keyframes auArtFloat{50%{transform:translateY(-10px) rotate(2deg)}}
+.au-hero::after{content:"";position:absolute;top:-20%;left:-40%;width:30%;height:140%;background:linear-gradient(100deg,transparent,#ffffff22,transparent);transform:skewX(-20deg);animation:auSweep 6s ease-in-out infinite;pointer-events:none}
+@keyframes auSweep{0%,60%{left:-40%}100%{left:130%}}
+.au-cta{position:relative;overflow:hidden;animation:auCtaPulse 2.4s ease-in-out infinite}
+@keyframes auCtaPulse{50%{box-shadow:0 0 34px #ff9a1fcc,inset 0 1px 0 #ffffff77}}
+.au-cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffff88,transparent);transform:skewX(-20deg);animation:auSweepBtn 3.2s ease-in-out infinite}
+@keyframes auSweepBtn{0%,55%{left:-60%}100%{left:130%}}
+#homePage .case-card{transition:transform .22s cubic-bezier(.2,.9,.3,1.2),box-shadow .22s,border-color .22s}
+#homePage .case-card>img{animation:auCardFloat 5.5s ease-in-out infinite;will-change:transform}
+#homePage .case-card:nth-child(2n)>img{animation-delay:-2s;animation-duration:6.5s}
+#homePage .case-card:nth-child(3n)>img{animation-delay:-3.5s}
+@keyframes auCardFloat{50%{transform:translateY(-6px) rotate(-1.2deg)}}
+#homePage .case-card:hover,#homePage .case-card:active{transform:translateY(-5px) scale(1.02);box-shadow:0 14px 34px #000b,0 0 26px color-mix(in srgb,var(--cc,#46a8ff) 55%,transparent)}
+#homePage .case-card::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffff14,transparent);transform:skewX(-20deg);pointer-events:none;opacity:0}
+#homePage .case-card:hover::after{opacity:1;animation:auSweepCard .8s ease-out}
+@keyframes auSweepCard{from{left:-70%}to{left:140%}}
+#homePage .case-card .price{transition:box-shadow .2s}
+#homePage .case-card:hover .price{box-shadow:0 0 16px #ffb23d55}
+#homePage .free-case-card{animation:auFreePulse 2.8s ease-in-out infinite}
+@keyframes auFreePulse{50%{box-shadow:0 0 30px #ffb23d66,inset 0 0 20px #ffb23d22}}
+.top-drop-banner{position:relative;overflow:hidden}
+.top-drop-banner::after{content:"";position:absolute;top:0;left:-50%;width:30%;height:100%;background:linear-gradient(100deg,transparent,#ffffff1c,transparent);transform:skewX(-20deg);animation:auSweep 7s ease-in-out infinite;pointer-events:none}
+.au-rv{opacity:0;transform:translateY(22px) scale(.97)}
+.au-rv.au-in{opacity:1;transform:none;transition:opacity .5s ease,transform .55s cubic-bezier(.2,.9,.3,1.1)}
+}
 </style>
 </head>
 
@@ -2650,7 +2698,7 @@ const eliteItems = [
     {id:"kalika-bros", name:"Kalika Bros", image:"kalika-bros.png", price:3555, rarity:"rarity-red"},
     {id:"antonio", name:"Antonio", image:"antonio.png", price:4700, rarity:"rarity-red"},
     {id:"griffin", name:"Griffin", image:"griffin.png", price:6560, rarity:"rarity-red"},
-    {id:"skibidi-toilet", name:"Skibidi Toilet", image:"skibidi-toilet.png", price:13131, rarity:"rarity-red"}
+    {id:"skibidi-toilet", name:"Skibidi Toilet", image:"skibidi-toilet.png", price:13131, rarity:"rarity-gold"}
 ];
 
 const blueCaseItems = [
@@ -6159,6 +6207,31 @@ function auScrollToCases() {
     const title = document.querySelector("#homePage .case-section-title.title-blue");
     if (title) title.scrollIntoView({behavior:"smooth", block:"start"});
 }
+
+function auRevealCards() {
+    try {
+        if (!("IntersectionObserver" in window) || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+        const cards = document.querySelectorAll("#homePage .case-card");
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const idx = Number(el.dataset.rvIdx || 0);
+                setTimeout(() => el.classList.add("au-in"), (idx % 4) * 70);
+                io.unobserve(el);
+            });
+        }, {threshold: .12});
+        cards.forEach((card, index) => {
+            if (card.classList.contains("au-in")) return;
+            card.dataset.rvIdx = String(index);
+            card.classList.add("au-rv");
+            io.observe(card);
+        });
+        setTimeout(() => cards.forEach(card => card.classList.add("au-in")), 4000);
+    } catch (error) {}
+}
+auRevealCards();
+
 function auColorizeCaseCards() {
     document.querySelectorAll("#homePage .case-card > img").forEach(img => {
         const apply = () => {
