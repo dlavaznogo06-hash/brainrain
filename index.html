@@ -7,7 +7,7 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -1140,9 +1140,6 @@ main { padding: 12px 0 40px; }
 /* АПГРЕЙДЕР */
 
 .dice-page{display:none;max-width:480px;margin:0 auto;padding:0 16px 40px;text-align:center;--dc:#ff5b6e}
-body.dice-mode #gradientBackground{opacity:0}
-body.dice-mode #fallingBackground{opacity:.25}
-body.dice-mode{background:#04060b!important}
 .dice-page h2{margin:20px 0 2px;font-size:30px;font-weight:900;letter-spacing:6px;text-transform:uppercase;color:#f2f6ff}
 .dice-sub{margin:0 0 18px;color:#5e6b88;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
 .dice-stage{position:relative;padding:22px 14px 20px;margin-bottom:16px;border:1px solid #131b2e;background:radial-gradient(120% 90% at 50% 0%,color-mix(in srgb,var(--dc) 22%,transparent),transparent 62%),#070b14;border-radius:18px!important;transition:background .35s}
@@ -1598,6 +1595,421 @@ body.upg-mode #gradientBackground{opacity:.18!important}
 #upgraderPage .upgrade-speed-switch{gap:8px!important}
 @media(max-width:360px){#upgraderPage .upgrade-speed-label{font-size:13px!important}#upgraderPage .upgrade-speed-track{width:42px!important;height:22px!important}#upgraderPage .upgrade-speed-knob{width:16px!important;height:16px!important}#upgraderPage .upgrade-speed-switch.on .upgrade-speed-knob{transform:translateX(20px)!important}#upgraderPage .upgrade-help{width:26px;height:26px}}
 @media(max-width:380px){#upgraderPage .upgrade-tabs button{font-size:12px;padding:9px 2px}#upgraderPage .upgrade-tabs{padding:3px;gap:3px}}
+
+/* ================= AURORA: новый визуал (главная, шапка, кейсы) ================= */
+:root{--au-bg:#060b18;--au-glass:rgba(16,34,72,.42);--au-glass2:rgba(10,22,50,.62);--au-line:#1d3a72;--au-line2:#2c5aa8;--au-accent:#46a8ff;--au-cyan:#5fe3ff;--au-text:#dbe8ff;--au-muted:#7f97c4}
+body:not(.dice-mode):not(.upg-mode){background:radial-gradient(90% 55% at 12% -5%,#123a7a55 0,transparent 60%),radial-gradient(70% 50% at 100% 20%,#0e5a9c33 0,transparent 60%),#060b18!important}
+/* шапка */
+header{background:linear-gradient(180deg,rgba(9,19,42,.92),rgba(7,14,32,.78))!important;backdrop-filter:blur(14px);border-bottom:1px solid transparent!important;border-image:linear-gradient(90deg,transparent,#2c5aa8,#5fe3ff88,#2c5aa8,transparent) 1;box-shadow:0 10px 30px #02061488}
+.desktop-nav{gap:4px!important}
+.desktop-nav button{background:none!important;border:0!important;box-shadow:none!important;color:var(--au-muted)!important;font-weight:800;letter-spacing:1.2px;padding:12px 16px!important;position:relative;border-radius:12px!important;transition:color .2s,background .2s}
+.desktop-nav button:hover{color:#fff!important;background:#1a3a7a33!important}
+.desktop-nav button.active{color:#fff!important;background:linear-gradient(180deg,#1c4a9a33,#12306a22)!important}
+.desktop-nav button.active::after{content:"";position:absolute;left:18%;right:18%;bottom:2px;height:3px;border-radius:3px!important;background:linear-gradient(90deg,#46a8ff,#5fe3ff);box-shadow:0 0 12px #46a8ff}
+.desktop-nav button.active .nav-icon{filter:none!important}
+.header-balance{background:linear-gradient(180deg,#14306a,#0e2252)!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;box-shadow:inset 0 1px 0 #ffffff14,0 0 18px #2b6bd633}
+.settings-button,.header-avatar-button{border:1px solid var(--au-line2)!important;background:#0e2252!important;border-radius:12px!important}
+.header-avatar-button{border-radius:50%!important}
+.header-avatar{border-radius:50%!important}
+.menu-button{border-radius:12px!important;background:#0e2252!important;border:1px solid var(--au-line2)!important}
+/* LIVE-панель */
+#homePage .live-drop-panel{background:linear-gradient(180deg,var(--au-glass),var(--au-glass2))!important;border:1px solid var(--au-line)!important;border-radius:22px!important;box-shadow:inset 0 1px 0 #ffffff0d,0 16px 40px #0007}
+#homePage .live-drop-heading{color:var(--au-text)!important;font-size:13px;letter-spacing:.2em;display:flex;align-items:center;justify-content:center;gap:8px}
+#homePage .live-drop-heading::before{content:"";width:8px;height:8px;border-radius:50%!important;background:#ff5a6a;box-shadow:0 0 10px #ff5a6a;animation:auPulse 1.6s infinite}
+@keyframes auPulse{50%{opacity:.35}}
+#homePage .live-drop-card{background:linear-gradient(160deg,#14295a99,#0b1735cc)!important;border:1px solid #1d3a72!important;border-radius:16px!important;transition:transform .2s,border-color .2s}
+#homePage .live-drop-card:hover{transform:translateY(-2px);border-color:var(--au-accent)!important}
+#homePage .live-drop-name{color:var(--au-text)}
+#homePage .daily-best-drop{background:linear-gradient(160deg,#1a3f86aa,#0d1f4acc)!important;border:1px solid #3a78d0!important;border-radius:18px!important;box-shadow:0 0 24px #2b6bd633}
+#homePage .daily-best-title{color:var(--au-cyan)!important}
+#homePage .live-drop-empty,#homePage .daily-best-empty{color:var(--au-muted)}
+/* промо */
+#homePage .promo-banner{position:relative;overflow:hidden;background:linear-gradient(120deg,#12306a 0,#0c1d44 55%,#0a1736 100%)!important;border:1px solid var(--au-line2)!important;border-radius:22px!important;padding:18px 20px!important;box-shadow:0 0 34px #2b6bd633,inset 0 1px 0 #ffffff12}
+#homePage .promo-banner::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%!important;background:radial-gradient(closest-side,#46a8ff44,transparent);pointer-events:none}
+#homePage .promo-banner-title,#homePage .promo-banner-timer{color:var(--au-muted)!important;letter-spacing:.12em}
+#homePage .promo-banner-percent span{background:linear-gradient(90deg,#fff,#7fd6ff);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+#homePage .promo-banner-code-text{border-radius:12px 0 0 12px!important;border:1px solid var(--au-line2)!important;background:#081430!important;color:#fff}
+#homePage .promo-banner-copy{border-radius:0 12px 12px 0!important;border:1px solid var(--au-line2)!important;background:#14306a!important;color:var(--au-cyan)}
+/* заголовки секций */
+#homePage .case-section-title{display:flex!important;align-items:center;gap:16px;margin:26px 4px 14px!important;padding:0!important;background:none!important;box-shadow:none!important;border:0!important;color:#fff!important;font-size:clamp(18px,5vw,22px)!important;font-weight:900;letter-spacing:.5px;text-transform:none!important;text-shadow:none!important;border-radius:0!important}
+#homePage .case-section-title::before,#homePage .case-section-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--au-line2))}
+#homePage .case-section-title::after{background:linear-gradient(270deg,transparent,var(--au-line2))}
+/* карточки кейсов */
+#homePage .case-card{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--au-glass),var(--au-glass2))!important;border:1px solid var(--au-line)!important;border-radius:22px!important;padding:14px 12px 12px!important;box-shadow:inset 0 1px 0 #ffffff0d,0 12px 28px #0006;transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+#homePage .case-card::before{content:"";position:absolute;left:50%;top:34%;width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%!important;background:radial-gradient(closest-side,#2f7de633,transparent);pointer-events:none;transition:opacity .25s;opacity:.7}
+#homePage .case-card:hover{transform:translateY(-5px);border-color:#4aa3ff99!important;box-shadow:0 0 30px #2f7de64d,0 18px 36px #0008,inset 0 1px 0 #ffffff14}
+#homePage .case-card:hover::before{opacity:1}
+#homePage .case-card:active{transform:scale(.98)}
+#homePage .case-card h3{color:#fff;font-weight:800;letter-spacing:.4px;position:relative}
+#homePage .case-card .price{position:relative;background:linear-gradient(180deg,#0b1b42,#081230)!important;border:1px solid var(--au-line)!important;border-radius:14px!important;color:#fff!important;font-weight:900;box-shadow:inset 0 1px 0 #ffffff0a}
+#homePage .case-card .free-price{background:linear-gradient(180deg,#27d7a0,#13a577)!important;border-color:#2de3ac!important;color:#032a1e!important;box-shadow:0 0 18px #22d9a055}
+#homePage .free-case-card{border-color:#2de3ac88!important}
+#homePage .live-strip{border-radius:16px!important}
+.top-drop-banner{border-radius:20px!important;border:1px solid var(--au-line2)!important;background:linear-gradient(110deg,#12306a,#0b1a3e 60%,#0a1530)!important;box-shadow:0 0 28px #2b6bd633}
+#homePage .case-section-title{width:100%!important;justify-content:center}
+.top-drop-chevron{background:linear-gradient(135deg,#46a8ff,#1c5fc4)!important;opacity:.9!important}
+.top-drop-label{color:var(--au-cyan)!important}
+
+/* ================= AURORA v2: нейтральная тёмная основа, голубой бренд, янтарный акцент ================= */
+:root{--au-amber:#ffb23d;--au-amber2:#ff8a1f;--au-font:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif}
+*{font-family:var(--au-font)!important}
+.pixel-number,.balance-number{font-family:"Courier New",Courier,monospace!important}
+body:not(.dice-mode):not(.upg-mode){background:radial-gradient(70% 40% at 15% -8%,#0f2f6633 0,transparent 65%),#05080f!important}
+body:not(.dice-mode):not(.upg-mode) #gradientBackground{opacity:.22}
+body:not(.dice-mode):not(.upg-mode) #fallingBackground{opacity:1}
+header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!important}
+.desktop-nav button{font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.header-topup{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border:0;border-radius:12px!important;background:linear-gradient(180deg,#ffc24d,#ff9a1f);color:#2a1700;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 0 18px #ff9a1f55,inset 0 1px 0 #ffffff66;transition:transform .15s,box-shadow .15s}
+.header-topup:hover{transform:translateY(-1px);box-shadow:0 0 26px #ff9a1f88,inset 0 1px 0 #ffffff66}
+.header-topup-plus{font-size:20px;line-height:1;font-weight:900}
+@media(max-width:700px){.header-topup{width:36px;height:36px;padding:0;justify-content:center;border-radius:11px!important}.header-topup-text{display:none}}
+/* hero */
+.au-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:8px;min-height:230px;margin:0 0 16px;padding:26px 28px;border:1px solid var(--au-line2);border-radius:26px!important;background:radial-gradient(60% 120% at 88% 50%,#2a7ce655,transparent 70%),linear-gradient(120deg,#0f2a5e 0,#0a1a3c 55%,#070f24 100%);box-shadow:0 0 40px #2b6bd633,inset 0 1px 0 #ffffff14}
+.au-hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,#ffffff06 0 2px,transparent 2px 14px);pointer-events:none;mask:linear-gradient(90deg,#000,transparent 70%);-webkit-mask:linear-gradient(90deg,#000,transparent 70%)}
+.au-hero-text{position:relative;z-index:1;min-width:0}
+.au-eyebrow{display:inline-block;margin-bottom:10px;padding:5px 12px;border:1px solid #2c5aa8;border-radius:999px!important;background:#0a1a3c99;color:var(--au-cyan);font-size:11px;font-weight:900;letter-spacing:.2em}
+.au-hero h1{margin:0 0 8px;color:#fff;font-size:clamp(24px,6.4vw,40px);font-weight:900;line-height:1.1;letter-spacing:-.5px;text-shadow:0 2px 24px #1b4fb866}
+.au-hero p{margin:0 0 18px;color:var(--au-muted);font-size:clamp(13px,3.6vw,16px);font-weight:600}
+.au-cta{height:46px;padding:0 28px;border:0;border-radius:14px!important;background:linear-gradient(180deg,#ffc24d,#ff9a1f);color:#2a1700;font-weight:900;font-size:15px;letter-spacing:.8px;cursor:pointer;box-shadow:0 0 22px #ff9a1f66,inset 0 1px 0 #ffffff77;transition:transform .15s,box-shadow .15s}
+.au-cta:hover{transform:translateY(-2px);box-shadow:0 0 32px #ff9a1f99,inset 0 1px 0 #ffffff77}
+.au-cta:active{transform:scale(.97)}
+.au-hero-art{position:relative;z-index:1;justify-self:center;width:min(100%,260px);max-height:210px;object-fit:contain;filter:drop-shadow(0 0 28px #3f9bff99) drop-shadow(0 14px 18px #0009);animation:auFloat 4.5s ease-in-out infinite}
+@keyframes auFloat{50%{transform:translateY(-8px) rotate(1.5deg)}}
+@media(max-width:700px){.au-hero{min-height:0;padding:20px 18px;grid-template-columns:minmax(0,1fr) 38%;border-radius:22px!important}.au-hero p{margin-bottom:14px}.au-cta{height:42px;padding:0 20px}}
+/* карточки: цвет кейса, крупная картинка, янтарная цена */
+#homePage .case-card{--cc:#3a8bff}
+#homePage .case-card::before{background:radial-gradient(closest-side,color-mix(in srgb,var(--cc) 38%,transparent),transparent)!important;opacity:.85}
+#homePage .case-card:hover{border-color:color-mix(in srgb,var(--cc) 65%,#fff 0)!important;box-shadow:0 0 34px color-mix(in srgb,var(--cc) 35%,transparent),0 18px 36px #0008,inset 0 1px 0 #ffffff14}
+#homePage .case-card > img{position:relative;height:clamp(125px,34vw,190px)!important;margin:-4px 0 2px!important;filter:drop-shadow(0 8px 14px #0009) drop-shadow(0 0 16px color-mix(in srgb,var(--cc) 55%,transparent))!important;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+#homePage .case-card:hover > img{transform:scale(1.08) translateY(-4px)}
+#homePage .case-card .price{color:var(--au-amber)!important;border-color:#33466f!important;background:#070d1c!important;font-size:16px}
+#homePage .case-card .price .coin-icon{filter:none}
+#homePage .case-card .free-price{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border-color:#ffc24d!important;box-shadow:0 0 18px #ff9a1f55!important}
+#homePage .free-case-card{border-color:#ffb23d88!important;--cc:#ffb23d}
+#homePage .case-card h3{font-size:clamp(13px,3.6vw,16px)!important;font-weight:800}
+/* промо-полоса: компактнее, под героем */
+#homePage .promo-banner{padding:14px 18px!important;border-radius:20px!important}
+#homePage .promo-banner-percent{font-size:clamp(22px,6vw,32px)}
+/* лента дропов */
+#homePage .live-drop-heading{font-family:var(--au-font)!important;color:#fff!important}
+#homePage .live-drop-card{padding:8px!important}
+#homePage .live-drop-card img.drop-item-image{height:78px!important;filter:drop-shadow(0 4px 8px #0008)}
+#homePage .promo-banner-note:empty{display:none}
+#homePage .promo-banner{min-height:0!important;height:auto!important}
+.au-hero h1{font-size:clamp(22px,5.6vw,40px)}
+@media(max-width:700px){.au-hero-art{width:100%;max-height:150px}}
+#homePage .promo-banner-code{border:0!important;background:none!important;border-radius:12px!important;overflow:hidden;box-shadow:0 0 0 1px var(--au-line2)}
+#homePage .promo-banner-code-text,#homePage .promo-banner-copy{border:0!important}
+#homePage .promo-banner-copy{border-left:1px solid var(--au-line2)!important}
+
+/* ===== Профиль: Aurora ===== */
+#profilePage .profile-card{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(20,44,96,.55),rgba(8,16,38,.82))!important;border:1px solid var(--au-line2)!important;border-radius:26px!important;padding:16px!important;box-shadow:0 0 36px #2b6bd62e,inset 0 1px 0 #ffffff14}
+#profilePage .profile-card::after{content:"";position:absolute;right:-70px;bottom:-70px;width:240px;height:240px;border-radius:50%!important;background:radial-gradient(closest-side,#46a8ff30,transparent);pointer-events:none}
+#profilePage .profile-best-drop{background:linear-gradient(120deg,#16346f,#0b1a3f)!important;border:1px solid #2f66c4!important;border-radius:18px!important;box-shadow:inset 0 1px 0 #ffffff12}
+#profilePage .profile-best-drop-title{color:var(--au-cyan)!important;letter-spacing:.14em}
+#profilePage .profile-best-drop-price{color:var(--au-amber)!important}
+#profilePage .profile-avatar{border-radius:50%!important;border:2px solid #4aa3ff!important;box-shadow:0 0 0 4px #0a1a3c,0 0 24px #3f8cff77!important;object-fit:cover}
+#profilePage .profile-label{color:var(--au-cyan)!important;letter-spacing:.2em;font-size:11px!important}
+#profilePage .profile-nickname{color:#fff!important;font-weight:900!important;letter-spacing:-.3px}
+#profilePage .profile-username{color:var(--au-muted)!important}
+#profilePage .profile-actions{gap:10px}
+#profilePage .profile-topup-button{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border:0!important;border-radius:14px!important;font-weight:900!important;box-shadow:0 0 20px #ff9a1f55,inset 0 1px 0 #ffffff77!important}
+#profilePage .profile-withdraw-button{background:#0b1a40!important;color:#cfe3ff!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;font-weight:900!important;box-shadow:inset 0 1px 0 #ffffff10}
+#profilePage .profile-balance{background:linear-gradient(180deg,#14306a,#0d2150)!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;box-shadow:inset 0 1px 0 #ffffff14,0 0 18px #2b6bd633}
+#profilePage .inventory-heading h2{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.2px}
+#profilePage .sell-all-button{background:#0b1a40!important;border:1px solid var(--au-line2)!important;color:#cfe3ff!important;border-radius:12px!important;font-weight:800}
+#profilePage .inventory-box{background:linear-gradient(180deg,rgba(14,30,66,.45),rgba(7,14,32,.7))!important;border:1px solid var(--au-line)!important;border-radius:22px!important;box-shadow:inset 0 1px 0 #ffffff0d}
+#profilePage .inventory-item{position:relative;overflow:hidden;background:linear-gradient(170deg,#142a5acc,#0a1634e6)!important;border:1px solid #21408a!important;border-radius:16px!important;box-shadow:inset 0 1px 0 #ffffff10;transition:transform .2s,border-color .2s,box-shadow .2s}
+#profilePage .inventory-item::before{content:"";position:absolute;left:50%;top:42%;width:90%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%!important;background:radial-gradient(closest-side,#3f8cff38,transparent);pointer-events:none}
+#profilePage .inventory-item:hover{transform:translateY(-3px);border-color:#4aa3ff99!important;box-shadow:0 0 24px #2f7de640}
+#profilePage .inventory-item>*{position:relative}
+#profilePage .inventory-item-name{color:#fff;font-weight:800}
+#profilePage .inventory-item-price{color:var(--au-amber)!important;font-weight:900}
+#profilePage .inventory-sell{background:#0b1a3ecc!important;border:1px solid var(--au-line2)!important;color:#bcd6ff!important;border-radius:10px!important}
+#profilePage .inventory-withdraw{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border-radius:10px!important;font-weight:900}
+#profilePage .withdrawals-box{background:linear-gradient(180deg,rgba(14,30,66,.45),rgba(7,14,32,.7))!important;border:1px solid var(--au-line)!important;border-radius:20px!important}
+#profilePage .withdrawals-title{font-weight:800;color:#fff}
+#profilePage .promo-card{background:linear-gradient(160deg,rgba(20,44,96,.5),rgba(8,16,38,.8))!important;border:1px solid var(--au-line2)!important;border-radius:22px!important;padding:18px!important;box-shadow:0 0 30px #2b6bd626,inset 0 1px 0 #ffffff12}
+#profilePage .promo-card .items-title{font-size:20px;font-weight:900;color:#fff}
+#profilePage .promo-card #promoInput{background:#070f26!important;border:1px solid var(--au-line2)!important;border-radius:14px!important;color:#fff;letter-spacing:2px;font-weight:800}
+#profilePage .promo-card #promoInput:focus{outline:0;border-color:var(--au-accent)!important;box-shadow:0 0 0 3px #46a8ff33}
+#profilePage .promo-card #promoButton{background:linear-gradient(180deg,#4aa3ff,#2b6bd6)!important;border:0!important;border-radius:14px!important;color:#fff;font-weight:900;box-shadow:0 0 20px #2f7de655,inset 0 1px 0 #ffffff44}
+
+/* ===== Профиль v2: обложка, аватар поверх неё, плитки статистики ===== */
+#profilePage .pf-hero{position:relative;overflow:hidden;border:1px solid var(--au-line2);border-radius:28px!important;background:linear-gradient(180deg,rgba(14,32,72,.7),rgba(6,12,28,.92));box-shadow:0 0 44px #2b6bd62e,inset 0 1px 0 #ffffff14;padding:0 0 18px}
+#profilePage .pf-cover{position:relative;height:104px;overflow:hidden;background:linear-gradient(115deg,#1a4fb0 0,#0f2f78 45%,#0a1c4a 100%)}
+#profilePage .pf-cover::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,#ffffff0d 0 2px,transparent 2px 16px)}
+#profilePage .pf-cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,rgba(8,16,38,.95))}
+#profilePage .pf-cover i{position:absolute;border-radius:50%!important;background:radial-gradient(closest-side,#5fe3ffaa,transparent);animation:pfDrift 9s ease-in-out infinite}
+#profilePage .pf-cover i:nth-child(1){width:150px;height:150px;left:-30px;top:-50px}
+#profilePage .pf-cover i:nth-child(2){width:120px;height:120px;right:10%;top:-30px;animation-delay:-3s;background:radial-gradient(closest-side,#7aa6ff99,transparent)}
+#profilePage .pf-cover i:nth-child(3){width:90px;height:90px;right:-20px;bottom:-30px;animation-delay:-6s}
+@keyframes pfDrift{50%{transform:translate(18px,10px) scale(1.12)}}
+#profilePage .pf-head{position:relative;display:flex;align-items:flex-end;gap:14px;padding:0 20px;margin-top:-48px}
+#profilePage .pf-head .profile-avatar{flex:none;width:96px!important;height:96px!important;border-radius:50%!important;border:3px solid #0a1634!important;background:#14306a;box-shadow:0 0 0 3px #4aa3ff,0 0 28px #3f8cffaa!important}
+#profilePage .pf-who{min-width:0;display:flex;flex-direction:column;gap:2px;padding-bottom:4px}
+#profilePage .pf-who .profile-label{font-size:10px!important;letter-spacing:.22em;color:var(--au-cyan)!important}
+#profilePage .pf-who .profile-nickname{font-size:clamp(22px,6vw,30px)!important;font-weight:900!important;line-height:1.1;color:#fff!important}
+#profilePage .pf-who .profile-username{font-size:14px!important;color:var(--au-muted)!important}
+#profilePage .pf-stats{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;padding:16px 20px 0}
+#profilePage .pf-stat{display:flex;flex-direction:column;gap:6px;min-width:0;padding:12px 14px;border:1px solid var(--au-line);border-radius:16px!important;background:linear-gradient(180deg,#0f2150aa,#08122ecc)}
+#profilePage .pf-stat-label{color:var(--au-muted);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+#profilePage .pf-stat b{color:#fff;font-size:clamp(18px,5vw,24px);font-weight:900;line-height:1;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis}
+#profilePage .pf-stat .profile-balance{margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;font-size:clamp(20px,5.4vw,26px)!important;gap:8px}
+#profilePage .pf-stat-main{border-color:#ffb23d66;background:linear-gradient(160deg,#2a2a40aa,#0b142fcc);box-shadow:0 0 22px #ffb23d1c}
+#profilePage .pf-actions{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;padding:14px 20px 0}
+#profilePage .pf-actions button{height:48px;font-size:14px;letter-spacing:.6px;cursor:pointer}
+#profilePage .pf-hero .profile-best-drop{margin:14px 20px 0;display:grid!important;grid-template-columns:72px 1fr auto;grid-template-areas:"img title price" "img name price";align-items:center;column-gap:14px;row-gap:2px;min-height:92px!important;padding:10px 16px 10px 10px!important;text-align:left!important;flex-direction:initial}
+#profilePage .pf-hero .profile-best-drop-title{grid-area:title;align-self:end}
+#profilePage .pf-hero .profile-best-drop-image{grid-area:img;width:72px;height:72px;filter:drop-shadow(0 6px 12px #000a) drop-shadow(0 0 14px #5fe3ff66)}
+#profilePage .pf-hero .profile-best-drop-name{grid-area:name;align-self:start;font-size:15px;font-weight:800;color:#fff}
+#profilePage .pf-hero .profile-best-drop-price{grid-area:price;font-size:17px;font-weight:900;color:var(--au-amber)!important}
+#profilePage .pf-hero .profile-best-drop-empty{grid-column:1/-1;grid-row:1/-1;text-align:center;font-size:13px;color:var(--au-muted)}
+@media(max-width:420px){#profilePage .pf-stats{grid-template-columns:1fr 1fr}#profilePage .pf-stat-main{grid-column:1/-1}#profilePage .pf-head{padding:0 16px}#profilePage .pf-stats,#profilePage .pf-actions{padding-left:16px;padding-right:16px}#profilePage .pf-hero .profile-best-drop{margin-left:16px;margin-right:16px}}
+#profilePage .pf-hero .profile-best-drop-title{white-space:nowrap}
+#profilePage .promo-card{width:100%!important;max-width:none!important;box-sizing:border-box}
+
+/* ===== Дайсы v2: общий фон, насыщенные цвета, больше содержания ===== */
+#dicePage.dice-page{max-width:560px}
+#dicePage .dice-stage{padding:26px 18px 22px;border:1px solid var(--au-line2);border-radius:26px!important;background:radial-gradient(110% 80% at 50% 0%,color-mix(in srgb,var(--dc) 30%,transparent),transparent 65%),linear-gradient(180deg,rgba(14,30,66,.7),rgba(6,12,28,.92));box-shadow:0 0 40px color-mix(in srgb,var(--dc) 22%,transparent),inset 0 1px 0 #ffffff14}
+#dicePage .dice-slots{gap:14px}
+#dicePage .dice-slot{background:#0a1430;box-shadow:inset 0 0 0 2px #223a72,0 0 22px var(--sc,transparent)}
+#dicePage .dice-slot i{inset:10px;border-radius:14px!important;box-shadow:inset 0 -10px 16px #0005,inset 0 0 0 2px #ffffff22}
+#dicePage .dice-slot.hit{box-shadow:inset 0 0 0 3px #fff,0 0 28px var(--sc,#ffd45c)}
+#dicePage .dice-slot.dim{opacity:.72}
+#dicePage .dice-stake{background:#0a1534;border:1px dashed #36579e}
+#dicePage .dice-stake.filled{border:1px solid color-mix(in srgb,var(--dc) 70%,#fff 0);box-shadow:0 0 22px color-mix(in srgb,var(--dc) 30%,transparent)}
+.dice-odds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 18px}
+.dice-odd{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 8px;border:1px solid var(--au-line);border-radius:16px;background:linear-gradient(180deg,#0f2150aa,#08122ecc)}
+.dice-odd span{color:var(--au-muted);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.dice-odd b{color:#fff;font-size:26px;font-weight:900;line-height:1.1}
+.dice-odd em{font-style:normal;color:var(--au-muted);font-size:12px;font-weight:700}
+.dice-odd-top{border-color:#ffb23d66;box-shadow:0 0 22px #ffb23d1c}
+.dice-odd-top b{color:var(--au-amber)}
+.dice-picker-title,.dice-history-title{margin:4px 0 12px;color:var(--au-muted);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.dice-picker{gap:12px;margin:0 0 22px}
+.dice-pick{width:46px;height:46px;border-radius:14px!important;box-shadow:inset 0 -6px 10px #0004,inset 0 0 0 2px #ffffff30,0 0 16px color-mix(in srgb,currentColor 0%,transparent)}
+.dice-pick.active{box-shadow:0 0 0 3px #fff,0 0 24px #ffffff55;transform:translateY(-5px) scale(1.1)}
+#diceButton{height:54px;font-size:17px;background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;box-shadow:0 0 24px #ff9a1f66,inset 0 1px 0 #ffffff77!important}
+.dice-history{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
+.dice-history-empty{padding:16px;border:1px dashed var(--au-line);border-radius:14px;color:var(--au-muted);font-size:13px;font-weight:600}
+.dice-history-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--au-line);border-radius:14px;background:#0a1534b3}
+.dice-history-row i{width:22px;height:22px;border-radius:7px!important;box-shadow:inset 0 -4px 6px #0004}
+.dice-history-pick{width:12px;height:12px;border-radius:50%!important;margin-right:6px;box-shadow:0 0 0 2px #0a1534,0 0 0 3px #ffffff55}
+.dice-history-row b{margin-left:auto;font-size:13px}
+.dice-history-row.win b{color:#4dffa0}.dice-history-row.lose b{color:#ff7d8e}
+
+/* ===== Дайсы: анимация выигрыша ===== */
+.dice-fx{display:none;position:fixed;inset:0;z-index:140;pointer-events:none;overflow:hidden}
+.dice-fx.active{display:block}
+.dice-fx canvas{position:absolute;inset:0;width:100%;height:100%}
+.dice-fx-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#fff 0,#ffe28a 18%,#ffb23d55 45%,transparent 70%);opacity:0}
+.dice-fx.active .dice-fx-flash{animation:diceFlash .9s ease-out}
+.dice-fx.big.active .dice-fx-flash{animation-duration:1.3s}
+@keyframes diceFlash{0%{opacity:.95}100%{opacity:0}}
+.dice-fx-ring{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border:4px solid #fff;border-radius:50%!important;opacity:0;animation:diceRing .9s cubic-bezier(.1,.7,.2,1) forwards;box-shadow:0 0 22px #ffd21f}
+@keyframes diceRing{0%{transform:scale(.3);opacity:1}100%{transform:scale(9);opacity:0}}
+.dice-fx-banner{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(.2);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;opacity:0;width:min(92vw,520px)}
+.dice-fx.active .dice-fx-banner{animation:diceBanner 2.7s cubic-bezier(.2,1.4,.3,1) forwards}
+.dice-fx.big.active .dice-fx-banner{animation-duration:3.5s}
+@keyframes diceBanner{0%{transform:translate(-50%,-50%) scale(.2) rotate(-8deg);opacity:0}14%{transform:translate(-50%,-50%) scale(1.18) rotate(2deg);opacity:1}24%{transform:translate(-50%,-50%) scale(1) rotate(0)}82%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-62%) scale(1.1);opacity:0}}
+.dice-fx-banner img{width:clamp(90px,26vw,140px);height:clamp(90px,26vw,140px);object-fit:contain;filter:drop-shadow(0 0 26px #ffd21f) drop-shadow(0 10px 18px #000a);animation:diceItemSpin 1.4s ease-out}
+@keyframes diceItemSpin{0%{transform:scale(.2) rotate(-200deg)}60%{transform:scale(1.25) rotate(12deg)}100%{transform:scale(1) rotate(0)}}
+.dice-fx-banner b{font-size:clamp(38px,12vw,66px);font-weight:900;letter-spacing:2px;line-height:1;background:linear-gradient(180deg,#fff 0,#ffe27a 45%,#ffa31f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #8a4a00) drop-shadow(0 0 22px #ffb23dcc)}
+.dice-fx.big .dice-fx-banner b{font-size:clamp(44px,14vw,78px)}
+.dice-fx-banner span{padding:6px 16px;border-radius:999px!important;background:#06122ccc;border:1px solid #ffd21f88;color:#fff;font-weight:800;font-size:15px;letter-spacing:.5px}
+#dicePage.dice-shake{animation:diceShakePage .55s cubic-bezier(.36,.07,.19,.97)}
+@keyframes diceShakePage{10%,90%{transform:translate3d(-2px,0,0)}20%,80%{transform:translate3d(5px,2px,0)}30%,50%,70%{transform:translate3d(-8px,-2px,0)}40%,60%{transform:translate3d(8px,2px,0)}}
+#dicePage .dice-slot.hit{animation:diceHitPulse .55s ease-in-out 4;z-index:1}
+@keyframes diceHitPulse{50%{transform:scale(1.16)}}
+
+/* профиль: Пополнить и Вывод на одном уровне */
+#profilePage .pf-actions{display:flex!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:10px}
+#profilePage .pf-actions>button{flex:1 1 0;display:flex!important;align-items:center;justify-content:center;margin:0!important;padding:10px 14px!important;box-sizing:border-box!important;min-height:42px;line-height:1.1!important;font-size:12px!important;vertical-align:top;position:static!important;top:auto!important;transform:none!important}
+
+#dicePage .dice-slots{gap:10px}
+#dicePage .dice-slot i{inset:5px}
+
+/* белая обводка на выпавшем выбранном цвете (сразу при остановке кубика) */
+#dicePage .dice-slot::after{content:"";position:absolute;inset:-3px;border:4px solid #fff;border-radius:22px!important;opacity:0;pointer-events:none;box-shadow:0 0 18px #fff9,inset 0 0 12px #fff6}
+#dicePage .dice-slot.hit::after{opacity:1;animation:diceRingIn .25s ease-out}
+@keyframes diceRingIn{0%{transform:scale(1.35);opacity:0}100%{transform:scale(1);opacity:1}}
+
+/* мягче тряска при выпадении цвета */
+@keyframes diceKnock{0%{transform:translate(1.5px,-1px) rotate(-1.2deg)}25%{transform:translate(-1.5px,1px) rotate(1.2deg)}50%{transform:translate(1.5px,1.5px) rotate(-.8deg)}75%{transform:translate(-1.5px,-1.5px) rotate(.8deg)}100%{transform:translate(1.5px,-1px) rotate(-1.2deg)}}
+.dice-slot.knock{animation-duration:.12s}
+@keyframes diceLand{0%{transform:scale(1.07)}60%{transform:scale(.98)}100%{transform:none}}
+#dicePage .dice-slot.hit{animation:diceHitPulse .6s ease-in-out 2}
+@keyframes diceHitPulse{50%{transform:scale(1.06)}}
+@keyframes diceShakePage{10%,90%{transform:translate3d(-1px,0,0)}20%,80%{transform:translate3d(2px,1px,0)}30%,50%,70%{transform:translate3d(-3px,-1px,0)}40%,60%{transform:translate3d(3px,1px,0)}}
+
+#dicePage .dice-slot.hit{animation:none}
+#dicePage .dice-slot.hit.pulse{animation:diceHitPulse .6s ease-in-out 2}
+.item-card.coin-card{aspect-ratio:auto!important;min-height:168px}
+.item-card.coin-card>img{width:auto!important;height:105px!important;max-width:100%}
+
+/* ===== Aurora: выезжающее меню ===== */
+#menu.menu{left:-330px;width:292px;padding:18px 16px 24px;background:radial-gradient(120% 60% at 0% 0%,#14336f55 0,transparent 60%),linear-gradient(180deg,#0b1838 0,#060d22 100%);border-right:1px solid var(--au-line2);box-shadow:14px 0 50px #000b,inset -1px 0 0 #ffffff0d;overflow-y:auto}
+#menu.menu.active{left:0}
+#menu .menu-close{float:none;position:absolute;top:14px;right:14px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px!important;background:#0e2252;border:1px solid var(--au-line2);color:#cfe3ff;font-size:22px;line-height:1;padding:0}
+#menu .profile-mini{margin:4px 0 20px;padding:14px;gap:12px;border:1px solid var(--au-line);border-radius:18px!important;background:linear-gradient(180deg,rgba(20,44,96,.6),rgba(8,17,40,.8));box-shadow:inset 0 1px 0 #ffffff12;margin-top:50px}
+#menu .profile-mini>img:not(.coin-icon){width:52px;height:52px;border:2px solid var(--au-accent);box-shadow:0 0 16px #46a8ff55}
+#menu .menu-name{font-family:var(--au-font);font-weight:800;font-size:16px;color:#fff}
+#menu .menu-balance{font-family:var(--au-font);font-weight:800;background:#0a1a40;border:1px solid var(--au-amber);border-radius:11px!important;color:#ffd98a;box-shadow:0 0 14px #ffb23d26}
+#menu::before{content:"МЕНЮ";display:block;position:absolute;top:24px;left:18px;font-family:var(--au-font);font-weight:900;font-size:12px;letter-spacing:3px;color:var(--au-muted)}
+#menu .menu-item{width:100%;min-width:0;margin:6px 0;padding:14px 16px;gap:14px;border:1px solid transparent;border-radius:16px!important;background:transparent;color:#a9c0ec;font-family:var(--au-font);font-size:15px;font-weight:800;letter-spacing:.4px;position:relative}
+#menu .menu-item:hover:not(.active){background:#0f2455;border-color:var(--au-line);color:#fff}
+#menu .menu-item .menu-icon{width:26px;height:26px;flex-basis:26px;filter:brightness(0) invert(.75) sepia(.3) hue-rotate(180deg)}
+#menu .menu-item.active{color:#fff;text-shadow:none;background:linear-gradient(180deg,#2a6bd6,#173f95);border-color:#5aa6ff;box-shadow:0 8px 22px #1d5cd355,inset 0 1px 0 #ffffff33}
+#menu .menu-item.active .menu-icon{filter:brightness(0) invert(1)}
+#menu .menu-item.active::after{content:"";position:absolute;right:14px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%!important;background:var(--au-cyan);box-shadow:0 0 10px var(--au-cyan)}
+.overlay{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);background:#02061499}
+
+#menu.menu{display:flex;flex-direction:column}
+#menu .menu-text{display:flex;flex-direction:column;gap:2px;text-align:left}
+#menu .menu-text b{font-size:15px;font-weight:800}
+#menu .menu-text small{font-size:11px;font-weight:600;color:var(--au-muted);letter-spacing:.2px}
+#menu .menu-item.active .menu-text small{color:#cfe3ffcc}
+#menu .menu-bottom{margin-top:auto;padding-top:18px;display:flex;flex-direction:column;gap:10px}
+#menu .menu-topup{width:100%;padding:15px;border:0;border-radius:16px!important;background:linear-gradient(180deg,#ffc24d,#ff9a1f);color:#2a1700;font-family:var(--au-font);font-size:14px;font-weight:900;letter-spacing:.5px;cursor:pointer;box-shadow:0 0 22px #ff9a1f44,inset 0 1px 0 #ffffff77}
+#menu .menu-support{padding:12px 14px;border:1px solid var(--au-line);border-radius:14px!important;background:#0a1634;color:var(--au-muted);font-family:var(--au-font);font-size:12px;font-weight:700;text-align:center}
+#menu .menu-support b{color:#cfe3ff}
+#menu .menu-ver{text-align:center;color:#41567f;font-family:var(--au-font);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+
+/* ===== Aurora: окна пополнения и вывода ===== */
+.topup-backdrop{background:#02061499!important;-webkit-backdrop-filter:blur(8px)!important;backdrop-filter:blur(8px)!important}
+.topup-page.topup-modal{border:1px solid var(--au-line2)!important;border-radius:26px!important;background:radial-gradient(120% 45% at 50% 0%,#16397a66 0,transparent 70%),linear-gradient(180deg,#0b1838,#060d22)!important;box-shadow:0 24px 70px #000d,inset 0 1px 0 #ffffff14!important;font-family:var(--au-font)}
+.topup-modal h2{font-family:var(--au-font);font-weight:900;font-size:22px;color:#fff;letter-spacing:.2px}
+.topup-modal .topup-description{color:var(--au-muted);font-size:13px;font-weight:500}
+.topup-modal .topup-close{top:14px;right:14px;width:36px;height:36px;border-radius:12px!important;background:#0e2252;border:1px solid var(--au-line2);color:#cfe3ff}
+.topup-modal .topup-step-title{font-family:var(--au-font);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--au-muted);margin:20px 0 10px}
+.topup-modal .topup-item-grid{background:#050d24;border:1px solid var(--au-line);padding:8px;gap:8px}
+.topup-modal .topup-item-card{border:1px solid var(--au-line);background:linear-gradient(180deg,rgba(20,44,96,.55),rgba(8,17,40,.8));transition:.15s}
+.topup-modal .topup-item-card:active{transform:scale(.97)}
+.topup-modal .topup-item-card.selected{border-color:var(--au-accent);background:linear-gradient(180deg,#1d4a9a,#0f2a66);box-shadow:0 0 18px #46a8ff66,inset 0 1px 0 #ffffff22}
+.topup-modal .topup-item-name{color:#fff}
+.topup-modal .topup-item-price{color:var(--au-amber)}
+.topup-modal .topup-quantity button,.topup-modal .topup-periods button,.withdraw-stepper button{background:#0a1a40!important;border:1px solid var(--au-line2)!important;color:#cfe3ff!important;font-family:var(--au-font);font-weight:800}
+.topup-modal .topup-quantity button.selected,.topup-modal .topup-periods button.selected{background:linear-gradient(180deg,#2a6bd6,#173f95)!important;border-color:#5aa6ff!important;color:#fff!important;box-shadow:0 6px 18px #1d5cd355!important}
+.withdraw-stepper button:hover:not(:disabled){border-color:var(--au-accent)!important}
+.withdraw-qty{color:#fff;font-weight:900}
+.topup-modal .topup-quantity-hint{color:var(--au-muted)}
+.topup-modal .topup-summary{background:#0a1634;border:1px solid var(--au-line);color:#fff}
+.topup-modal .topup-nick-input{background:#050d24;border:1px solid var(--au-line2);color:#fff;font-family:var(--au-font)}
+.topup-modal .topup-nick-input:focus{border-color:var(--au-accent);box-shadow:0 0 16px #46a8ff55}
+.topup-modal .open-button{background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;border:0!important;font-family:var(--au-font);font-weight:900;letter-spacing:.6px;box-shadow:0 0 22px #ff9a1f44,inset 0 1px 0 #ffffff77}
+.topup-modal .open-button:disabled{opacity:.45;box-shadow:none}
+.topup-modal .topup-back-link{color:var(--au-muted)}
+.topup-modal .topup-result{color:#7fe3b0}
+.withdraw-row{background:linear-gradient(180deg,rgba(20,44,96,.5),rgba(8,17,40,.8))!important;border:1px solid var(--au-line)!important}
+.withdraw-result{background:#0d2f2a!important;border-color:#36db92!important}
+.withdraw-cancel{background:#2a1530!important}
+
+.withdraw-locked-card.exchangeable{cursor:pointer}
+.withdraw-locked-card.exchangeable .topup-item-price{color:var(--au-cyan)}
+
+/* ===== Aurora: страница кейса ===== */
+#casePage{position:relative;font-family:var(--au-font);overflow-x:clip}
+#casePage::before{width:100%!important}
+#casePage::before{content:"";position:absolute;left:50%;top:40px;width:min(120%,560px);height:300px;transform:translateX(-50%);background:radial-gradient(closest-side,#2a6bd655,#46a8ff22 55%,transparent 75%);pointer-events:none;z-index:0;animation:caseGlow 5s ease-in-out infinite}
+@keyframes caseGlow{50%{opacity:.55;transform:translateX(-50%) scale(1.08)}}
+#casePage>*{position:relative;z-index:1}
+#casePage .back-button{padding:10px 16px;border:1px solid var(--au-line2);border-radius:14px!important;background:linear-gradient(180deg,#112a5e,#0a1838);color:#cfe3ff;font-family:var(--au-font);font-weight:800;letter-spacing:.3px;box-shadow:inset 0 1px 0 #ffffff14}
+#casePage .case-cover{display:block;margin:14px auto 0;max-width:min(62vw,250px);filter:drop-shadow(0 18px 28px #000c) drop-shadow(0 0 28px #46a8ff55);animation:caseFloat 4.5s ease-in-out infinite}
+@keyframes caseFloat{50%{transform:translateY(-8px) rotate(-1deg)}}
+#casePage .case-name{margin:10px 0 4px;font-family:var(--au-font);font-weight:900;font-size:clamp(24px,7vw,34px);letter-spacing:1.5px;text-transform:uppercase;background:linear-gradient(180deg,#fff,#a9cbff);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center}
+#casePage .case-price{display:flex;align-items:center;justify-content:center;gap:6px;width:fit-content;margin:6px auto 16px;padding:7px 18px;border:1px solid #ffb23d77;border-radius:999px!important;background:#2a1a0a99;color:#ffd98a;font-weight:900;font-size:18px;box-shadow:0 0 18px #ffb23d22}
+#casePage .roulette-window{border:1px solid var(--au-line2);border-radius:20px!important;background:linear-gradient(180deg,#0b1838,#050c20);box-shadow:inset 0 0 30px #00000099,0 0 28px #1d5cd333;overflow:hidden}
+#casePage .roulette-item{border:1px solid var(--au-line);border-radius:14px!important;background:linear-gradient(180deg,#14306b88,#0a1a40cc)}
+#casePage .case-quantity-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 12px}
+#casePage .case-quantity-button{min-width:58px;padding:11px 0;border:1px solid var(--au-line2);border-radius:14px!important;background:#0a1a40;color:#a9c0ec;font-family:var(--au-font);font-weight:900;font-size:16px;transition:.15s}
+#casePage .case-quantity-button.active{background:linear-gradient(180deg,#2a6bd6,#173f95);border-color:#5aa6ff;color:#fff;box-shadow:0 6px 18px #1d5cd366,inset 0 1px 0 #ffffff33;transform:translateY(-2px)}
+#casePage .case-quantity-total{color:var(--au-muted);font-weight:800;font-size:13px}
+#casePage .open-button{display:block;width:100%;margin:6px 0 22px;padding:17px;border:0;border-radius:18px!important;background:linear-gradient(180deg,#ffc24d,#ff9a1f)!important;color:#2a1700!important;font-family:var(--au-font);font-weight:900;font-size:17px;letter-spacing:.8px;box-shadow:0 0 28px #ff9a1f55,0 8px 20px #0008,inset 0 1px 0 #ffffff88;position:relative;overflow:hidden}
+#casePage .open-button::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffff77,transparent);transform:skewX(-20deg);animation:caseShine 3.2s ease-in-out infinite}
+@keyframes caseShine{0%,55%{left:-60%}100%{left:130%}}
+#casePage .open-button:disabled{filter:grayscale(.6) brightness(.7);box-shadow:none}
+#casePage .open-button:disabled::after{display:none}
+#casePage .items-title{display:flex;align-items:center;gap:14px;margin:8px 4px 14px;font-family:var(--au-font);font-weight:900;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;color:var(--au-muted)}
+#casePage .items-title::before,#casePage .items-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--au-line2))}
+#casePage .items-title::after{background:linear-gradient(270deg,transparent,var(--au-line2))}
+#casePage .items-grid{gap:10px}
+#casePage .item-card{position:relative;overflow:hidden;border:1px solid var(--au-line);border-radius:18px!important;background:radial-gradient(90% 70% at 50% 0%,#1d4a9a55 0,transparent 70%),linear-gradient(180deg,#0f2250,#08122c);box-shadow:inset 0 1px 0 #ffffff12,0 6px 16px #0006;transition:transform .18s,box-shadow .18s}
+#casePage .item-card::before{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;background:radial-gradient(70% 100% at 50% 100%,var(--rc,#46a8ff44),transparent 75%);opacity:.75;pointer-events:none}
+#casePage .item-card.rarity-blue{--rc:#2d8cff88;border-color:#2c5aa8}
+#casePage .item-card.rarity-purple{--rc:#a24dffaa;border-color:#6b3fb8}
+#casePage .item-card.rarity-red{--rc:#ff4a4aaa;border-color:#a8323a}
+#casePage .item-card:active{transform:scale(.97)}
+#casePage .item-card h4{color:#fff;font-weight:800}
+#casePage .item-card .price,#casePage .item-card p{color:var(--au-amber);font-weight:900}
+
+/* ===== Золотые предметы: John Pork, Skibidi Toilet, Meowl ===== */
+.item-card.rarity-gold,.roulette-item.rarity-gold,.upgrade-target-card.rarity-gold{position:relative;overflow:hidden;border-color:#ffd45c!important;background:radial-gradient(70% 60% at 50% 40%,#ffd45c99 0,#ff9a1f44 45%,transparent 78%),linear-gradient(180deg,#4a3408,#1c1304)!important;box-shadow:0 0 20px #ffc83d66,inset 0 0 18px #ffd45c55!important}
+.item-card.rarity-gold::before,.roulette-item.rarity-gold::before,.upgrade-target-card.rarity-gold::before{content:""!important;position:absolute!important;left:50%!important;top:42%!important;right:auto!important;bottom:auto!important;width:190%!important;height:190%!important;margin:-95% 0 0 -95%!important;background:repeating-conic-gradient(from 0deg,#fff1a899 0 9deg,transparent 9deg 24deg)!important;-webkit-mask:radial-gradient(closest-side,#000 0,transparent 72%);mask:radial-gradient(closest-side,#000 0,transparent 72%);opacity:.6!important;pointer-events:none;z-index:0;animation:goldRays 24s linear infinite}
+@keyframes goldRays{to{transform:rotate(360deg)}}
+.item-card.rarity-gold::after,.roulette-item.rarity-gold::after,.upgrade-target-card.rarity-gold::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,#fff7c4aa,transparent);transform:skewX(-20deg);pointer-events:none;z-index:2;animation:goldShine 3.4s ease-in-out infinite}
+@keyframes goldShine{0%,50%{left:-70%}100%{left:140%}}
+.item-card.rarity-gold>*,.roulette-item.rarity-gold>*,.upgrade-target-card.rarity-gold>*{position:relative;z-index:1}
+.item-card.rarity-gold img,.roulette-item.rarity-gold img,.upgrade-target-card.rarity-gold img{filter:drop-shadow(0 0 10px #ffd45cdd) drop-shadow(0 4px 8px #000a)}
+.item-card.rarity-gold h4{color:#ffe9a0!important;text-shadow:0 1px 3px #000}
+.item-card.rarity-gold .price,.item-card.rarity-gold p{color:#fff2b8!important;text-shadow:0 1px 4px #000}
+@media(prefers-reduced-motion:reduce){.item-card.rarity-gold::before,.roulette-item.rarity-gold::before,.upgrade-target-card.rarity-gold::before,.item-card.rarity-gold::after,.roulette-item.rarity-gold::after,.upgrade-target-card.rarity-gold::after{animation:none}}
+
+#casePage::before{width:300px!important;height:300px!important;top:50px}
+#casePage .open-button{max-width:420px!important;margin:6px auto 22px!important}
+#casePage .case-cover{max-height:230px;width:auto;object-fit:contain}
+@media(max-width:700px){#casePage .open-button{max-width:none!important}}
+
+/* ===== Aurora: оживление главной ===== */
+@media(prefers-reduced-motion:no-preference){
+.au-hero{background-size:220% 220%!important;animation:auHeroShift 14s ease-in-out infinite}
+@keyframes auHeroShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.au-hero-art{animation:auArtFloat 5s ease-in-out infinite;filter:drop-shadow(0 14px 22px #000a) drop-shadow(0 0 24px #46a8ff66)}
+@keyframes auArtFloat{50%{transform:translateY(-10px) rotate(2deg)}}
+.au-hero::after{content:"";position:absolute;top:-20%;left:-40%;width:30%;height:140%;background:linear-gradient(100deg,transparent,#ffffff22,transparent);transform:skewX(-20deg);animation:auSweep 6s ease-in-out infinite;pointer-events:none}
+@keyframes auSweep{0%,60%{left:-40%}100%{left:130%}}
+.au-cta{position:relative;overflow:hidden;animation:auCtaPulse 2.4s ease-in-out infinite}
+@keyframes auCtaPulse{50%{box-shadow:0 0 34px #ff9a1fcc,inset 0 1px 0 #ffffff77}}
+.au-cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffff88,transparent);transform:skewX(-20deg);animation:auSweepBtn 3.2s ease-in-out infinite}
+@keyframes auSweepBtn{0%,55%{left:-60%}100%{left:130%}}
+#homePage .case-card{transition:transform .22s cubic-bezier(.2,.9,.3,1.2),box-shadow .22s,border-color .22s}
+#homePage .case-card>img{animation:auCardFloat 5.5s ease-in-out infinite;will-change:transform}
+#homePage .case-card:nth-child(2n)>img{animation-delay:-2s;animation-duration:6.5s}
+#homePage .case-card:nth-child(3n)>img{animation-delay:-3.5s}
+@keyframes auCardFloat{50%{transform:translateY(-6px) rotate(-1.2deg)}}
+#homePage .case-card:hover,#homePage .case-card:active{transform:translateY(-5px) scale(1.02);box-shadow:0 14px 34px #000b,0 0 26px color-mix(in srgb,var(--cc,#46a8ff) 55%,transparent)}
+#homePage .case-card::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffff14,transparent);transform:skewX(-20deg);pointer-events:none;opacity:0}
+#homePage .case-card:hover::after{opacity:1;animation:auSweepCard .8s ease-out}
+@keyframes auSweepCard{from{left:-70%}to{left:140%}}
+#homePage .case-card .price{transition:box-shadow .2s}
+#homePage .case-card:hover .price{box-shadow:0 0 16px #ffb23d55}
+#homePage .free-case-card{animation:auFreePulse 2.8s ease-in-out infinite}
+@keyframes auFreePulse{50%{box-shadow:0 0 30px #ffb23d66,inset 0 0 20px #ffb23d22}}
+.top-drop-banner{position:relative;overflow:hidden}
+.top-drop-banner::after{content:"";position:absolute;top:0;left:-50%;width:30%;height:100%;background:linear-gradient(100deg,transparent,#ffffff1c,transparent);transform:skewX(-20deg);animation:auSweep 7s ease-in-out infinite;pointer-events:none}
+.au-rv{opacity:0;transform:translateY(22px) scale(.97)}
+.au-rv.au-in{opacity:1;transform:none;transition:opacity .5s ease,transform .55s cubic-bezier(.2,.9,.3,1.1)}
+}
+
+/* без парения кейсов; бесплатный кейс плавно мигает свечением */
+#homePage .case-card>img,#homePage .case-card:nth-child(2n)>img,#homePage .case-card:nth-child(3n)>img{animation:none!important}
+#homePage .free-case-card{animation:auFreeBlink 3.2s ease-in-out infinite!important}
+@keyframes auFreeBlink{0%,100%{box-shadow:0 0 0 #ffb23d00,inset 0 0 0 #ffb23d00;border-color:#ffb23d44!important}50%{box-shadow:0 0 34px #ffb23d77,inset 0 0 22px #ffb23d33;border-color:#ffd98a!important}}
+
+/* кейс парит только при наведении */
+@media(prefers-reduced-motion:no-preference){
+#homePage .case-card:hover>img,#homePage .case-card:active>img{animation:auCardFloat 1.6s ease-in-out infinite!important}
+}
+
+/* золотые лучи за топ-дропом и золотыми дропами в лайве */
+.daily-drop-result.gold-drop,.live-drop-card.gold-drop,.top-drop-item{position:relative;overflow:hidden}
+.top-drop-item{overflow:visible}
+.daily-drop-result.gold-drop::before,.live-drop-card.gold-drop::before,.top-drop-item::before{content:"";position:absolute;left:50%;top:44%;width:190%;aspect-ratio:1;margin:-95% 0 0 -95%;background:repeating-conic-gradient(from 0deg,#fff1a899 0 9deg,transparent 9deg 24deg);-webkit-mask:radial-gradient(closest-side,#000 0,transparent 70%);mask:radial-gradient(closest-side,#000 0,transparent 70%);opacity:.6;pointer-events:none;z-index:0;animation:goldRays 24s linear infinite}
+.top-drop-item::before{width:150%;margin:-75% 0 0 -75%;top:50%}
+.daily-drop-result.gold-drop>*,.live-drop-card.gold-drop>*{position:relative;z-index:1}
+.live-drop-card.gold-drop{border-color:#ffd45c!important;background:radial-gradient(70% 60% at 50% 35%,#ffd45c66,transparent 75%),linear-gradient(180deg,#3a2a08,#150f04)!important;box-shadow:0 0 14px #ffc83d44}
+.daily-drop-result.gold-drop img,.live-drop-card.gold-drop img,.top-drop-image{filter:drop-shadow(0 0 8px #ffd45ccc) drop-shadow(0 3px 6px #000a)}
+@media(prefers-reduced-motion:reduce){.daily-drop-result.gold-drop::before,.live-drop-card.gold-drop::before,.top-drop-item::before{animation:none}}
 </style>
 </head>
 
@@ -1606,6 +2018,15 @@ body.upg-mode #gradientBackground{opacity:.18!important}
 <canvas id="fallingBackground" aria-hidden="true"></canvas>
 
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<div class="app-confirm-backdrop" id="payNoticeBackdrop" onclick="if(event.target===this)closePayNotice()">
+    <div class="app-confirm" role="alertdialog" aria-modal="true" aria-labelledby="payNoticeText">
+        <div class="app-confirm-text" id="payNoticeText"></div>
+        <div class="app-confirm-buttons">
+            <button type="button" class="app-confirm-ok" onclick="closePayNotice()">Понятно</button>
+        </div>
+    </div>
+</div>
 
 <div class="app-confirm-backdrop" id="appConfirmBackdrop">
     <div class="app-confirm" role="alertdialog" aria-modal="true" aria-labelledby="appConfirmText">
@@ -1643,6 +2064,7 @@ body.upg-mode #gradientBackground{opacity:.18!important}
             <span class="balance-number pixel-number" id="headerBalance">0</span>
             <img class="coin-icon" src="coin.png" alt="Coin">
         </div>
+        <button class="header-topup" type="button" onclick="openTopup()" aria-label="Пополнить"><span class="header-topup-plus">+</span><span class="header-topup-text">Пополнить</span></button>
 
         <button class="settings-button" onclick="openSettings()" aria-label="Настройки">
             <img src="settings.png" alt="">
@@ -1692,17 +2114,19 @@ body.upg-mode #gradientBackground{opacity:.18!important}
     </div>
 
     <button class="menu-item" onclick="showHome()">
-        <img class="menu-icon" src="house.png" alt=""> Home
-    </button>
+        <img class="menu-icon" src="house.png" alt=""><span class="menu-text"><b>Home</b><small>Кейсы и бонусы</small></span></button>
     <button class="menu-item" onclick="showUpgrader()">
-        <img class="menu-icon" src="upgrade.png" alt=""> Upgrade
-    </button>
+        <img class="menu-icon" src="upgrade.png" alt=""><span class="menu-text"><b>Upgrade</b><small>Прокачай предмет</small></span></button>
     <button class="menu-item" onclick="showProfile()">
-        <img class="menu-icon" src="profile.png" alt=""> Profile
-    </button>
+        <img class="menu-icon" src="profile.png" alt=""><span class="menu-text"><b>Profile</b><small>Инвентарь и вывод</small></span></button>
     <button class="menu-item" onclick="showDice()">
-        <img class="menu-icon menu-icon-dice" src="dice.png" alt=""> Color Dice
-    </button>
+        <img class="menu-icon menu-icon-dice" src="dice.png" alt=""><span class="menu-text"><b>Color Dice</b><small>Угадай цвет кубиков</small></span></button>
+
+    <div class="menu-bottom">
+        <button class="menu-topup" type="button" onclick="closeMenu();openTopup()">＋ Пополнить баланс</button>
+        <div class="menu-support">Поддержка: <b>@fraidme</b></div>
+        <div class="menu-ver">BrainRain · играй честно</div>
+    </div>
 </nav>
 
 <main>
@@ -1734,6 +2158,15 @@ body.upg-mode #gradientBackground{opacity:.18!important}
                 <div class="live-drop-list" id="liveDropList"><div class="live-drop-empty">Ждём выпадений…</div></div>
             </aside>
             <div class="home-main">
+        <section class="au-hero" aria-label="Главный баннер">
+            <div class="au-hero-text">
+                <span class="au-eyebrow">BRAINRAIN</span>
+                <h1>Открывай кейсы,<br>улучшай брейнротов</h1>
+                <p>Дропы каждую минуту, апгрейды и бонусы</p>
+                <button class="au-cta" type="button" onclick="auScrollToCases()">ОТКРЫТЬ КЕЙС</button>
+            </div>
+            <img class="au-hero-art" src="admin-case.png" alt="" aria-hidden="true">
+        </section>
             <section class="promo-banner" id="promoBanner" hidden aria-label="Промокод на депозит">
                 <div class="promo-banner-top">
                     <span class="promo-banner-title">Промокод на депозит</span>
@@ -1819,10 +2252,16 @@ body.upg-mode #gradientBackground{opacity:.18!important}
                 <div class="price">49 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
+            <div class="case-card" onclick="showCase('halloween_case')">
+                <h3>Хэллоуинский кейс</h3>
+                <img src="halloween-case.png" alt="Хэллоуинский кейс">
+                <div class="price">339 <img class="coin-icon" src="coin.png" alt="coin"></div>
+            </div>
+
             <div class="case-card" onclick="showCase('new_year_case')">
                 <h3>Новогодний кейс</h3>
                 <img src="new-year-case.png" alt="Новогодний кейс">
-                <div class="price">190 <img class="coin-icon" src="coin.png" alt="coin"></div>
+                <div class="price">149 <img class="coin-icon" src="coin.png" alt="coin"></div>
             </div>
 
             <div class="case-card" onclick="showCase('pair_case')">
@@ -1878,6 +2317,7 @@ body.upg-mode #gradientBackground{opacity:.18!important}
             <div class="roulette-track hidden" id="basicCaseRoulette"></div>
             <div class="roulette-track hidden" id="losCaseRoulette"></div>
             <div class="roulette-track hidden" id="luckyBlocksRoulette"></div>
+            <div class="roulette-track hidden" id="halloweenCaseRoulette"></div>
             <div class="roulette-track hidden" id="newYearCaseRoulette"></div>
             <div class="roulette-track hidden" id="pairCaseRoulette"></div>
             <div class="roulette-track hidden" id="moneyCaseRoulette"></div>
@@ -1955,7 +2395,7 @@ body.upg-mode #gradientBackground{opacity:.18!important}
         </div>
 
         <div id="withdrawStep1" style="display:none">
-            <p class="topup-description">Выбери предмет из своего инвентаря и количество. Для вывода доступны только Garama and Madundung и Dragon Caneloni.</p>
+            <p class="topup-description">Выбери предмет из своего инвентаря и количество. Для вывода доступны Garama and Madundung и Dragon Caneloni. Dragon Caneloni можно получить обменом: отдай предмет от 850 монет и доплати разницу.</p>
             <div class="withdraw-items" id="withdrawItems"></div>
             <h3 class="topup-step-title">Количество</h3>
             <div class="withdraw-stepper">
@@ -1994,30 +2434,37 @@ body.upg-mode #gradientBackground{opacity:.18!important}
     </div>
 
     <section class="profile-page" id="profilePage">
-        <div class="profile-card">
+        <div class="pf-hero">
+            <div class="pf-cover" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="pf-head">
+                <img class="profile-avatar" id="profilePhoto" src="logo2.png" alt="Аватар игрока">
+                <div class="pf-who">
+                    <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
+                    <div class="profile-nickname" id="profileName">Игрок</div>
+                    <div class="profile-username" id="profileUsername">@player</div>
+                </div>
+            </div>
+            <div class="pf-stats">
+                <div class="pf-stat pf-stat-main">
+                    <span class="pf-stat-label">Баланс</span>
+                    <div class="profile-balance">
+                        <span class="balance-number pixel-number" id="profileBalance">0</span>
+                        <img class="coin-icon" src="coin.png" alt="Coin">
+                    </div>
+                </div>
+                <div class="pf-stat"><span class="pf-stat-label">Предметов</span><b id="pfItemsCount">0</b></div>
+                <div class="pf-stat"><span class="pf-stat-label">Стоимость</span><b id="pfItemsValue">0</b></div>
+            </div>
+            <div class="pf-actions">
+                <button class="profile-topup-button" type="button" onclick="openTopup()">＋ ПОПОЛНИТЬ</button>
+                <button class="profile-withdraw-button" type="button" onclick="openWithdraw()">↗ ВЫВЕСТИ</button>
+            </div>
             <div class="profile-best-drop" id="profileBestDrop" aria-live="polite">
                 <div class="profile-best-drop-title">ЛУЧШИЙ ДРОП</div>
                 <img class="profile-best-drop-image" id="profileBestDropImage" src="" alt="" hidden>
                 <div class="profile-best-drop-empty" id="profileBestDropEmpty">Пока нет предметов</div>
                 <div class="profile-best-drop-name" id="profileBestDropName" hidden></div>
                 <div class="profile-best-drop-price" id="profileBestDropPrice" hidden><span></span><img src="coin.png" alt="Coin"></div>
-            </div>
-            <img class="profile-avatar" id="profilePhoto" src="logo2.png" alt="Аватар игрока">
-
-            <div class="profile-info">
-                <div class="profile-label">ПРОФИЛЬ ИГРОКА</div>
-                <div class="profile-nickname" id="profileName">Игрок</div>
-                <div class="profile-username" id="profileUsername">@player</div>
-                <div class="profile-actions">
-                    <button class="profile-topup-button" type="button" onclick="openTopup()">＋ ПОПОЛНИТЬ</button>
-                    <button class="profile-withdraw-button" type="button" onclick="openWithdraw()">↗ ВЫВЕСТИ</button>
-                </div>
-
-                <div class="profile-balance">
-                    <span class="balance-number pixel-number" id="profileBalance">0</span>
-                    <img class="coin-icon" src="coin.png" alt="Coin">
-
-                </div>
             </div>
         </div>
 
@@ -2056,6 +2503,11 @@ body.upg-mode #gradientBackground{opacity:.18!important}
         </div>
     </section>
 
+    <div class="dice-fx" id="diceFx" aria-hidden="true">
+        <div class="dice-fx-flash"></div>
+        <canvas id="diceFxCanvas"></canvas>
+        <div class="dice-fx-banner" id="diceFxBanner"><img id="diceFxImg" alt=""><b id="diceFxTitle">ПОБЕДА</b><span id="diceFxSub"></span></div>
+    </div>
     <section class="dice-page" id="dicePage">
         <h2>Дайсы</h2>
         <p class="dice-sub">4 кубика · угадай цвет</p>
@@ -2064,9 +2516,16 @@ body.upg-mode #gradientBackground{opacity:.18!important}
             <div class="dice-stake-row"><button class="dice-stake" id="diceStakeButton" type="button" onclick="openDiceStakePicker()"></button></div>
             <p class="dice-hint" id="diceHint"></p>
         </div>
+        <div class="dice-odds">
+            <div class="dice-odd"><span>1 из 4</span><b>x2</b><em>шанс 38,6%</em></div>
+            <div class="dice-odd dice-odd-top"><span>4 из 4</span><b>x3</b><em>шанс 0,08%</em></div>
+        </div>
+        <div class="dice-picker-title">Выбери цвет</div>
         <div class="dice-picker" id="dicePicker"></div>
         <button class="open-button" id="diceButton" type="button" onclick="playDice()">БРОСИТЬ</button>
         <div class="dice-result" id="diceResult" aria-live="polite"></div>
+        <div class="dice-history-title">Последние броски</div>
+        <div class="dice-history" id="diceHistory"><span class="dice-history-empty">Пока пусто — сделай первый бросок</span></div>
         <button class="dice-help" id="diceHelp" type="button" aria-expanded="false" aria-label="Правила" onclick="toggleDiceRules()">?</button>
         <div class="dice-rules" id="diceRules" hidden><h3>Правила</h3>
             <div><span>0 из 4</span><span class="lose">проигрыш</span></div>
@@ -2087,7 +2546,6 @@ body.upg-mode #gradientBackground{opacity:.18!important}
     </div>
 
     <section class="upgrader-page" id="upgraderPage">
-    <div class="upg-sparks" aria-hidden="true"><i class="d" style="left:79%;top:19%"></i><i class="d" style="left:90%;top:28%"></i><i class="d" style="left:12%;top:43%"></i><i class="d" style="left:94%;top:57%"></i><i class="d s" style="left:11%;top:50%"></i><i class="k" style="left:86%;top:14%;--r:-55deg"></i><i class="k" style="left:11%;top:41%;--r:-15deg"></i><i class="k" style="left:83%;top:55%;--r:70deg"></i><i class="k" style="left:25%;top:68%;--r:-70deg"></i><i class="k" style="left:49%;top:76%;--r:-60deg"></i></div>
 
     <div class="upgrade-head">
         <div class="upgrade-head-left"><h2 class="upgrade-title">Апгрейдер</h2></div>
@@ -2260,7 +2718,7 @@ const eliteItems = [
     {id:"kalika-bros", name:"Kalika Bros", image:"kalika-bros.png", price:3555, rarity:"rarity-red"},
     {id:"antonio", name:"Antonio", image:"antonio.png", price:4700, rarity:"rarity-red"},
     {id:"griffin", name:"Griffin", image:"griffin.png", price:6560, rarity:"rarity-red"},
-    {id:"skibidi-toilet", name:"Skibidi Toilet", image:"skibidi-toilet.png", price:13131, rarity:"rarity-red"}
+    {id:"skibidi-toilet", name:"Skibidi Toilet", image:"skibidi-toilet.png", price:13131, rarity:"rarity-gold"}
 ];
 
 const blueCaseItems = [
@@ -2347,6 +2805,21 @@ const moneyCaseItems = [
     {id:"money-money-bros-180", name:"Money Money Bros", image:"money-money-bros.png", price:180, rarity:"rarity-purple"},
     {id:"fortunu-and-cashuru", name:"Fortunu and Cashuru", image:"fortunu-and-cashuru.png", price:220, rarity:"rarity-red"},
     {id:"cloverat-clapat", name:"Cloverat Clapat", image:"cloverat-clapat.png", price:250, rarity:"rarity-red"}
+];
+
+const halloweenCaseItems = [
+    {id:"scorpi-inferni", name:"Scorpi Inferni", image:"scorpi-inferni.png", price:180, rarity:"rarity-blue"},
+    {id:"spooketti-tualetti", name:"Spooketti Tualetti", image:"spooketti-tualetti.png", price:240, rarity:"rarity-blue"},
+    {id:"dug-dug-dug", name:"Dug dug dug", image:"dug-dug-dug.png", price:300, rarity:"rarity-blue"},
+    {id:"medusini-and-demonini", name:"Medusini and Demonini", image:"medusini-and-demonini.png", price:400, rarity:"rarity-purple"},
+    {id:"sammyni-spookyni", name:"Sammyni Spookyni", image:"sammyni-spookyni.png", price:540, rarity:"rarity-purple"},
+    {id:"la-casa-boo", name:"La Casa Boo", image:"la-casa-boo.png", price:600, rarity:"rarity-purple"},
+    {id:"puppetmaster", name:"Puppetmaster", image:"puppetmaster.png", price:670, rarity:"rarity-purple"},
+    {id:"flying-dutchman", name:"Flying Dutchman", image:"flying-dutchman.png", price:800, rarity:"rarity-red"},
+    {id:"skelly-and-coffy", name:"Skelly and Coffy", image:"skelly-and-coffy.png", price:970, rarity:"rarity-red"},
+    {id:"draculino", name:"Draculino", image:"draculino.png", price:1200, rarity:"rarity-red"},
+    {id:"scarino-crowino", name:"Scarino Crowino", image:"scarino-crowino.png", price:1899, rarity:"rarity-red"},
+    {id:"dragon-skeletonini", name:"Dragon Skeletonini", image:"dragon-skeletonini.png", price:5894, rarity:"rarity-red"}
 ];
 
 const newYearCaseItems = [
@@ -2457,10 +2930,17 @@ const cases = {
         items:moneyCaseItems,
         roulette:"moneyCaseRoulette"
     },
+    halloween_case: {
+        name:"Хэллоуинский кейс",
+        image:"halloween-case.png",
+        price:339,
+        items:halloweenCaseItems,
+        roulette:"halloweenCaseRoulette"
+    },
     new_year_case: {
         name:"Новогодний кейс",
         image:"new-year-case.png",
-        price:190,
+        price:149,
         items:newYearCaseItems,
         roulette:"newYearCaseRoulette"
     },
@@ -2508,6 +2988,7 @@ function makeLiveDropCard(drop, entering = false, best = false) {
     card.className = best ? "daily-drop-result" : "live-drop-card";
     if (entering) card.classList.add("entering");
     if (!best) card.dataset.dropId = String(drop.id);
+    if (best || ["skibidi toilet", "john pork", "meowl"].includes(String(drop.itemName || "").trim().toLowerCase())) card.classList.add("gold-drop");
 
     const image = document.createElement("img");
     image.className = "drop-item-image";
@@ -3026,8 +3507,19 @@ function showProfile() {
     loadProfileWithdrawals();
 }
 
+// Временно: пополнение и вывод на паузе. Поставь false, чтобы вернуть как было.
+const PAYMENTS_PAUSED = false;
+function showPayNotice(text) {
+    closeMenu();
+    document.getElementById("payNoticeText").textContent = text;
+    document.getElementById("payNoticeBackdrop").classList.add("active");
+}
+function closePayNotice() {
+    document.getElementById("payNoticeBackdrop").classList.remove("active");
+}
 function openTopup() {
     if (blockNavigationDuringUpgrade()) return;
+    if (PAYMENTS_PAUSED) { showPayNotice("Для пополнения пишите @fraidme. Боты временно не работают."); return; }
     closeMenu();
     const backdrop = document.getElementById("topupBackdrop");
     if (!backdrop) return;
@@ -3054,6 +3546,7 @@ let withdrawLockedItems = [];
 let selectedWithdrawItemId = "";
 let selectedWithdrawQty = 1;
 let selectedWithdrawPeriod = "";
+let selectedWithdrawExchange = null;
 
 function selectWithdrawPeriod(period) {
     selectedWithdrawPeriod = ["early", "late"].includes(period) ? period : "";
@@ -3077,6 +3570,10 @@ function setWithdrawError(message) {
 }
 
 function getWithdrawItem(id) {
+    if (selectedWithdrawExchange && selectedWithdrawExchange.targetId === id) {
+        const base = withdrawInfo && Array.isArray(withdrawInfo.items) ? withdrawInfo.items.find(item => item.id === id) : null;
+        if (base) return {...base, owned: 1, max: 1};
+    }
     return withdrawInfo && Array.isArray(withdrawInfo.items)
         ? withdrawInfo.items.find(item => item.id === id)
         : null;
@@ -3084,12 +3581,14 @@ function getWithdrawItem(id) {
 
 async function openWithdraw() {
     if (blockNavigationDuringUpgrade()) return;
+    if (PAYMENTS_PAUSED) { showPayNotice("Вывод временно недоступен."); return; }
     closeMenu();
     const backdrop = document.getElementById("withdrawBackdrop");
     if (!backdrop) return;
     backdrop.classList.add("active");
     document.body.classList.add("modal-open");
     selectedWithdrawItemId = "";
+    selectedWithdrawExchange = null;
     selectedWithdrawQty = 1;
     selectedWithdrawPeriod = "";
     document.querySelectorAll("[data-withdraw-period]").forEach(button => button.classList.remove("selected"));
@@ -3138,7 +3637,7 @@ async function loadWithdrawInfo() {
             if (entry.itemId === "coin" || withdrawIds.has(entry.itemId)) continue;
             const known = lockedMap.get(entry.itemId);
             if (known) known.count += 1;
-            else lockedMap.set(entry.itemId, {id:entry.itemId, name:entry.name, image:entry.image, count:1});
+            else lockedMap.set(entry.itemId, {id:entry.itemId, name:entry.name, image:entry.image, count:1, inventoryId:entry.id});
         }
         withdrawLockedItems = Array.from(lockedMap.values());
     } catch (error) {
@@ -3148,6 +3647,21 @@ async function loadWithdrawInfo() {
     renderWithdrawList();
     updateWithdrawButtons();
     showWithdrawView("step1");
+}
+
+function getWithdrawExchangePlan(entry) {
+    if (!withdrawInfo || !Array.isArray(withdrawInfo.exchangeTargets)) return null;
+    const catalog = getUpgradeCatalogItem(entry.id);
+    if (!catalog) return null;
+    const price = Number(catalog.price) || 0;
+    const maxGap = Number(withdrawInfo.exchangeMaxSurcharge) || 0;
+    for (const targetId of withdrawInfo.exchangeTargets) {
+        const target = (withdrawInfo.items || []).find(item => item.id === targetId);
+        if (!target) continue;
+        const gap = Number(target.sell) - price;
+        if (gap <= maxGap) return {target, price, surcharge: Math.max(0, gap)};
+    }
+    return null;
 }
 
 function renderWithdrawItems() {
@@ -3163,6 +3677,7 @@ function renderWithdrawItems() {
         card.disabled = empty;
         card.onclick = () => {
             selectedWithdrawItemId = item.id;
+            selectedWithdrawExchange = null;
             selectedWithdrawQty = 1;
             renderWithdrawItems();
             updateWithdrawButtons();
@@ -3181,8 +3696,18 @@ function renderWithdrawItems() {
     }
     // Остальные предметы из инвентаря видны, но вывести их нельзя (только через обмен).
     for (const item of withdrawLockedItems) {
-        const card = document.createElement("div");
-        card.className = "topup-item-card disabled withdraw-locked-card";
+        const plan = getWithdrawExchangePlan(item);
+        const card = document.createElement(plan ? "button" : "div");
+        if (plan) card.type = "button";
+        const chosen = plan && selectedWithdrawExchange && selectedWithdrawExchange.itemId === item.id;
+        card.className = "topup-item-card withdraw-locked-card" + (plan ? " exchangeable" : " disabled") + (chosen ? " selected" : "");
+        if (plan) card.onclick = () => {
+            selectedWithdrawExchange = {itemId: item.id, inventoryId: item.inventoryId, targetId: plan.target.id, surcharge: plan.surcharge, price: plan.price, name: item.name};
+            selectedWithdrawItemId = plan.target.id;
+            selectedWithdrawQty = 1;
+            renderWithdrawItems();
+            updateWithdrawButtons();
+        };
         const image = document.createElement("img");
         image.src = item.image;
         image.alt = item.name;
@@ -3191,7 +3716,7 @@ function renderWithdrawItems() {
         name.textContent = item.name;
         const note = document.createElement("span");
         note.className = "topup-item-price";
-        note.textContent = `Нельзя вывести · ×${item.count}`;
+        note.textContent = plan ? `Обмен на ${plan.target.name}${plan.surcharge ? " · +" + plan.surcharge + " монет" : ""} · ×${item.count}` : `Нельзя вывести · ×${item.count}`;
         card.append(image, name, note);
         box.appendChild(card);
     }
@@ -3337,7 +3862,9 @@ function goWithdrawNickStep() {
     if (!item || Number(item.owned) < 1 || !selectedWithdrawPeriod) return;
     const summary = document.getElementById("withdrawSummary");
     const periodText = selectedWithdrawPeriod === "early" ? "12:00–15:00" : "21:00–23:20";
-    if (summary) summary.textContent = `${item.name} ×${selectedWithdrawQty} · ${periodText}`;
+    if (summary) summary.textContent = selectedWithdrawExchange
+        ? `Обмен: ${selectedWithdrawExchange.name} → ${item.name} · ${periodText}${selectedWithdrawExchange.surcharge ? "\nДоплата: " + selectedWithdrawExchange.surcharge + " монет" : ""}`
+        : `${item.name} ×${selectedWithdrawQty} · ${periodText}`;
     const nickInput = document.getElementById("withdrawNickInput");
     if (nickInput && !nickInput.value) {
         try { nickInput.value = localStorage.getItem("brainrainTopupNick") || ""; } catch (error) {}
@@ -3366,6 +3893,13 @@ async function submitWithdrawRequest() {
         setWithdrawError("Введи ник: от 3 до 32 символов, латинские буквы, цифры, _ . -");
         return;
     }
+    if (selectedWithdrawExchange) {
+        const ex = selectedWithdrawExchange;
+        const lines = [`Обменять ${ex.name} на ${item.name}?`];
+        if (ex.surcharge) lines.push(`Доплата: ${ex.surcharge} монет.`);
+        if (ex.price > Number(item.sell)) lines.push(`Внимание: ${ex.name} дороже (${ex.price}), разницу ты не получишь.`);
+        if (!(await appConfirm(lines.join("\n"), "Обмен", "Назад"))) return;
+    }
     button.dataset.sending = "true";
     button.disabled = true;
     nickInput.disabled = true;
@@ -3377,15 +3911,18 @@ async function submitWithdrawRequest() {
             itemId: selectedWithdrawItemId,
             quantity: selectedWithdrawQty,
             period: selectedWithdrawPeriod,
-            nick
+            nick,
+            exchangeInventoryId: selectedWithdrawExchange ? selectedWithdrawExchange.inventoryId : undefined
         });
         try { localStorage.setItem("brainrainTopupNick", nick); } catch (error) {}
         const result = document.getElementById("withdrawResultText");
         if (result) {
-            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\n${data.scheduledText ? "Время: " + data.scheduledText + "\n" : ""}\nЗаявка добавлена в «Мои выводы».${data.scheduledText ? " Бот напишет тебе время и за 5 минут до вывода напомнит." : " Сервер не прислал время: обнови bot2.py на Hokas и перезапусти бота."}`;
+            result.textContent = `✅ Ваша заявка на вывод №${data.withdrawalId}!\n\nПредмет: ${data.itemName} ×${data.quantity}\n${data.exchange ? "Обмен выполнен" + (data.surcharge ? ", доплата " + data.surcharge + " монет" : "") + "\n" : ""}${data.scheduledText ? "Время: " + data.scheduledText + "\n" : ""}\nЗаявка добавлена в «Мои выводы».${data.scheduledText ? " Бот напишет тебе время и за 5 минут до вывода напомнит." : " Сервер не прислал время: обнови bot2.py на Hokas и перезапусти бота."}`;
         }
         showWithdrawView("step3");
         if (typeof loadInventory === "function") loadInventory();
+        if (typeof loadBalance === "function") loadBalance();
+        selectedWithdrawExchange = null;
         loadProfileWithdrawals();
     } catch (error) {
         setWithdrawError(error.message || "Не удалось создать вывод.");
@@ -3440,7 +3977,7 @@ function showComingSoon(name) {
 }
 
 /* АПГРЕЙДЕР */
-const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems, ...moneyCaseItems, ...newYearCaseItems];
+const allCatalogItems = [...seaItems, ...impactItems, ...redCaseItems, ...adminCaseItems, ...craftMachineItems, ...basicCaseItems, ...losCaseItems, ...blueCaseItems, ...luckyBlocksItems, ...pairItems, ...eliteItems, ...allItems, ...skibidiAllInItems, ...johnPorkAllInItems, ...subscriptionCaseItems, ...moneyCaseItems, ...newYearCaseItems, ...halloweenCaseItems];
 allCatalogItems.forEach(item => {
     const price = Number(item.price || 0);
     item.rarity = ["skibidi-toilet", "john-pork", "meowl"].includes(item.id) ? "rarity-gold" : price >= 1000 ? "rarity-red" : price >= 100 ? "rarity-purple" : "rarity-blue";
@@ -3676,7 +4213,8 @@ function setUpgradeMode(mode) {
 }
 
 
-const DICE_COLORS = {red:"#ff5b6e", orange:"#ff7a2a", yellow:"#f6ee3a", green:"#3ddc84", blue:"#3d6fd6", purple:"#a56bff"};
+const DICE_COLORS = {red:"#ff3b57", orange:"#ff8a1f", yellow:"#ffd21f", green:"#17e07c", blue:"#2f8cff", purple:"#a259ff"};
+const DICE_HISTORY = [];
 let diceColor = "red";
 let diceStakeId = "";
 let dicePlaying = false;
@@ -3688,6 +4226,112 @@ function toggleDiceRules() {
     rules.hidden = !rules.hidden;
     document.getElementById("diceHelp").setAttribute("aria-expanded", String(!rules.hidden));
     if (!rules.hidden) rules.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+let diceFxTimer = null;
+function diceWinFx(copies, itemName, itemImage) {
+    const fx = document.getElementById("diceFx");
+    const canvas = document.getElementById("diceFxCanvas");
+    const page = document.getElementById("dicePage");
+    if (!fx || !canvas) return;
+    let reduced = false;
+    try { reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (error) {}
+    const big = copies >= 3;
+    const hits = [...document.querySelectorAll("#diceSlots .dice-slot.hit")];
+    // баннер
+    document.getElementById("diceFxTitle").textContent = big ? "ДЖЕКПОТ x" + copies : "ПОБЕДА x" + copies;
+    document.getElementById("diceFxSub").textContent = itemName || "";
+    const img = document.getElementById("diceFxImg");
+    if (itemImage) { img.src = itemImage; img.style.display = ""; } else { img.style.display = "none"; }
+    fx.className = "dice-fx active" + (big ? " big" : "");
+    hits.forEach(slot => { slot.classList.add("pulse"); setTimeout(() => slot.classList.remove("pulse"), 1300); });
+    fx.querySelectorAll(".dice-fx-ring").forEach(el => el.remove());
+    hits.forEach((slot, index) => {
+        const rect = slot.getBoundingClientRect();
+        for (let r = 0; r < (big ? 3 : 2); r++) {
+            const ring = document.createElement("i");
+            ring.className = "dice-fx-ring";
+            ring.style.left = rect.left + rect.width / 2 + "px";
+            ring.style.top = rect.top + rect.height / 2 + "px";
+            ring.style.animationDelay = (index * 0.05 + r * 0.22) + "s";
+            ring.style.borderColor = r % 2 ? "#ffd21f" : "#ffffff";
+            fx.appendChild(ring);
+        }
+    });
+    if (!reduced) {
+        page.classList.remove("dice-shake");
+        void page.offsetWidth;
+        page.classList.add("dice-shake");
+        setTimeout(() => page.classList.remove("dice-shake"), 700);
+        // конфетти
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth, h = window.innerHeight;
+        canvas.width = Math.round(w * ratio);
+        canvas.height = Math.round(h * ratio);
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        const palette = Object.values(DICE_COLORS).concat(["#ffffff", "#ffd21f"]);
+        const pieces = [];
+        const sources = hits.length ? hits.map(slot => { const r = slot.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }) : [[w / 2, h / 2]];
+        const perSource = Math.round((big ? 260 : 150) / sources.length);
+        sources.forEach(([sx, sy]) => {
+            for (let i = 0; i < perSource; i++) {
+                const angle = -Math.PI / 2 + (Math.random() - 0.5) * (big ? 3.4 : 2.4);
+                const speed = (big ? 380 : 300) + Math.random() * 520;
+                pieces.push({x: sx, y: sy, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, size: 5 + Math.random() * 7, rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 16, color: palette[Math.floor(Math.random() * palette.length)], round: Math.random() < 0.3, life: 0, max: 1.8 + Math.random() * 1.3});
+            }
+        });
+        let last = performance.now(), total = 0;
+        const step = now => {
+            const dt = Math.min(0.04, (now - last) / 1000);
+            last = now; total += dt;
+            ctx.clearRect(0, 0, w, h);
+            let alive = 0;
+            for (const c of pieces) {
+                c.life += dt;
+                if (c.life > c.max) continue;
+                alive++;
+                c.vy += 900 * dt;
+                c.vx *= 0.992;
+                c.x += c.vx * dt; c.y += c.vy * dt; c.rot += c.vr * dt;
+                ctx.globalAlpha = Math.min(1, (c.max - c.life) * 2);
+                ctx.fillStyle = c.color;
+                ctx.save();
+                ctx.translate(c.x, c.y); ctx.rotate(c.rot);
+                if (c.round) { ctx.beginPath(); ctx.arc(0, 0, c.size / 2, 0, 6.28); ctx.fill(); }
+                else ctx.fillRect(-c.size / 2, -c.size / 4, c.size, c.size / 2);
+                ctx.restore();
+            }
+            ctx.globalAlpha = 1;
+            if (alive && total < 4) requestAnimationFrame(step); else ctx.clearRect(0, 0, w, h);
+        };
+        requestAnimationFrame(step);
+    }
+    clearTimeout(diceFxTimer);
+    diceFxTimer = setTimeout(() => { fx.className = "dice-fx"; fx.querySelectorAll(".dice-fx-ring").forEach(el => el.remove()); }, big ? 3600 : 2800);
+}
+function pushDiceHistory(dice, won, picked) {
+    DICE_HISTORY.unshift({dice, won, picked});
+    DICE_HISTORY.length = Math.min(DICE_HISTORY.length, 6);
+    const box = document.getElementById("diceHistory");
+    box.innerHTML = "";
+    DICE_HISTORY.forEach(entry => {
+        const row = document.createElement("div");
+        row.className = "dice-history-row " + (entry.won ? "win" : "lose");
+        const mark = document.createElement("span");
+        mark.className = "dice-history-pick";
+        mark.style.background = DICE_COLORS[entry.picked];
+        row.appendChild(mark);
+        entry.dice.forEach(name => {
+            const dot = document.createElement("i");
+            dot.style.background = DICE_COLORS[name];
+            row.appendChild(dot);
+        });
+        const label = document.createElement("b");
+        label.textContent = entry.won ? "Победа" : "Проигрыш";
+        row.appendChild(label);
+        box.appendChild(row);
+    });
 }
 function renderDicePicker() {
     const box = document.getElementById("dicePicker");
@@ -3736,6 +4380,10 @@ async function showDice() {
     if (blockNavigationDuringUpgrade()) return;
     hideAllPages();
     setMenuActive(3);
+    clearTimeout(diceFxTimer);
+    const oldFx = document.getElementById("diceFx");
+    if (oldFx) { oldFx.className = "dice-fx"; oldFx.querySelectorAll(".dice-fx-ring").forEach(el => el.remove()); }
+    document.getElementById("dicePage").classList.remove("dice-shake");
     document.getElementById("dicePage").style.display = "block";
     document.body.classList.add("dice-mode");
     closeMenu();
@@ -3782,7 +4430,7 @@ async function playDice() {
     const button = document.getElementById("diceButton");
     button.disabled = true;
     const slots = [...document.querySelectorAll("#diceSlots .dice-slot")];
-    slots.forEach(slot => { slot.classList.remove("hit", "dim", "land"); slot.classList.add("roll"); slot.firstElementChild.style.background = "#2a3350"; });
+    slots.forEach(slot => { slot.classList.remove("hit", "dim", "land"); slot.classList.add("roll"); slot.firstElementChild.style.background = "#2a3350"; slot.style.setProperty("--sc", "transparent"); });
     result.className = "dice-result";
     result.textContent = "";
     const shuffle = null;
@@ -3795,14 +4443,20 @@ async function playDice() {
             slots[i].classList.remove("knock");
             slots[i].classList.add("land");
             slots[i].firstElementChild.style.background = DICE_COLORS[data.dice[i]];
+            slots[i].style.setProperty("--sc", DICE_COLORS[data.dice[i]] + "99");
             if (data.dice[i] === diceColor) slots[i].classList.add("hit"); else slots[i].classList.add("dim");
         }
         const itemName = data.item?.name || stake.name || "предмет";
         result.textContent = data.copies > 0 ? `Победа! Получено: ${itemName} x${data.copies}` : "Проигрыш";
         result.className = "dice-result " + (data.copies > 0 ? "win" : "lose");
+        pushDiceHistory(data.dice, data.copies > 0, diceColor);
+        if (data.copies > 0) diceWinFx(data.copies, itemName, data.item?.image || stake.image || "");
         vibrate(data.copies > 0 ? "success" : "error");
+        const prevItemId = stake.itemId;
         diceStakeId = "";
         await loadInventory();
+        const nextStake = currentInventory.find(item => item.itemId === prevItemId && getUpgradeCatalogItem(item.itemId));
+        if (nextStake) diceStakeId = String(nextStake.id);
         renderDiceStake();
     } catch (error) {
         slots.forEach(slot => slot.classList.remove("roll", "knock"));
@@ -5295,14 +5949,27 @@ showHome();
 setInterval(loadLiveDrops, 7000);
 loadBalance();
 
-/* Фон: маленькие серые снежинки и молнии падают за карточками */
+/* Фон: редкий синий пепел медленно летит снизу вверх, изредка пролетает светящаяся искра-комета */
 (function startFallingBackground() {
     const canvas = document.getElementById("fallingBackground");
     if (!canvas || !canvas.getContext) return;
     try { if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return; } catch (error) {}
     const context = canvas.getContext("2d");
-    const symbols = ["\u2744\uFE0E", "\u26A1\uFE0E"];
-    let width = 0, height = 0, particles = [], running = true;
+    const TINTS = ["110,180,255", "150,205,255", "70,140,255", "190,225,255", "120,150,255"];
+    const sprites = TINTS.map(rgb => {
+        const sprite = document.createElement("canvas");
+        sprite.width = sprite.height = 48;
+        const sc = sprite.getContext("2d");
+        const g = sc.createRadialGradient(24, 24, 0, 24, 24, 24);
+        g.addColorStop(0, `rgba(${rgb},1)`);
+        g.addColorStop(0.18, `rgba(${rgb},.85)`);
+        g.addColorStop(0.45, `rgba(${rgb},.22)`);
+        g.addColorStop(1, `rgba(${rgb},0)`);
+        sc.fillStyle = g;
+        sc.fillRect(0, 0, 48, 48);
+        return sprite;
+    });
+    let width = 0, height = 0, particles = [], running = true, comet = null, nextComet = 3 + Math.random() * 4;
 
     function resize() {
         const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -5311,39 +5978,79 @@ loadBalance();
         canvas.width = Math.round(width * ratio);
         canvas.height = Math.round(height * ratio);
         context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        const count = Math.max(9, Math.min(18, Math.round(width / 32)));
+        const count = Math.max(12, Math.min(26, Math.round(width / 26)));
         while (particles.length < count) particles.push(makeParticle(true));
         particles.length = count;
     }
 
     function makeParticle(anywhere) {
+        const big = Math.random() < 0.18;
         return {
             x: Math.random() * (width || 400),
-            y: anywhere ? Math.random() * (height || 800) : -20,
-            size: 12 + Math.random() * 10,
-            speed: 18 + Math.random() * 32,
-            drift: (Math.random() - 0.5) * 14,
+            y: anywhere ? Math.random() * (height || 800) : (height || 800) + 20,
+            r: big ? 11 + Math.random() * 8 : 5 + Math.random() * 5,
+            vy: -(10 + Math.random() * 22),
+            vx: 4 + Math.random() * 10,
             phase: Math.random() * 6.28,
-            symbol: symbols[Math.random() < 0.6 ? 0 : 1],
-            alpha: 0.4 + Math.random() * 0.35
+            wobble: 6 + Math.random() * 14,
+            twinkle: 0.6 + Math.random() * 1.6,
+            alpha: big ? 0.4 + Math.random() * 0.3 : 0.6 + Math.random() * 0.4,
+            sprite: sprites[Math.floor(Math.random() * sprites.length)]
         };
     }
 
-    let last = performance.now();
+    function makeComet() {
+        const fromLeft = Math.random() < 0.5;
+        const angle = (fromLeft ? 1 : -1) * (0.35 + Math.random() * 0.4);
+        const speed = 260 + Math.random() * 160;
+        return {
+            x: fromLeft ? -40 : width + 40,
+            y: height * (0.05 + Math.random() * 0.55),
+            vx: (fromLeft ? 1 : -1) * Math.cos(angle) * speed,
+            vy: Math.sin(Math.abs(angle)) * speed * 0.7,
+            life: 0, max: 1.6 + Math.random() * 0.8
+        };
+    }
+
+    let last = performance.now(), clock = 0;
     function frame(now) {
         if (!running) return;
         const dt = Math.min(0.05, (now - last) / 1000);
         last = now;
+        clock += dt;
         context.clearRect(0, 0, width, height);
         for (const p of particles) {
-            p.y += p.speed * dt;
+            p.y += p.vy * dt;
             p.phase += dt;
-            p.x += (p.drift + Math.sin(p.phase) * 10) * dt;
-            if (p.y > height + 20) Object.assign(p, makeParticle(false), {x: Math.random() * width});
-            context.globalAlpha = p.alpha;
-            context.fillStyle = "#9a9aa6";
-            context.font = p.size + "px sans-serif";
-            context.fillText(p.symbol, p.x, p.y);
+            p.x += (p.vx + Math.sin(p.phase) * p.wobble) * dt;
+            if (p.y < -30 || p.x > width + 30) Object.assign(p, makeParticle(false), {x: Math.random() * width});
+            const flicker = 0.65 + 0.35 * Math.sin(clock * p.twinkle + p.phase * 2);
+            context.globalAlpha = p.alpha * flicker;
+            context.drawImage(p.sprite, p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+        }
+        nextComet -= dt;
+        if (!comet && nextComet <= 0) { comet = makeComet(); nextComet = 5 + Math.random() * 7; }
+        if (comet) {
+            comet.life += dt;
+            comet.x += comet.vx * dt;
+            comet.y += comet.vy * dt;
+            const fade = Math.sin(Math.min(1, comet.life / comet.max) * Math.PI);
+            const len = 70;
+            const mag = Math.hypot(comet.vx, comet.vy) || 1;
+            const tx = comet.x - comet.vx / mag * len, ty = comet.y - comet.vy / mag * len;
+            const grad = context.createLinearGradient(tx, ty, comet.x, comet.y);
+            grad.addColorStop(0, "rgba(111,180,255,0)");
+            grad.addColorStop(1, "rgba(200,230,255,.95)");
+            context.globalAlpha = 0.85 * fade;
+            context.strokeStyle = grad;
+            context.lineWidth = 2;
+            context.lineCap = "round";
+            context.beginPath();
+            context.moveTo(tx, ty);
+            context.lineTo(comet.x, comet.y);
+            context.stroke();
+            context.drawImage(sprites[3], comet.x - 9, comet.y - 9, 18, 18);
+            if (comet.life > comet.max || comet.x < -120 || comet.x > width + 120 || comet.y > height + 60) comet = null;
         }
         context.globalAlpha = 1;
         requestAnimationFrame(frame);
@@ -5516,6 +6223,91 @@ async function copyDepositPromo() {
 
 loadDepositPromo();
 setInterval(loadDepositPromo, 5 * 60 * 1000);
+
+function auScrollToCases() {
+    const title = document.querySelector("#homePage .case-section-title.title-blue");
+    if (title) title.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function auRevealCards() {
+    try {
+        if (!("IntersectionObserver" in window) || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+        const cards = document.querySelectorAll("#homePage .case-card");
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const idx = Number(el.dataset.rvIdx || 0);
+                setTimeout(() => el.classList.add("au-in"), (idx % 4) * 70);
+                io.unobserve(el);
+            });
+        }, {threshold: .12});
+        cards.forEach((card, index) => {
+            if (card.classList.contains("au-in")) return;
+            card.dataset.rvIdx = String(index);
+            card.classList.add("au-rv");
+            io.observe(card);
+        });
+        setTimeout(() => cards.forEach(card => card.classList.add("au-in")), 4000);
+    } catch (error) {}
+}
+auRevealCards();
+
+function auColorizeCaseCards() {
+    document.querySelectorAll("#homePage .case-card > img").forEach(img => {
+        const apply = () => {
+            try {
+                const size = 24, canvas = document.createElement("canvas");
+                canvas.width = canvas.height = size;
+                const ctx = canvas.getContext("2d", {willReadFrequently:true});
+                ctx.drawImage(img, 0, 0, size, size);
+                const data = ctx.getImageData(0, 0, size, size).data;
+                let sx = 0, sy = 0, weight = 0;
+                for (let i = 0; i < data.length; i += 4) {
+                    const a = data[i + 3] / 255;
+                    if (a < .5) continue;
+                    const r = data[i] / 255, g = data[i + 1] / 255, b = data[i + 2] / 255;
+                    const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2;
+                    const d = max - min;
+                    if (d < .15 || l < .2 || l > .85) continue;
+                    const sat = d / (1 - Math.abs(2 * l - 1));
+                    let h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+                    h = (h * 60 + 360) % 360;
+                    const w = sat * a;
+                    sx += Math.cos(h * Math.PI / 180) * w;
+                    sy += Math.sin(h * Math.PI / 180) * w;
+                    weight += w;
+                }
+                if (weight < 1) return;
+                const hue = (Math.atan2(sy, sx) * 180 / Math.PI + 360) % 360;
+                img.parentElement.style.setProperty("--cc", `hsl(${Math.round(hue)} 90% 58%)`);
+            } catch (error) { /* картинка с другого домена или не загрузилась: остаётся цвет по умолчанию */ }
+        };
+        if (img.complete && img.naturalWidth) apply(); else img.addEventListener("load", apply, {once:true});
+    });
+}
+window.addEventListener("load", auColorizeCaseCards);
+
+function auUpdateProfileStats() {
+    const box = document.getElementById("inventoryBox");
+    if (!box) return;
+    const items = box.querySelectorAll(".inventory-item");
+    let total = 0;
+    items.forEach(item => {
+        const price = item.querySelector(".inventory-item-price");
+        total += parseInt((price ? price.textContent : "").replace(/\D/g, ""), 10) || 0;
+    });
+    const count = document.getElementById("pfItemsCount");
+    const value = document.getElementById("pfItemsValue");
+    if (count) count.textContent = items.length.toLocaleString("ru-RU");
+    if (value) value.textContent = total.toLocaleString("ru-RU");
+}
+(function watchInventoryStats() {
+    const box = document.getElementById("inventoryBox");
+    if (!box || !window.MutationObserver) return;
+    new MutationObserver(auUpdateProfileStats).observe(box, {childList:true, subtree:true});
+    auUpdateProfileStats();
+})();
 </script>
 
 </body>
