@@ -1990,6 +1990,16 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 .au-rv{opacity:0;transform:translateY(22px) scale(.97)}
 .au-rv.au-in{opacity:1;transform:none;transition:opacity .5s ease,transform .55s cubic-bezier(.2,.9,.3,1.1)}
 }
+
+/* без парения кейсов; бесплатный кейс плавно мигает свечением */
+#homePage .case-card>img,#homePage .case-card:nth-child(2n)>img,#homePage .case-card:nth-child(3n)>img{animation:none!important}
+#homePage .free-case-card{animation:auFreeBlink 3.2s ease-in-out infinite!important}
+@keyframes auFreeBlink{0%,100%{box-shadow:0 0 0 #ffb23d00,inset 0 0 0 #ffb23d00;border-color:#ffb23d44!important}50%{box-shadow:0 0 34px #ffb23d77,inset 0 0 22px #ffb23d33;border-color:#ffd98a!important}}
+
+/* кейс парит только при наведении */
+@media(prefers-reduced-motion:no-preference){
+#homePage .case-card:hover>img,#homePage .case-card:active>img{animation:auCardFloat 1.6s ease-in-out infinite!important}
+}
 </style>
 </head>
 
