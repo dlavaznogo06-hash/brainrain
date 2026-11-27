@@ -2010,6 +2010,17 @@ header{background:linear-gradient(180deg,rgba(8,13,26,.94),rgba(6,10,20,.82))!im
 .live-drop-card.gold-drop{border-color:#ffd45c!important;background:radial-gradient(70% 60% at 50% 35%,#ffd45c66,transparent 75%),linear-gradient(180deg,#3a2a08,#150f04)!important;box-shadow:0 0 14px #ffc83d44}
 .daily-drop-result.gold-drop img,.live-drop-card.gold-drop img,.top-drop-image{filter:drop-shadow(0 0 8px #ffd45ccc) drop-shadow(0 3px 6px #000a)}
 @media(prefers-reduced-motion:reduce){.daily-drop-result.gold-drop::before,.live-drop-card.gold-drop::before,.top-drop-item::before{animation:none}}
+
+/* золотые карточки в выборе цели не схлопываются */
+.upgrade-target-card{min-height:124px;flex-shrink:0}
+/* ползунок монет: выбранное слева зелёное, остальное красное */
+#upgradeCoinsSlider{--pct:0%}
+#upgradeCoinsSlider::-webkit-slider-runnable-track{background:linear-gradient(90deg,#27d980 0,#27d980 var(--pct),#e5484d var(--pct),#e5484d 100%)!important;height:8px}
+#upgradeCoinsSlider::-moz-range-track{background:#e5484d!important;height:8px}
+#upgradeCoinsSlider::-moz-range-progress{background:#27d980;height:8px;border-radius:8px}
+#upgradeCoinsSlider::-webkit-slider-thumb{background:#fff!important;box-shadow:0 0 0 3px #0b1738,0 0 12px #27d98099}
+#upgradeCoinsSlider::-moz-range-thumb{background:#fff!important;box-shadow:0 0 0 3px #0b1738}
+#upgradeCoinsSlider:disabled::-webkit-slider-runnable-track{background:#3a2a2e!important}
 </style>
 </head>
 
@@ -4592,6 +4603,7 @@ function updateUpgradeState() {
     if (coinsSlider) {
         coinsSlider.max = String(coinsMax);
         coinsSlider.value = String(upgradeCoins);
+        coinsSlider.style.setProperty("--pct", (coinsMax > 0 ? Math.round(upgradeCoins / coinsMax * 1000) / 10 : 0) + "%");
         coinsSlider.disabled = upgrading || coinsMax <= 0;
         document.getElementById("upgradeCoinsValue").value = String(upgradeCoins);
     }
